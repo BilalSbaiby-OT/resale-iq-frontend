@@ -204,7 +204,10 @@ export async function getMarketNumbers(): Promise<MarketNumbers> {
     totalListingRecords,
     sold7dTotal,
     brandCount: typeof raw?.brand_count === "number" ? raw.brand_count : brandNames.length,
-    brandsTracked: typeof raw?.brands_tracked === "number" ? raw.brands_tracked : null,
+    // 0 is a hole, not a count: "0 brands tracked" would print on every sentence
+    // that carries the figure. null makes those sentences drop the number.
+    brandsTracked:
+      typeof raw?.brands_tracked === "number" && raw.brands_tracked > 0 ? raw.brands_tracked : null,
     publishFloorSold7d:
       typeof raw?.publish_floor_sold_7d === "number" ? raw.publish_floor_sold_7d : null,
     sold7dKind: typeof raw?.sold_7d_kind === "string" ? raw.sold_7d_kind : null,

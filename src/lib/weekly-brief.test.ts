@@ -121,3 +121,19 @@ test("stale flag rides through so the surface can label a cached brief", () => {
   const b = buildWeeklyBrief(mkMarket([["Nike", 208, 68]], "2026-09-10 13:27:34", true))!
   assert.equal(b.stale, true)
 })
+
+// The brief printed the PUBLISHED count (brands that cleared the weekly floor) as
+// "N tracked brands" while /pricing and /methodology called 61 "tracked". One site,
+// two numbers, one label. The published count is "brands with published weekly data";
+// the tracked total follows in brackets, and only when it is known and larger.
+test("the sentence never calls the published count 'tracked', and names the tracked total when known", () => {
+  const m = { ...LIVE, brandsTracked: 61 }
+  const s = briefSentence(buildWeeklyBrief(m)!)
+  assert.match(s, /across 5 brands with published weekly data \(of 61 tracked\) on Vinted/)
+  assert.doesNotMatch(s, /\d+ tracked brands/)
+
+  // Unknown tracked total: the clause is dropped, the published wording stays.
+  const unknown = briefSentence(buildWeeklyBrief({ ...LIVE, brandsTracked: null })!)
+  assert.match(unknown, /across 5 brands with published weekly data on Vinted/)
+  assert.doesNotMatch(unknown, /tracked\)/)
+})

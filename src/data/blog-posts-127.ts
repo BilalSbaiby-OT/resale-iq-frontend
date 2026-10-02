@@ -116,7 +116,7 @@ export const POSTS_127: BlogPost[] = [
         "A brand is oversupplied on Vinted when supply heavily outpaces watched departures, leaving buy-below thresholds below achievable sourcing prices. Resale IQ documents these as SKIP verdicts — not because demand is zero, but because the margin math does not close at any realistic sourcing price.",
     },
     intro:
-      "Knowing what not to buy is as valuable as knowing what to buy. Across the 28+ brands Resale IQ tracks in Spain, France, Germany, Italy and Portugal, several consistently return a SKIP or effectively zero-margin verdict — not because no one buys them, but because the exit prices are too low to source profitably at any realistic charity shop, outlet, or bale price. This page documents the clearest cases, with the actual departure numbers behind each verdict. None of these are guesses — each reflects hundreds or thousands of watched transitions from active to gone on EU Vinted.",
+      "Knowing what not to buy is as valuable as knowing what to buy. Across the {{BRANDS}} brands Resale IQ tracks in Spain, France, Germany, Italy and Portugal, several consistently return a SKIP or effectively zero-margin verdict — not because no one buys them, but because the exit prices are too low to source profitably at any realistic charity shop, outlet, or bale price. This page documents the clearest cases, with the actual departure numbers behind each verdict. None of these are guesses — each reflects hundreds or thousands of watched transitions from active to gone on EU Vinted.",
     sections: [
       {
         h: "The SKIP list: brands where buy-below sits below sourcing floor",

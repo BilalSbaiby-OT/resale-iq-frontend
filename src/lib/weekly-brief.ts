@@ -22,6 +22,8 @@
  *    the feed is a week stale would be the dishonest kind of fresh.
  */
 import type { MarketNumbers } from "./market-numbers"
+// .ts extension: node --test loads this file directly (no bundler resolution).
+import { ofTracked } from "./fill-brands.ts"
 
 export interface BriefEntry {
   brand: string
@@ -40,8 +42,10 @@ export interface WeeklyBrief {
   priciest: BriefEntry[]
   /** Sum of watched departures across every published brand this week. */
   totalWatched: number
-  /** How many brands are in this week's snapshot. */
+  /** How many brands are in this week's snapshot (published: cleared the weekly floor). */
   brandCount: number
+  /** How many brands we track in all (brands_tracked), or null if the snapshot lacks it. */
+  brandsTracked: number | null
   /** True when the numbers are the last-good cache, not the live feed. */
   stale: boolean
 }
@@ -100,6 +104,7 @@ export function buildWeeklyBrief(market: MarketNumbers): WeeklyBrief | null {
     priciest,
     totalWatched,
     brandCount: entries.length,
+    brandsTracked: market.brandsTracked,
     stale: market.stale,
   }
 }
@@ -116,9 +121,12 @@ export function briefSentence(b: WeeklyBrief): string {
   const lead = b.topMovers
     .map((m) => `${m.brand} (${m.sold_7d.toLocaleString("en-GB")})`)
     .join(", ")
+  // brandCount is the PUBLISHED count (brands that cleared the weekly floor), not
+  // the tracked set, so it is never called "tracked"; the tracked total follows
+  // in brackets when we know it.
   let s =
     `In the week to ${b.dateLabel}, Resale IQ watched ${total} items leave the shelf ` +
-    `across ${b.brandCount} tracked brands on Vinted in Spain, France, Germany, Italy and Portugal. ` +
+    `across ${b.brandCount} brands with published weekly data${ofTracked(b.brandCount, b.brandsTracked)} on Vinted in Spain, France, Germany, Italy and Portugal. ` +
     `The most active by watched departures were ${lead}.`
   const pricey = b.priciest[0]
   if (pricey && typeof pricey.avg_price_eur === "number") {

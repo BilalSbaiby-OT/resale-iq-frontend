@@ -1,7 +1,8 @@
 import Link from "next/link"
 import type { Metadata } from "next"
 import { LINKABLE_POSTS } from "@/lib/related-links"
-import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
+import { fillTracked, getBrandsTracked, listingsTrackedLabel } from "@/lib/stats"
+import { fillBrands } from "@/lib/fill-brands"
 import { requestLocale } from "@/lib/request-locale"
 import { canonicalPath } from "@/lib/locale-routes"
 import { getPublicBuyList } from "@/lib/ssr-buy-list"
@@ -37,7 +38,7 @@ async function generateMetadataRaw(): Promise<Metadata> {
 export default async function BlogIndex() {
   const locale = await requestLocale()
   const tracked = await listingsTrackedLabel()
-  const posts = fillTracked([...LINKABLE_POSTS].sort((a, b) => (a.date < b.date ? 1 : -1)), tracked)
+  const posts = fillBrands(fillTracked([...LINKABLE_POSTS].sort((a, b) => (a.date < b.date ? 1 : -1)), tracked), await getBrandsTracked())
   // H77 CRO: fetch live buy-list so the blog index proves the product BEFORE the
   // post list. /blog gets 130 weekly visitors — the highest-traffic page outside
   // the homepage — but showed ZERO live data. Visitor from ChatGPT sees article

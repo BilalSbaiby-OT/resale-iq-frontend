@@ -32,6 +32,7 @@ import { LANDINGS, landingPath, type LandingKind } from "./seo-landings.ts"
 import { BUY_DATA, BUY_BATCH1_PAIRS, BUY_BATCH1_SLUGS } from "./buy-data.ts"
 import { isRedirectedPath } from "./sitemap-redirects.ts"
 import { TRACKED } from "./stats.ts"
+import { fillBrands } from "./fill-brands.ts"
 
 export interface RelatedLink {
   href: string
@@ -58,7 +59,7 @@ export const TOP_AI_LANDING_SLUGS: readonly string[] = [
   "best-brands-to-resell-on-vinted",
 ]
 
-const clean = (s: string, tracked?: string) => s.split(TRACKED).join(tracked ?? "").replace(/\s{2,}/g, " ").trim()
+const clean = (s: string, tracked?: string) => fillBrands(s, null).split(TRACKED).join(tracked ?? "").replace(/\s{2,}/g, " ").trim()
 
 // ---------------------------------------------------------------- blog ring
 

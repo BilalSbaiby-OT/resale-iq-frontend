@@ -61,7 +61,7 @@ export function liveSellsBestIntro(market: MarketNumbers): LiveSellsBestIntro | 
   const sentence1 =
     `As of ${date}, ${topCategory} is the busiest category on Vinted across the 5 EU markets Resale IQ tracks ` +
     `(Spain, France, Germany, Italy, Portugal): ${topCategorySold.toLocaleString("en-GB")} watched departures ` +
-    `in the trailing 7 days across ${brandCount} tracked brands` +
+    `in the trailing 7 days across ${brandCount} brands with published weekly data` +
     (second ? ` — ahead of ${second[0]} (${second[1].toLocaleString("en-GB")}).` : ".")
 
   const sentence2 =

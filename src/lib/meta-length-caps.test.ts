@@ -34,6 +34,8 @@ import {
   flipBrandCategoryTitle,
   flipBrandDescription,
   flipBrandCategoryDescription,
+  flipHubTitle,
+  flipHubDescription,
 } from "./flip-category-meta.ts"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
@@ -229,7 +231,7 @@ test("/flip brand hub title+description builders are <=60 / 50-160 chars for eve
 // category pair (the routing-level regression is guarded separately in
 // flip-category-meta.test.ts's next.config.ts assertion).
 test("/flip sub-page title != /flip hub title, for every real brand+category (incl. calvin-klein)", () => {
-  const HUB_TITLE = "What sells best on Vinted in 2026? 32 brands ranked"
+  const HUB_TITLE = flipHubTitle()
   const ck = BRANDS.find((b) => b.slug === "calvin-klein")
   assert.ok(ck, "calvin-klein must still be a live brand in seo-brands.json")
   assert.ok((ck!.categories || []).length > 0, "calvin-klein must still have categories")
@@ -242,5 +244,22 @@ test("/flip sub-page title != /flip hub title, for every real brand+category (in
       assert.notEqual(subTitle, HUB_TITLE, `${b.brand} ${c.category} collided with /flip hub title`)
       assert.notEqual(subTitle, brandTitle, `${b.brand} ${c.category} == its own brand-hub title`)
     }
+  }
+})
+
+// The /flip hub used to print the length of a frozen JSON export as "32 brands
+// ranked" while six of them rendered an em-dash. The title is now number-free and
+// the description carries only the count of rows the page really ranks.
+test("/flip hub title and description fit the caps, with and without a ranked count", () => {
+  const title = `${flipHubTitle()} — Resale IQ`
+  assert.ok(flipHubTitle().length <= TITLE_MAX, `hub title ${flipHubTitle().length} chars`)
+  assert.doesNotMatch(title, /\b\d+ brands/, "the hub title carries no brand count")
+  for (const n of [26, 61, 1, null, 0]) {
+    const desc = flipHubDescription(n)
+    assert.ok(desc.length >= DESC_MIN && desc.length <= DESC_MAX, `hub description (${n}) ${desc.length} chars: "${desc}"`)
+  }
+  assert.match(flipHubDescription(26), /26 brands ranked/)
+  for (const n of [null, 0]) {
+    assert.doesNotMatch(flipHubDescription(n), /\b\d+ brands/, "an unknown ranked count drops the number")
   }
 })

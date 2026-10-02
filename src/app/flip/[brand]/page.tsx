@@ -216,7 +216,7 @@ export default async function BrandFlipPage(
       </h2>
       {/* THIS TABLE IS WHY THE PAGE EXISTS. Measured 2026-08-13, these pages
           were 95-98% identical to each other: the template had three variables
-          and the rest was prose shared by all 156 brands. Numbers a reader can
+          and the rest was prose shared by every brand page. Numbers a reader can
           only get here are what makes the page worth indexing — and worth
           reading. Keep per-brand data ABOVE the generic explanation. */}
       <div style={{ border: "1px solid var(--color-border-ui)", borderRadius: 10, overflow: "hidden", marginBottom: 14 }}>

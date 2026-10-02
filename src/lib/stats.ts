@@ -13,6 +13,9 @@
 
 import { floorTo10k } from "./floor-to-10k"
 export { floorTo10k }
+// Pure (no warehouse, no fs) so client components can import it from
+// "@/lib/fill-brands" directly; re-exported here for server render sites.
+export { BRANDS_TRACKED, fillBrands } from "./fill-brands"
 
 export async function getListingsTracked(): Promise<number | null> {
   // Same warehouse and same 15-minute revalidate as /data. A second fetch of
@@ -78,6 +81,29 @@ export function fillTracked<T>(value: T, tracked: string): T {
     ) as unknown as T
   }
   return value
+}
+
+/**
+ * HOW MANY BRANDS WE TRACK — one number, one source.
+ *
+ * `brands_tracked` in /api/public/market-snapshot is len(TARGET_BRANDS): the
+ * brands the scraper searches every cycle, and the real boundary of the
+ * checker's "Not in this catalog" answer. It is NOT the number of brands on
+ * /data (`brandCount`, only those with >= 5 watched departures in 7 days) and
+ * it is NOT the number of /flip pages (a frozen JSON export). It moved 22 -> 26
+ * -> 28 -> 61 in six weeks because it was typed into 60+ strings; "22 brands",
+ * "26 brands" and "28+ brands" were all live on the site at once.
+ *
+ * Rules, per the founder's 2026-10-02 decision:
+ *   - Coverage claims ("we track N brands", "outside our N brands") read this.
+ *   - `brandCount` appears only next to a departures figure, worded as brands
+ *     with published weekly data.
+ *   - When the number is unknown the SENTENCE LOSES THE NUMBER. Never a literal,
+ *     never "—", never `?? 26`.
+ */
+export async function getBrandsTracked(): Promise<number | null> {
+  const { getMarketNumbers } = await import("./market-numbers")
+  return (await getMarketNumbers()).brandsTracked
 }
 
 /**

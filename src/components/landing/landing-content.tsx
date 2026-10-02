@@ -17,6 +17,7 @@ import { SsrBuyListTeaser } from "./ssr-buy-list-teaser"
 import { HeroFreeChips } from "./hero-free-chips"
 import { PricingSection } from "./pricing-section"
 import { formatSellThrough } from "@/lib/format-sell-through"
+import { fillBrands } from "@/lib/fill-brands"
 
 type Dict = (typeof copy)[keyof typeof copy]
 
@@ -244,7 +245,7 @@ export function LandingContent({
             data-testid="riq-coverage-line"
             style={{ fontSize: 14.5, lineHeight: 1.5, color: "var(--color-text-secondary)", margin: "20px auto 0", maxWidth: "52ch", textAlign: "center" }}
           >
-            {t.howToCoverage}
+            {fillBrands(t.howToCoverage, market.brandsTracked)}
           </p>
         </section>
 
@@ -266,8 +267,8 @@ export function LandingContent({
             actually looks like"), LiveMarketPulse ("This is what's actually
             selling right now" data table) and the objection-row dl block
             were removed here — same honest live-data proof this page already
-            leads with (the SSR buy list above + howToCoverage's "28+ brands,
-            5 EU markets" line), just not re-stated three more times before
+            leads with (the SSR buy list above + howToCoverage's "We track N brands
+            across 5 EU markets" line, N = live brands_tracked), just not re-stated three more times before
             the price. PaybackCalculator inside PricingSection is now gated
             off in compact mode (see pricing-section.tsx) for the same reason.
             seedTracked/seedSellThrough reuse the SSR-fetched market numbers

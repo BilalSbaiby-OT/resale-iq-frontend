@@ -22,7 +22,7 @@ export const POSTS_23: BlogPost[] = [
     definedTerm: {
       name: "Watched departure",
       description:
-        "A watched departure is a sale of an item from a brand in Resale IQ's tracked universe — confirmed by the listing leaving Vinted's active inventory. Departure averages are calculated from real completed sales, not asking prices. Resale IQ tracks EU Vinted departures across 28 brands, updated continuously.",
+        "A watched departure is a sale of an item from a brand in Resale IQ's tracked universe — confirmed by the listing leaving Vinted's active inventory. Departure averages are calculated from real completed sales, not asking prices. Resale IQ tracks EU Vinted departures across the {{BRANDS}} brands it tracks, updated continuously.",
     },
     sections: [
       {

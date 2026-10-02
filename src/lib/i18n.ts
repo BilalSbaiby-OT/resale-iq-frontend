@@ -166,8 +166,10 @@ export const copy = {
       "Get the buy-below price for each item.",
       "Buy under that number.",
     ],
+    // {{BRANDS}} = live brands_tracked, filled at the render site (fillBrands);
+    // unknown drops the number: "We track brands across 5 EU markets."
     howToCoverage:
-      "28+ brands, 5 EU markets. Samba, Air Force 1 and Fred Perry Polo are free — no account needed.",
+      "We track {{BRANDS}} brands across 5 EU markets. Samba, Air Force 1 and Fred Perry Polo are free — no account needed.",
     heroBody:
       "For resellers: what an item resells for on Vinted and the max price to pay when sourcing stock.",
     heroFrom: (tracked: string) =>
@@ -282,7 +284,7 @@ export const copy = {
       // or Starter. The secondary link routes to /login. CRO #10. Revenue 2026-09-16.
       createFreeAccount: "Sign in →",
       seePlans: "See plans",
-      unknownFallback: "We track 26 clothing & sneaker brands (ES/FR/DE/IT/PT) — not electronics or homeware. Try one of these:",
+      unknownFallback: "We track a set list of brands (ES/FR/DE/IT/PT), mostly clothing and sneakers — not electronics or homeware. Try one of these:",
       coverageHeadline: "Not in this catalog",
       coverageBody:
         "We do not track that query — low-demand and not-in-catalog are the same miss. That is coverage, not a number waiting behind Starter. Try Samba, Air Force 1 or Fred Perry Polo, or see the brands we publish.",
@@ -420,7 +422,7 @@ export const copy = {
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "When does access start after paying?", a: "The moment Stripe confirms your payment — usually within 2 seconds. Next you check a real item; we pre-fill Nike Air Force 1. No email to wait for. If a connection error interrupts, sign in at /login." },
         // H67 CRO: split thin-data and not-in-catalog answers — INSUFFICIENT_DATA and UNKNOWN are different outcomes; a visitor who hit UNKNOWN needs to know it's a coverage gap, not a paywall. Adds /data link so they can verify which brands are tracked. CRO #4 (objection next to the doubt) + #1 (clarity). Revenue 2026-09-23.
-        { q: "What if the data isn't there for my item?", a: "Two cases: if the sample is thin, you see a partial result with a clear 'limited data' note — we say so rather than guess. If the item is completely outside our current 22 tracked brands, you'll see 'Not in this catalog' — that is a coverage gap, not a paywall. Check /data to see every brand we publish. Coverage expands as we add models; the 22 brands we track cover the highest-volume resale categories on Vinted EU." },
+        { q: "What if the data isn't there for my item?", a: "Two cases: if the sample is thin, you see a partial result with a clear 'limited data' note — we say so rather than guess. If the item is completely outside the {{BRANDS}} brands we track, you'll see 'Not in this catalog' — that is a coverage gap, not a paywall. Check /data to see every brand we publish. Coverage expands as we add models; the {{BRANDS}} brands we track cover the highest-volume resale categories on Vinted EU." },
         // H51 CRO: trust close is last — ends the FAQ on confidence, not on a missing feature. Revenue 2026-09-16.
         // H94 CRO: lead with money-back guarantee — risk removal before cancel mechanics.
         // Old answer buried the strongest trust signal (refund) after logistics. CRO #4+#7.
@@ -885,7 +887,7 @@ export const copy = {
       usedOfLimit: (used: number, limit: number) => `${used} sur ${limit} vérifications gratuites utilisées aujourd'hui.`,
       createFreeAccount: "Se connecter →",
       seePlans: "Voir les tarifs",
-      unknownFallback: "Nous couvrons 26 marques de vêtements et sneakers (ES/FR/DE/IT/PT) — pas l'électronique ni la maison. Essayez :",
+      unknownFallback: "Nous suivons une liste définie de marques (ES/FR/DE/IT/PT), surtout vêtements et sneakers — pas l'électronique ni la maison. Essayez :",
       coverageHeadline: "Pas dans ce catalogue",
       coverageBody:
         "Nous n'avons pas de modèle de demande pour cette recherche. C'est la couverture, pas une faible demande, et pas un chiffre qui attend derrière Starter. Essayez Samba, Air Force 1 ou Fred Perry Polo, ou voyez les marques que nous publions.",
@@ -972,7 +974,7 @@ export const copy = {
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Quand l'accès démarre-t-il après le paiement ?", a: "À l'instant où Stripe confirme votre paiement — en général en moins de 2 secondes. Ensuite vous vérifiez un vrai article ; Nike Air Force 1 est déjà saisi. Pas d'e-mail à attendre. Si une erreur de connexion interrompt, connectez-vous sur /login." },
         // H67 CRO: split thin-data and not-in-catalog answers (FR). Revenue 2026-09-23.
-        { q: "Et si les données manquent pour mon article ?", a: "Deux cas : si l'échantillon est mince, vous voyez un résultat partiel avec une note 'données limitées' — nous le disons plutôt que de deviner. Si l'article est complètement hors de nos 22 marques suivies, vous verrez 'Pas dans ce catalogue' — c'est un manque de couverture, pas un paywall. Consultez /data pour voir chaque marque que nous publions. La couverture s'élargit au fur et à mesure que nous ajoutons des modèles ; les 22 marques couvrent les catégories de revente les plus actives sur Vinted EU." },
+        { q: "Et si les données manquent pour mon article ?", a: "Deux cas : si l'échantillon est mince, vous voyez un résultat partiel avec une note 'données limitées' — nous le disons plutôt que de deviner. Si l'article est complètement hors de nos {{BRANDS}} marques suivies, vous verrez 'Pas dans ce catalogue' — c'est un manque de couverture, pas un paywall. Consultez /data pour voir chaque marque que nous publions. La couverture s'élargit au fur et à mesure que nous ajoutons des modèles ; les {{BRANDS}} marques couvrent les catégories de revente les plus actives sur Vinted EU." },
         // H94 CRO: lead with money-back guarantee. Revenue 2026-09-23.
         { q: "Puis-je faire confiance aux chiffres, et puis-je résilier ?", a: "Chaque chiffre provient d'annonces que nous observons sur les cinq marchés, présentées en agrégats que vous pouvez vérifier sur la page de données publique. Vous résiliez depuis Compte en un clic ; l'accès va jusqu'à la fin du mois payé. Pas satisfait(e) ? Écrivez-nous dans les 30 jours suivant votre premier paiement pour un remboursement complet — voir /terms." },
         { q: "Y a-t-il un vérificateur d'articles gratuit ?", a: "Oui. Vérifiez Adidas Samba, Nike Air Force 1 ou Fred Perry Polo sur /tools sans compte. Les volumes hebdo par marque sont publics sur /data. Les autres modèles nécessitent Starter à 19 € par mois. Pro à 49 € ajoute Order Planner, Price Compare et l'API." },
@@ -1356,7 +1358,7 @@ export const copy = {
       usedOfLimit: (used: number, limit: number) => `${used} de ${limit} comprobaciones gratis usadas hoy.`,
       createFreeAccount: "Iniciar sesión →",
       seePlans: "Ver planes",
-      unknownFallback: "Cubrimos 26 marcas de ropa y sneakers (ES/FR/DE/IT/PT), no electrónica ni hogar. Prueba con:",
+      unknownFallback: "Seguimos una lista definida de marcas (ES/FR/DE/IT/PT), sobre todo ropa y sneakers, no electrónica ni hogar. Prueba con:",
       coverageHeadline: "No está en este catálogo",
       coverageBody:
         "No tenemos un modelo de demanda para esa consulta. Eso es cobertura, no baja demanda, y no un número esperando detrás de Starter. Prueba Samba, Air Force 1 o Fred Perry Polo, o mira las marcas que publicamos.",
@@ -1445,7 +1447,7 @@ export const copy = {
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "¿Cuándo empieza el acceso después de pagar?", a: "En el momento en que Stripe confirma tu pago — normalmente en menos de 2 segundos. Luego compruebas un artículo real; Nike Air Force 1 ya está rellenado. Sin esperar un correo. Si un error de conexión interrumpe, inicia sesión en /login." },
         // H67 CRO: split thin-data and not-in-catalog answers (ES). Revenue 2026-09-23.
-        { q: "¿Y si no hay datos para mi artículo?", a: "Dos casos: si la muestra es escasa, ves un resultado parcial con una nota 'datos limitados' — lo decimos en lugar de adivinar. Si el artículo está completamente fuera de las 22 marcas que seguimos, verás 'No está en este catálogo' — es un hueco de cobertura, no un paywall. Consulta /data para ver cada marca que publicamos. La cobertura crece a medida que añadimos modelos; las 22 marcas cubren las categorías de reventa de mayor volumen en Vinted EU." },
+        { q: "¿Y si no hay datos para mi artículo?", a: "Dos casos: si la muestra es escasa, ves un resultado parcial con una nota 'datos limitados' — lo decimos en lugar de adivinar. Si el artículo está completamente fuera de las {{BRANDS}} marcas que seguimos, verás 'No está en este catálogo' — es un hueco de cobertura, no un paywall. Consulta /data para ver cada marca que publicamos. La cobertura crece a medida que añadimos modelos; las {{BRANDS}} marcas cubren las categorías de reventa de mayor volumen en Vinted EU." },
         // H94 CRO: lead with money-back guarantee. Revenue 2026-09-23.
         { q: "¿Puedo fiarme de los números y puedo cancelar?", a: "Cada cifra proviene de anuncios que observamos en los cinco mercados, mostrados como agregados que puedes comprobar en la página de datos pública. Cancelas desde Cuenta en un clic; el acceso llega hasta el final del mes pagado. ¿No satisfecho/a? Escríbenos en los 30 días siguientes a tu primer pago para un reembolso completo — ver /terms." },
         { q: "¿Hay un comprobador de artículos gratis?", a: "Sí. Comprueba Adidas Samba, Nike Air Force 1 o Fred Perry Polo en /tools sin cuenta. Los volúmenes semanales por marca son públicos en /data. Otros modelos necesitan Starter a 19 € al mes. Pro a 49 € añade Order Planner, Price Compare y la API." },
@@ -1828,7 +1830,7 @@ export const copy = {
       usedOfLimit: (used: number, limit: number) => `${used} von ${limit} kostenlosen Prüfungen heute genutzt.`,
       createFreeAccount: "Anmelden →",
       seePlans: "Preise ansehen",
-      unknownFallback: "Wir erfassen 26 Kleidungs- & Sneaker-Marken (ES/FR/DE/IT/PT) — keine Elektronik oder Haushalt. Versuche:",
+      unknownFallback: "Wir erfassen eine feste Markenliste (ES/FR/DE/IT/PT), vor allem Kleidung und Sneaker — keine Elektronik oder Haushalt. Versuche:",
       coverageHeadline: "Nicht in diesem Katalog",
       coverageBody:
         "Für diese Suche haben wir kein Nachfragemodell. Schwache Nachfrage und nicht im Katalog sind dieselbe Lücke — Abdeckung, keine Zahl hinter Starter. Versuche Samba, Air Force 1 oder Fred Perry Polo, oder sieh die Marken, die wir veröffentlichen.",
@@ -1915,7 +1917,7 @@ export const copy = {
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Wann beginnt der Zugang nach der Zahlung?", a: "In dem Moment, in dem Stripe deine Zahlung bestätigt — normalerweise innerhalb von 2 Sekunden. Als Nächstes prüfst du einen echten Artikel; Nike Air Force 1 ist vorausgefüllt. Keine E-Mail abwarten. Falls ein Verbindungsfehler unterbricht, melde dich auf /login an." },
         // H67 CRO: split thin-data and not-in-catalog answers (DE). Revenue 2026-09-23.
-        { q: "Was, wenn die Daten für meinen Artikel fehlen?", a: "Zwei Fälle: Ist die Stichprobe dünn, siehst du ein Teilergebnis mit einem klaren Hinweis 'begrenzte Daten' — wir sagen es, statt zu raten. Liegt der Artikel völlig außerhalb der 22 Marken, die wir verfolgen, erscheint 'Nicht in diesem Katalog' — das ist eine Abdeckungslücke, kein Paywall. Schau auf /data nach, welche Marken wir veröffentlichen. Die Abdeckung wächst, wenn wir Modelle hinzufügen; die 22 Marken decken die umsatzstärksten Kategorien auf Vinted EU ab." },
+        { q: "Was, wenn die Daten für meinen Artikel fehlen?", a: "Zwei Fälle: Ist die Stichprobe dünn, siehst du ein Teilergebnis mit einem klaren Hinweis 'begrenzte Daten' — wir sagen es, statt zu raten. Liegt der Artikel völlig außerhalb der {{BRANDS}} Marken, die wir verfolgen, erscheint 'Nicht in diesem Katalog' — das ist eine Abdeckungslücke, kein Paywall. Schau auf /data nach, welche Marken wir veröffentlichen. Die Abdeckung wächst, wenn wir Modelle hinzufügen; die {{BRANDS}} Marken decken die umsatzstärksten Kategorien auf Vinted EU ab." },
         // H94 CRO: lead with money-back guarantee. Revenue 2026-09-23.
         { q: "Kann ich den Zahlen trauen, und kann ich kündigen?", a: "Jede Zahl stammt aus Angeboten, die wir auf den fünf Märkten beobachten, als Aggregate dargestellt, die du selbst auf der öffentlichen Datenseite prüfen kannst. Du kündigst im Konto mit einem Klick; der Zugang läuft bis zum Ende des bezahlten Monats. Nicht zufrieden? Schreib uns innerhalb von 30 Tagen nach deiner ersten Zahlung für eine vollständige Rückerstattung — siehe /terms." },
         { q: "Gibt es eine kostenlose Artikelprüfung?", a: "Ja. Prüfe Adidas Samba, Nike Air Force 1 oder Fred Perry Polo auf /tools ohne Konto. Wöchentliche Markenvolumen sind öffentlich auf /data. Andere Modelle brauchen Starter für 19 € im Monat. Pro für 49 € ergänzt Order Planner, Price Compare und die API." },
@@ -2300,7 +2302,7 @@ export const copy = {
       usedOfLimit: (used: number, limit: number) => `${used} di ${limit} controlli gratuiti usati oggi.`,
       createFreeAccount: "Accedi →",
       seePlans: "Vedi i piani",
-      unknownFallback: "Copriamo 26 marchi di abbigliamento e sneaker (ES/FR/DE/IT/PT), non elettronica o casa. Prova con:",
+      unknownFallback: "Monitoriamo un elenco definito di marchi (ES/FR/DE/IT/PT), soprattutto abbigliamento e sneaker, non elettronica o casa. Prova con:",
       coverageHeadline: "Non è in questo catalogo",
       coverageBody:
         "Non abbiamo un modello di domanda per questa ricerca. È copertura, non bassa domanda, e non un numero che aspetta dietro Starter. Prova Samba, Air Force 1 o Fred Perry Polo, o vedi i marchi che pubblichiamo.",
@@ -2387,7 +2389,7 @@ export const copy = {
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Quando inizia l'accesso dopo il pagamento?", a: "Nel momento in cui Stripe conferma il tuo pagamento — di solito entro 2 secondi. Poi verifichi un articolo reale; Nike Air Force 1 è già compilato. Nessuna email da aspettare. Se un errore di connessione interrompe, accedi su /login." },
         // H67 CRO: split thin-data and not-in-catalog answers (IT). Revenue 2026-09-23.
-        { q: "E se non ci sono dati per il mio articolo?", a: "Due casi: se il campione è scarso, vedi un risultato parziale con una nota 'dati limitati' — lo diciamo invece di inventare. Se l'articolo è completamente fuori dalle 22 marche che seguiamo, vedrai 'Non è in questo catalogo' — è un gap di copertura, non un paywall. Consulta /data per vedere ogni marca che pubblichiamo. La copertura cresce aggiungendo modelli; le 22 marche coprono le categorie di rivendita a più alto volume su Vinted EU." },
+        { q: "E se non ci sono dati per il mio articolo?", a: "Due casi: se il campione è scarso, vedi un risultato parziale con una nota 'dati limitati' — lo diciamo invece di inventare. Se l'articolo è completamente fuori dalle {{BRANDS}} marche che seguiamo, vedrai 'Non è in questo catalogo' — è un gap di copertura, non un paywall. Consulta /data per vedere ogni marca che pubblichiamo. La copertura cresce aggiungendo modelli; le {{BRANDS}} marche coprono le categorie di rivendita a più alto volume su Vinted EU." },
         // H94 CRO: lead with money-back guarantee. Revenue 2026-09-23.
         { q: "Posso fidarmi dei numeri e posso disdire?", a: "Ogni cifra proviene da annunci che osserviamo sui cinque mercati, mostrati come aggregati che puoi verificare sulla pagina dati pubblica. Disdici da Account con un clic; l'accesso arriva alla fine del mese pagato. Non soddisfatto/a? Scrivici entro 30 giorni dal tuo primo pagamento per un rimborso completo — vedi /terms." },
         { q: "C'è un controllo articoli gratuito?", a: "Sì. Controlla Adidas Samba, Nike Air Force 1 o Fred Perry Polo su /tools senza account. I volumi settimanali per marca sono pubblici su /data. Gli altri modelli richiedono Starter a 19 € al mese. Pro a 49 € aggiunge Order Planner, Price Compare e l'API." },
@@ -2770,7 +2772,7 @@ export const copy = {
       usedOfLimit: (used: number, limit: number) => `${used} de ${limit} verificações grátis usadas hoje.`,
       createFreeAccount: "Iniciar sessão →",
       seePlans: "Ver planos",
-      unknownFallback: "Cobrimos 26 marcas de roupa e sneakers (ES/FR/DE/IT/PT) — não eletrónica nem casa. Tente:",
+      unknownFallback: "Acompanhamos uma lista definida de marcas (ES/FR/DE/IT/PT), sobretudo roupa e sneakers — não eletrónica nem casa. Tente:",
       coverageHeadline: "Não está neste catálogo",
       coverageBody:
         "Não temos um modelo de procura para essa consulta. Isso é cobertura, não baixa procura, e não um número à espera atrás do Starter. Experimenta Samba, Air Force 1 ou Fred Perry Polo, ou vê as marcas que publicamos.",
@@ -2857,7 +2859,7 @@ export const copy = {
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Quando começa o acesso depois de pagar?", a: "No momento em que o Stripe confirma o teu pagamento — normalmente em menos de 2 segundos. Depois verificas um artigo real; Nike Air Force 1 já vem preenchido. Sem e-mail a aguardar. Se um erro de ligação interromper, inicia sessão em /login." },
         // H67 CRO: split thin-data and not-in-catalog answers (PT). Revenue 2026-09-23.
-        { q: "E se não houver dados para o meu artigo?", a: "Dois casos: se a amostra for reduzida, vês um resultado parcial com uma nota 'dados limitados' — dizemos isso em vez de adivinhar. Se o artigo estiver completamente fora das 22 marcas que seguimos, verás 'Não está neste catálogo' — é uma lacuna de cobertura, não um paywall. Consulta /data para ver cada marca que publicamos. A cobertura cresce à medida que adicionamos modelos; as 22 marcas cobrem as categorias de revenda de maior volume na Vinted EU." },
+        { q: "E se não houver dados para o meu artigo?", a: "Dois casos: se a amostra for reduzida, vês um resultado parcial com uma nota 'dados limitados' — dizemos isso em vez de adivinhar. Se o artigo estiver completamente fora das {{BRANDS}} marcas que seguimos, verás 'Não está neste catálogo' — é uma lacuna de cobertura, não um paywall. Consulta /data para ver cada marca que publicamos. A cobertura cresce à medida que adicionamos modelos; as {{BRANDS}} marcas cobrem as categorias de revenda de maior volume na Vinted EU." },
         // H94 CRO: lead with money-back guarantee. Revenue 2026-09-23.
         { q: "Posso confiar nos números e posso cancelar?", a: "Cada valor vem de anúncios que observamos nos cinco mercados, apresentados como agregados que podes verificar na página de dados pública. Cancelas em Conta com um clique; o acesso vai até ao fim do mês pago. Não estás satisfeito/a? Envia-nos um email nos 30 dias seguintes ao teu primeiro pagamento para um reembolso completo — ver /terms." },
         { q: "Há um verificador de artigos grátis?", a: "Sim. Verifica Adidas Samba, Nike Air Force 1 ou Fred Perry Polo em /tools sem conta. Os volumes semanais por marca são públicos em /data. Outros modelos precisam do Starter a 19 € por mês. Pro a 49 € acrescenta Order Planner, Price Compare e a API." },

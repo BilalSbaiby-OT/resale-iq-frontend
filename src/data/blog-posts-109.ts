@@ -17,28 +17,28 @@ export const POSTS_109: BlogPost[] = [
     title: "Is It Worth Reselling on Vinted in 2026? The Honest Answer (Data-Backed)",
     seoTitle: "Is It Worth Reselling on Vinted? 2026 — Resale IQ",
     description:
-      "Yes — if you buy below the tracked departure average. Across 23 brands ResaleIQ tracks on EU Vinted.",
+      "Yes — if you buy below the tracked departure average. Week to 19 September 2026, across 23 brands.",
     date: "2026-09-19",
     category: "Sourcing",
     readMins: 7,
 
     preflightQuery: "New Balance 550",
     intro:
-      "Yes, reselling on Vinted is worth it — with one condition: you buy below the tracked departure average. Across the 23 brands ResaleIQ tracks on EU Vinted (Spain, France, Germany, Italy, Portugal), 1,077 items left the shelf in the week to 19 September 2026. The average exit price across all tracked brands is €53. Buy below that average and the margin works. Buy above it and you are donating your time. This page answers the objection with live data, not opinion.",
+      "Yes, reselling on Vinted is worth it — with one condition: you buy below the tracked departure average. Across the 23 brands with published weekly data on EU Vinted (Spain, France, Germany, Italy, Portugal), 1,077 items left the shelf in the week to 19 September 2026. The average exit price across those brands is €53. Buy below that average and the margin works. Buy above it and you are donating your time. This page answers the objection with live data, not opinion.",
 
     definedTerm: {
       name: "Tracked departure average",
       description:
-        "The tracked departure average is the average price at which a tracked listing leaves the shelf on EU Vinted — not the asking price and not retail. As of the week to 19 September 2026, across 23 brands ResaleIQ tracks in Spain, France, Germany, Italy and Portugal, 1,077 items left the shelf at a €53 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling at the €53 departure average is €34.45 (€53 × 0.65), targeting 35% gross margin after Vinted platform fees. ResaleIQ updates departure data weekly from EU Vinted observations across five markets.",
+        "The tracked departure average is the average price at which a tracked listing leaves the shelf on EU Vinted — not the asking price and not retail. As of the week to 19 September 2026, across 23 brands with published weekly data in Spain, France, Germany, Italy and Portugal, 1,077 items left the shelf at a €53 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling at the €53 departure average is €34.45 (€53 × 0.65), targeting 35% gross margin after Vinted platform fees. ResaleIQ updates departure data weekly from EU Vinted observations across five markets.",
     },
 
     sections: [
       {
         h: "The honest answer: yes, if you buy below €34.45",
         p: [
-          "Reselling on Vinted is worth it in 2026 — but only if you buy below the tracked departure average. Across 23 brands ResaleIQ tracks on EU Vinted, 1,077 items left the shelf in the week to 19 September 2026 at a €53 average exit price. The buy-below ceiling at that average is €34.45 (€53 × 0.65), targeting 35% gross margin after Vinted platform fees of roughly 5–8%. Net of a 6% fee on a €53 exit, take-home is €49.82 — €15.37 on a €34.45 buy (45% on capital).",
+          "Reselling on Vinted is worth it in 2026 — but only if you buy below the tracked departure average. Across 23 brands with published weekly data on EU Vinted, 1,077 items left the shelf in the week to 19 September 2026 at a €53 average exit price. The buy-below ceiling at that average is €34.45 (€53 × 0.65), targeting 35% gross margin after Vinted platform fees of roughly 5–8%. Net of a 6% fee on a €53 exit, take-home is €49.82 — €15.37 on a €34.45 buy (45% on capital).",
           "That is the math that decides whether a flip is worth your time. A Fred Perry shirt bought at €8 and sold at €15 (80 departures in the last 30 days tracked departures) is €7 profit before fees — €6.10 after. A Balenciaga sneaker bought at €100 and sold at €164 (61 departures in the last 30 days tracked) is €64 before fees — €60 after. The margin is real. The condition is buy-below discipline: never pay more than 65% of the tracked departure average for the specific brand and category you are buying.",
-          `The €53 average is a blended figure across 23 brands. The real decision is brand-level: Balenciaga sneakers exit at €164 (61 departures in the last 30 days), Gucci bags at €450 (24 departures in the last 30 days), Fred Perry shirts at €15 (80 departures in the last 30 days). Each brand has its own buy-below ceiling. [Full brand ranking →](${ilinkHref("flip")})`,
+          `The €53 average is a blended figure across those 23 brands. The real decision is brand-level: Balenciaga sneakers exit at €164 (61 departures in the last 30 days), Gucci bags at €450 (24 departures in the last 30 days), Fred Perry shirts at €15 (80 departures in the last 30 days). Each brand has its own buy-below ceiling. [Full brand ranking →](${ilinkHref("flip")})`,
         ],
         cta: pricingMidCta("ctr_worth_reselling_intro_20260919"),
       },
@@ -83,7 +83,7 @@ export const POSTS_109: BlogPost[] = [
     faq: [
       {
         q: "Is reselling on Vinted actually profitable in 2026?",
-        a: "Yes, if you buy below the tracked departure average. Across 23 brands ResaleIQ tracks on EU Vinted, 1,077 items left the shelf in the week to 19 September 2026 at a €53 average exit price. The buy-below ceiling at that average is €34.45 (€53 × 0.65), targeting 35% gross margin. The margin is real but conditional — buy above the average and the profit is gone before you list.",
+        a: "Yes, if you buy below the tracked departure average. Across 23 brands with published weekly data on EU Vinted, 1,077 items left the shelf in the week to 19 September 2026 at a €53 average exit price. The buy-below ceiling at that average is €34.45 (€53 × 0.65), targeting 35% gross margin. The margin is real but conditional — buy above the average and the profit is gone before you list.",
       },
       {
         q: "How much money can you make reselling on Vinted?",

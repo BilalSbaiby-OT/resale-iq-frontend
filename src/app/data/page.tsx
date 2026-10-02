@@ -179,7 +179,10 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
 
         <WeeklyBrief brief={buildWeeklyBrief(market)} />
 
-        {market.listingsTracked != null && market.brandCount < (market.brandsTracked ?? 26) ? (
+        {/* Published < tracked: some tracked brands are under the weekly floor, so the
+            table is narrower than the catalogue. An unknown tracked count means we
+            cannot say that, so the notice stays off — no literal stands in for it. */}
+        {market.listingsTracked != null && market.brandsTracked != null && market.brandCount < market.brandsTracked ? (
           <p
             role="status"
             style={{

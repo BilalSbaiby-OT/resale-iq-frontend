@@ -24,7 +24,7 @@ export const POSTS_55: BlogPost[] = [
 
     preflightQuery: "Fred Perry Hoodie",
     intro:
-      "Fred Perry hoodies track 34 departures in the last 30 days (observation window to 22 September 2026) across EU Vinted — the third-most-active hoodie category among the 28 brands Resale IQ tracks across Spain, France, Germany, Italy and Portugal, level with Balenciaga hoodies on weekly volume but at a tenth of the exit price. The average exit price is €17 and the buy-below ceiling is €11.05. This guide covers the live margin case, vintage Laurel vs modern logo identification, the FW44/22 collaborations that carry a premium, and how Fred Perry hoodies compare to Nike, Carhartt WIP, and Tommy Hilfiger for EU resellers.",
+      "Fred Perry hoodies track 34 departures in the last 30 days (observation window to 22 September 2026) across EU Vinted — the third-most-active hoodie category in Resale IQ's published data across Spain, France, Germany, Italy and Portugal, level with Balenciaga hoodies on weekly volume but at a tenth of the exit price. The average exit price is €17 and the buy-below ceiling is €11.05. This guide covers the live margin case, vintage Laurel vs modern logo identification, the FW44/22 collaborations that carry a premium, and how Fred Perry hoodies compare to Nike, Carhartt WIP, and Tommy Hilfiger for EU resellers.",
     definedTerm: {
       name: "Fred Perry hoodie departure average",
       description:
@@ -85,7 +85,7 @@ export const POSTS_55: BlogPost[] = [
       },
       {
         q: "How many Fred Perry hoodies sell on EU Vinted per week?",
-        a: "Fred Perry hoodies track 34 departures in the last 30 days across EU Vinted (France, Germany, Spain, Italy, Portugal) in the week to 19 September 2026 — the third-most-active hoodie category among the 28 brands Resale IQ tracks, level with Balenciaga hoodies on volume but at a tenth of the exit price. 'Watched departures' means tracked listings that left the shelf, not confirmed buyer-reported sales.",
+        a: "Fred Perry hoodies track 34 departures in the last 30 days across EU Vinted (France, Germany, Spain, Italy, Portugal) in the week to 19 September 2026 — the third-most-active hoodie category in Resale IQ's published data, level with Balenciaga hoodies on volume but at a tenth of the exit price. 'Watched departures' means tracked listings that left the shelf, not confirmed buyer-reported sales.",
       },
       {
         q: "How fast do Fred Perry hoodies sell on EU Vinted?",

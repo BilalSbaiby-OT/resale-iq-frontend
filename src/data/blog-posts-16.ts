@@ -90,7 +90,7 @@ export const POSTS_16: BlogPost[] = [
         h: "How to maximise what you keep on Vinted",
         p: [
           "1. **Let the buyer select the shipping method.** Vinted's integrated labels are charged to the buyer. This is the single most reliable way to protect your margin.",
-          "2. **Price above your buy-below threshold.** The buy-below price is the maximum you can pay at source and still hit a viable margin at your expected exit price. [Resale IQ calculates buy-below prices for 28 brands](" +
+          "2. **Price above your buy-below threshold.** The buy-below price is the maximum you can pay at source and still hit a viable margin at your expected exit price. [Resale IQ calculates buy-below prices across the {{BRANDS}} brands it tracks](" +
             ilinkHref("flip") +
             ") based on live departure data — use them as hard sourcing limits, not guidelines.",
           "3. **Boost only confirmed fast movers.** Boost items in categories where the brand has 50+ departures per week in your market. Boosting a slow brand is paying for exposure on an item buyers do not want.",
@@ -183,7 +183,7 @@ export const POSTS_16: BlogPost[] = [
           "- Maximum buy price: €50 − €15 = **€35**",
           "In practice, you want to pay €25–30 to leave room for the item sitting longer than expected or needing a price reduction after 2 weeks.",
           "A Stone Island hoodie clearing at €56 average: target buy price €30–35, hard maximum €40. At a charity shop asking €45 — walk away.",
-          "Resale IQ publishes live buy-below prices for all 28 tracked brands, recalculated from departure data. Use them as hard sourcing limits.",
+          "Resale IQ calculates buy-below prices across the {{BRANDS}} brands it tracks, recalculated from departure data. Use them as hard sourcing limits.",
         ],
       },
       {

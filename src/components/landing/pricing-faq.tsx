@@ -20,7 +20,8 @@
  *
  * CONTENT RULES (OVERNIGHT-MISSION.md §2):
  *  - Never fabricate a customer, testimonial, or review.
- *  - Catalog: 139 models / 21 brands (verified 2026-09-23).
+ *  - Coverage: the brand count is brandsTracked from the live snapshot, passed in as
+ *    `brands`; the FAQ never hard-codes it (it was "21 brands" when 61 were tracked).
  *  - 5 EU markets: ES, FR, DE, IT, PT (Vinted only — we are Vinted-specific).
  *  - Buy-below formula is canonical: avg × 0.95 × 0.70.
  *  - Withheld models → honest "we don't cover it" is always correct.
@@ -53,6 +54,7 @@ import { useState, useEffect } from "react"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import type { Locale } from "@/lib/i18n"
+import { BRANDS_TRACKED, fillBrands } from "@/lib/fill-brands"
 
 interface FaqItem {
   q: string
@@ -82,8 +84,11 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "What if my item isn't in the catalog?",
-    a: "We currently track 139 brand/model combinations across 21 brands. If your item isn't there, the checker tells you honestly and suggests alternatives. New models are added regularly — you can see the full catalog on the data page.",
-    link: { href: "/data", label: "Browse the full catalog →" },
+    // BRANDS_TRACKED is the live brands_tracked count; fillBrands drops it (and the
+    // space after it) if the snapshot has no number. Priced verdicts need enough
+    // watched comparable listings, so this says "track", never "price".
+    a: `We track ${BRANDS_TRACKED} brands across Vinted ES, FR, DE, IT and PT. A priced BUY, WATCH or SKIP needs enough watched comparable listings; where we don't have them, the checker says so and suggests alternatives. New models are added regularly — the data page lists every brand with published weekly volume.`,
+    link: { href: "/data", label: "Browse the brands we publish →" },
   },
   {
     q: "Can I really cancel anytime?",
@@ -172,7 +177,8 @@ function FaqRow({ item }: { item: FaqItem }) {
   )
 }
 
-export function PricingFaq({ locale = "en" }: { locale?: Locale }) {
+export function PricingFaq({ locale = "en", brands = null }: { locale?: Locale; brands?: number | null }) {
+  const faqs = fillBrands(FAQS, brands)
   // H188: pre-fill email from localStorage if captured by an earlier surface.
   const [capturedEmail, setCapturedEmail] = useState("")
   useEffect(() => {
@@ -213,7 +219,7 @@ export function PricingFaq({ locale = "en" }: { locale?: Locale }) {
           borderBottom: "1px solid var(--color-border)",
         }}
       >
-        {FAQS.map((item) => (
+        {faqs.map((item) => (
           <FaqRow key={item.q} item={item} />
         ))}
       </div>
