@@ -18,8 +18,12 @@ import type { BrandFigures } from "./market-numbers"
 import type { HeroVerdict } from "./hero-verdict"
 import { articleSocialMeta } from "./flip-category-meta.ts"
 import { isUsableVerdict } from "./usable-verdict.ts"
+import { freeSampleList } from "./free-samples.ts"
 
 export { isUsableVerdict }
+
+/** The free samples, from the ONE list (./free-samples.ts). */
+const FREE_LIST = freeSampleList("en")
 
 function fmtCount(n: number | null | undefined): string {
   return typeof n === "number" && Number.isFinite(n) ? n.toLocaleString("en-GB") : "—"
@@ -232,7 +236,7 @@ export function modelDemandParagraphs(
     )
   } else {
     paras.push(
-      `${m.query} is not a free check. Adidas Samba, Nike Air Force 1 and Fred Perry Polo are the free sample. ` +
+      `${m.query} is not a free check. ${FREE_LIST} are the free samples. ` +
         `This model's BUY, WATCH or SKIP and buy-below start at Starter €19 a month. ` +
         `Do not treat the ${m.brand} average as the ${m.model} number.`,
     )
@@ -268,13 +272,13 @@ export function modelFaqs(opts: {
     ? {
         q: `Is the ${m.query} check free?`,
         a:
-          `Yes for this model: Adidas Samba, Nike Air Force 1 and Fred Perry Polo return a live BUY / WATCH / SKIP on /tools with no account. ` +
+          `Yes for this model: ${FREE_LIST} return a live BUY / WATCH / SKIP on /tools with no account. ` +
           `Weekly brand volumes stay public at https://resaleiq.dev/data. Other item-level checks start at Starter €19 a month.`,
       }
     : {
         q: `Is the ${m.query} check free?`,
         a:
-          `No. ${m.query} needs Starter at €19 a month. The free sample is Adidas Samba, Nike Air Force 1 and Fred Perry Polo on /tools. ` +
+          `No. ${m.query} needs Starter at €19 a month. The free samples are ${FREE_LIST} on /tools. ` +
           `${m.brand} weekly volumes stay public at https://resaleiq.dev/data.`,
       }
 
@@ -332,7 +336,7 @@ export function brandHubFaqs(opts: {
 
   const freeA = freeModels.length
     ? `Yes for ${freeModels.map((m) => m.query).join(", ")}: BUY, WATCH or SKIP and buy-below on https://resaleiq.dev/tools with no account. Other ${brand} models need Starter at €19 a month at https://resaleiq.dev/pricing.`
-    : `No. ${brand} weekly volumes stay public at https://resaleiq.dev/data. Item-level BUY, WATCH or SKIP starts at Starter €19 a month at https://resaleiq.dev/pricing. The free sample is Adidas Samba, Nike Air Force 1 and Fred Perry Polo on https://resaleiq.dev/tools.`
+    : `No. ${brand} weekly volumes stay public at https://resaleiq.dev/data. Item-level BUY, WATCH or SKIP starts at Starter €19 a month at https://resaleiq.dev/pricing. The free samples are ${FREE_LIST} on https://resaleiq.dev/tools.`
 
   return [
     { q: `Is ${brand} worth reselling on Vinted?`, a: worth },

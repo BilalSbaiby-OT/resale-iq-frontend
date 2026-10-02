@@ -125,7 +125,7 @@ export default async function BlogIndex() {
             not a second sales page. A short text link sends anyone who wants
             to see the tool working straight to /tools instead. */}
         <p style={{ fontSize: 13.5, color: "var(--color-text-secondary)", marginBottom: 32 }}>
-          Want to see it work first? <Link href="/tools" style={{ color: "var(--color-buy-ink)", textDecoration: "none" }}>Try a free check →</Link>
+          Want to see it work first? <Link href="/tools" style={{ color: "var(--color-buy-ink)", textDecoration: "none" }}>Try a free sample →</Link>
         </p>
 
         {/* H162 CRO: interactive free checker on /blog index — 130/7d visitors with
@@ -208,7 +208,7 @@ export default async function BlogIndex() {
         )}
 
         <div style={{ marginTop: 40, padding: "22px 24px", background: "var(--color-surface)", border: "1px solid var(--color-border-2)", borderRadius: 12, textAlign: "center" }}>
-          <div style={{ fontSize: 17, fontWeight: 700, color: "var(--color-text-primary)" }}>Stop guessing what sells.</div>
+          <div style={{ fontSize: 17, fontWeight: 700, color: "var(--color-text-primary)" }}>Know what sells before you buy.</div>
           <p style={{ fontSize: 13.5, color: "var(--color-text-secondary)", margin: "8px 0 16px" }}>
             Get a data-backed BUY / WATCH / SKIP on any item — buy-below price, best sizes, sell-through.
           </p>

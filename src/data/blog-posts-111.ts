@@ -1,5 +1,5 @@
 // Batch 111 — How to check if a Vinted item is worth buying.
-// Targets the #1 funnel leak: only 3.8% of visitors use the free checker.
+// Targets the #1 funnel leak: only 3.8% of visitors use the checker.
 // This is the "how to use the tool" guide — the query every reseller has
 // but no page on resaleiq.dev answers. All numbers live from the API.
 
@@ -10,10 +10,10 @@ import { ilinkHref } from "@/lib/blog-ilink"
 export const POSTS_111: BlogPost[] = [
   {
     slug: "how-to-check-if-a-vinted-item-is-worth-buying",
-    title: "How to Check if a Vinted Item Is Worth Buying (Free Price Checker Guide)",
+    title: "How to Check if a Vinted Item Is Worth Buying (Price Checker Guide)",
     seoTitle: "How to Check if a Vinted Item Is Worth Buying | Resale IQ",
     description:
-      "Use the free ResaleIQ price checker to get a buy-below ceiling before you buy on Vinted. Real departure data from 5.4M+ tracked listings across.",
+      "Use the ResaleIQ price checker to get a buy-below ceiling before you buy on Vinted. Real departure data from 5.4M+ tracked listings across.",
     date: "2026-09-19",
     category: "Sourcing",
     readMins: 7,
@@ -21,7 +21,7 @@ export const POSTS_111: BlogPost[] = [
     preflightQuery: "New Balance 530",
 
     intro:
-      "The most expensive mistake a Vinted reseller makes is buying an item that never sells. The fix is a free price check before you buy: type the brand and item into the ResaleIQ checker, get a buy-below ceiling from live EU departure data, and only buy at or below that number. This guide shows you exactly how the checker works, what the verdict means, and the 5 numbers that tell you whether an item is worth your money.",
+      "The most expensive mistake a Vinted reseller makes is buying an item that never sells. The fix is a price check before you buy: type the model into the ResaleIQ checker, get a buy-below ceiling from live EU departure data, and only buy at or below that number. This guide shows you exactly how the checker works, what the verdict means, and the 5 numbers that tell you whether an item is worth your money.",
 
     definedTerm: {
       name: "Buy-below price",
@@ -31,9 +31,9 @@ export const POSTS_111: BlogPost[] = [
 
     sections: [
       {
-        h: "What the free checker gives you in 30 seconds",
+        h: "What the checker gives you in 30 seconds",
         p: [
-          "The ResaleIQ free price checker answers one question before you spend money: what is the most I should pay for this item? Type a brand and garment — 'Fred Perry Shirt', 'Patagonia Jacket', 'Nike Air Max 90' — and the checker returns the average exit price across 5 EU markets, the buy-below ceiling (65% of that average), and the number of watched departures in the trailing 7 days. No account needed, no card required, no signup wall.",
+          "The ResaleIQ price checker answers one question before you spend money: what is the most I should pay for this item? Type a model — 'Adidas Samba', 'Nike Air Force 1', 'Fred Perry Polo' — and the checker returns the average exit price across 5 EU markets, the buy-below ceiling (65% of that average), and the number of watched departures in the trailing 7 days. Those three are free with no account; every other model starts with Starter's 7-day free trial (card required, €0 today).",
           "The data is live, not a static price list. The checker reads from 5,408,984 tracked listings across Spain, France, Germany, Italy, and Portugal, updated weekly. When a brand's exit price moves — Stone Island hoodies shift from €55 to €58, or Balenciaga bags drop from €324 to €193 — the checker reflects it within the same week. You are not quoting a price you found in a forum post from March: you are quoting the market as of this week.",
           `The checker is free because it is the top of the funnel. The free verdict shows the buy-below price, the average exit, and the departure count — enough to make a buying decision. The locked fields (sell-through rate, size breakdown, price history) are what you unlock with a paid plan, but the buy-below ceiling alone tells you whether an item at a given price is worth buying. [Check an item now →](/tools)`,
         ],
@@ -43,7 +43,7 @@ export const POSTS_111: BlogPost[] = [
         h: "How to read the verdict: BUY, WATCH, or SKIP",
         p: [
           "The checker returns one of three verdicts. BUY means the item has strong recent departure volume (high sell-through) and a healthy gap between the buy-below ceiling and the average exit price — the margin is there, the demand is proven, and you should buy at or below ceiling. WATCH means the item sells but the margin is thin, the departure count is low, or the price trend is flat — buy only if you can get it well below ceiling. SKIP means the item does not sell enough to move reliably, the exit price is below the buy-below ceiling, or there is not enough data to make a confident call.",
-          `The verdict is not a prediction. It is a description of what the market did in the last 7 days across 5 countries. A BUY verdict on a Patagonia Nano Puff Jacket means the model has strong departure volume and a healthy buy-below gap. Patagonia tracks 11,671 brand-level departures in the last 30 days on EU Vinted (22 Sep 2026). The Nano Puff specifically: 46 departures in the last 30 days at €58.44 average per our tracked model data (model_signals). That week at €41 average — not that your specific jacket will sell next Tuesday. A WATCH verdict on a Calvin Klein Hoodie means 167 brand-level departures in the last 30 days at €15.74 average — moderate volume but thin margin unless you can identify CK One logo pieces (€25–40 exit). Check the specific item in the free checker for a per-item verdict.`,
+          `The verdict is not a prediction. It is a description of what the market did in the last 7 days across 5 countries. A BUY verdict on a Patagonia Nano Puff Jacket means the model has strong departure volume and a healthy buy-below gap. Patagonia tracks 11,671 brand-level departures in the last 30 days on EU Vinted (22 Sep 2026). The Nano Puff specifically: 46 departures in the last 30 days at €58.44 average per our tracked model data (model_signals). That week at €41 average — not that your specific jacket will sell next Tuesday. A WATCH verdict on a Calvin Klein Hoodie means 167 brand-level departures in the last 30 days at €15.74 average — moderate volume but thin margin unless you can identify CK One logo pieces (€25–40 exit). Check the specific item on /tools for a per-item verdict.`,
                     `The 5 numbers that drive the verdict are: (1) watched departures per week — the raw demand signal; (2) average exit price — what buyers actually paid, not what sellers asked; (3) buy-below ceiling — 65% of the exit price, your profit-maximising entry point; (4) sell-through rate — what percentage of tracked listings sold within 30 days; and (5) active listings — how many are currently on the shelf. Together they tell you whether an item is a flip, a hold, or a pass. [Understand sell-through →](${ilinkHref("data")})`,
         ],
         cta: pricingBodyCta("ctr_how_check_verdict_20260919"),
@@ -53,7 +53,7 @@ export const POSTS_111: BlogPost[] = [
         p: [
           "Here is what the checker shows for three real items right now, using live API data. Fred Perry Shirts: 199 departures in the last 30 days at a €16 average exit. Buy-below ceiling: €10.40. Verdict: BUY at or below €10.40 — strong volume, predictable exit. The margin per unit is small (€5.60 gross before fees) but the turnover is fast and the capital requirement is low. This is a volume play, not a margin play.",
           "Stone Island Hoodies: 54 departures in the last 30 days at a €55 average exit. Buy-below ceiling: €35.75. Verdict: BUY at or below €35.75 — lower volume than Fred Perry but higher margin per unit (€19.25 gross). Stone Island hoodies are a margin play: fewer transactions, more profit each. The authentication risk is higher than Fred Perry, so condition and provenance matter more.",
-          "Calvin Klein Hoodies: 167 departures in the last 30 days at a €15.74 average exit (across all tracked Calvin Klein hoodie listings on EU Vinted, brand-level). Rough buy-below ceiling: €10.23. Verdict: WATCH — the volume is moderate but the margin is thin. At €15.74 average exit and €10.23 rough buy-below, you need to source below €8–9 for a comfortable margin. CK One logo pieces exit higher (€25–40); generic CK hoodies exit closer to €12–16. Check the specific item in the free checker — if we have enough data for a per-model verdict, it will show it.",
+          "Calvin Klein Hoodies: 167 departures in the last 30 days at a €15.74 average exit (across all tracked Calvin Klein hoodie listings on EU Vinted, brand-level). Rough buy-below ceiling: €10.23. Verdict: WATCH — the volume is moderate but the margin is thin. At €15.74 average exit and €10.23 rough buy-below, you need to source below €8–9 for a comfortable margin. CK One logo pieces exit higher (€25–40); generic CK hoodies exit closer to €12–16. Check the specific item on /tools — if we have enough data for a per-model verdict, it will show it.",
           `These three examples show the spectrum: high-volume-low-margin (Fred Perry), low-volume-high-margin (Stone Island), and no-volume-no-margin (Calvin Klein). The checker tells you which bucket an item falls into before you buy, not after. [Check your item →](/tools)`,
         ],
         cta: pricingBodyCta("ctr_how_check_examples_20260919"),
@@ -81,7 +81,7 @@ export const POSTS_111: BlogPost[] = [
     faq: [
       {
         q: "Is the ResaleIQ price checker really free?",
-        a: "Yes. The free checker gives you the buy-below ceiling, the average exit price, and the watched departure count for any item — no account, no card, no signup wall. The paid plan (€19/mo) unlocks sell-through rate, size breakdown, and price history, but the buy-below ceiling alone is enough to make a buying decision.",
+        a: "Yes for three models: Adidas Samba, Nike Air Force 1 and Fred Perry Polo show the buy-below ceiling, the average exit price and the watched departure count with no account. Every other model starts with Starter's 7-day free trial (card required, €0 today), then €19/mo. There is no free tier.",
       },
       {
         q: "What is a buy-below price?",

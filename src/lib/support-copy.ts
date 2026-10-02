@@ -26,6 +26,7 @@
  * the label would promise a language the click does not deliver.
  */
 import type { PathLocale } from "./locale-routes"
+import { freeSampleList } from "./free-samples.ts"
 
 export type SupportCopy = {
   pageTitle: string
@@ -54,7 +55,7 @@ const en: SupportCopy = {
     ["What's the difference between Starter and Pro?",
      "Starter (€19/mo) gives you unlimited verdicts, every product signal, Deal Scanner, market trends, brand rankings, and watchlist + portfolio P&L. Pro (€49/mo) adds the live deal finder (on demand) across 5 markets, the 3-week Order Planner, Price Compare (full intelligence on those 5, live asking-price search on 26 markets total), per-size velocity, and REST API access."],
     ["Is there a free plan or trial?",
-     "Yes for three models: Adidas Samba, Nike Air Force 1 and Fred Perry Polo on /tools, no account. Weekly brand volumes stay public on /data. Other item-level BUY, WATCH or SKIP need Starter at €19 a month. Pro at €49 adds Live Finder, Order Planner, Price Compare and API access. There is no unlimited free tier."],
+     `Starter starts with a 7-day free trial: card required, €0 today, cancel before day 7 and pay nothing. There is no free plan for item checks, but three models are free on /tools with no account: ${freeSampleList("en")}. Weekly brand volumes stay public on /data. Other item-level BUY, WATCH or SKIP need Starter at €19 a month. Pro at €49 adds Live Finder, Order Planner, Price Compare and API access.`],
     ["How do I cancel?",
      "From your account page, open the billing portal — you can cancel, change plan, or update your card there. Cancellation stops the next renewal; you keep access until the current period ends."],
     ["How do I reset my password?",
@@ -84,7 +85,7 @@ const fr: SupportCopy = {
     ["Quelle est la différence entre Starter et Pro ?",
      "Starter (19 €/mois) vous donne des verdicts illimités, tous les signaux produit, le Deal Scanner, les tendances du marché, les classements de marques, ainsi que la watchlist et le P&L de portefeuille. Pro (49 €/mois) ajoute le chercheur de deals en direct (à la demande) sur 5 marchés, l'Order Planner sur 3 semaines, le Price Compare (intelligence complète sur ces 5 marchés, recherche de prix demandés en direct sur 26 marchés au total), la vélocité par taille, et l'accès à l'API REST."],
     ["Y a-t-il un plan gratuit ou un essai ?",
-     "Adidas Samba, Nike Air Force 1 et Fred Perry Polo se vérifient sur /tools sans compte. Les volumes hebdo par marque restent publics sur /data. Les autres BUY, WATCH ou SKIP au niveau article nécessitent Starter à 19 € par mois. Pro à 49 € ajoute Live Finder, Order Planner, Price Compare et l'API. Pas d'offre gratuite illimitée."],
+     `Starter commence par un essai gratuit de 7 jours : carte requise, 0 € aujourd'hui, résiliez avant le jour 7 et ne payez rien. Il n'y a pas de plan gratuit pour les vérifications d'articles, mais trois modèles se vérifient gratuitement sur /tools sans compte : ${freeSampleList("fr")}. Les volumes hebdo par marque restent publics sur /data. Les autres BUY, WATCH ou SKIP au niveau article nécessitent Starter à 19 € par mois. Pro à 49 € ajoute Live Finder, Order Planner, Price Compare et l'API.`],
     ["Comment annuler ?",
      "Depuis votre page de compte, ouvrez le portail de facturation — vous pouvez y annuler, changer de plan, ou mettre à jour votre carte. L'annulation arrête le prochain renouvellement ; vous gardez l'accès jusqu'à la fin de la période en cours."],
     ["Comment réinitialiser mon mot de passe ?",
@@ -114,7 +115,7 @@ const es: SupportCopy = {
     ["¿Cuál es la diferencia entre Starter y Pro?",
      "Starter (19 €/mes) te da veredictos ilimitados, todas las señales de producto, Deal Scanner, tendencias de mercado, rankings de marcas, y watchlist + P&L de cartera. Pro (49 €/mes) añade el buscador de ofertas en vivo (bajo demanda) en 5 mercados, el Order Planner de 3 semanas, Price Compare (inteligencia completa en esos 5, búsqueda de precios de venta en vivo en 26 mercados en total), velocidad por talla, y acceso a la API REST."],
     ["¿Hay un plan gratuito o una prueba?",
-     "Adidas Samba, Nike Air Force 1 y Fred Perry Polo se comprueban en /tools sin cuenta. Los volúmenes semanales por marca siguen públicos en /data. El resto de BUY, WATCH o SKIP a nivel de artículo necesitan Starter a 19 € al mes. Pro a 49 € añade Live Finder, Order Planner, Price Compare y la API. No hay plan gratuito ilimitado."],
+     `Starter empieza con una prueba gratuita de 7 días: tarjeta necesaria, 0 € hoy, cancela antes del día 7 y no pagas nada. No hay plan gratuito para comprobar artículos, pero tres modelos se comprueban gratis en /tools sin cuenta: ${freeSampleList("es")}. Los volúmenes semanales por marca siguen públicos en /data. El resto de BUY, WATCH o SKIP a nivel de artículo necesitan Starter a 19 € al mes. Pro a 49 € añade Live Finder, Order Planner, Price Compare y la API.`],
     ["¿Cómo cancelo?",
      "Desde tu página de cuenta, abre el portal de facturación — ahí puedes cancelar, cambiar de plan o actualizar tu tarjeta. La cancelación detiene la próxima renovación; conservas el acceso hasta que termine el período actual."],
     ["¿Cómo restablezco mi contraseña?",
@@ -144,7 +145,7 @@ const de: SupportCopy = {
     ["Was ist der Unterschied zwischen Starter und Pro?",
      "Starter (19 €/Monat) bietet unbegrenzte Verdikte, jedes Produktsignal, den Deal Scanner, Markttrends, Markenrankings sowie Watchlist + Portfolio-P&L. Pro (49 €/Monat) fügt den Live-Deal-Finder (auf Abruf) über 5 Märkte hinweg hinzu, den 3-Wochen-Order-Planner, Price Compare (volle Intelligenz auf diesen 5 Märkten, Live-Angebotspreissuche auf insgesamt 26 Märkten), Geschwindigkeit pro Größe und REST-API-Zugriff."],
     ["Gibt es einen kostenlosen Plan oder eine Testversion?",
-     "Adidas Samba, Nike Air Force 1 und Fred Perry Polo prüfst du auf /tools ohne Konto. Wöchentliche Markenvolumen bleiben öffentlich auf /data. Andere BUY, WATCH oder SKIP auf Artikelebene brauchen Starter für 19 € im Monat. Pro für 49 € ergänzt Live Finder, Order Planner, Price Compare und die API. Kein unbegrenzter Gratis-Tarif."],
+     `Starter beginnt mit einer 7-tägigen kostenlosen Testphase: Karte nötig, heute 0 €, vor Tag 7 kündigen und nichts zahlen. Für Artikelprüfungen gibt es keinen Gratis-Tarif, aber drei Modelle prüfst du auf /tools kostenlos und ohne Konto: ${freeSampleList("de")}. Wöchentliche Markenvolumen bleiben öffentlich auf /data. Andere BUY, WATCH oder SKIP auf Artikelebene brauchen Starter für 19 € im Monat. Pro für 49 € ergänzt Live Finder, Order Planner, Price Compare und die API.`],
     ["Wie kündige ich?",
      "Öffne auf deiner Kontoseite das Abrechnungsportal — dort kannst du kündigen, den Plan wechseln oder deine Karte aktualisieren. Die Kündigung stoppt die nächste Verlängerung; der Zugriff bleibt bis zum Ende der aktuellen Periode bestehen."],
     ["Wie setze ich mein Passwort zurück?",
@@ -174,7 +175,7 @@ const it: SupportCopy = {
     ["Qual è la differenza tra Starter e Pro?",
      "Starter (19 €/mese) offre verdetti illimitati, ogni segnale di prodotto, Deal Scanner, trend di mercato, classifiche dei brand, e watchlist + P&L del portafoglio. Pro (49 €/mese) aggiunge il ricercatore di offerte live (su richiesta) su 5 mercati, l'Order Planner di 3 settimane, Price Compare (intelligence completa su quei 5 mercati, ricerca live dei prezzi richiesti su 26 mercati in totale), velocità per taglia e accesso alle API REST."],
     ["C'è un piano gratuito o una prova?",
-     "Adidas Samba, Nike Air Force 1 e Fred Perry Polo si controllano su /tools senza account. I volumi settimanali per marca restano pubblici su /data. Gli altri BUY, WATCH o SKIP a livello di articolo richiedono Starter a 19 € al mese. Pro a 49 € aggiunge Live Finder, Order Planner, Price Compare e l'API. Nessun piano gratuito illimitato."],
+     `Starter inizia con una prova gratuita di 7 giorni: carta richiesta, 0 € oggi, disdici prima del giorno 7 e non paghi nulla. Per i controlli articolo non c'è un piano gratuito, ma tre modelli si controllano gratis su /tools senza account: ${freeSampleList("it")}. I volumi settimanali per marca restano pubblici su /data. Gli altri BUY, WATCH o SKIP a livello di articolo richiedono Starter a 19 € al mese. Pro a 49 € aggiunge Live Finder, Order Planner, Price Compare e l'API.`],
     ["Come faccio a disdire?",
      "Dalla pagina del tuo account, apri il portale di fatturazione — da lì puoi disdire, cambiare piano o aggiornare la carta. La disdetta ferma il prossimo rinnovo; mantieni l'accesso fino alla fine del periodo in corso."],
     ["Come reimposto la password?",
@@ -204,7 +205,7 @@ const pt: SupportCopy = {
     ["Qual é a diferença entre Starter e Pro?",
      "O Starter (19 €/mês) dá-lhe veredictos ilimitados, todos os sinais de produto, Deal Scanner, tendências de mercado, rankings de marcas, e watchlist + P&L da carteira. O Pro (49 €/mês) acrescenta o localizador de ofertas em direto (a pedido) em 5 mercados, o Order Planner de 3 semanas, o Price Compare (inteligência completa nesses 5 mercados, pesquisa de preços pedidos em direto em 26 mercados no total), velocidade por tamanho, e acesso à API REST."],
     ["Existe um plano gratuito ou período de teste?",
-     "Adidas Samba, Nike Air Force 1 e Fred Perry Polo verificam-se em /tools sem conta. Os volumes semanais por marca continuam públicos em /data. Os outros BUY, WATCH ou SKIP ao nível do artigo precisam do Starter a 19 € por mês. Pro a 49 € acrescenta Live Finder, Order Planner, Price Compare e a API. Não há plano grátis ilimitado."],
+     `O Starter começa com um teste gratuito de 7 dias: cartão necessário, 0 € hoje, cancela antes do dia 7 e não pagas nada. Não há plano gratuito para verificar artigos, mas três modelos verificam-se grátis em /tools sem conta: ${freeSampleList("pt")}. Os volumes semanais por marca continuam públicos em /data. Os outros BUY, WATCH ou SKIP ao nível do artigo precisam do Starter a 19 € por mês. Pro a 49 € acrescenta Live Finder, Order Planner, Price Compare e a API.`],
     ["Como cancelo?",
      "Na sua página de conta, abra o portal de faturação — aí pode cancelar, mudar de plano ou atualizar o cartão. O cancelamento interrompe a próxima renovação; mantém o acesso até ao fim do período atual."],
     ["Como redefino a minha palavra-passe?",

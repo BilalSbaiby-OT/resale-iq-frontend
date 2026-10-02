@@ -13,7 +13,7 @@ export const metadata: Metadata = fitMetadata({
   openGraph: {
     title: "Resale Buy-Below Intelligence — ResaleIQ",
     description:
-      "Stop guessing what to pay. 231 tracked brand-category pairs, real 30-day sold data, buy-below prices built from actual departure averages.",
+      "Know what to pay before you buy. 231 tracked brand-category pairs, real 30-day sold data, buy-below prices built from actual departure averages.",
     url: "https://resaleiq.dev/buy",
   },
 })
@@ -145,7 +145,7 @@ export default function BuyHubPage() {
             href="/tools"
             style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 24px", borderRadius: 9, textDecoration: "none" }}
           >
-            Check an item free →
+            Check an item →
           </Link>
         </div>
 

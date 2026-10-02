@@ -68,7 +68,7 @@ export default function ResetPasswordPage() {
         // with no guided path to a first verdict (same gap C231 fixed for
         // email-verify). Fire-and-forget — any error falls back gracefully
         // (writeFirstCheckSeed swallows storage exceptions; fetchFirstCheckQuery
-        // returns FREE_MODELS[0]).
+        // returns FREE_SAMPLE_DEMO).
         fetchFirstCheckQuery().then(q => writeFirstCheckSeed(q)).catch(() => {})
         router.replace("/dashboard")
         return

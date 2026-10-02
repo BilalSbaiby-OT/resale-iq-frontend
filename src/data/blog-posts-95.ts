@@ -34,7 +34,7 @@ export const POSTS_95: BlogPost[] = [
     definedTerm: {
       name: "Tommy Hilfiger jacket departure average",
       description:
-        "The Tommy Hilfiger jacket departure figure is the count of confirmed Tommy Hilfiger jacket sales tracked on EU Vinted. As of 22 September 2026, Tommy Hilfiger jackets show 129 departures in the last 30 days (brand-level, across all tracked TH jacket listings on EU Vinted) at a €36.10 average exit price. 'Departure' means a tracked listing left the shelf as a confirmed sale. The Tommy Hilfiger brand total is 991 departures across all categories. EU Vinted jacket buyers are willing to pay €40–80 for a clean TH or Tommy Jeans piece in good-to-very-good condition because retail prices run €120–200. ResaleIQ does not yet publish a per-model buy-below for Tommy Hilfiger — use the free checker on the specific item.",
+        "The Tommy Hilfiger jacket departure figure is the count of confirmed Tommy Hilfiger jacket sales tracked on EU Vinted. As of 22 September 2026, Tommy Hilfiger jackets show 129 departures in the last 30 days (brand-level, across all tracked TH jacket listings on EU Vinted) at a €36.10 average exit price. 'Departure' means a tracked listing left the shelf as a confirmed sale. The Tommy Hilfiger brand total is 991 departures across all categories. EU Vinted jacket buyers are willing to pay €40–80 for a clean TH or Tommy Jeans piece in good-to-very-good condition because retail prices run €120–200. ResaleIQ does not yet publish a per-model buy-below for Tommy Hilfiger — run the specific item through the checker.",
     },
 
     sections: [

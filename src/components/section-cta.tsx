@@ -4,6 +4,7 @@ import Link from "next/link"
 import type { SectionCtaContent } from "@/lib/section-cta"
 import type { Locale } from "@/lib/i18n"
 import { trackEvent } from "@/lib/analytics"
+import { isFreeSample } from "@/lib/free-samples"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
 /**
@@ -78,7 +79,10 @@ export function SectionCta({
         const href = preflightQuery
           ? `${cta.secondaryHref.replace(/([?&])q=[^&]*/g, "").replace(/\?$/, "")}${cta.secondaryHref.includes("?") ? "&" : "?"}q=${encodeURIComponent(preflightQuery)}&src=section_cta_free_matched`
           : cta.secondaryHref
-        const label = preflightQuery ? `Check ${preflightQuery} free →` : cta.secondaryLabel
+        // "free" only when the preflight item really is a free sample (src/lib/free-samples.ts).
+        const label = preflightQuery
+          ? `Check ${preflightQuery}${isFreeSample(preflightQuery) ? " free" : ""} →`
+          : cta.secondaryLabel
         return (
           <div style={{ marginTop: 12 }}>
             <Link

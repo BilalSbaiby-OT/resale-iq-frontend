@@ -26,7 +26,7 @@ async function generateMetadataRaw(): Promise<Metadata> {
   const title = `What Sells Best on Vinted by Category — ${CATEGORIES.length} Ranked`
   const description =
     `The ${CATEGORIES.length} categories we track, ranked by weekly watched departures on Vinted ` +
-    `across ES/FR/DE/IT/PT. Demand is free; a one-item check (BUY/WATCH/SKIP + buy-below) is free on /tools.`
+    `across ES/FR/DE/IT/PT. Category demand is public; model-level BUY/WATCH/SKIP with a buy-below starts at Starter.`
   return {
     title,
     description,

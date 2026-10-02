@@ -12,6 +12,7 @@ import {
 } from "@/components/auth/auth-form-parts"
 import { fetchTopBrandRows, fetchBrandRowForQuery, type SnapshotBrandRow } from "@/lib/market-snapshot"
 import { queryCoverageKind } from "@/lib/query-coverage"
+import { isFreeSample } from "@/lib/free-samples"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { ActivationSteps } from "@/components/auth/activation-steps"
 import { useT } from "@/components/i18n/locale-provider"
@@ -183,12 +184,7 @@ export function CheckEmailContent({ locale }: { locale: Locale }) {
   // paywall, not a result. The progress step still names their intent (promise kept);
   // the preview proves the product via the free demo. We do NOT use intentQuery
   // as the href here.
-  // 2026-09-29: New Balance 530 replaced with Fred Perry Polo — NB530 verdicts
-  // SKIP live with buy_below=null. Keep in sync with FREE_MODELS.
-  const FREE_SAMPLE_QUERIES = ["Fred Perry Polo", "Adidas Samba", "Nike Air Force 1"]
-  const intentIsSample = intentQuery
-    ? FREE_SAMPLE_QUERIES.some(s => s.toLowerCase() === intentQuery.trim().toLowerCase())
-    : false
+  const intentIsSample = isFreeSample(intentQuery)
   // C(tony)CheckEmailPreviewSrc: add src= tracking so funnel analytics can
   // distinguish preview clicks at /check-email from organic /verdict visits.
   // Previously unmeasured — the CARRIED experiment metric needed this tag.

@@ -97,7 +97,7 @@ export const POSTS_112: BlogPost[] = [
       },
       {
         q: "How do I find the sold price for my item on Vinted?",
-        a: "Search your brand, size and garment type on Vinted, filter by 'Sold', limit to the last 30 days, and take the median of the last 5–10 confirmed sales. That median is your benchmark. ResaleIQ gives you the same signal for free — the average exit price and watched departure count for any item, from 5.4M+ tracked listings across 5 EU markets.",
+        a: "Search your brand, size and garment type on Vinted, filter by 'Sold', limit to the last 30 days, and take the median of the last 5–10 confirmed sales. That median is your benchmark. ResaleIQ gives you the same signal without the manual work — the average exit price and watched departure count for each tracked model, from 5.4M+ tracked listings across 5 EU markets.",
       },
       {
         q: "When should I drop my Vinted price?",

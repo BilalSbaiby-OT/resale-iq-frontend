@@ -13,6 +13,7 @@ import { ModelChips } from "@/components/seo/model-chips"
 
 import { withFittedMetadata } from "@/lib/meta-fit"
 import { isRedirectedPath } from "@/lib/sitemap-redirects"
+import { freeSampleList } from "@/lib/free-samples"
 // The hub for the /flip estate. Until this page existed, /flip returned 404 and
 // the 26 brand pages + 130 brand x category pages had no index anywhere on the
 // site — their only discovery path was sitemap.xml plus a partial list on /data.
@@ -254,7 +255,7 @@ export default async function FlipHubPage() {
           Named models — know what sells, then decide whether to buy
         </h2>
         <p style={{ fontSize: 14, color: "#a9b6d0", lineHeight: 1.7, marginBottom: 12 }}>
-          Brand averages mix every silhouette. These pages name the model. Adidas Samba, Nike Air Force 1 and Fred Perry Polo are a free sample. Other models are Starter at €19 a month — not a free check. Definitions:{" "}
+          Brand averages mix every silhouette. These pages name the model. {freeSampleList("en")} are free samples. Other models are Starter at €19 a month — not a free check. Definitions:{" "}
           <Link href="/glossary" style={{ color: "#34C759", textDecoration: "none" }}>glossary</Link>.
         </p>
         <ModelChips models={SEO_MODELS} showFreeMark />

@@ -152,12 +152,6 @@ const ALLOW = [
   // render — coupling surfaces that are intentionally separate. The interface is
   // a local type contract, not business logic at drift risk. Pure structural type.
   "interface InlineVerdict {",
-  // FREE_SAMPLES constant (AF1/Samba/NB530 as {label,q}[]) repeats in
-  // BlogIndexFreeChecker and PricingTryInput. The three public sample queries
-  // are a product constant (config), not logic — a shared constant would be correct
-  // but the three values are stable and checked independently per surface. Same
-  // reason as InlineVerdict above: parallel independent surfaces, pure config.
-  "]",
   // Email input inline style block (background:#0d1117, color:#eef1f7,
   // border:1.5px solid rgba(52,199,89,.35)) repeats across BlogIndexFreeChecker,
   // PricingTryInput, VerdictUpsellCta, and HardPaywallCard. It is the brand's

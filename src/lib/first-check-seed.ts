@@ -6,7 +6,7 @@
  * buy-list row "Fred Perry" / "Fred Perry Polo" becomes the query
  * "Fred Perry Fred Perry Polo" — not a public sample, so the click can
  * miss the free verdict. This module picks a query that is both on the
- * live public buy-list and in FREE_MODELS (always a priced verdict),
+ * live public buy-list and in FREE_SAMPLES (always a priced verdict),
  * and stashes it for the dashboard one-button seed.
  *
  * Brand-level snapshot volume is not used. A hot brand must not choose
@@ -14,7 +14,7 @@
  */
 
 import { itemDisplayName } from "./item-display-name.ts"
-import { FREE_MODELS } from "./working-models.ts"
+import { FREE_SAMPLES, FREE_SAMPLE_DEMO } from "./free-samples.ts"
 
 export const FIRST_CHECK_SEED_KEY = "riq_first_check_seed"
 export const SIGNUP_PENDING_KEY = "riq_signup_pending"
@@ -26,15 +26,15 @@ export type BuyListSeedRow = {
 }
 
 const FREE_SET = new Map<string, string>(
-  FREE_MODELS.map(q => [q.toLowerCase(), q]),
+  FREE_SAMPLES.map(q => [q.toLowerCase(), q]),
 )
 
 /**
  * First unlocked buy-list row whose display name is a public free sample.
  * Locked rows are skipped — they have no price on the public list.
- * Anything not in FREE_MODELS is skipped (Stone Island Hoodie is the
+ * Anything not in FREE_SAMPLES is skipped (Stone Island Hoodie is the
  * paywall probe; it must not be a new account's only guaranteed answer).
- * No match → FREE_MODELS[0], which is itself a live priced sample.
+ * No match → FREE_SAMPLE_DEMO, which is itself a live priced sample.
  */
 export function pickFirstCheckQuery(items: readonly BuyListSeedRow[]): string {
   for (const row of items) {
@@ -43,7 +43,7 @@ export function pickFirstCheckQuery(items: readonly BuyListSeedRow[]): string {
     const canonical = FREE_SET.get(name.toLowerCase())
     if (canonical) return canonical
   }
-  return FREE_MODELS[0]
+  return FREE_SAMPLE_DEMO
 }
 
 export async function fetchFirstCheckQuery(
@@ -54,14 +54,14 @@ export async function fetchFirstCheckQuery(
       ? AbortSignal.timeout(2500)
       : undefined
     const r = await fetchImpl("/api/public/buy-list?limit=8", { signal })
-    if (!r.ok) return FREE_MODELS[0]
+    if (!r.ok) return FREE_SAMPLE_DEMO
     const d = await r.json() as { items?: BuyListSeedRow[]; results?: BuyListSeedRow[] }
     const items = d.items ?? d.results ?? []
     return pickFirstCheckQuery(items)
   } catch {
-    // why: a snapshot miss must not block account creation. FREE_MODELS[0]
+    // why: a snapshot miss must not block account creation. FREE_SAMPLE_DEMO
     // is the documented priced public sample, not an invented query.
-    return FREE_MODELS[0]
+    return FREE_SAMPLE_DEMO
   }
 }
 

@@ -14,6 +14,7 @@ import { ModelChips } from "@/components/seo/model-chips"
 
 import { fitMetadata } from "@/lib/meta-fit"
 import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
+import { freeSampleList } from "@/lib/free-samples"
 const BASE = "https://resaleiq.dev"
 
 export const metadata: Metadata = fitMetadata(
@@ -78,7 +79,7 @@ export default function GlossaryHubPage() {
         Check a named model
       </h2>
       <p style={{ color: "#8b99b8", fontSize: 14.5, lineHeight: 1.65, marginBottom: 12 }}>
-        Brand averages are not a buy-below. These pages name the model. Free sample: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Others are Starter €19.
+        Brand averages are not a buy-below. These pages name the model. Free samples: {freeSampleList("en")}. Others are Starter €19, with a 7-day free trial.
       </p>
       <ModelChips models={SEO_MODELS} showFreeMark />
 

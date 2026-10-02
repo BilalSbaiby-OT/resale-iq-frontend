@@ -44,7 +44,9 @@ test("pricing mid-CTA keeps the paid door and adds a free try-first door", () =>
   // the primary door is still the paid /pricing path, and no CTA may route to
   // the signup wall.
   assert.match(cta.secondaryHref ?? "", /^\/tools\?/)
-  assert.match(cta.secondaryLabel ?? "", /free/i)
+  // 2026-10-02: the label must not promise a free check of an arbitrary item.
+  assert.doesNotMatch(cta.secondaryLabel ?? "", /free/i)
+  assert.match(cta.secondaryLabel ?? "", /check/i)
   assert.doesNotMatch(cta.secondaryHref ?? "", /register/)
   assert.doesNotMatch(cta.href, /register/)
   assert.equal(
@@ -500,8 +502,9 @@ test("how-to-find-items-to-flip-on-vinted ships BODY-FLIPS-002 after demand and 
   assert.match(post, /seoTitle: "How to Find Items to Flip on Vinted \(2026\)"/)
   assert.match(
     post,
-    /Only buy what the data says is moving/,
+    /Which Vinted items to flip: Stone Island hoodies had 42 watched departures in 30 days at a EUR52 average\. Start from demand, then set your max buy price\./,
   )
+  assert.doesNotMatch(post, /Check any item free|Free check/)
   assert.match(post, /Demand is the other half/)
   assert.match(post, /A buy-below price protects the margin on paper/)
   assert.match(post, /Stone Island Hoodies recorded 29 watched departures at €52/)

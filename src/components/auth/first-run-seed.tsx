@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { clearFirstCheckSeed, readFirstCheckSeed } from "@/lib/first-check-seed"
-import { FREE_MODELS } from "@/lib/working-models"
+import { FREE_SAMPLES } from "@/lib/free-samples"
 import { useT } from "@/components/i18n/locale-provider"
 
 /**
@@ -19,7 +19,7 @@ import { useT } from "@/components/i18n/locale-provider"
  *
  * Founder rule: we still landed on /dashboard. This does not redirect.
  * The query was chosen from the live public buy-list at signup and is
- * always a FREE_MODELS string, so the click returns a priced verdict.
+ * always a FREE_SAMPLES string, so the click returns a priced verdict.
  * Dashboard visitor count before this mount: 15 unique humans / 7d.
  *
  * C(tony)SeedDismissedFallback: when the user dismisses the seed with
@@ -31,7 +31,7 @@ import { useT } from "@/components/i18n/locale-provider"
  *     "No blank canvas. Templates ARE the empty state."
  *   PLG Handbook (https://plghandbook.com/empty-state-design):
  *     "Guided empty states increase activation by 30–40%."
- * Fix: after dismiss, show 3 FREE_MODELS chips so the user still has a
+ * Fix: after dismiss, show 3 FREE_SAMPLES chips so the user still has a
  * clear, frictionless path to their first real free verdict. Chips link
  * with src=signup_seed_dismissed for funnel measurement.
  */
@@ -58,7 +58,7 @@ export function FirstRunSeed() {
 
   // C(tony)SeedDismissedFallback: Notion template-gallery pattern.
   // Never leave the user staring at nothing after a dismissal.
-  // 3 chips = 3 guaranteed-free verdicts (all in FREE_MODELS).
+  // 3 chips = 3 guaranteed-free verdicts (all in FREE_SAMPLES).
   // Clicking a chip navigates to /verdict — the component unmounts and
   // dismissed state is gone, so /dashboard re-shows cleanly on return.
   // The × dismisses the fallback row for this session.
@@ -80,8 +80,8 @@ export function FirstRunSeed() {
             color: "var(--color-graphite-muted)",
             whiteSpace: "nowrap",
           }}
-        >{tx("Try a free check:")}</span>
-        {FREE_MODELS.map((m) => (
+        >{tx("Try a free sample:")}</span>
+        {FREE_SAMPLES.map((m) => (
           <Link
             key={m}
             href={`/verdict?q=${encodeURIComponent(m)}&src=signup_seed_dismissed`}
@@ -102,7 +102,7 @@ export function FirstRunSeed() {
         ))}
         <button
           type="button"
-          aria-label={tx("Dismiss free check suggestions")}
+          aria-label={tx("Dismiss free sample suggestions")}
           onClick={() => setDismissed(false)}
           style={{
             background: "none",

@@ -20,6 +20,7 @@
  *
  * No invented hit rates.
  */
+import { isFreeSample } from "./free-samples.ts"
 import type { SectionCtaContent } from "./section-cta"
 
 export function pricingUtmHref(campaign: string, content: string): string {
@@ -91,7 +92,10 @@ export function pricingMidCta(campaign: string): SectionCtaContent {
     href: pricingMidCtaHref(campaign),
     // Try-first door. Was "/data" (a soft brand-volume cite, not the product).
     // One full verdict is genuinely free, so this is a real offer.
-    secondaryLabel: "Or check one item free →",
+    // 2026-10-02: no "free" here. Only the three free samples are free (src/lib/free-samples.ts);
+    // the reader's own item starts with Starter's 7-day free trial. utm_content below is a
+    // tracking key and keeps its historical name so the funnel series stays continuous.
+    secondaryLabel: "Or check an item →",
     secondaryHref: `/tools?utm_source=organic&utm_medium=blog&utm_campaign=${campaign}&utm_content=mid_cta_free`,
   }
 }
@@ -159,5 +163,7 @@ export function footerAnonHrefForPost(
 
 /** Label paired with footerAnonHrefForPost. */
 export function footerAnonLabelForPost(preflightQuery: string | undefined): string {
-  return preflightQuery ? "Try it free →" : "Get the numbers"
+  if (!preflightQuery) return "Get the numbers"
+  // "free" only when the preflight item really is one of the free samples.
+  return isFreeSample(preflightQuery) ? "Try it free →" : "Check it →"
 }

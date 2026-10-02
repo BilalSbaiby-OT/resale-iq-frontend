@@ -28,15 +28,12 @@ import { isPaidPlan } from "@/lib/entitlement"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { AW26_REPORT_URL } from "@/lib/hard-paywall"
 import { FreeChecker } from "@/components/tools/free-checker"
+import { FREE_SAMPLES, FREE_SAMPLE_CHIPS, isFreeSample } from "@/lib/free-samples"
 
-// The three public demo queries that bypass the paywall by design.
-// After the visitor sees one of these, they've experienced the product —
-// show a bridge to the paid plan so the realisation doesn't drift away.
-// H72 CRO. Revenue 2026-09-23.
-// 2026-09-29: New Balance 530 replaced with Fred Perry Polo — NB530 verdicts
-// SKIP live with buy_below=null (see src/lib/working-models.ts). Keep in sync
-// with FREE_MODELS and api/routes.py _PUBLIC_SAMPLE_QUERIES.
-const FREE_SAMPLE_QUERIES = ["Nike Air Force 1", "Adidas Samba", "Fred Perry Polo"]
+// The public demo queries that bypass the paywall by design live in ONE
+// place, src/lib/free-samples.ts (FREE_SAMPLES). After the visitor sees one
+// of them they've experienced the product — show a bridge to the paid plan
+// so the realisation doesn't drift away. H72 CRO. Revenue 2026-09-23.
 
 // TIERS (lib/pricing.ts) stays the structural + English source of truth —
 // paywall.tsx (the authenticated, post-quota-depletion upsell) still reads
@@ -295,7 +292,7 @@ export function PricingSection({
       if (itemParam?.trim()) return itemParam.trim()
       // Stable sample, not Math.random: server and client must render the same
       // chip or hydration remounts the section and drops the tier click.
-      return FREE_SAMPLE_QUERIES[0] ?? null
+      return FREE_SAMPLES[0] ?? null
     }
     return null
   })
@@ -967,7 +964,7 @@ export function PricingSection({
             gap: 8,
           }}>
             <span style={{ fontSize: 11, fontWeight: 700, color: "var(--color-text-muted)", letterSpacing: "0.5px", textTransform: "uppercase" }}>What the verdict shows</span>
-            <span style={{ fontSize: 11, fontWeight: 600, color: "var(--color-text-muted)", textAlign: "center", letterSpacing: "0.3px" }}>Free demo</span>
+            <span style={{ fontSize: 11, fontWeight: 600, color: "var(--color-text-muted)", textAlign: "center", letterSpacing: "0.3px" }}>Free samples</span>
             <span style={{ fontSize: 11, fontWeight: 700, color: "#30D158", textAlign: "center", letterSpacing: "0.3px" }}>Starter — any item</span>
           </div>
           {/* Data rows
@@ -979,8 +976,8 @@ export function PricingSection({
               upgrade, not a correction of a trust-breaking discrepancy.
               CRO #7 (trust) + #1 (clarity). Revenue 2026-09-28. */}
           {[
-            { label: "BUY / WATCH / SKIP verdict",  free: "3 preset items", paid: "✓ any item" },
-            { label: "Buy-below price",              free: "demos only",     paid: "✓ any item" },
+            { label: "BUY / WATCH / SKIP verdict",  free: `${FREE_SAMPLES.length} samples`, paid: "✓ any item" },
+            { label: "Buy-below price",              free: "samples only",   paid: "✓ any item" },
             { label: "Sell-through rate",            free: "—",              paid: "✓" },
             { label: "Demand direction",             free: "—",              paid: "✓" },
             { label: "Your own brand + item",        free: "—",              paid: "✓ unlimited" },
@@ -1040,12 +1037,8 @@ export function PricingSection({
               they recognise, not a vague demo). Revenue 2026-09-23. */}
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-              <span style={{ fontSize: 10.5, fontWeight: 600, color: "var(--color-text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Free demo</span>
-              {[
-                { label: "Nike Air Force 1", q: "Nike Air Force 1" },
-                { label: "Adidas Samba", q: "Adidas Samba" },
-                { label: "Fred Perry Polo", q: "Fred Perry Polo" },
-              ].map(({ label, q }) => (
+              <span style={{ fontSize: 10.5, fontWeight: 600, color: "var(--color-text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Free samples</span>
+              {FREE_SAMPLE_CHIPS.map(({ label, q }) => (
                 <button
                   key={q}
                   type="button"
@@ -1116,7 +1109,7 @@ export function PricingSection({
                   and puts the checkout button at the exact moment of highest intent.
                   CRO #10 (CTA commitment ladder) + #12 (conversion momentum).
                   Revenue 2026-09-23. */}
-              {FREE_SAMPLE_QUERIES.map(q => q.toLowerCase()).includes(inlineQuery.toLowerCase()) && (
+              {isFreeSample(inlineQuery) && (
                 <div
                   data-testid="riq-sample-bridge"
                   style={{
@@ -1136,10 +1129,10 @@ export function PricingSection({
                       #10 (CTA discipline: solution-aware → named item CTA).
                       Revenue 2026-09-28. */}
                   <p style={{ fontSize: 13.5, fontWeight: 700, color: "var(--color-text-primary)", margin: "0 0 4px", lineHeight: 1.4 }}>
-                    {inlineQuery} is a public sample. Every other item you check is behind the paywall.
+                    {inlineQuery} is a free sample. Your own models start with Starter.
                   </p>
                   <p style={{ fontSize: 12.5, color: "var(--color-text-secondary)", margin: "0 0 12px", lineHeight: 1.5 }}>
-                    You just saw exactly what a subscriber gets. Don&apos;t buy anything without this — €19/mo, cancel anytime.
+                    Starter runs the same BUY / WATCH / SKIP and buy-below price on every model we track, not just {FREE_SAMPLES.length}. 7-day free trial, card required, €0 today, then €19/mo. Cancel anytime.
                   </p>
                   <GuestCheckoutButton locale={locale} src="pricing_sample_bridge" query={inlineQuery ?? undefined} />
                 </div>
@@ -1300,7 +1293,7 @@ export function PricingSection({
           }}
         >
           <p style={{ fontSize: 17, fontWeight: 700, color: "var(--color-text-primary)", margin: "0 0 8px", letterSpacing: "-0.2px" }}>
-            Ready to stop guessing?
+            Know the most to pay before your next buy.
           </p>
           <p style={{ fontSize: 14, color: "var(--color-text-secondary)", margin: "0 0 20px", lineHeight: 1.55 }}>
             One search. BUY, WATCH or SKIP — and the most you can pay. Starter €19/mo, instant access, cancel anytime.

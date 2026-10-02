@@ -37,11 +37,10 @@ import { canonicalPath } from "@/lib/locale-routes"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { CustomQueryInput } from "@/components/ui/custom-query-input"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
+import { FREE_SAMPLES } from "@/lib/free-samples"
 
-// 2026-09-29: New Balance 530 replaced with Fred Perry Polo (NB530 verdicts
-// SKIP live with buy_below=null — see src/lib/working-models.ts for the
-// measurement). Keep in sync with FREE_MODELS / api/routes.py _PUBLIC_SAMPLE_QUERIES.
-const SAMPLES = ["Adidas Samba", "Nike Air Force 1", "Fred Perry Polo"] as const
+// The chips ARE the free samples: one list, src/lib/free-samples.ts.
+const SAMPLES = FREE_SAMPLES
 
 type VerdictType = "BUY" | "WATCH" | "SKIP" | "STRONG BUY"
 
@@ -300,6 +299,10 @@ function HeroInlineVerdictCard({
           already has, and buries "check YOUR item" under the ask. Samples are exempt
           from the wall (api/routes.py _is_public_sample_query); the first non-sample
           check is still free (_claim_first_free_verdict). HARD_PAYWALL stays on.
+          2026-10-02 founder decision: the free-item-on-any-other-model promise is
+          OUT (no free tier; Starter = 7-day free trial, card required, EUR 0
+          today). The line now says what the visitor just got and what unlocks
+          next, nothing more.
           ORDER: line → check your item (prove coverage) → checkout for every item.
           Surface: homepage 52/7d. CRO #1 #4 #10 #12.
           Revenue 2026-09-29. H179. */}
@@ -307,7 +310,7 @@ function HeroInlineVerdictCard({
         data-testid="riq-hero-sample-line"
         style={{ fontSize: 12, color: "var(--color-text-body)", margin: "0 0 8px", lineHeight: 1.5 }}
       >
-        You already have this sample&apos;s number. Your first check on any other item is free. After that, Starter is €19/mo.
+        That is the sample&apos;s number. For the model you are about to buy, Starter runs the same check: 7-day free trial, card required, €0 today, then €19/mo.
       </p>
 
       <CustomQueryInput
@@ -423,7 +426,7 @@ export function HeroFreeChips({ locale, buyListPreview }: { locale: Locale; buyL
         }}
       >
         <span style={{ fontSize: 12, color: "var(--color-text-dim)", whiteSpace: "nowrap" }}>
-          Try free:
+          Free samples:
         </span>
         {SAMPLES.map((q) => (
           <button
@@ -458,7 +461,7 @@ export function HeroFreeChips({ locale, buyListPreview }: { locale: Locale; buyL
           lineHeight: 1.45,
         }}
       >
-        These 3 stay free, no account. Any other item: first check free, then Starter €19/mo.
+        {SAMPLES.length} free samples, no account. Any other model: Starter, 7-day free trial (card required, €0 today), then €19/mo.
       </p>
 
       {/* Inline verdict — appears below chips when a chip is clicked */}

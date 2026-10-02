@@ -22,10 +22,10 @@ import {
   liveAnswerLead,
   isUsableVerdict,
   fmtBuyBelow,
-  FREE_CHECK_QUERIES,
   brandHasCategory,
 } from "@/lib/seo-models"
 import { MODEL_MONEY_HREF } from "@/lib/money-cta"
+import { freeSampleList } from "@/lib/free-samples"
 
 import { withFittedMetadata } from "@/lib/meta-fit"
 import { RelatedLinks } from "@/components/seo/related-links"
@@ -175,7 +175,7 @@ export default async function ModelFlipPage(
             </span>
           </div>
           <p style={{ color: "#8b99b8", fontSize: 14, lineHeight: 1.6, marginBottom: 14 }}>
-            The free sample is {FREE_CHECK_QUERIES.join(", ")}. {m.query} unlocks with Starter at €19 a month:
+            The free samples are {freeSampleList("en")}. {m.query} unlocks with Starter at €19 a month:
             the verdict, the buy-below, and how many watched departures sit behind it. Weekly {m.brand} volumes
             stay public.
           </p>

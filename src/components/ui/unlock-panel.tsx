@@ -136,7 +136,7 @@ export function UnlockPanel({
       <Body>{tx("That is this month's free allowance — it refills next calendar month. You have now seen the real numbers on {0} items. If they held up, unlimited access is usually cheaper than one item bought wrong.", [limit])}</Body>
       <div className="mb-4 rounded-lg border border-[#1c2333] bg-[#12151d] px-4 py-3">
         <div className="text-[12.5px] leading-5 text-[#a9b6d0]">
-          <span className="font-semibold text-[#eef1f7]">{tx("Starter is €19/month.")}</span>{" "}{tx("Unlimited verdicts, every product signal unblurred, brand rankings, watchlist and portfolio P&L. One item you correctly skip usually covers it.")}</div>
+          <span className="font-semibold text-[#eef1f7]">{tx("Starter is €19/month.")}</span>{" "}{tx("Unlimited verdicts, every product signal unblurred, brand rankings, watchlist and portfolio P&L.")}</div>
       </div>
       <Row>
         <Primary href="/account">{tx("See Starter — €19/mo")}</Primary>

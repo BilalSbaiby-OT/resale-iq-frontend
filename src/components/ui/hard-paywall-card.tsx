@@ -12,7 +12,7 @@ import { useGuestCheckout } from "@/hooks/use-guest-checkout"
 import { trackEvent } from "@/lib/analytics"
 import { Aw26ReportCta } from "@/components/ui/aw26-report-cta"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
-import { FREE_MODELS } from "@/lib/working-models"
+import { FREE_SAMPLES } from "@/lib/free-samples"
 import { firstChargeDate, TRIAL_DAYS } from "@/lib/trial-cta"
 import { useT } from "@/components/i18n/locale-provider"
 
@@ -311,7 +311,7 @@ export function HardPaywallCard({
 
       {/* C(tony)PaywallFreeChips: free-sample taster chips below all paid CTAs.
           A user who hits the paywall and closes the tab without SEEING the product
-          work is a permanent loss. FREE_MODELS (Fred Perry Polo / AF1 / Samba) bypass
+          work is a permanent loss. FREE_SAMPLES (Fred Perry Polo / AF1 / Samba) bypass
           the wall entirely (_PUBLIC_SAMPLE_QUERIES in api/routes.py). Showing them here
           gives the user a "try before you buy" escape hatch at the exact moment of
           maximum doubt — they've typed their item, hit a wall, and need to know the
@@ -323,7 +323,7 @@ export function HardPaywallCard({
       <div style={{ marginBottom: 14 }}>
         <p style={{ fontSize: 12, color: "#5b6b8c", marginBottom: 8 }}>{tx("Or see the product free — no account needed:")}</p>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          {FREE_MODELS.slice(0, 3).map(model => (
+          {FREE_SAMPLES.slice(0, 3).map(model => (
             <Link
               key={model}
               href={`/verdict?q=${encodeURIComponent(model)}`}

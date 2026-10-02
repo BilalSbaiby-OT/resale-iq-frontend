@@ -110,12 +110,12 @@ export default async function BuyBrandCategoryPage({
                 ? `Yes — the demand signal for ${brand.brand} ${cat.category} is ${cat.signal} based on sell-through rate, ` +
                   `listing saturation and departure momentum from real Vinted data. ` +
                   `With ${fmtCountBuy(cat.sold_30d)} departures in the last 30 days, the category shows consistent demand. ` +
-                  `Use the free model checker to confirm the specific item you are considering before buying.`
+                  `Check the specific item you are considering on /tools before buying.`
                 : cat.signal === "AVOID"
                 ? `With care. The demand signal is ${cat.signal} — the category sees ${fmtCountBuy(cat.sold_30d)} departures per month but the sell-through rate or saturation level suggests caution. ` +
                   `Check specific models rather than buying on category-level data alone.`
                 : `${brand.brand} ${cat.category} has ${fmtCountBuy(cat.sold_30d)} departures in the last 30 days. ` +
-                  `Whether it is worth buying depends on the specific model, condition and the price. Use the free checker below.`,
+                  `Whether it is worth buying depends on the specific model, condition and the price. Check the exact model below.`,
           },
         },
       ],
@@ -260,7 +260,7 @@ export default async function BuyBrandCategoryPage({
           </div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "0 0 16px" }}>
             Category buy-below gets you on the right shelf. Model-level check tells you whether to pull
-            the trigger on <em>this</em> exact item. First check is free — no account required.
+            the trigger on <em>this</em> exact item. Starter: 7-day free trial, card required, €0 today.
           </p>
           <Link
             href={`/tools?q=${encodeURIComponent(brand.brand + " " + cat.category)}&src=buy-cat`}
@@ -275,7 +275,7 @@ export default async function BuyBrandCategoryPage({
               textDecoration: "none",
             }}
           >
-            Free check: {brand.brand} {cat.category} →
+            Check a {brand.brand} {cat.category} model →
           </Link>
         </div>
 
@@ -299,7 +299,7 @@ export default async function BuyBrandCategoryPage({
             → How these numbers are calculated
           </Link>
           <Link href="/tools" style={{ color: "#8fa3c4", fontSize: 14, textDecoration: "none" }}>
-            → Check any item free
+            → Check the exact model on /tools
           </Link>
         </div>
 

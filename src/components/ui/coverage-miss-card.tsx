@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { copy, type Locale } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
-import { FREE_MODELS } from "@/lib/working-models"
+import { FREE_SAMPLES } from "@/lib/free-samples"
 import { ModelChips } from "@/components/tools/model-chips"
 
 /**
@@ -12,8 +12,8 @@ import { ModelChips } from "@/components/tools/model-chips"
  * catalogue, or when the API names unknown/untracked.
  *
  * C182: chips come from /api/public/buy-list (live top buys) rather than
- * the static FREE_MODELS sneaker list. A Supreme visitor now sees what
- * actually sells today, not four trainer names. Falls back to FREE_MODELS
+ * the static FREE_SAMPLES sneaker list. A Supreme visitor now sees what
+ * actually sells today, not four trainer names. Falls back to FREE_SAMPLES
  * if the fetch fails or returns nothing.
  */
 export function CoverageMissCard({
@@ -28,7 +28,7 @@ export function CoverageMissCard({
   disabled?: boolean
 }) {
   const t = copy[locale].checker
-  const [examples, setExamples] = useState<readonly string[]>(FREE_MODELS)
+  const [examples, setExamples] = useState<readonly string[]>(FREE_SAMPLES)
 
   useEffect(() => {
     let cancelled = false

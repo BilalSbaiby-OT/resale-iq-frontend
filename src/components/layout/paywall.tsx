@@ -122,15 +122,13 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
           <Lock size={13} /> {pro ? tx("Order Planner & Compare are Pro features") : tx("Upgrade for the full dashboard")}
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 800, letterSpacing: "-0.6px" }}>
-          {pro ? tx("Source at volume. Track five markets, search 26.") : tx("The data that pays for itself on your first flip.")}
+          {pro ? tx("Source at volume. Track five markets, search 26.") : tx("The most to pay for a model, before you buy it.")}
         </h1>
         <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>
           {pro
             ? tx("The Order Planner and Price Compare are on Pro — full buy-below intelligence on ES/FR/DE/IT/PT, live asking-price search across 26 markets. Upgrade for the tools that let you source at volume — cancel anytime.")
             : tx(`{0} listings, Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.`, [tracked])}
         </p>
-        {/* The one reframe that collapses price resistance. */}
-        <p style={{ fontSize: 14, color: "#34C759", fontWeight: 650, marginTop: 12 }}>{tx("One good flip pays for the whole month.")}</p>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16, maxWidth: 940, width: "100%" }}>

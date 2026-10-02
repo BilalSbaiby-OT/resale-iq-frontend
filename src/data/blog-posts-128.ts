@@ -206,7 +206,7 @@ export const POSTS_128: BlogPost[] = [
         p: [
           "High brand-level volume does not mean every category inside that brand is worth buying. Stone Island's 13,900 monthly departures are spread across Hoodies (€53), Other/accessories (€59), Jackets (€127), Shirts (€28) and T-shirts (€25). A €25 Stone Island T-shirt at Stone Island's brand reputation still needs a buy-below under ~€16 to make the math work.",
           "Fred Perry's volume is concentrated in Shirts (~60% of total) averaging €22. Twin Tipped Shirts specifically: 108 dep/30d at €20.80, buy-below €13.83. At that price point, you need a very low acquisition cost — car boot sourcing or bulk buying, not individual eBay buys.",
-          `For the live brand ranking sorted by velocity, see the [free weekly flip ranking](` + ilinkHref("flip") + `). For volume and price: [weekly market data](` + ilinkHref("data") + `). For a specific model's BUY/WATCH/SKIP signal: [check it free on /tools](/tools).`,
+          `For the live brand ranking sorted by velocity, see the [free weekly flip ranking](` + ilinkHref("flip") + `). For volume and price: [weekly market data](` + ilinkHref("data") + `). For a specific model's BUY/WATCH/SKIP signal: [check it on /tools](/tools).`,
         ],
         cta: pricingBodyCta("body_brands_20260922"),
       },
@@ -397,7 +397,7 @@ export const POSTS_128: BlogPost[] = [
         p: [
           "Jackets account for roughly 3,200 of Patagonia's ~12,200 monthly departures at ~€49 avg. The Synchilla and Better Sweater are already clearing — September is the start of their peak window in France and Germany. Retro-X and R1 will follow as October temperatures drop.",
           "The Torrentshell (94 dep/30d, €97.81 avg, buy-below €65.04) is a rainy-season piece: it runs year-round in Iberia and Germany but peaks in autumn. At an average exit of nearly €100, the buy-below of €65 requires careful sourcing, but the margin potential is the highest in the Patagonia range at correct source prices.",
-          `For the live Patagonia signal and model-level verdict, [check any model free on /tools](/tools). [All brand volumes and rankings →](/data).`,
+          `For the live Patagonia signal and model-level verdict, [check the model on /tools](/tools). [All brand volumes and rankings →](/data).`,
         ],
         cta: pricingBodyCta("body_patagonia_20260922"),
       },

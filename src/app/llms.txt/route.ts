@@ -8,6 +8,7 @@ import { GLOSSARY_TERMS } from "@/lib/glossary-terms"
 import { fillTracked, listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers } from "@/lib/market-numbers"
 import { TEASER_QUERIES, getTeaserVerdict } from "@/lib/teaser-verdict"
+import { FREE_SAMPLES, freeSampleList } from "@/lib/free-samples"
 import {
   CALCULATE_VINTED_PROFIT_NAME,
   CHECK_VINTED_ITEM_NAME,
@@ -49,6 +50,8 @@ import {
 export const dynamic = "force-dynamic"
 
 const BASE = "https://resaleiq.dev"
+// The free samples, from the ONE list (src/lib/free-samples.ts).
+const FREE_SAMPLE_NAMES = freeSampleList("en")
 
 export async function GET() {
   const tracked = await listingsTrackedLabel()
@@ -114,7 +117,7 @@ Questions: ${AFFILIATE_CONTACT}
 - ${BASE}/blog/what-sells-best-on-vinted: What sells best on Vinted right now, ranked by watched departures${weekly ? ` (${weekly.toLocaleString()} in the last 7 days across ${published} published brands)` : ""}.
 - ${BASE}/blog/what-to-buy-to-resell-on-vinted-right-now: Which items to buy to resell right now, with buy-below prices.
 - ${BASE}/blog/ralph-lauren-eu-vinted-price-guide: Ralph Lauren EU Vinted price guide: departure prices and what to pay.
-- ${BASE}/tools: Free item check. Type a Vinted item, get BUY / WATCH / SKIP and a buy-below price (Adidas Samba, Nike Air Force 1 and Fred Perry Polo are free samples).
+- ${BASE}/tools: Item checker. Type a Vinted model, get BUY / WATCH / SKIP and a buy-below price. ${FREE_SAMPLE_NAMES} are free samples with no account; every other model needs Starter (7-day free trial, card required, EUR 0 today).
 - ${BASE}/data: Open weekly Vinted brand volumes and average asking price at departure, from ${tracked} unique listings.
 - ${BASE}/flip: Every tracked brand (${BRANDS.length}) ranked by weekly sales, with brand and brand-by-category pages.
 - ${BASE}/pricing: Starter EUR 19 / month, Pro EUR 49 / month. There is no free-forever tier.
@@ -126,16 +129,14 @@ Questions: ${AFFILIATE_CONTACT}
 Resale IQ publishes a buy-below price and a BUY / WATCH / SKIP call for EU
 Vinted. Tracked markets are ES, FR, DE, IT and PT.
 
-Free sample (no account): Adidas Samba, Nike Air Force 1 and Fred Perry Polo on /tools
-and the matching /flip/{brand}/model/{slug} pages.
-Other models need Starter EUR 19 / month.
+Free samples (no account): ${FREE_SAMPLE_NAMES} on /tools.
+Other models need Starter EUR 19 / month, which starts with a 7-day free trial
+(card required, EUR 0 today).
 
 Key URLs:
 - ${BASE}/
 - ${BASE}/tools
-- ${BASE}/tools?q=Adidas%20Samba
-- ${BASE}/tools?q=Nike%20Air%20Force%201
-- ${BASE}/tools?q=Fred%20Perry%20Polo
+${FREE_SAMPLES.map((q) => `- ${BASE}/tools?q=${encodeURIComponent(q)}`).join("\n")}
 - ${BASE}/tools/vinted-price-checker
 - ${BASE}/tools/vinted-profit-calculator
 - ${BASE}/data

@@ -249,13 +249,13 @@ export default async function BuyCategoryPage({
             Check a specific {lower} item before you buy
           </div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "0 0 16px" }}>
-            Get a BUY / WATCH / SKIP verdict with model-level buy-below, departure momentum and size analysis. First check free.
+            Get a BUY / WATCH / SKIP verdict with model-level buy-below, departure momentum and size analysis. Starter: 7-day free trial, card required, €0 today.
           </p>
           <Link
             href={`/tools?q=${encodeURIComponent(categoryName)}&src=buy-cat-hub`}
             style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}
           >
-            Free item check →
+            Check an item →
           </Link>
         </div>
 

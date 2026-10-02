@@ -81,7 +81,7 @@ export const INTENTS: SearchIntent[] = [
     bullets: [
       { h: "Sell-through rate", p: "The share of the market that sells each week — the metric that decides how fast your capital recycles." },
       { h: "Brand rankings", p: "Which brands are moving right now by weekly sales volume and average price, not by reputation." },
-      { h: "Per-size demand", p: "Sell-through varies enormously by size. We break it down so you never buy a dead size again." },
+      { h: "Per-size demand", p: "Sell-through varies enormously by size. We break it down so you can see which sizes move before you buy." },
     ],
     faq: [
       { q: "What analytics matter for Vinted reselling?", a: "The three that decide profit are sell-through rate (how fast items leave the shelf), average asking price at departure (margin room), and per-size demand (whether your specific stock will move). Volume alone is misleading." },

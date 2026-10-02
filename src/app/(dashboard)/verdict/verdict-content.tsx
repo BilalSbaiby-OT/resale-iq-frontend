@@ -24,7 +24,8 @@ import { navCopy } from "@/lib/nav-copy"
 import { verdictCopy, type VerdictCopy } from "@/lib/verdict-copy"
 import { copy, type Locale } from "@/lib/i18n"
 import { verdictWord } from "@/lib/verdict-words"
-import { WORKING_MODELS, FREE_MODELS } from "@/lib/working-models"
+import { WORKING_MODELS } from "@/lib/working-models"
+import { FREE_SAMPLES } from "@/lib/free-samples"
 import { ModelChips } from "@/components/tools/model-chips"
 import type { HeroVerdict } from "@/lib/hero-verdict"
 import { seedWorthShowing } from "@/lib/seed-verdict"
@@ -309,7 +310,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                     new Intl.ListFormat(locale, { style: "long", type: "conjunction" }).format(result.categories ?? []),
                   )}
                 </div>
-                <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={FREE_MODELS} testId="riq-working-models" />
+                <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={FREE_SAMPLES} testId="riq-working-models" />
                 {result.category_aggregates && result.category_aggregates.length > 0 && (
                   <div className="flex flex-col gap-2 mt-4">
                     {result.category_aggregates.map(a => (
@@ -348,12 +349,12 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                 </div>
                 <div className="p-6">
                   {/*
-                    FREE_MODELS, not WORKING_MODELS: this chip row was offering
+                    FREE_SAMPLES, not WORKING_MODELS: this chip row was offering
                     Levi's 501 and NB 550, which are PAYWALLED. Suggesting
                     tx("try one of these instead") and then walling the suggestion
                     is the worst possible sequence for a first-time visitor.
                   */}
-                  <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={FREE_MODELS} testId="riq-working-models" />
+                  <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={FREE_SAMPLES} testId="riq-working-models" />
                 </div>
               </>
             ) : result.verdict === "OVERSUPPLIED" ? (
@@ -391,7 +392,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                 )}
                 <div className="p-6 text-[13px] text-[#8b99b8]">
                   <p>{result.verdict === "UNKNOWN" ? t.unknownBody : (result.confidence_note || result.message || t.unknownBody)}</p>
-                  <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={FREE_MODELS} testId="riq-working-models" />
+                  <ModelChips onPick={pickModel} disabled={loading} label={t.tryTheseInstead} examples={FREE_SAMPLES} testId="riq-working-models" />
                   <div style={{ marginTop: 10 }}>
                     <Link
                       href={canonicalPath(locale, "/data")}
@@ -412,12 +413,12 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                 }
                 after={
                   <div className="px-6 pb-6 pt-1 border-t border-[rgba(255,255,255,0.07)]">
-                    {/* C(tony)CheckAnotherFreeGuard: use FREE_MODELS for unpaid users so
+                    {/* C(tony)CheckAnotherFreeGuard: use FREE_SAMPLES for unpaid users so
                         tx("Check another") chips after a result don't immediately hit the paywall.
                         WORKING_MODELS (Levi's 501, NB 550) are paywalled — offering them
                         to free users as the next click after AF1 kills the discovery loop.
                         Same guard as the cold empty-state panel at line ~466. */}
-                    <ModelChips onPick={pickModel} disabled={loading} label={t.checkAnother} examples={paidCold ? WORKING_MODELS : FREE_MODELS} testId="riq-check-another" />
+                    <ModelChips onPick={pickModel} disabled={loading} label={t.checkAnother} examples={paidCold ? WORKING_MODELS : FREE_SAMPLES} testId="riq-check-another" />
                   </div>
                 }
               />
@@ -472,7 +473,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
               </div>
             ) : null}
             <p>{!paidCold ? t.empty : null}</p>
-            <ModelChips onPick={pickModel} disabled={loading} label={paidCold ? 'Or start with one of these:' : t.tryTheseInstead} examples={paidCold ? WORKING_MODELS : FREE_MODELS} testId="riq-working-models" />
+            <ModelChips onPick={pickModel} disabled={loading} label={paidCold ? 'Or start with one of these:' : t.tryTheseInstead} examples={paidCold ? WORKING_MODELS : FREE_SAMPLES} testId="riq-working-models" />
             {/* IQ-060: paid sessions (operator/power) already have the checker
                 open. Selling Starter €19 here is the founder-reported lie.
                 Anonymous / free keep the pricing nudge. */}

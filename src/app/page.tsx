@@ -7,6 +7,7 @@ import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { copy } from "@/lib/i18n"
 import { hreflangLanguages } from "@/lib/locale-routes"
 import type { FaqItem } from "@/lib/faq-schema"
+import { freeSampleList } from "@/lib/free-samples"
 
 import type { Metadata } from "next"
 
@@ -17,7 +18,7 @@ const HOME_FAQS: FaqItem[] = [
   {
     q: "What is Resale IQ?",
     a:
-      "Resale IQ is demand intelligence for second-hand clothes. You already have suppliers — we tell you which items and models are worth buying to resell. Adidas Samba, Nike Air Force 1, and Fred Perry Polo can be checked on /tools with no account. Item checks start at €19 a month for every other model. Weekly brand volumes stay public at https://resaleiq.dev/data.",
+      `Resale IQ is demand intelligence for second-hand clothes. You already have suppliers — we tell you which items and models are worth buying to resell. ${freeSampleList("en")} can be checked on /tools with no account. Item checks start at €19 a month for every other model. Weekly brand volumes stay public at https://resaleiq.dev/data.`,
   },
   {
     q: "Which clothes do you cover?",
@@ -32,7 +33,7 @@ const HOME_FAQS: FaqItem[] = [
   {
     q: "What if you don’t track my item?",
     a:
-      "A miss means that model is not in the catalog we watch — not that it has no demand, and not a number waiting behind Starter. Adidas Samba, Nike Air Force 1 and Fred Perry Polo are the free samples. Weekly volumes for brands we publish stay at https://resaleiq.dev/data.",
+      `A miss means that model is not in the catalog we watch — not that it has no demand, and not a number waiting behind Starter. ${freeSampleList("en")} are the free samples. Weekly volumes for brands we publish stay at https://resaleiq.dev/data.`,
   },
 ]
 

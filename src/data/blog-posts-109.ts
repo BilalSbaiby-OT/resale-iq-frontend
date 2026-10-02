@@ -47,7 +47,7 @@ export const POSTS_109: BlogPost[] = [
         p: [
           "Three numbers decide whether a Vinted flip is worth your time. (1) The tracked departure average for that brand and category — the price at which items actually leave the shelf, not the asking price. (2) The buy-below ceiling — 65% of the departure average, targeting 35% gross margin. (3) The weekly departure count — how many items of that brand and category left the shelf in the trailing 7 days. A high departure count means fast turnover; a low count means your capital sits.",
           "Worked example: Balenciaga sneakers track 61 departures in the last 30 days at a €164 average exit. Buy-below ceiling: €106.60 (€164 × 0.65). Source at €80, sell at €164, net €154 after 6% fee — €74 profit (92% on capital). The same logic at lower volume: Stone Island jackets track 32 departures in the last 30 days at €135 average. Buy-below: €87.75. Source at €60, sell at €135, net €126.90 — €66.90 profit (112% on capital). The margin is not the question. The question is whether you can source under the ceiling.",
-          "The failure mode is buying at or above the departure average. A Fred Perry shirt bought at €15 (the average exit) and sold at €15 is €0 before fees — a loss after. The buy-below rule is not a suggestion; it is the difference between a profitable flip and a donation. ResaleIQ's free checker returns the buy-below ceiling for any brand and category pair before you spend cash.",
+          "The failure mode is buying at or above the departure average. A Fred Perry shirt bought at €15 (the average exit) and sold at €15 is €0 before fees — a loss after. The buy-below rule is not a suggestion; it is the difference between a profitable flip and a donation. ResaleIQ shows the buy-below ceiling for each tracked model before you spend cash.",
         ],
         cta: pricingMidCta("ctr_worth_reselling_3numbers_20260919"),
       },
@@ -72,7 +72,7 @@ export const POSTS_109: BlogPost[] = [
       {
         h: "The ResaleIQ method: check before you buy",
         p: [
-          "The method that makes reselling on Vinted worth it is simple: check the tracked departure average before you spend cash. ResaleIQ's free checker returns the buy-below ceiling for any brand and category pair on EU Vinted, updated weekly from live departure observations across five markets. No account required, no card, no email wall. You type the brand and category, you get the number, you decide whether to buy.",
+          "The method that makes reselling on Vinted worth it is simple: check the tracked departure average before you spend cash. ResaleIQ shows the buy-below ceiling for each tracked model on EU Vinted, updated weekly from live departure observations across five markets. Adidas Samba, Nike Air Force 1 and Fred Perry Polo are free to check with no account; every other model starts with Starter's 7-day free trial (card required, €0 today). You type the model, you get the number, you decide whether to buy.",
           "The checker is the tool that enforces the buy-below rule. Without it, you are pricing by gut feel — and gut feel buys at the departure average, which is a loss. With it, you buy at 65% of the tracked average and the margin is built in before you list. That is the difference between reselling as a hobby and reselling as a business.",
           "Start with one brand you know. Check its tracked departure average. Source under the buy-below ceiling. List at the average. Repeat. The 1,077 tracked departures this week prove the demand is real. The buy-below rule is what makes it profitable.",
         ],
@@ -91,7 +91,7 @@ export const POSTS_109: BlogPost[] = [
       },
       {
         q: "Is it worth reselling on Vinted if you are a beginner?",
-        a: "Yes, with one condition: use the free checker before you buy. The checker returns the buy-below ceiling for any brand and category pair, so you never pay more than 65% of the tracked departure average. Beginners who skip this step buy at the average and lose money. Beginners who use it buy below the average and the margin is built in. The tool is free, no account required.",
+        a: "Yes, with one condition: check the buy-below before you buy. ResaleIQ returns the buy-below ceiling for each tracked model, so you never pay more than 65% of the tracked departure average. Beginners who skip this step buy at the average and lose money. Beginners who use it buy below the average and the margin is built in. Adidas Samba, Nike Air Force 1 and Fred Perry Polo are free to check with no account; every other model starts with Starter's 7-day free trial (card required, €0 today).",
       },
       {
         q: "What is the best brand to resell on Vinted in 2026?",

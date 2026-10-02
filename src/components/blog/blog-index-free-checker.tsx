@@ -39,13 +39,7 @@ import { trackEvent } from "@/lib/analytics"
 import type { Locale } from "@/lib/i18n"
 import { TrendingUp, TrendingDown, Minus, Lock } from "lucide-react"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
-
-/** Three public sample queries — full verdicts, no account, no paywall. */
-const FREE_SAMPLES = [
-  { label: "Nike Air Force 1", q: "Nike Air Force 1" },
-  { label: "Adidas Samba", q: "Adidas Samba" },
-  { label: "Fred Perry Polo", q: "Fred Perry Polo" },
-]
+import { FREE_SAMPLE_CHIPS, isFreeSample } from "@/lib/free-samples"
 
 type VerdictType = "BUY" | "WATCH" | "SKIP"
 
@@ -166,8 +160,7 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
   // H176(elon): detect when the result is from a free-model chip (AF1/Samba/Fred Perry Polo).
   // If so, the visitor ALREADY has buy_below for free — CTA "Unlock X buy-below" is a lie.
   // Fix: when result is from a free model, CTA = "Unlock the full buy list" (the value gap).
-  const FREE_SAMPLE_QUERIES = FREE_SAMPLES.map(s => s.q.toLowerCase())
-  const isFreeSampleResult = !!result && FREE_SAMPLE_QUERIES.includes((activeChip ?? "").toLowerCase())
+  const isFreeSampleResult = !!result && isFreeSample(activeChip)
 
   return (
     <div
@@ -181,12 +174,12 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
       }}
     >
       <p style={{ fontSize: 12, fontWeight: 700, color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.07em", margin: "0 0 10px" }}>
-        See it live — free examples, no account required
+        See it live — free samples, no account required
       </p>
 
       {/* Free sample chips */}
       <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
-        {FREE_SAMPLES.map(({ label, q }) => (
+        {FREE_SAMPLE_CHIPS.map(({ label, q }) => (
           <button
             key={q}
             type="button"
@@ -378,7 +371,7 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
             </button>
           </form>
           <p style={{ fontSize: 11.5, color: "#4a5970", margin: "5px 0 0" }}>
-            No account needed for Nike Air Force 1 · Adidas Samba · Fred Perry Polo. All other items unlock on a plan.
+            No account needed for {FREE_SAMPLE_CHIPS.map(c => c.label).join(" · ")}. Every other model starts with a 7-day free trial (card required, €0 today).
           </p>
         </div>
       )}

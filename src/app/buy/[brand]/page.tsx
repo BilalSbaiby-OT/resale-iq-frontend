@@ -101,7 +101,7 @@ export default async function BuyBrandPage({
             "@type": "Answer",
             text: topCat?.signal
               ? `The demand signal for ${brand.brand} ${topCat.category} is ${topCat.signal} based on sell-through rate, listing saturation and departure momentum. ${topCat.avg_days_to_sell != null ? `Items sell in about ${topCat.avg_days_to_sell} days on average.` : ""} Check a specific model for a BUY / WATCH / SKIP verdict on the exact item you are considering.`
-              : `${brand.brand} has ${brand.categories.length} tracked categories with confirmed sales data. Use the free checker to get a verdict on a specific model.`,
+              : `${brand.brand} has ${brand.categories.length} tracked categories with confirmed sales data. Check a specific model on /tools for a BUY / WATCH / SKIP verdict.`,
           },
         },
       ],
@@ -159,7 +159,7 @@ export default async function BuyBrandPage({
           <p style={{ fontSize: 13.5, color: "#8b99b8", marginBottom: 16, lineHeight: 1.6 }}>
             Buy-below is the maximum you should pay to achieve a ~45% gross margin after Vinted&apos;s
             selling fee and postage. It is derived from the average departure price — not from listed asking
-            prices, which are wishes not facts. Use the free checker for a model-level verdict.
+            prices, which are wishes not facts. Check the exact model for a model-level verdict.
           </p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -231,13 +231,13 @@ export default async function BuyBrandPage({
             Check a specific {brand.brand} item
           </div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "0 0 16px" }}>
-            Get a model-level verdict with buy-below price, departure momentum and size analysis. First check is free.
+            Get a model-level verdict with buy-below price, departure momentum and size analysis. Starter: 7-day free trial, card required, €0 today.
           </p>
           <Link
             href={`/tools?q=${encodeURIComponent(brand.brand)}&src=buy`}
             style={{ display: "inline-block", background: "#34C759", color: "#06090c", fontWeight: 700, fontSize: 14, padding: "11px 22px", borderRadius: 9, textDecoration: "none" }}
           >
-            Free check: {brand.brand} →
+            Check {brand.brand} models →
           </Link>
         </div>
 

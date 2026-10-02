@@ -251,9 +251,7 @@ export default function AccountPage() {
           <div className="bg-[var(--color-bg-3)] border border-amber-500/30 rounded-xl p-5 mb-5">
             <div className="font-bold text-[14px] text-amber-400 mb-1">{tx("Confirm your email")}</div>
             <p className="text-[12.5px] text-[#8fa3c4] leading-5 mb-3">
-              {user.plan === "free"
-                ? tx("Your 10 full unlocks each month — sell-through, best sizes and the reasons why — need a confirmed address.")
-                : tx("Alerts and account mail go to this address.")}
+              {tx("Alerts and account mail go to this address.")}
               {" "}<b className="text-[#eef1f7]">{tx("Look in spam or junk first")}</b>{" "}{tx("— mail from")}{" "}
               <b className="text-[#eef1f7]">{tx("noreply@resaleiq.dev")}</b>{" "}{tx("often lands there, and marking it “not junk” keeps later emails out of it. If it never arrived or has expired, send a fresh one.")}</p>
             <button onClick={handleResend} disabled={resending}
