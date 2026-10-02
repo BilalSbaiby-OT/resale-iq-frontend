@@ -443,6 +443,7 @@ export function PricingSection({
         )}
         <Heading style={{ fontSize: s.headSize, fontWeight: 700, color: "var(--color-text-primary)", marginTop: 12, letterSpacing: compact ? "-0.4px" : "-0.6px", lineHeight: compact ? 1.2 : 1.15 }}>{t.heading}</Heading>
         <p style={{ fontSize: compact ? 14.5 : 17, color: "var(--color-text-secondary)", marginTop: 12, lineHeight: 1.55, maxWidth: 620, marginLeft: "auto", marginRight: "auto" }}>{t.subhead}</p>
+        {!compact && <p data-testid="riq-trust-speed" style={{ fontSize: 13, color: "var(--color-text-muted)", marginTop: 8, lineHeight: 1.5 }}>{copy[locale].trustSpeed}</p>}
         {/* H170 CRO: "See a live verdict first" escape link for cold visitors on /pricing.
             After the 2026-09-29 declutter (d282b78), plan cards render first on /pricing.
             8 of 44 /pricing visitors arrived cold — they had never seen the homepage,

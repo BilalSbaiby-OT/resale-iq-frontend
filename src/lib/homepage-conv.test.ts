@@ -86,8 +86,8 @@ test("above-fold free scope must not promise paywalled SKUs", () => {
   // The assertion that MATTERS is preserved and is the reason this test
   // exists: Levi's 501 and NB 550 are paywalled, so they must never be
   // advertised as free in any locale.
-  assert.match(copy.en.heroFreeScope, /first/i)
-  assert.match(copy.en.heroFreeScope, /free/i)
+  assert.doesNotMatch(copy.en.heroFreeScope, /free|first/i) // anon checks are paywalled: never promise a free check
+  assert.match(copy.en.heroFreeScope, /guru/i)
   assert.doesNotMatch(copy.en.heroFreeScope, /501/)
   assert.doesNotMatch(copy.en.heroFreeScope, /550/)
   for (const locale of ["fr", "es", "de", "it", "pt"] as const) {

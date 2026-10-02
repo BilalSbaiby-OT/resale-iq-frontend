@@ -66,9 +66,8 @@ test("homepage hero has one primary Check CTA and free-plan unlocks", async ({ p
   // Non-free-model queries must not appear as chip buttons.
   await expect(hero.getByRole("button", { name: "Levi's 501" })).toHaveCount(0)
   await expect(hero.getByRole("button", { name: "New Balance 550" })).toHaveCount(0)
-  // riq-free-scope says "first check is free" — the exact wording tracks heroFreeScope copy.
-  await expect(hero.getByTestId("riq-free-scope")).toContainText(/first/i)
-  await expect(hero.getByTestId("riq-free-scope")).toContainText(/free/i)
+  // riq-free-scope is the trust/speed line (anon checks are paywalled, so it must not promise a free check).
+  await expect(hero.getByTestId("riq-free-scope")).toContainText(/guru/i)
   // The SSR buy list shows live buy-list rows — check buy-below is visible
   await expect(hero.getByText(/BUY|WATCH/i).first()).toBeVisible()
   // The seed must never be a provisional call again. #54 renders the
