@@ -130,7 +130,7 @@ export const copy = {
     heroTitle: "Vinted EU demand check — buy-below price for resellers.",
     heroAudience: "For resellers on Vinted EU.",
     heroTrust: "Item checks from €19 a month. Weekly brand volumes on /data stay public.",
-    heroFreeScope: "Your first check is free on any model. After that, €19/mo.",
+    heroFreeScope: "Your first 7 days are free, on any model. Then €19/mo.",
     brandStripCaption: "Brands we track",
     brandStripMore: (n: number) => `+${n} more`,
     // H1 on `/`. Not heroTitle: that string is <title>/OG.
@@ -760,7 +760,7 @@ export const copy = {
     heroTitle: "Quel stock sourcer pour revendre sur Vinted, et à quel prix max",
     heroAudience: "Pour les revendeurs sur Vinted.",
     heroTrust: "Vérifications d'articles dès 19 € par mois. Les volumes hebdo par marque restent publics sur /data.",
-    heroFreeScope: "Votre première recherche est gratuite, sur n'importe quel modèle. Ensuite 19 €/mois.",
+    heroFreeScope: "Vos 7 premiers jours sont gratuits, sur n'importe quel modèle. Ensuite 19 €/mois.",
     brandStripCaption: "Marques que nous suivons",
     brandStripMore: (n: number) => `+${n} de plus`,
     marketPulse: {
@@ -1230,7 +1230,7 @@ export const copy = {
     heroTitle: "Qué stock comprar para revender en Vinted, precio máx.",
     heroAudience: "Para revendedores en Vinted.",
     heroTrust: "Comprobaciones de artículos desde 19 € al mes. Los volúmenes semanales por marca siguen públicos en /data.",
-    heroFreeScope: "Tu primera consulta es gratis, en cualquier modelo. Después 19 €/mes.",
+    heroFreeScope: "Tus primeros 7 días son gratis, en cualquier modelo. Después 19 €/mes.",
     brandStripCaption: "Marcas que vigilamos",
     brandStripMore: (n: number) => `+${n} más`,
     marketPulse: {
@@ -1702,7 +1702,7 @@ export const copy = {
     heroTitle: "Welchen Bestand einkaufen, um auf Vinted zu verkaufen",
     heroAudience: "Für Wiederverkäufer auf Vinted.",
     heroTrust: "Artikelprüfungen ab 19 € im Monat. Wöchentliche Markenvolumen bleiben öffentlich auf /data.",
-    heroFreeScope: "Deine erste Abfrage ist kostenlos — für jedes Modell. Danach 19 €/Monat.",
+    heroFreeScope: "Deine ersten 7 Tage sind kostenlos, für jedes Modell. Danach 19 €/Monat.",
     brandStripCaption: "Marken, die wir beobachten",
     brandStripMore: (n: number) => `+${n} weitere`,
     marketPulse: {
@@ -2173,7 +2173,7 @@ export const copy = {
     heroTitle: "Quale stock prendere per rivendere su Vinted, prezzo max",
     heroAudience: "Per i rivenditori su Vinted.",
     heroTrust: "Controlli articolo da 19 € al mese. I volumi settimanali per marca restano pubblici su /data.",
-    heroFreeScope: "La tua prima ricerca è gratuita, su qualsiasi modello. Poi 19 €/mese.",
+    heroFreeScope: "I tuoi primi 7 giorni sono gratuiti, su qualsiasi modello. Poi 19 €/mese.",
     brandStripCaption: "Marchi che osserviamo",
     brandStripMore: (n: number) => `+${n} altri`,
     marketPulse: {
@@ -2642,7 +2642,7 @@ export const copy = {
     heroTitle: "Que stock comprar para revender na Vinted, preço máx.",
     heroAudience: "Para revendedores na Vinted.",
     heroTrust: "Verificações de artigos a partir de 19 € por mês. Os volumes semanais por marca continuam públicos em /data.",
-    heroFreeScope: "A tua primeira pesquisa é grátis, em qualquer modelo. Depois 19 €/mês.",
+    heroFreeScope: "Os teus primeiros 7 dias são grátis, em qualquer modelo. Depois 19 €/mês.",
     brandStripCaption: "Marcas que seguimos",
     brandStripMore: (n: number) => `+${n} mais`,
     marketPulse: {
