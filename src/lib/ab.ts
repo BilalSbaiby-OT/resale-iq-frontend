@@ -25,6 +25,7 @@ export function getVariant(exp: AbExperiment): "A" | "B" {
     window.localStorage.setItem(PREFIX + exp, v)
     return v
   } catch {
+    // why: private mode / blocked storage — fall back to A for everyone, so no biased split and no error
     return "A"
   }
 }
@@ -38,6 +39,7 @@ export function abTag(): string {
       .map(([e, v]) => `${e}:${v}`)
       .join(",")
   } catch {
+    // why: blocked storage means no assignment was ever made, so there is nothing to tag
     return ""
   }
 }
