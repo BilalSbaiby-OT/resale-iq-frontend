@@ -20,7 +20,7 @@ export function itemQueryMeta(
   const item = q.trim()
   const title = `${item} — should I buy this to resell? — Resale IQ`
   const description =
-    `Should you buy ${item} to resell? Resale IQ returns BUY, WATCH or SKIP and the most to pay after fees, from ${tracked} watched second-hand clothing listings.`
+    `Should you buy ${item} to resell? Resale IQ returns BUY, WATCH or SKIP and the most to pay after fees, from ${tracked} listing records.`
   return {
     title,
     description,

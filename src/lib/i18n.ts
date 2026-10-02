@@ -143,7 +143,7 @@ export const copy = {
         distinct != null
           ? `We're tracking ${records} listing records across ${brands} brands (${distinct} distinct items). Here's what left the shelf this week — watched departures, not guesses.`
           : `We're tracking ${records} listing records across ${brands} brands. Here's what left the shelf this week — watched departures, not guesses.`,
-      subFallback: (listings: string, brands: number) => `We're tracking ${listings} listings across ${brands} brands. Here's what left the shelf this week — watched departures, not guesses.`,
+      subFallback: (listings: string, brands: number) => `We're tracking ${listings} distinct items across ${brands} brands. Here's what left the shelf this week — watched departures, not guesses.`,
       subNoCount: (brands: number) => `Across ${brands} brands, here's what left the shelf this week — watched departures, not guesses.`,
       colBrand: "Brand",
       colVelocity: "Weekly velocity",
@@ -171,7 +171,7 @@ export const copy = {
     heroBody:
       "For resellers: what an item resells for on Vinted and the max price to pay when sourcing stock.",
     heroFrom: (tracked: string) =>
-      `From ${tracked} live second-hand clothing listings across the brands we watch.`,
+      `From ${tracked} listing records across the brands we watch.`,
     // Additive, not a replacement for the confident demo above it — see
     // docs/product/DESIGN-REVIEW.md §4. Same number the counter-KPI already
     // tracks (insufficient_data_rate, docs/company/METRICS.md), stated once,
@@ -325,12 +325,12 @@ export const copy = {
       // H25 CRO: loss-frame leads (CRO #8). "One avoided bad buy covers 2+ months"
       // was buried last — restructured so the financial win comes first, then the
       // data proof, then the price. Revenue 2026-09-15.
-      paywallBody: "One avoided bad buy pays for 2+ months here. {{TRACKED}} listings analyzed — BUY/WATCH/SKIP verdict + the exact buy-below price. Starter €19/mo, cancel anytime.",
+      paywallBody: "One avoided bad buy pays for 2+ months here. {{TRACKED}} listing records analyzed — BUY/WATCH/SKIP verdict + the exact buy-below price. Starter €19/mo, cancel anytime.",
       // H35 CRO: body message-match — names the searched item so both headline
       // and body mirror the visitor's intent at the conversion moment.
       // CRO principle #3 (message match) + #8 (specificity).
       // Revenue 2026-09-15.
-      paywallBodyForItem: (item: string, tracked: string) => `One avoided bad buy on ${item} pays for 2+ months here. ${tracked} listings analyzed — BUY/WATCH/SKIP verdict + the exact buy-below price. Starter €19/mo, cancel anytime.`,
+      paywallBodyForItem: (item: string, tracked: string) => `One avoided bad buy on ${item} pays for 2+ months here. ${tracked} listing records analyzed — BUY/WATCH/SKIP verdict + the exact buy-below price. Starter €19/mo, cancel anytime.`,
       paywallCta: (price: number) => `Unlock buy-below — €${price}/mo`,
       paywallLogin: "Already have an account? Log in",
       confidenceLabel: "Confidence",
@@ -381,10 +381,10 @@ export const copy = {
       perMonth: "/month",
       whereItStops: "Where it stops:",
       // H26 CRO: replace process claims with live-data proof. {{TRACKED}} is substituted
-      // with the live listings count from useTrackedLabel() in pricing-section.tsx.
+      // with the live listing-records headline ("14M+") from useTrackedLabel() in pricing-section.tsx.
       // CRO Principle #7 (specific proof before CTA) + #8 (real numbers, not generic claims).
       // Revenue 2026-09-15.
-      starterTrust: "{{TRACKED}} listings watched · access in ~2s · cancel anytime",
+      starterTrust: "{{TRACKED}} listing records · access in ~2s · cancel anytime",
       publicDataLine: "Public data only (not item checks) → /data",
       footer:
         // H57 CRO: align footer to H55 FAQ + H56 trust line — "in ~2s" is more specific
@@ -770,9 +770,9 @@ export const copy = {
       heading: "Voici ce qui se vend vraiment en ce moment.",
       sub: (records: string, brands: number, distinct: string | null) =>
         distinct != null
-          ? `Nous suivons ${records} annonces sur ${brands} marques (${distinct} articles distincts). Voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`
-          : `Nous suivons ${records} annonces sur ${brands} marques. Voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`,
-      subFallback: (listings: string, brands: number) => `Nous suivons ${listings} annonces sur ${brands} marques. Voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`,
+          ? `Nous suivons ${records} enregistrements d'annonces sur ${brands} marques (${distinct} articles distincts). Voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`
+          : `Nous suivons ${records} enregistrements d'annonces sur ${brands} marques. Voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`,
+      subFallback: (listings: string, brands: number) => `Nous suivons ${listings} articles distincts sur ${brands} marques. Voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`,
       subNoCount: (brands: number) => `Sur ${brands} marques, voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`,
       colBrand: "Marque",
       colVelocity: "Vélocité hebdo",
@@ -800,7 +800,7 @@ export const copy = {
     heroBody:
       "Pour les revendeurs : à quel prix un article se revend sur Vinted et le prix max à payer pour sourcer du stock.",
     heroFrom: (tracked: string) =>
-      `À partir de ${tracked} annonces en ligne, et les disparitions observées, sur cinq marchés UE.`,
+      `À partir de ${tracked} enregistrements d'annonces, et les disparitions observées, sur cinq marchés UE.`,
     heroHonesty:
       "Environ 4 recherches sur 10 reçoivent « pas assez de données » — on préfère le dire plutôt que deviner.",
     addToChrome: "Ajouter à Chrome",
@@ -908,8 +908,8 @@ export const copy = {
       limitReachedLabel: "LIMITE ATTEINTE",
       paywallHeadline: "Arrêtez de deviner combien payer sur Vinted.",
       paywallHeadlineForItem: (item: string) => `Vaut-il le coup d'acheter ${item} sur Vinted ?`,
-      paywallBody: "Un mauvais achat évité couvre 2+ mois. {{TRACKED}} annonces analysées — Verdict ACHETER/SURVEILLER/ÉCARTER + le prix d'achat exact. Starter 19 €/mois, résiliable à tout moment.",
-      paywallBodyForItem: (item: string, tracked: string) => `Un mauvais achat évité sur ${item} couvre 2+ mois. ${tracked} annonces analysées — Verdict ACHETER/SURVEILLER/ÉCARTER + le prix d'achat exact. Starter 19 €/mois, résiliable à tout moment.`,
+      paywallBody: "Un mauvais achat évité couvre 2+ mois. {{TRACKED}} enregistrements d'annonces analysés — Verdict ACHETER/SURVEILLER/ÉCARTER + le prix d'achat exact. Starter 19 €/mois, résiliable à tout moment.",
+      paywallBodyForItem: (item: string, tracked: string) => `Un mauvais achat évité sur ${item} couvre 2+ mois. ${tracked} enregistrements d'annonces analysés — Verdict ACHETER/SURVEILLER/ÉCARTER + le prix d'achat exact. Starter 19 €/mois, résiliable à tout moment.`,
       paywallCta: (price: number) => `Débloquer prix d'achat — ${price} €/mois`,
       paywallLogin: "Déjà un compte ? Connexion",
       confidenceLabel: "Confiance",
@@ -943,7 +943,7 @@ export const copy = {
       forever: "à vie",
       perMonth: "/mois",
       whereItStops: "Où ça s'arrête :",
-      starterTrust: "{{TRACKED}} annonces suivies · accès en ~2s · résiliable à tout moment",
+      starterTrust: "{{TRACKED}} enregistrements d'annonces · accès en ~2s · résiliable à tout moment",
       publicDataLine: "Données publiques uniquement (pas de vérifications d'articles) → /data",
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
@@ -1241,9 +1241,9 @@ export const copy = {
       heading: "Esto es lo que se está vendiendo ahora mismo.",
       sub: (records: string, brands: number, distinct: string | null) =>
         distinct != null
-          ? `Seguimos ${records} anuncios en ${brands} marcas (${distinct} artículos distintos). Esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`
-          : `Seguimos ${records} anuncios en ${brands} marcas. Esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`,
-      subFallback: (listings: string, brands: number) => `Seguimos ${listings} anuncios en ${brands} marcas. Esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`,
+          ? `Seguimos ${records} registros de anuncios en ${brands} marcas (${distinct} artículos distintos). Esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`
+          : `Seguimos ${records} registros de anuncios en ${brands} marcas. Esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`,
+      subFallback: (listings: string, brands: number) => `Seguimos ${listings} artículos distintos en ${brands} marcas. Esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`,
       subNoCount: (brands: number) => `En ${brands} marcas, esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`,
       colBrand: "Marca",
       colVelocity: "Velocidad semanal",
@@ -1271,7 +1271,7 @@ export const copy = {
     heroBody:
       "Para revendedores: a cuánto se revende un artículo en Vinted y el precio máximo a pagar al comprar stock.",
     heroFrom: (tracked: string) =>
-      `De ${tracked} anuncios activos, y las desapariciones observadas, en cinco mercados de la UE.`,
+      `De ${tracked} registros de anuncios, y las desapariciones observadas, en cinco mercados de la UE.`,
     heroHonesty:
       "Alrededor de 4 de cada 10 búsquedas reciben «no hay suficientes datos» — preferimos decirlo antes que adivinar.",
     addToChrome: "Añadir a Chrome",
@@ -1379,8 +1379,8 @@ export const copy = {
       limitReachedLabel: "LÍMITE ALCANZADO",
       paywallHeadline: "Deja de adivinar cuánto pagar en Vinted.",
       paywallHeadlineForItem: (item: string) => `¿Vale la pena comprar ${item} en Vinted?`,
-      paywallBody: "Una mala compra evitada cubre 2+ meses. {{TRACKED}} anuncios analizados — Veredicto COMPRA/OBSERVA/DESCARTA + el precio de compra exacto. Starter 19 €/mes, cancela cuando quieras.",
-      paywallBodyForItem: (item: string, tracked: string) => `Una mala compra evitada de ${item} cubre 2+ meses. ${tracked} anuncios analizados — Veredicto COMPRA/OBSERVA/DESCARTA + el precio de compra exacto. Starter 19 €/mes, cancela cuando quieras.`,
+      paywallBody: "Una mala compra evitada cubre 2+ meses. {{TRACKED}} registros de anuncios analizados — Veredicto COMPRA/OBSERVA/DESCARTA + el precio de compra exacto. Starter 19 €/mes, cancela cuando quieras.",
+      paywallBodyForItem: (item: string, tracked: string) => `Una mala compra evitada de ${item} cubre 2+ meses. ${tracked} registros de anuncios analizados — Veredicto COMPRA/OBSERVA/DESCARTA + el precio de compra exacto. Starter 19 €/mes, cancela cuando quieras.`,
       paywallCta: (price: number) => `Desbloquear precio de compra — ${price} €/mes`,
       paywallLogin: "¿Ya tienes cuenta? Entra",
       confidenceLabel: "Confianza",
@@ -1415,7 +1415,7 @@ export const copy = {
       forever: "de por vida",
       perMonth: "/mes",
       whereItStops: "Dónde se detiene:",
-      starterTrust: "{{TRACKED}} anuncios seguidos · acceso en ~2s · cancela cuando quieras",
+      starterTrust: "{{TRACKED}} registros de anuncios · acceso en ~2s · cancela cuando quieras",
       publicDataLine: "Solo datos públicos (no comprobaciones de artículos) → /data",
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
@@ -1714,9 +1714,9 @@ export const copy = {
       heading: "Das verkauft sich gerade wirklich.",
       sub: (records: string, brands: number, distinct: string | null) =>
         distinct != null
-          ? `Wir verfolgen ${records} Inserate über ${brands} Marken (${distinct} einzelne Artikel). Das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`
-          : `Wir verfolgen ${records} Inserate über ${brands} Marken. Das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`,
-      subFallback: (listings: string, brands: number) => `Wir verfolgen ${listings} Inserate über ${brands} Marken. Das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`,
+          ? `Wir verfolgen ${records} Inseratseinträge über ${brands} Marken (${distinct} einzelne Artikel). Das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`
+          : `Wir verfolgen ${records} Inseratseinträge über ${brands} Marken. Das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`,
+      subFallback: (listings: string, brands: number) => `Wir verfolgen ${listings} einzelne Artikel über ${brands} Marken. Das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`,
       subNoCount: (brands: number) => `Über ${brands} Marken hinweg — das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`,
       colBrand: "Marke",
       colVelocity: "Wöchentl. Tempo",
@@ -1744,7 +1744,7 @@ export const copy = {
     heroBody:
       "Für Wiederverkäufer: wofür ein Artikel auf Vinted weiterverkauft wird und der Maximalpreis beim Einkauf von Bestand.",
     heroFrom: (tracked: string) =>
-      `Basierend auf ${tracked} aktiven Angeboten und beobachteten Abgängen in fünf EU-Märkten.`,
+      `Basierend auf ${tracked} Inseratseinträgen und beobachteten Abgängen in fünf EU-Märkten.`,
     heroHonesty:
       "Etwa 4 von 10 Anfragen enden mit „nicht genug Daten“ — das sagen wir lieber, als zu raten.",
     addToChrome: "Zu Chrome hinzufügen",
@@ -1851,8 +1851,8 @@ export const copy = {
       limitReachedLabel: "LIMIT ERREICHT",
       paywallHeadline: "Hör auf zu raten, was du auf Vinted zahlen sollst.",
       paywallHeadlineForItem: (item: string) => `Lohnt sich ${item} auf Vinted?`,
-      paywallBody: "Ein vermiedener Fehlkauf deckt 2+ Monate. {{TRACKED}} Angebote analysiert — KAUFEN/BEOBACHTEN/VERWERFEN plus der exakte Kaufpreis. Starter ab 19 €/Monat, jederzeit kündbar.",
-      paywallBodyForItem: (item: string, tracked: string) => `Ein vermiedener Fehlkauf bei ${item} deckt 2+ Monate. ${tracked} Angebote analysiert — KAUFEN/BEOBACHTEN/VERWERFEN plus der exakte Kaufpreis. Starter ab 19 €/Monat, jederzeit kündbar.`,
+      paywallBody: "Ein vermiedener Fehlkauf deckt 2+ Monate. {{TRACKED}} Inseratseinträge analysiert — KAUFEN/BEOBACHTEN/VERWERFEN plus der exakte Kaufpreis. Starter ab 19 €/Monat, jederzeit kündbar.",
+      paywallBodyForItem: (item: string, tracked: string) => `Ein vermiedener Fehlkauf bei ${item} deckt 2+ Monate. ${tracked} Inseratseinträge analysiert — KAUFEN/BEOBACHTEN/VERWERFEN plus der exakte Kaufpreis. Starter ab 19 €/Monat, jederzeit kündbar.`,
       paywallCta: (price: number) => `Kaufpreis entsperren — ${price} €/Monat`,
       paywallLogin: "Schon ein Konto? Anmelden",
       confidenceLabel: "Konfidenz",
@@ -1886,7 +1886,7 @@ export const copy = {
       forever: "dauerhaft",
       perMonth: "/Monat",
       whereItStops: "Wo es endet:",
-      starterTrust: "{{TRACKED}} Angebote beobachtet · Zugang in ~2s · jederzeit kündbar",
+      starterTrust: "{{TRACKED}} Inseratseinträge · Zugang in ~2s · jederzeit kündbar",
       publicDataLine: "Nur öffentliche Daten (keine Artikelprüfungen) → /data",
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
@@ -2186,9 +2186,9 @@ export const copy = {
       heading: "Ecco cosa si sta vendendo davvero adesso.",
       sub: (records: string, brands: number, distinct: string | null) =>
         distinct != null
-          ? `Monitoriamo ${records} inserzioni su ${brands} marchi (${distinct} articoli distinti). Ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`
-          : `Monitoriamo ${records} inserzioni su ${brands} marchi. Ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`,
-      subFallback: (listings: string, brands: number) => `Monitoriamo ${listings} inserzioni su ${brands} marchi. Ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`,
+          ? `Monitoriamo ${records} registrazioni di inserzioni su ${brands} marchi (${distinct} articoli distinti). Ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`
+          : `Monitoriamo ${records} registrazioni di inserzioni su ${brands} marchi. Ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`,
+      subFallback: (listings: string, brands: number) => `Monitoriamo ${listings} articoli distinti su ${brands} marchi. Ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`,
       subNoCount: (brands: number) => `Su ${brands} marchi, ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`,
       colBrand: "Marchio",
       colVelocity: "Velocità settim.",
@@ -2216,7 +2216,7 @@ export const copy = {
     heroBody:
       "Per chi rivende: a quanto si rivende un articolo su Vinted e il prezzo massimo da pagare per il tuo stock.",
     heroFrom: (tracked: string) =>
-      `Basato su ${tracked} annunci attivi e uscite osservate in cinque mercati UE.`,
+      `Basato su ${tracked} registrazioni di inserzioni e uscite osservate in cinque mercati UE.`,
     heroHonesty:
       "Circa 4 ricerche su 10 restituiscono «dati insufficienti» — preferiamo dirlo piuttosto che indovinare.",
     addToChrome: "Aggiungi a Chrome",
@@ -2323,8 +2323,8 @@ export const copy = {
       limitReachedLabel: "LIMITE RAGGIUNTO",
       paywallHeadline: "Smettila di indovinare quanto pagare su Vinted.",
       paywallHeadlineForItem: (item: string) => `Vale la pena comprare ${item} su Vinted?`,
-      paywallBody: "Un acquisto sbagliato evitato copre 2+ mesi. {{TRACKED}} annunci analizzati — Verdetto COMPRA/OSSERVA/SCARTA + il prezzo d'acquisto esatto. Starter 19 €/mese, disdici quando vuoi.",
-      paywallBodyForItem: (item: string, tracked: string) => `Un acquisto sbagliato di ${item} evitato copre 2+ mesi. ${tracked} annunci analizzati — Verdetto COMPRA/OSSERVA/SCARTA + il prezzo d'acquisto esatto. Starter 19 €/mese, disdici quando vuoi.`,
+      paywallBody: "Un acquisto sbagliato evitato copre 2+ mesi. {{TRACKED}} registrazioni di inserzioni analizzate — Verdetto COMPRA/OSSERVA/SCARTA + il prezzo d'acquisto esatto. Starter 19 €/mese, disdici quando vuoi.",
+      paywallBodyForItem: (item: string, tracked: string) => `Un acquisto sbagliato di ${item} evitato copre 2+ mesi. ${tracked} registrazioni di inserzioni analizzate — Verdetto COMPRA/OSSERVA/SCARTA + il prezzo d'acquisto esatto. Starter 19 €/mese, disdici quando vuoi.`,
       paywallCta: (price: number) => `Sblocca prezzo d'acquisto — ${price} €/mese`,
       paywallLogin: "Hai già un account? Accedi",
       confidenceLabel: "Affidabilità",
@@ -2358,7 +2358,7 @@ export const copy = {
       forever: "per sempre",
       perMonth: "/mese",
       whereItStops: "Dove si ferma:",
-      starterTrust: "{{TRACKED}} annunci monitorati · accesso in ~2s · disdici quando vuoi",
+      starterTrust: "{{TRACKED}} registrazioni di inserzioni · accesso in ~2s · disdici quando vuoi",
       publicDataLine: "Solo dati pubblici (non controlli articolo) → /data",
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
@@ -2656,9 +2656,9 @@ export const copy = {
       heading: "Isto é o que está mesmo a vender agora.",
       sub: (records: string, brands: number, distinct: string | null) =>
         distinct != null
-          ? `Acompanhamos ${records} anúncios em ${brands} marcas (${distinct} artigos distintos). Isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`
-          : `Acompanhamos ${records} anúncios em ${brands} marcas. Isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`,
-      subFallback: (listings: string, brands: number) => `Acompanhamos ${listings} anúncios em ${brands} marcas. Isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`,
+          ? `Acompanhamos ${records} registos de anúncios em ${brands} marcas (${distinct} artigos distintos). Isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`
+          : `Acompanhamos ${records} registos de anúncios em ${brands} marcas. Isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`,
+      subFallback: (listings: string, brands: number) => `Acompanhamos ${listings} artigos distintos em ${brands} marcas. Isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`,
       subNoCount: (brands: number) => `Em ${brands} marcas, isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`,
       colBrand: "Marca",
       colVelocity: "Velocidade semanal",
@@ -2686,7 +2686,7 @@ export const copy = {
     heroBody:
       "Para revendedores: por quanto um artigo se revende na Vinted e o preço máximo a pagar ao comprar stock.",
     heroFrom: (tracked: string) =>
-      `A partir de ${tracked} anúncios ativos e saídas observadas em cinco mercados da UE.`,
+      `A partir de ${tracked} registos de anúncios e saídas observadas em cinco mercados da UE.`,
     heroHonesty:
       "Cerca de 4 em cada 10 pesquisas voltam com «dados insuficientes» — preferimos dizer isso a adivinhar.",
     addToChrome: "Adicionar ao Chrome",
@@ -2793,8 +2793,8 @@ export const copy = {
       limitReachedLabel: "LIMITE ATINGIDO",
       paywallHeadline: "Para de adivinhar quanto pagar no Vinted.",
       paywallHeadlineForItem: (item: string) => `Vale a pena comprar ${item} no Vinted?`,
-      paywallBody: "Uma má compra evitada cobre 2+ meses. {{TRACKED}} anúncios analisados — Veredicto COMPRAR/OBSERVAR/DESCARTAR + o preço de compra exato. Starter 19 €/mês, cancela quando quiseres.",
-      paywallBodyForItem: (item: string, tracked: string) => `Uma má compra de ${item} evitada cobre 2+ meses. ${tracked} anúncios analisados — Veredicto COMPRAR/OBSERVAR/DESCARTAR + o preço de compra exato. Starter 19 €/mês, cancela quando quiseres.`,
+      paywallBody: "Uma má compra evitada cobre 2+ meses. {{TRACKED}} registos de anúncios analisados — Veredicto COMPRAR/OBSERVAR/DESCARTAR + o preço de compra exato. Starter 19 €/mês, cancela quando quiseres.",
+      paywallBodyForItem: (item: string, tracked: string) => `Uma má compra de ${item} evitada cobre 2+ meses. ${tracked} registos de anúncios analisados — Veredicto COMPRAR/OBSERVAR/DESCARTAR + o preço de compra exato. Starter 19 €/mês, cancela quando quiseres.`,
       paywallCta: (price: number) => `Desbloquear preço de compra — ${price} €/mês`,
       paywallLogin: "Já tens conta? Entra",
       confidenceLabel: "Confiança",
@@ -2828,7 +2828,7 @@ export const copy = {
       forever: "para sempre",
       perMonth: "/mês",
       whereItStops: "Onde para:",
-      starterTrust: "{{TRACKED}} anúncios monitorados · acesso em ~2s · cancela quando quiseres",
+      starterTrust: "{{TRACKED}} registos de anúncios · acesso em ~2s · cancela quando quiseres",
       publicDataLine: "Apenas dados públicos (sem verificações de artigos) → /data",
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.

@@ -28,10 +28,10 @@
  * page, and they live at the `name` field in layout.tsx next to the price.
  */
 import type { Locale } from "./i18n"
-import { TRIAL_LIMITS_SENTENCE_BY_LOCALE } from "./trial-copy"
+import { TRIAL_LIMITS_SENTENCE_BY_LOCALE } from "./trial-copy.ts"
 
 type StructuredDataCopy = {
-  /** Org description. Takes the live tracked-listings label, never a literal. */
+  /** Org description. Takes the live listing-records headline ("14M+"), never a literal. */
   description: (tracked: string) => string
   offerFree: string
   offerStarter: string
@@ -54,40 +54,47 @@ export const NO_CARD: Record<Locale, string> = {
   pt: "Sem cartão para a conta gratuita. O teste de 7 dias precisa de cartão: 0 € hoje, cancela quando quiseres.",
 }
 
+/**
+ * "14M+ " — or "" when the warehouse has no records figure ("—"), so the
+ * description reads "It analyses listing records across 5 EU markets" rather than
+ * shipping "— listing records" to Google. Never falls back to the distinct count.
+ */
+const lead = (tracked: string) => (tracked && tracked !== "—" ? `${tracked} ` : "")
+
 export const STRUCTURED_DATA_COPY: Record<Locale, Omit<StructuredDataCopy, "offerFree">> = {
   en: {
     description: tracked =>
-      `Resale IQ is demand intelligence for people who buy second-hand to resell. It analyses ${tracked} listing records across 5 EU markets and answers what sells, what it is worth, and whether to buy — BUY/WATCH/SKIP, buy-below price and best sizes. Vinted is the first marketplace it covers.`,
+      `Resale IQ is demand intelligence for people who buy second-hand to resell. It analyses ${lead(tracked)}listing records across 5 EU markets and answers what sells, what it is worth, and whether to buy — BUY/WATCH/SKIP, buy-below price and best sizes. Vinted is the first marketplace it covers.`,
     offerStarter: "Unlimited verdicts and every product signal unblurred.",
     offerPro: "Adds Live Finder, Order Planner, Price Compare and REST API access.",
   },
   es: {
     description: tracked =>
-      `Resale IQ es inteligencia de demanda para quien compra de segunda mano para revender. Analiza ${tracked} registros de anuncios en 5 mercados de la UE y responde qué se vende, a qué se revende y si conviene comprar — veredicto COMPRA/OBSERVA/DESCARTA, precio máximo de compra y las mejores tallas. Vinted es el primer marketplace que cubre.`,
+      `Resale IQ es inteligencia de demanda para quien compra de segunda mano para revender. Analiza ${lead(tracked)}registros de anuncios en 5 mercados de la UE y responde qué se vende, a qué se revende y si conviene comprar — veredicto COMPRA/OBSERVA/DESCARTA, precio máximo de compra y las mejores tallas. Vinted es el primer marketplace que cubre.`,
     offerStarter: "Veredictos ilimitados y todas las señales del producto sin difuminar.",
     offerPro: "Añade Live Finder, Order Planner, Price Compare y acceso a la API REST.",
   },
   fr: {
     description: tracked =>
-      `Resale IQ, c'est l'intelligence de la demande pour ceux qui achètent d'occasion pour revendre. L'outil analyse ${tracked} enregistrements d'annonces sur 5 marchés de l'UE et dit ce qui se vend, à quel prix, et s'il faut acheter — verdict ACHETER/SURVEILLER/ÉCARTER, prix d'achat max et meilleures tailles. Vinted est le premier marketplace couvert.`,
+      `Resale IQ, c'est l'intelligence de la demande pour ceux qui achètent d'occasion pour revendre. L'outil analyse ${lead(tracked)}enregistrements d'annonces sur 5 marchés de l'UE et dit ce qui se vend, à quel prix, et s'il faut acheter — verdict ACHETER/SURVEILLER/ÉCARTER, prix d'achat max et meilleures tailles. Vinted est le premier marketplace couvert.`,
     offerStarter: "Verdicts illimités et tous les signaux produit affichés en clair.",
     offerPro: "Ajoute Live Finder, Order Planner, Price Compare et l'accès à l'API REST.",
   },
   de: {
     description: tracked =>
-      `Resale IQ ist Nachfrage-Intelligenz für alle, die Second-Hand kaufen, um weiterzuverkaufen. Das Tool analysiert ${tracked} Inseratseinträge in 5 EU-Märkten und sagt, was sich verkauft, was es wert ist, und ob du kaufen solltest — KAUFEN/BEOBACHTEN/VERWERFEN, Kaufobergrenze und beste Größen. Vinted ist der erste abgedeckte Marktplatz.`,
+      `Resale IQ ist Nachfrage-Intelligenz für alle, die Second-Hand kaufen, um weiterzuverkaufen. Das Tool analysiert ${lead(tracked)}Inseratseinträge in 5 EU-Märkten und sagt, was sich verkauft, was es wert ist, und ob du kaufen solltest — KAUFEN/BEOBACHTEN/VERWERFEN, Kaufobergrenze und beste Größen. Vinted ist der erste abgedeckte Marktplatz.`,
     offerStarter: "Unbegrenzte Urteile und jedes Produktsignal unverpixelt.",
     offerPro: "Ergänzt Live Finder, Order Planner, Price Compare und den Zugang zur REST-API.",
   },
   it: {
     description: tracked =>
-      `Resale IQ è intelligence sulla domanda per chi compra usato per rivendere. Analizza ${tracked} registrazioni di inserzioni su 5 mercati dell'UE e dice cosa si vende, a quanto si rivende e se conviene comprare — verdetto COMPRA/OSSERVA/SCARTA, prezzo massimo di acquisto e taglie migliori. Vinted è il primo marketplace coperto.`,
+      `Resale IQ è intelligence sulla domanda per chi compra usato per rivendere. Analizza ${lead(tracked)}registrazioni di inserzioni su 5 mercati dell'UE e dice cosa si vende, a quanto si rivende e se conviene comprare — verdetto COMPRA/OSSERVA/SCARTA, prezzo massimo di acquisto e taglie migliori. Vinted è il primo marketplace coperto.`,
     offerStarter: "Verdetti illimitati e ogni segnale di prodotto senza sfocatura.",
     offerPro: "Aggiunge Live Finder, Order Planner, Price Compare e l'accesso all'API REST.",
   },
   pt: {
     description: tracked =>
-      `A Resale IQ é inteligência de procura para quem compra em segunda mão para revender. Analisa ${tracked} registos de anúncios em 5 mercados da UE e diz o que vende, a que se revende e se deve comprar — veredicto COMPRAR/OBSERVAR/DESCARTAR, preço máximo de compra e melhores tamanhos. A Vinted é o primeiro marketplace coberto.`,
+      `A Resale IQ é inteligência de procura para quem compra em segunda mão para revender. Analisa ${lead(tracked)}registos de anúncios em 5 mercados da UE e diz o que vende, a que se revende e se deve comprar — veredicto COMPRAR/OBSERVAR/DESCARTAR, preço máximo de compra e melhores tamanhos. A Vinted é o primeiro marketplace coberto.`,
     offerStarter: "Veredictos ilimitados e todos os sinais do produto sem desfoque.",
     offerPro: "Acrescenta Live Finder, Order Planner, Price Compare e acesso à API REST.",
   },

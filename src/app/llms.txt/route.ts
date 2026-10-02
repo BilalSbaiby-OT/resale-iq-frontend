@@ -115,7 +115,7 @@ Questions: ${AFFILIATE_CONTACT}
 - ${BASE}/blog/what-to-buy-to-resell-on-vinted-right-now: Which items to buy to resell right now, with buy-below prices.
 - ${BASE}/blog/ralph-lauren-eu-vinted-price-guide: Ralph Lauren EU Vinted price guide: departure prices and what to pay.
 - ${BASE}/tools: Free item check. Type a Vinted item, get BUY / WATCH / SKIP and a buy-below price (Adidas Samba, Nike Air Force 1 and Fred Perry Polo are free samples).
-- ${BASE}/data: Open weekly Vinted brand volumes and average asking price at departure, from ${tracked} unique listings.
+- ${BASE}/data: Open weekly Vinted brand volumes and average asking price at departure, from ${tracked} listing records.
 - ${BASE}/flip: Every tracked brand (${BRANDS.length}) ranked by weekly sales, with brand and brand-by-category pages.
 - ${BASE}/pricing: Starter EUR 19 / month, Pro EUR 49 / month. There is no free-forever tier.
 - ${BASE}/partners: Affiliate programme: 30% recurring for 12 months, open to people and AI agents.
@@ -166,9 +166,11 @@ Agents must not:
 
 ## What the data is
 
-- Coverage: ${tracked} unique Vinted listings across ES, FR, DE, IT and PT.
-  Counted with COUNT(DISTINCT external_id): the five domains are one
-  catalogue, so a raw row count would overstate by about 3x.
+- Coverage: ${tracked} listing records across ES, FR, DE, IT and PT. A record
+  is one row per listing per Vinted domain, so an item listed on several
+  domains counts once per domain. The exact distinct-item count
+  (COUNT(DISTINCT external_id), each item once) is published on ${BASE}/data
+  and ${BASE}/methodology; never read the records figure as unique items.
 - ${weekly
     ? `Observed volume: ${weekly.toLocaleString()} watched departures (listings leaving the shelf) in the last 7 days across ${published} brands that cleared the publish floor (${trackedBrands} brands tracked). This is not catalogue size.`
     : `Tracked brands: ${trackedBrands}.`}

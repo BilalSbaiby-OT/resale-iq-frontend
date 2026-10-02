@@ -13,6 +13,10 @@ const SNAPSHOT = {
   url: "https://resaleiq.dev",
   markets: ["ES", "FR", "DE", "IT", "PT"],
   listings_tracked: 966236,
+  // COUNT(*) listing records, ~2.3x the distinct count (live ratio 2.32): the
+  // source of the "2M+ listing records" headline. The distinct figure above is
+  // shown exactly on /data, /methodology and the /pricing pulse only.
+  total_listing_records: 2241000,
   updated_at: NOW,
   brand_count: 2,
   brands_tracked: 26,

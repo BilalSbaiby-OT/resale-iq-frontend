@@ -14,7 +14,7 @@ import { withFittedMetadata } from "@/lib/meta-fit"
 import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
 async function generateMetadataRaw(): Promise<Metadata> {
   const tracked = await listingsTrackedLabel()
-  const desc = `Practical guides for Vinted resellers backed by ${tracked} tracked listings across Spain, France, Germany, Italy and Portugal. What sells, how to price it, and whether to buy.`
+  const desc = `Practical guides for Vinted resellers backed by ${tracked} listing records across Spain, France, Germany, Italy and Portugal. What sells, how to price it, and whether to buy.`
   return {
     title: "Resale IQ Blog — Vinted Reseller Guides & Market Data",
     description: desc,
@@ -76,7 +76,7 @@ export default async function BlogIndex() {
       const catNote = cats ? ` (mostly ${cats.toLowerCase()})` : ""
       return `${name} at ${sold} departures${catNote}${avg}`
     })
-    return `What\u2019s selling on Vinted this week (updated ${date}): ${parts.join("; ")}. Observed active-to-sold transitions over the trailing 7 days across 5 EU markets\u2014a directional lower bound, useful for comparing brands. Full rankings at resaleiq.dev/data, sourced from ${tracked} tracked listings.`
+    return `What\u2019s selling on Vinted this week (updated ${date}): ${parts.join("; ")}. Observed active-to-sold transitions over the trailing 7 days across 5 EU markets\u2014a directional lower bound, useful for comparing brands. Full rankings at resaleiq.dev/data, sourced from ${tracked} listing records.`
   })()
 
   const jsonLd = {
@@ -85,7 +85,7 @@ export default async function BlogIndex() {
     name: "Resale IQ Blog",
     url: "https://resaleiq.dev/blog",
     description:
-      `Data-backed guides for Vinted resellers, from ${await listingsTrackedLabel()} analyzed listings across 5 EU markets.`,
+      `Data-backed guides for Vinted resellers, from ${await listingsTrackedLabel()} listing records across 5 EU markets.`,
     blogPost: posts.map((p) => ({
       "@type": "BlogPosting",
       headline: p.title,
@@ -103,7 +103,7 @@ export default async function BlogIndex() {
         <h1 style={{ fontSize: 32, fontWeight: 600, letterSpacing: "-0.6px", color: "var(--color-text-primary)", margin: "22px 0 8px" }}>The Resale IQ Blog</h1>
         <p style={{ fontSize: 15, color: "var(--color-text-secondary)", marginBottom: 32, lineHeight: 1.6, maxWidth: 620 }}>
           Data-backed guides for Vinted resellers — what sells, how to price, and how to source profitably.
-          Built on {tracked} analyzed listings across 5 EU markets.
+          Built on {tracked} listing records across 5 EU markets.
         </p>
 
         {/* H164 CRO: live "what's selling" paragraph — replaces H161's hardcoded numbers

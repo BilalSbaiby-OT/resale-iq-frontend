@@ -93,8 +93,13 @@ costs the channel permanently. **Real data is the moat; inventing it hands the m
 - **No Balenciaga, nothing authenticity-adjacent** (`GTM.md` §B3). No counterfeit filter exists.
 - **ES · FR · DE · IT · PT.** No UK claim. **71% of our search impressions are US/GB — markets we
   cannot serve**, so English-only content actively recruits the wrong audience.
-- **Never glue "12.7M listings" to "26 markets."** 12.7M is the tracked corpus on 5 EU markets; the
-  26 are live pass-through search.
+- **Dataset size is ONE headline: "14M+ listing records"** (live `total_listing_records`, floored to
+  the whole million by `listingRecordsHeadline()` in `src/lib/stats.ts`; never typed). Never write
+  "listings", "unique listings" or "active listings" after it: it is `COUNT(*)`, one row per listing
+  per Vinted domain. The exact distinct count (`COUNT(DISTINCT external_id)`, about 2.3x smaller) is
+  published only on /data, /methodology and the /pricing pulse, labelled "distinct items".
+  **Never glue it to "26 markets"**: it is the tracked corpus on 5 EU markets; the 26 are live
+  pass-through search.
 - **Platform-native.** One insight, adapted — never one post reposted five ways.
 
 

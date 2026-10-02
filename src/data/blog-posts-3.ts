@@ -14,14 +14,14 @@ export const POSTS_3: BlogPost[] = [
     slug: "vinted-bundles-and-offers-strategy",
     title: "Vinted Bundles and Offers in 2026 — When a Lower Price Still Wins",
     seoTitle: "Vinted Bundles and Offers: What Actually Works",
-    description: "When bundling raises your take and when it just discounts you. Built on 13.4M tracked EU Vinted listings.",
+    description: `When bundling raises your take and when it just discounts you. Built on ${TRACKED} listing records.`,
     date: "2026-08-07",
     updated: "2026-09-20",
     category: "Selling",
     readMins: 4,
     preflightQuery: "New Balance 550",
     intro:
-      "Buyers will almost always ask for less. Whether you should say yes has one honest answer: does the offer still clear your floor, and does it move stock you'd otherwise hold for months? As of 20 September 2026, the fast categories where a bundle rarely makes sense are Hoodies (780 departures in the last 30 days) and Shirts (74 departures in the last 30 days) — they are already leaving the shelf — while Bags (29 departures in the last 30 days) are the slower, higher-ticket stock a bundle discount should free up. Speed, not sentiment, decides. We watched 566 departures this week across 20 published brands, from 5,341,780 tracked listings in Spain, France, Germany, Italy and Portugal. Fred Perry averaged €16. Gucci averaged €303. Do not cut a mover to win a conversation. Work the floor before you reply. Check the item on resaleiq.dev (BUY/WATCH/SKIP, Starter €19/mo). Weekly volumes stay free on /data.",
+      "Buyers will almost always ask for less. Whether you should say yes has one honest answer: does the offer still clear your floor, and does it move stock you'd otherwise hold for months? As of 20 September 2026, the fast categories where a bundle rarely makes sense are Hoodies (780 departures in the last 30 days) and Shirts (74 departures in the last 30 days) — they are already leaving the shelf — while Bags (29 departures in the last 30 days) are the slower, higher-ticket stock a bundle discount should free up. Speed, not sentiment, decides. In the week to 20 September 2026 we watched 566 departures across 20 published brands in Spain, France, Germany, Italy and Portugal. Fred Perry averaged €16. Gucci averaged €303. Do not cut a mover to win a conversation. Work the floor before you reply. Check the item on resaleiq.dev (BUY/WATCH/SKIP, Starter €19/mo). Weekly volumes stay free on /data.",
     sections: [
       {
         h: "Know your floor before you negotiate",

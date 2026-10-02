@@ -3,6 +3,7 @@ import type { Locale } from "@/lib/i18n"
 import type { MarketNumbers } from "@/lib/market-numbers"
 import Link from "next/link"
 import { canonicalPath } from "@/lib/locale-routes"
+import { floorToMillion } from "@/lib/floor-to-10k"
 
 /**
  * LIVE MARKET PULSE — the honest-proof section that fills the empty landing.
@@ -63,14 +64,16 @@ export function LiveMarketPulse({ locale, market }: { locale: Locale; market: Ma
         <h2 style={{ fontSize: "var(--text-title)", fontWeight: 600, letterSpacing: "-0.02em", color: "var(--color-text-primary)", margin: "0 0 var(--space-2)", textWrap: "balance" }}>
           {t.heading}
         </h2>
-        {/* Lead with the listing-records figure (larger, honestly labelled).
-            The distinct-item count is shown as the stated basis so we
+        {/* Lead with the ONE headline (the listing-records count through
+            floorToMillion — the same string every other surface carries). The distinct-item
+            count is the stated basis and is shown EXACTLY here (one of the three
+            places it is published: /data, /methodology, this pulse), so we
             volunteer the narrower number — a reseller cannot catch us
             exaggerating when we name both. */}
         <p style={{ fontSize: "var(--text-body-marketing)", color: "var(--color-text-dim)", margin: 0, lineHeight: 1.5 }}>
-          {listingRecords != null
+          {listingRecords != null && listingRecords > 0
             ? t.sub(
-                listingRecords.toLocaleString(locale === "en" ? "en-US" : locale),
+                floorToMillion(listingRecords),
                 brands,
                 listings != null ? listings.toLocaleString(locale === "en" ? "en-US" : locale) : null,
               )

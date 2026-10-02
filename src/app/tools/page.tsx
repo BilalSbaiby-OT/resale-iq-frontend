@@ -57,7 +57,7 @@ async function generateMetadataRaw(
   }
   if (itemMeta) return itemMeta
   const description =
-    `Should you buy this clothing model to resell? Check demand, BUY / WATCH / SKIP, and the most to pay after fees. ${tracked} watched listings. Starter €19/mo.`
+    `Should you buy this clothing model to resell? Check demand, BUY / WATCH / SKIP, and the most to pay after fees. ${tracked} listing records. Starter €19/mo.`
   return {
     title: TITLE,
     description,

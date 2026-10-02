@@ -22,6 +22,7 @@ import { copy, type Locale } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { itemDisplayName } from "@/lib/item-display-name"
+import { LISTING_RECORDS_NOUN } from "@/lib/listing-records-noun"
 import { buyBelowLabel, targetLabel, soldThisWeekLabel, sold30Label, BUY_LIST_UNLOCK_LABEL } from "@/lib/buy-list-display"
 
 const VERDICT_COLOR: Record<string, string> = {
@@ -184,8 +185,9 @@ export function SsrBuyListTeaser({
   /**
    * Live dataset label for the proof-substitute line shown when showPrice=false
    * (homepage). Passed from the SSR page so the number matches the meta
-   * description rather than a stale hardcoded figure.
-   * Falls back to "13.4M" only when the caller does not supply it.
+   * description rather than a stale hardcoded figure. There is NO literal
+   * fallback: when the caller has no figure ("—" or null) the line is omitted,
+   * because an unknown size is not 13.4M.
    */
   trackedLabel?: string | null
 }) {
@@ -323,9 +325,11 @@ export function SsrBuyListTeaser({
                  customers and zero testimonials, verifiable dataset scale is
                  the only honest trust signal we own.
                  Live value passed from SSR page to keep in sync with meta desc. */
-              <p style={{ fontSize: 11.5, color: "var(--color-text-muted)", margin: 0 }}>
-                {trackedLabel ?? "13.4M"} tracked listings, 5 EU markets
-              </p>
+              trackedLabel && trackedLabel !== "—" ? (
+                <p style={{ fontSize: 11.5, color: "var(--color-text-muted)", margin: 0 }}>
+                  {trackedLabel} {LISTING_RECORDS_NOUN[locale]}, 5 EU markets
+                </p>
+              ) : null
             )}
           </div>
           <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>

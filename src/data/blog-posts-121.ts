@@ -12,13 +12,13 @@ export const POSTS_121: BlogPost[] = [
     title: "How to Avoid Dead Stock When Flipping Clothes (2026)",
     seoTitle: "How to Avoid Dead Stock Flipping Clothes 2026 | Resale IQ",
     description:
-      "Stop restocking models that sit. This week’s watched departures on 5,309,568 EU5 Vinted listings, then check the model on /tools before you buy another unit.",
+      "Stop restocking models that sit. This week’s watched departures across EU5 Vinted, then check the model on /tools before you buy another unit.",
     date: "2026-09-20",
     category: "How-to",
     readMins: 6,
     preflightQuery: "Stone Island Hoodies",
     intro:
-      "Dead stock is the clothing model you keep buying after demand already cooled. Across 5,309,568 Vinted listings we track in ES, FR, DE, IT and PT, the week to 20 September 2026 showed Stone Island leaving the shelf 62 times at €73 average — hoodies 29 at €52, jackets 19 at €137. Fred Perry moved 55 times at €16. Patagonia 52 at €33. Nike only 13 at €91. Adidas 5 at €26. High volume at a modest average is easier to turn than a thin, expensive brand. Before you restock a model, run it on /tools. If the checker has no row this week, do not add another unit. Use 30/60/90 on listed pieces, then stop repeating the model. We count watched departures, not confirmed cash sales. This page does not publish a per-model buy-below.",
+      "Dead stock is the clothing model you keep buying after demand already cooled. Across ES, FR, DE, IT and PT, the week to 20 September 2026 showed Stone Island leaving the shelf 62 times at €73 average — hoodies 29 at €52, jackets 19 at €137. Fred Perry moved 55 times at €16. Patagonia 52 at €33. Nike only 13 at €91. Adidas 5 at €26. High volume at a modest average is easier to turn than a thin, expensive brand. Before you restock a model, run it on /tools. If the checker has no row this week, do not add another unit. Use 30/60/90 on listed pieces, then stop repeating the model. We count watched departures, not confirmed cash sales. This page does not publish a per-model buy-below.",
     definedTerm: {
       name: "Dead stock (resale)",
       description:
@@ -28,7 +28,7 @@ export const POSTS_121: BlogPost[] = [
       {
         h: "This week’s volume vs thin names",
         p: [
-          "Public snapshot 20 September 2026 20:49 UTC. Listings tracked: 5,309,568. Counting method: watched transitions from active to gone in the trailing 7 days. Treat the weekly figure as a lower bound.",
+          "Public snapshot 20 September 2026 20:49 UTC. Counting method: watched transitions from active to gone in the trailing 7 days. Treat the weekly figure as a lower bound.",
           "Stone Island 62 departures, €73 average. Fred Perry 55, €16. Patagonia 52, €33. Gucci 25, €307. New Balance 24, €46. Balenciaga 23, €114. The North Face 23, €31. Nike 13, €91. Adidas 5, €26. Sitting on Adidas-level volume while paying Nike-level cash is how a death pile starts.",
         ],
         table: {
@@ -72,7 +72,7 @@ export const POSTS_121: BlogPost[] = [
       },
       {
         q: "Where do these numbers come from?",
-        a: "Resale IQ /api/public/market-snapshot. 5,309,568 listings across ES, FR, DE, IT, PT. sold_7d is watched departures, a lower bound, not confirmed sales.",
+        a: "Resale IQ /api/public/market-snapshot (ES, FR, DE, IT, PT). sold_7d is watched departures, a lower bound, not confirmed sales.",
       },
       {
         q: "What is the 30/60/90 rule here?",

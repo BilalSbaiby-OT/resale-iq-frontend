@@ -66,7 +66,7 @@ export const POSTS_2: BlogPost[] = [
     slug: "best-time-to-list-on-vinted",
     title: "Best Time to List on Vinted — Hour, Day, and Season (Data)",
     seoTitle: "Best Time to List on Vinted (2026 Data)",
-    description: "When listings actually sell, measured across 13.4M tracked EU Vinted listings in 5 markets.",
+    description: `When listings actually sell, measured across ${TRACKED} listing records in 5 markets.`,
     date: "2026-08-06",
     updated: "2026-09-15",
     category: "Selling",
@@ -227,7 +227,7 @@ export const POSTS_2: BlogPost[] = [
           "The buy-below price decides everything. If the tag is above it, walking away IS the profitable decision. [What actually left the shelf this week](" +
             ilinkHref("data") +
             ") is the public average.",
-          BRAND + " gives you that number per item from " + `${TRACKED} listings across 5 EU markets, so you can check on your phone in the aisle instead of guessing.`,
+          BRAND + " gives you that number per item from " + `${TRACKED} listing records across 5 EU markets, so you can check on your phone in the aisle instead of guessing.`,
         ],
       },
     ],
@@ -289,7 +289,7 @@ export const POSTS_2: BlogPost[] = [
     readMins: 5,
     preflightQuery: "New Balance 550",
     intro:
-      "No views on Vinted usually means one of four things: nobody is searching for the item, your title doesn't match what buyers type, your price is above what comparable listings leave at, or your listing has gone stale. Work through them in that order before blaming the algorithm. As of 20 September 2026, the busiest categories leaving the shelf across 20 published brands were Hoodies (780 departures in the last 30 days), Jackets (107) and Sneakers (82). If your item sits in a thin category, low views is a demand problem no photo or title will fix. Check that first. We watched 566 departures this week from 5,341,780 tracked listings in ES/FR/DE/IT/PT. Fred Perry moved 96 times at €16. Gucci moved 26 times at €303. Extra views on a thin brand will not print money. Check the item on resaleiq.dev (BUY/WATCH/SKIP, Starter €19/mo). Weekly volumes stay free on /data.",
+      "No views on Vinted usually means one of four things: nobody is searching for the item, your title doesn't match what buyers type, your price is above what comparable listings leave at, or your listing has gone stale. Work through them in that order before blaming the algorithm. As of 20 September 2026, the busiest categories leaving the shelf across 20 published brands were Hoodies (780 departures in the last 30 days), Jackets (107) and Sneakers (82). If your item sits in a thin category, low views is a demand problem no photo or title will fix. Check that first. In the week to 20 September 2026 we watched 566 departures in ES/FR/DE/IT/PT. Fred Perry moved 96 times at €16. Gucci moved 26 times at €303. Extra views on a thin brand will not print money. Check the item on resaleiq.dev (BUY/WATCH/SKIP, Starter €19/mo). Weekly volumes stay free on /data.",
     sections: [
       {
         h: "First: is there demand at all?",

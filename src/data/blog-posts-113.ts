@@ -3,6 +3,7 @@
 // Sources: Vinted official help docs, Redrip/Vinkit/Vendy Studio seller guides (2026),
 // live API data (19 Sep 2026). Zero fabrication: all numbers from the live market snapshot.
 
+import { TRACKED } from "@/lib/stats"
 import type { BlogPost } from "./blog-posts"
 import { pricingBodyCta, pricingMidCta } from "@/lib/blog-mid-cta"
 import { ilinkHref } from "@/lib/blog-ilink"
@@ -13,7 +14,7 @@ export const POSTS_113: BlogPost[] = [
     title: "Vinted Negotiation Strategy: When to Accept, Counter, or Decline (2026)",
     seoTitle: "Vinted Negotiation Strategy — Accept, Counter | Resale IQ",
     description:
-      "Most Vinted sales go through offers. Learn the 70% rule, counter-offer psychology, and when to decline — with live data from 5.4M+ tracked listings and.",
+      `Most Vinted sales go through offers. Learn the 70% rule, counter-offer psychology, and when to decline — with live data from ${TRACKED} listing records.`,
     date: "2026-09-19",
     category: "Selling",
     readMins: 8,

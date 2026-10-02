@@ -21,6 +21,7 @@ import { canonicalPath } from "@/lib/locale-routes"
 import { trialCtaLabel, trialLine, trialCardLine, firstChargeDate } from "@/lib/trial-cta"
 import { LlmEyebrow } from "./llm-eyebrow"
 import { useTrackedLabel } from "@/lib/use-tracked-label"
+import { LISTING_RECORDS_NOUN } from "@/lib/listing-records-noun"
 import { useSellThroughLabel } from "@/lib/use-sell-through-label"
 import { useAuthStore } from "@/lib/auth-store"
 import { pricingCtaKind } from "@/lib/pricing-cta-state"
@@ -161,7 +162,7 @@ export function PricingSection({
    *  page's own h1. One h1 per document; the copy is identical either way. */
   headingLevel?: 1 | 2
   /**
-   * H53 CRO: SSR-resolved tracked-listings count (e.g. "5,830,000+").
+   * H53 CRO: SSR-resolved listing-records headline (e.g. "14M+").
    * When provided, useTrackedLabel initialises with this value so the trust
    * signal below the Starter CTA is visible on first paint without waiting
    * for the client-side fetch. CRO Principle #7 (trust before CTA).
@@ -700,7 +701,7 @@ export function PricingSection({
                     letterSpacing: "0.3px",
                   }}
                 >
-                  {tracked} live listings watched
+                  {tracked} {LISTING_RECORDS_NOUN[locale]}
                 </p>
                 {/* Watched departures / week — seeded SSR so first paint never shows em-dash.
                     Only shown when sellThrough resolved to a real number ("65/wk").
@@ -722,7 +723,7 @@ export function PricingSection({
                   </p>
                 )}
                 {/* 2026-09-30 text-diet pass: hidden in compact mode — this line
-                    restates "{tracked} listings watched" (already shown two
+                    restates "{tracked} listing records" (already shown two
                     lines up as riq-listings-tracked) plus "cancel anytime"
                     (already shown below the CTA as fine print). Kept on
                     standalone /pricing; e2e/smoke.spec.ts +

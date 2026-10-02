@@ -78,14 +78,14 @@ export interface BlogPost {
 }
 
 const BRAND = "Resale IQ"
-const DATA = `${TRACKED} Vinted listings across the 5 main EU markets (Spain, France, Germany, Italy, Portugal)`
+const DATA = `${TRACKED} listing records across the 5 main EU markets (Spain, France, Germany, Italy, Portugal)`
 
 export const POSTS: BlogPost[] = [
   {
     slug: "what-sells-best-on-vinted",
     title: "What Sells Best on Vinted in 2026 (Data-Backed)",
     description:
-      `The categories and brands that sell fastest on Vinted right now, based on ${TRACKED} analyzed listings across 5 EU markets — and how to tell before you buy.`,
+      `The categories and brands that sell fastest on Vinted right now, based on ${TRACKED} listing records across 5 EU markets — and how to tell before you buy.`,
     date: "2026-09-05",
     updated: "2026-09-23",
     category: "Sourcing",
@@ -239,7 +239,7 @@ export const POSTS: BlogPost[] = [
         a:
           `Check how fast comparable listings leave the shelf, at what asking price, and in which sizes. The free weekly tables are [https://resaleiq.dev/flip](/flip) (brands ranked by watched departures) and [https://resaleiq.dev/data](/data) (volumes and average prices at departure across ES/FR/DE/IT/PT). ` +
           `For the full 28-brand breakdown with buy-below for each, see [https://resaleiq.dev/blog/best-brands-to-resell-on-vinted](/blog/best-brands-to-resell-on-vinted). ` +
-          `Resale IQ turns ${TRACKED} real listings into a BUY / WATCH / SKIP call with a buy-below price — that item-level verdict is the paid product.`,
+          `Resale IQ turns ${TRACKED} listing records into a BUY / WATCH / SKIP call with a buy-below price — that item-level verdict is the paid product.`,
       },
       {
         q: "What's the best category to resell on Vinted in autumn 2026?",
@@ -259,7 +259,7 @@ export const POSTS: BlogPost[] = [
     readMins: 6,
     preflightQuery: "New Balance 530",
     intro:
-      "To price an item on Vinted in 2026, ignore the retail tag. Anchor to the asking price comparable listings had when they left the shelf, then sit slightly under that number. We do not see sale receipts. We watch listings leave. Snapshot 20 September 2026 at 16:49: across Spain, France, Germany, Italy and Portugal we track 5,341,780 listings. Eighteen of 28 tracked brands cleared the publish floor of 5 watched departures and produced 443 observed transitions this week. Fred Perry averaged €16 across 84 departures. Balenciaga averaged €121 across 56. Stone Island averaged €73 across 62. Same garment type, different brand, different price. Price off the brand's real departure number, not retail. If you source to resell, work backwards to a buy-below: average departure × 0.95 × 0.70. That models a 5% platform deduction and a 30% margin. Type the model on /tools for BUY, WATCH or SKIP. Starter €19/mo. Weekly volumes stay free on /data.",
+      "To price an item on Vinted in 2026, ignore the retail tag. Anchor to the asking price comparable listings had when they left the shelf, then sit slightly under that number. We do not see sale receipts. We watch listings leave. Snapshot 20 September 2026 at 16:49: across Spain, France, Germany, Italy and Portugal, eighteen of 28 tracked brands cleared the publish floor of 5 watched departures and produced 443 observed transitions this week. Fred Perry averaged €16 across 84 departures. Balenciaga averaged €121 across 56. Stone Island averaged €73 across 62. Same garment type, different brand, different price. Price off the brand's real departure number, not retail. If you source to resell, work backwards to a buy-below: average departure × 0.95 × 0.70. That models a 5% platform deduction and a 30% margin. Type the model on /tools for BUY, WATCH or SKIP. Starter €19/mo. Weekly volumes stay free on /data.",
     definedTerm: {
       name: "What is a buy-below price?",
       description:
@@ -324,7 +324,7 @@ export const POSTS: BlogPost[] = [
     slug: "best-brands-to-resell-on-vinted",
     title: "Best Brands to Resell on Vinted: All 28 Tracked Brands Ranked by Weekly Demand",
     seoTitle: "Best Brands to Resell on Vinted (2026 Data)",
-    description: "The brands with real departure volume right now, ranked from 13.4M tracked EU Vinted listings.",
+    description: `The brands with real departure volume right now, ranked from ${TRACKED} listing records.`,
     date: "2026-09-05",
     updated: "2026-09-15",
     category: "Sourcing",
@@ -432,7 +432,7 @@ export const POSTS: BlogPost[] = [
     category: "Platforms",
     readMins: 11,
     intro:
-      "If you sell from Spain, France, Germany, Italy or Portugal, Vinted keeps more of your money than Depop. Depop’s 0% selling fee is US and UK only; everywhere else it still takes 10% of the listed price, plus payment processing. Vinted takes no seller commission — the buyer pays Buyer Protection on top. That is the whole fee argument. The rest is audience. On EU Vinted we watch 5,341,780 listings. Week to 20 September 2026 (snapshot 15:49): 482 watched departures across 18 brands. Volume end: Fred Perry Shirts, 33 watched departures at €13 average. Premium end: Gucci Bags, 11 at €500; Stone Island Jackets, 19 at €137. Those are shelf-exit observations, not confirmed sale prices. Depop can still win on a styled vintage piece if the extra sale price covers that 10%. For branded stock people search by name, it usually does not. Check your country first, then your stock, then sell-through — not vibes.",
+      "If you sell from Spain, France, Germany, Italy or Portugal, Vinted keeps more of your money than Depop. Depop’s 0% selling fee is US and UK only; everywhere else it still takes 10% of the listed price, plus payment processing. Vinted takes no seller commission — the buyer pays Buyer Protection on top. That is the whole fee argument. The rest is audience. Week to 20 September 2026 (snapshot 15:49): 482 watched departures across 18 brands. Volume end: Fred Perry Shirts, 33 watched departures at €13 average. Premium end: Gucci Bags, 11 at €500; Stone Island Jackets, 19 at €137. Those are shelf-exit observations, not confirmed sale prices. Depop can still win on a styled vintage piece if the extra sale price covers that 10%. For branded stock people search by name, it usually does not. Check your country first, then your stock, then sell-through — not vibes.",
     sections: [
       {
         h: "The fee difference, and why your country decides it",
@@ -469,7 +469,7 @@ export const POSTS: BlogPost[] = [
           "Vinted's centre of gravity is everyday branded fashion across large EU markets — recognisable mid-market brands, basics, sneakers, denim, outerwear. Volume is its advantage. Items that are easy to search for by brand and model sell reliably, and they sell at a fair rather than a remarkable price.",
           "Depop skews younger and more trend-led, with real strength in curated vintage, Y2K, streetwear and anything with a story attached to it. A well-styled, well-photographed piece can command a price on Depop that the same item would never reach on Vinted, because the buyer is shopping a look rather than a brand name.",
           "The practical translation: Vinted rewards recognisability and price discipline, Depop rewards curation and presentation. If your sourcing edge is spotting underpriced known brands, Vinted's volume is hard to beat. If your edge is taste — finding pieces other people cannot name but want — Depop pays for that in a way Vinted does not.",
-          "The split shows up in the numbers. Week to 20 September 2026 (snapshot 15:49, 5,341,780 listings), Gucci Bags left the shelf 11 times at €500 average and Stone Island Jackets 19 times at €137 — the premium end where Depop's styling premium competes hardest. At the volume end, Fred Perry Shirts moved 33 watched departures at €13: recognisable, cheap, fast, and exactly what Vinted's scale is built for. Brand totals the same week: Fred Perry 90 at €16, Stone Island 62 at €73, Gucci 26 at €303. Those are watched departures, not confirmed sales.",
+          "The split shows up in the numbers. Week to 20 September 2026 (snapshot 15:49), Gucci Bags left the shelf 11 times at €500 average and Stone Island Jackets 19 times at €137 — the premium end where Depop's styling premium competes hardest. At the volume end, Fred Perry Shirts moved 33 watched departures at €13: recognisable, cheap, fast, and exactly what Vinted's scale is built for. Brand totals the same week: Fred Perry 90 at €16, Stone Island 62 at €73, Gucci 26 at €303. Those are watched departures, not confirmed sales.",
         ],
         table: {
           caption: "Which platform tends to suit which stock. Generalisations, not rules — test your own categories.",
@@ -603,7 +603,7 @@ export const POSTS: BlogPost[] = [
     preflightQuery: "New Balance 550",
     readMins: 5,
     intro:
-      "As of 20 September 2026, we watched 566 listings leave the shelf across 20 published brands this week, from 5,341,780 tracked listings in Spain, France, Germany, Italy and Portugal. The fastest pairs to hunt are not the cheapest logos. Patagonia Jackets recorded 45 watched departures at €39, Stone Island Hoodies 29 at €52, and New Balance Sneakers 22 at €48. Weekly counts are a lower bound: listings first seen already gone do not enter the 7-day figure. To find items worth flipping, start from proven demand rather than from what looks cheap: pick categories that are actually leaving the shelf, know each one's buy-below, then hunt listings under it — in a charity shop, a Facebook lot, or on Vinted. That turns sourcing into a filter instead of a scroll. We do not see sale receipts. Check the item on resaleiq.dev (BUY/WATCH/SKIP, Starter €19/mo). Weekly volumes stay free on /data.",
+      "As of 20 September 2026, we watched 566 listings leave the shelf across 20 published brands this week in Spain, France, Germany, Italy and Portugal. The fastest pairs to hunt are not the cheapest logos. Patagonia Jackets recorded 45 watched departures at €39, Stone Island Hoodies 29 at €52, and New Balance Sneakers 22 at €48. Weekly counts are a lower bound: listings first seen already gone do not enter the 7-day figure. To find items worth flipping, start from proven demand rather than from what looks cheap: pick categories that are actually leaving the shelf, know each one's buy-below, then hunt listings under it — in a charity shop, a Facebook lot, or on Vinted. That turns sourcing into a filter instead of a scroll. We do not see sale receipts. Check the item on resaleiq.dev (BUY/WATCH/SKIP, Starter €19/mo). Weekly volumes stay free on /data.",
     sections: [
       {
         h: "Start from demand, not from what's cheap",

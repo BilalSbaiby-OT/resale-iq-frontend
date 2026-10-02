@@ -403,7 +403,7 @@ export default async function BlogPostPage(
               : "Know before you buy."}
           </div>
           <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "8px 0 16px" }}>
-            Resale IQ turns {tracked} Vinted listings into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
+            Resale IQ turns {tracked} listing records into one answer: BUY, WATCH, or SKIP — with buy-below price and best sizes.
           </p>
           {/* H106 CRO: blog-footer direct checkout for posts with preflightQuery.
               BEFORE: two green Links both routing to /tools — a visitor who

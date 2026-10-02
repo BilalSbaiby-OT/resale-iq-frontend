@@ -3,6 +3,7 @@
 // Sources: Vinted algorithm research (Tissuco, Vinting.app, Vinkit, Supervint 2026),
 // live API data (19 Sep 2026). Zero fabrication: all numbers from the live market snapshot.
 
+import { TRACKED } from "@/lib/stats"
 import type { BlogPost } from "./blog-posts"
 import { pricingBodyCta, pricingMidCta } from "@/lib/blog-mid-cta"
 import { ilinkHref } from "@/lib/blog-ilink"
@@ -21,7 +22,7 @@ export const POSTS_114: BlogPost[] = [
     preflightQuery: "Adidas Superstar",
 
     intro:
-      "Most Vinted listings do not get views because of five fixable signals: the title does not match what buyers search, the category is wrong, the price is above market, the photos are low quality, and the listing has no engagement history. This guide breaks down exactly how Vinted's ranking algorithm works and gives you a 7-day plan to fix visibility — with live data from 5.4M tracked EU listings showing what actually gets seen.",
+      `Most Vinted listings do not get views because of five fixable signals: the title does not match what buyers search, the category is wrong, the price is above market, the photos are low quality, and the listing has no engagement history. This guide breaks down exactly how Vinted's ranking algorithm works and gives you a 7-day plan to fix visibility — with live data from ${TRACKED} listing records showing what actually gets seen.`,
 
     definedTerm: {
       name: "Vinted listing visibility",

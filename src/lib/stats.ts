@@ -7,13 +7,30 @@
  * figure by about 45% — while the dashboard, reading COUNT(*), overstated by
  * 3.1x. A number that describes a growing dataset cannot be a string literal.
  *
- * The API returns COUNT(DISTINCT external_id): the five Vinted domains are one
- * catalogue, so counting rows would overstate by roughly 3x.
+ * TWO COUNTS, BOTH REAL, NEVER INTERCHANGEABLE (2026-10-02 founder decision)
+ *   listing records  COUNT(*) FROM listings — one row per listing per Vinted
+ *                    domain. THE HEADLINE: "14M+ listing records", floored to
+ *                    the whole million, computed in ONE place
+ *                    (listingRecordsHeadline below) and used on every surface.
+ *   distinct items   COUNT(DISTINCT external_id) — each item once, however many
+ *                    domains carry it (about 2.3x smaller). Published EXACTLY,
+ *                    and only, on /data, /methodology and the /pricing market
+ *                    pulse, always labelled "distinct items". It is NOT the
+ *                    headline and must not be called "listings" or "unique
+ *                    listings" in prose: the noun after the headline is
+ *                    "listing records" (src/lib/listing-records-noun.ts).
+ * Earlier this file argued COUNT(*) was a 3x "overcount". It is an overcount of
+ * ITEMS and an exact count of RECORDS; the defect was the noun, not the number.
  */
 
-import { floorTo10k } from "./floor-to-10k"
-export { floorTo10k }
+import { floorTo10k, floorToMillion } from "./floor-to-10k"
+export { floorTo10k, floorToMillion }
 
+/**
+ * The DISTINCT-item count (COUNT(DISTINCT external_id)). Not the headline —
+ * use it only where the exact distinct figure is published (/data,
+ * /methodology, the /pricing pulse) or as the stated basis next to the records.
+ */
 export async function getListingsTracked(): Promise<number | null> {
   // Same warehouse and same 15-minute revalidate as /data. A second fetch of
   // the same endpoint at 3600s was how the homepage and /data could disagree.
@@ -23,15 +40,27 @@ export async function getListingsTracked(): Promise<number | null> {
 }
 
 /**
- * The phrase pages render inside a sentence, e.g. "1,960,000+".
+ * THE headline: "14M+", the listing-records count floored to the whole
+ * million. Every page, meta description, JSON-LD block, llms.txt line and
+ * {{TRACKED}} data-module token renders this one string — the sentence around it
+ * says "listing records", never plain "listings" (listing-records-noun.ts).
  *
- * Floored, because prose reads badly with six significant figures and a "+"
- * stays true as the number grows. If the warehouse has no number, return "—"
- * — never a hardcoded guess. Unknown is not 900,000.
+ * If the warehouse has no records figure, return "—" — never a hardcoded guess
+ * and never the distinct count under the records label. Unknown is not 14M.
+ */
+export async function listingRecordsHeadline(): Promise<string> {
+  const n = await getListingRecords()
+  return n ? floorToMillion(n) : "—"
+}
+
+/**
+ * The phrase pages render inside a sentence, e.g. "14M+". Kept under its
+ * original name because ~45 server components and every {{TRACKED}} data
+ * module already call it; it is now simply the records headline above. The name
+ * is historical — it no longer returns the distinct count.
  */
 export async function listingsTrackedLabel(): Promise<string> {
-  const n = await getListingsTracked()
-  return n ? `${floorTo10k(n)}+` : "—"
+  return listingRecordsHeadline()
 }
 
 /**
@@ -81,12 +110,11 @@ export function fillTracked<T>(value: T, tracked: string): T {
 }
 
 /**
- * The EXACT count, for places where the number stands alone.
+ * The EXACT distinct-item count, for the places that publish it (/data,
+ * /methodology, the /pricing pulse). Label it "distinct items".
  *
- * A rounded figure sits still for days and reads like marketing. The precise
- * one moves with every scrape and says something a rounded number cannot:
- * that we actually counted, and counted items rather than rows. It is also the
- * harder claim to make — anyone can write "500,000+".
+ * The precise figure moves with every scrape and says something a rounded
+ * number cannot: that we actually counted, and counted items rather than rows.
  */
 export async function listingsTrackedExact(): Promise<string | null> {
   const n = await getListingsTracked()
@@ -96,24 +124,14 @@ export async function listingsTrackedExact(): Promise<string | null> {
 /**
  * The total listing-records count (COUNT(*) across ES, FR, DE, IT, PT) —
  * the larger figure from `total_listing_records` in the snapshot.
- * A garment listed in several markets counts once per market; use this for
- * "listing records" copy and `getListingsTracked()` for the distinct-item count.
+ * A garment listed in several markets counts once per market, so this counts
+ * records, not distinct items; `getListingsTracked()` is the distinct count.
  * Returns null if the field is absent/unavailable, so callers fall back gracefully.
  */
 export async function getListingRecords(): Promise<number | null> {
   const { getMarketNumbers } = await import("./market-numbers")
   const n = (await getMarketNumbers()).totalListingRecords
   return typeof n === "number" && n > 0 ? n : null
-}
-
-/**
- * Formatted label for the listing-records count, e.g. "13,490,000+".
- * Floored to nearest 10k so the "+" stays true between refreshes.
- * Falls back to "—" (never a hardcoded guess) when the field is unavailable.
- */
-export async function listingRecordsLabel(): Promise<string> {
-  const n = await getListingRecords()
-  return n ? `${floorTo10k(n)}+` : "—"
 }
 
 /**

@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { CATEGORIES, BRANDS } from "@/lib/seo-categories"
 import { OG_IMAGES } from "@/lib/og-image"
 import { listingsTrackedLabel } from "@/lib/stats"
+import { LISTING_RECORDS_NOUN } from "@/lib/listing-records-noun"
 import { getMarketNumbers, fmtCount, fmtEur } from "@/lib/market-numbers"
 import { FreshnessNotice } from "@/components/ui/freshness-notice"
 import { WeeklyBrief } from "@/components/ui/weekly-brief"
@@ -76,7 +77,7 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
       "@type": "Dataset",
       name: "Vinted Resale Market Snapshot",
       description:
-        `Weekly units sold and average sale price by brand on Vinted across Spain, France, Germany, Italy and Portugal, derived from ${tracked} analyzed listings.`,
+        `Weekly units sold and average sale price by brand on Vinted across Spain, France, Germany, Italy and Portugal${tracked !== "—" ? `, derived from ${tracked} listing records` : ""}.`,
       url: "https://resaleiq.dev/data",
       creator: { "@type": "Organization", name: "Resale IQ", url: "https://resaleiq.dev" },
       license: "https://resaleiq.dev/legal",
@@ -107,7 +108,7 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
           {t.h1}
         </h1>
         <p style={{ fontSize: 15.5, color: "#8b99b8", lineHeight: 1.65, maxWidth: 660 }}>
-          {t.ledeBefore}{tracked}{t.ledeCite}
+          {t.ledeBefore}{tracked} {LISTING_RECORDS_NOUN[locale]}.{t.ledeCite}
         </p>
 
         {/* SEO/CRO fix 2026-09-29: /data's only above-the-fold action used to be
@@ -151,6 +152,10 @@ export async function DataPage({ locale = "en" }: { locale?: Locale } = {}) {
             <div>
               <dt style={{ color: "#8b99b8", fontSize: 12.5 }}>{t.dtListings}</dt>
               <dd style={{ margin: "4px 0 0", color: "#eef1f7", fontFamily: "monospace", fontWeight: 700 }}>{tracked}</dd>
+            </div>
+            <div>
+              <dt style={{ color: "#8b99b8", fontSize: 12.5 }}>{t.dtDistinct}</dt>
+              <dd data-testid="riq-data-distinct" style={{ margin: "4px 0 0", color: "#eef1f7", fontFamily: "monospace", fontWeight: 700 }}>{fmtCount(market.listingsTracked)}</dd>
             </div>
             <div>
               <dt style={{ color: "#8b99b8", fontSize: 12.5 }}>{t.dtBrands}</dt>

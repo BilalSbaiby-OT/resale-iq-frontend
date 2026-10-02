@@ -26,7 +26,7 @@ export const INTENTS: SearchIntent[] = [
     keyword: "vinted price checker",
     title: "Vinted Price Checker — Typical Departure Price",
     description:
-      `Typical Vinted departure price and buy-below from ${TRACKED} listings across 5 EU markets. Weekly brand volumes are public. Item-level checks are on Starter at €19/mo.`,
+      `Typical Vinted departure price and buy-below from ${TRACKED} listing records across 5 EU markets. Weekly brand volumes are public. Item-level checks are on Starter at €19/mo.`,
     h1: "Vinted Price Checker",
     lede:
       `A Vinted price checker estimates what an item is worth from listings that recently left the shelf, not from asking prices. Asking prices are hopes. A departure price is the last ask when a comparable listing disappeared, which is the closest public proxy for what buyers paid. Resale IQ runs that check across Spain, France, Germany, Italy and Portugal and returns BUY, WATCH or SKIP plus a buy-below price: roughly the average departure ask × 0.95 × 0.70, aiming at about a 30% margin after the 5% seller fee we model. Weekly brand volumes and average sale prices stay public on the market data page and may be cited with attribution. Type a brand and model below to run a one-item check. Sell-through and sizes stay on a plan. Most item checks unlock with Starter at €19 a month. Weekly brand volumes stay public on /data.`,
@@ -65,7 +65,7 @@ export const INTENTS: SearchIntent[] = [
       { h: "Plan three weeks ahead", p: "The Order Planner shows what to buy today for stock landing in three weeks, based on recent weekly demand." },
     ],
     faq: [
-      { q: "What is the best sourcing tool for Vinted resellers?", a: `A sourcing tool should tell you what to buy, the maximum price to pay, and which sizes sell. Resale IQ does this from ${TRACKED} Vinted listings across 5 EU markets, returning a BUY/WATCH/SKIP verdict with a buy-below price.` },
+      { q: "What is the best sourcing tool for Vinted resellers?", a: `A sourcing tool should tell you what to buy, the maximum price to pay, and which sizes sell. Resale IQ does this from ${TRACKED} listing records across 5 EU markets, returning a BUY/WATCH/SKIP verdict with a buy-below price.` },
       { q: "How do resellers decide what to buy on Vinted?", a: "Experienced resellers check demand (weekly sales volume), sell-through rate, and size demand before buying, then only pay under their buy-below price. Guessing is what creates dead stock." },
     ],
   },
@@ -74,7 +74,7 @@ export const INTENTS: SearchIntent[] = [
     keyword: "vinted resale analytics",
     title: "Vinted Resale Analytics",
     description:
-      `Resale analytics for Vinted: sell-through rates, brand rankings, price trends and per-size demand across ${TRACKED} listings in 5 EU markets.`,
+      `Resale analytics for Vinted: sell-through rates, brand rankings, price trends and per-size demand across ${TRACKED} listing records in 5 EU markets.`,
     h1: "Vinted Resale Analytics",
     lede:
       "Analytics built specifically for secondhand resale. Resale IQ continuously analyses live Vinted listings across five EU markets, and watches which ones leave the shelf, and turns them into the metrics that actually drive profit.",
@@ -85,7 +85,7 @@ export const INTENTS: SearchIntent[] = [
     ],
     faq: [
       { q: "What analytics matter for Vinted reselling?", a: "The three that decide profit are sell-through rate (how fast items leave the shelf), average asking price at departure (margin room), and per-size demand (whether your specific stock will move). Volume alone is misleading." },
-      { q: "Where can I get Vinted market data?", a: `Vinted doesn't publish analytics. Resale IQ builds them from ${TRACKED} public live Vinted listings across Spain, France, Germany, Italy and Portugal, plus which ones leave the shelf.` },
+      { q: "Where can I get Vinted market data?", a: `Vinted doesn't publish analytics. Resale IQ builds them from ${TRACKED} listing records across Spain, France, Germany, Italy and Portugal, plus which ones leave the shelf.` },
     ],
   },
   {
@@ -93,7 +93,7 @@ export const INTENTS: SearchIntent[] = [
     keyword: "reselling intelligence",
     title: "Reselling Intelligence",
     description:
-      `Reselling intelligence for secondhand sellers: demand signals, buy-below pricing, sell-through and momentum, built on ${TRACKED} analyzed listings.`,
+      `Reselling intelligence for secondhand sellers: demand signals, buy-below pricing, sell-through and momentum, built on ${TRACKED} listing records.`,
     h1: "Reselling Intelligence",
     lede:
       "Reselling intelligence means using market data instead of guesswork: knowing what sells, at what price, how fast, and in which sizes — before you buy. That's what Resale IQ delivers for Vinted resellers across 5 EU markets.",
@@ -104,7 +104,7 @@ export const INTENTS: SearchIntent[] = [
     ],
     faq: [
       { q: "What is reselling intelligence?", a: "Reselling intelligence is the use of real market data — sell-through rates, departure prices, size demand and momentum — to decide what stock to buy, instead of relying on intuition. It reduces dead stock and protects margin." },
-      { q: "How is it different from just checking recently-departed listings?", a: `Checking departed listings manually gives you a tiny sample from one market. Reselling intelligence aggregates ${TRACKED} listings across all five EU markets and converts them into a priced, sized, time-bound decision.` },
+      { q: "How is it different from just checking recently-departed listings?", a: `Checking departed listings manually gives you a tiny sample from one market. Reselling intelligence aggregates ${TRACKED} listing records across all five EU markets and converts them into a priced, sized, time-bound decision.` },
     ],
   },
   {

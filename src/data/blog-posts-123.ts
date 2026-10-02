@@ -12,14 +12,14 @@ export const POSTS_123: BlogPost[] = [
     title: "DAC7 on Vinted: which model to buy in 2026",
     seoTitle: "DAC7 Vinted 2026 | Which model to buy to resell | Resale IQ",
     description:
-      "DAC7 reports 30 transactions or €2,000 gross. Still buy the model that leaves the shelf. This week’s watched departures on 5,309,568 EU5 Vinted listings.",
+      "DAC7 reports 30 transactions or €2,000 gross. Still buy the model that leaves the shelf. This week’s watched departures across EU5 Vinted.",
     date: "2026-09-21",
     category: "News",
     readMins: 6,
     noindex: true, // ~0 human visits in 30d; template post; keep URL live for citations
     preflightQuery: "Stone Island Hoodies",
     intro:
-      "DAC7 (EU Directive 2021/514) makes Vinted report sellers who hit 30 transactions or €2,000 gross in a calendar year. That is a reporting trigger, not a tax bill, and it is not a reason to buy slow stock. This week, on 5,309,568 EU5 Vinted listings (snapshot 20 September 2026 21:38 UTC), Stone Island left the shelf 62 times at €73 average, hoodies 29 at €52. Fred Perry 47 at €16. Patagonia jackets 21 at €33. New Balance sneakers 22 at €48. Gucci 24 at €279, bags 10 at €452. Adidas 5 at €26. If you are already over the DAC7 line, each extra SKU still has to leave. Buy the model that is still departing, then check that exact model on /tools. We count watched departures, not confirmed cash sales. No per-model buy-below on this page. Not tax advice.",
+      "DAC7 (EU Directive 2021/514) makes Vinted report sellers who hit 30 transactions or €2,000 gross in a calendar year. That is a reporting trigger, not a tax bill, and it is not a reason to buy slow stock. This week, in EU5 Vinted (snapshot 20 September 2026 21:38 UTC), Stone Island left the shelf 62 times at €73 average, hoodies 29 at €52. Fred Perry 47 at €16. Patagonia jackets 21 at €33. New Balance sneakers 22 at €48. Gucci 24 at €279, bags 10 at €452. Adidas 5 at €26. If you are already over the DAC7 line, each extra SKU still has to leave. Buy the model that is still departing, then check that exact model on /tools. We count watched departures, not confirmed cash sales. No per-model buy-below on this page. Not tax advice.",
     definedTerm: {
       name: "DAC7 (Vinted resellers)",
       description:
@@ -29,7 +29,7 @@ export const POSTS_123: BlogPost[] = [
       {
         h: "Reporting does not pick the model",
         p: [
-          "Public snapshot 20 September 2026 21:38 UTC. Listings tracked: 5,309,568. Counting method: watched transitions from active to gone in the trailing 7 days. Treat the weekly figure as a lower bound. sold_7d_kind is observed_transitions.",
+          "Public snapshot 20 September 2026 21:38 UTC. Counting method: watched transitions from active to gone in the trailing 7 days. Treat the weekly figure as a lower bound. sold_7d_kind is observed_transitions.",
           "Stone Island 62 departures, €73 average. Fred Perry 47, €16. Patagonia 47, €34. Gucci 24, €279. New Balance 24, €46. Balenciaga 20, €132. The North Face 16, €33. Nike 12, €93. Ralph Lauren 12, €52. Uniqlo 12, €10. Adidas 5, €26. Supreme 5, €58. A DAC7 report will list gross proceeds. It will not tell you which of these still move.",
         ],
         table: {
@@ -74,7 +74,7 @@ export const POSTS_123: BlogPost[] = [
       },
       {
         q: "Where do these numbers come from?",
-        a: "Resale IQ /api/public/market-snapshot. 5,309,568 listings across ES, FR, DE, IT, PT. sold_7d is watched departures, a lower bound, not confirmed sales. We do not file or read DAC7 reports.",
+        a: "Resale IQ /api/public/market-snapshot (ES, FR, DE, IT, PT). sold_7d is watched departures, a lower bound, not confirmed sales. We do not file or read DAC7 reports.",
       },
       {
         q: "Which model should I buy if I am already over the DAC7 threshold?",

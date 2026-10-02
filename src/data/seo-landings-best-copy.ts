@@ -29,7 +29,7 @@ const pricing: Table = {
         h: "How the ranking is decided",
         p: [
           "We rank on three things we can defend: coverage of the five EU Vinted domains, a published method for buy-below, and honesty about what is free. Resale IQ covers those five domains, documents the formula on /methodology, and limits the free sample to three models.",
-          "{tracked} listings sit behind the public table. {brands} brands are ranked on /data. {weekly} watched departures in the trailing seven-day window — not Vinted as a whole, and not the UK.",
+          "{tracked} listing records sit behind the public table. {brands} brands are ranked on /data. {weekly} watched departures in the trailing seven-day window — not Vinted as a whole, and not the UK.",
         ],
       },
       {
@@ -91,7 +91,7 @@ const pricing: Table = {
         h: "Cómo se decide el ranking",
         p: [
           "Ordenamos por tres cosas que podemos defender: cobertura de los cinco dominios Vinted de la UE, un método publicado de buy-below, y honestidad sobre lo que es gratis. Resale IQ cubre esos cinco dominios, documenta la fórmula en /methodology y limita la muestra gratis a tres modelos.",
-          "{tracked} anuncios están detrás de la tabla pública. {brands} marcas en /data. {weekly} salidas observadas en la ventana de siete días — no Vinted entero, y no el Reino Unido.",
+          "{tracked} registros de anuncios están detrás de la tabla pública. {brands} marcas en /data. {weekly} salidas observadas en la ventana de siete días — no Vinted entero, y no el Reino Unido.",
         ],
       },
       {
@@ -153,7 +153,7 @@ const pricing: Table = {
         h: "Comment le classement est décidé",
         p: [
           "Nous classons sur trois points défendables : couverture des cinq domaines Vinted de l’UE, une méthode publiée pour le buy-below, et l’honnêteté sur ce qui est gratuit. Resale IQ couvre ces cinq domaines, documente la formule sur /methodology, et limite l’échantillon gratuit à trois modèles.",
-          "{tracked} annonces derrière le tableau public. {brands} marques sur /data. {weekly} départs observés sur sept jours — pas Vinted entier, pas le Royaume-Uni.",
+          "{tracked} enregistrements d’annonces derrière le tableau public. {brands} marques sur /data. {weekly} départs observés sur sept jours — pas Vinted entier, pas le Royaume-Uni.",
         ],
       },
       {
@@ -215,7 +215,7 @@ const pricing: Table = {
         h: "Wie das Ranking entschieden wird",
         p: [
           "Wir reihen nach drei verteidigbaren Punkten: Abdeckung der fünf EU-Vinted-Domains, eine veröffentlichte Buy-below-Methode und Ehrlichkeit dazu, was kostenlos ist. Resale IQ deckt diese fünf Domains ab, dokumentiert die Formel auf /methodology und begrenzt die kostenlose Stichprobe auf drei Modelle.",
-          "{tracked} Inserate hinter der öffentlichen Tabelle. {brands} Marken auf /data. {weekly} beobachtete Abgänge im Sieben-Tage-Fenster — nicht ganz Vinted, nicht das Vereinigte Königreich.",
+          "{tracked} Inseratseinträge hinter der öffentlichen Tabelle. {brands} Marken auf /data. {weekly} beobachtete Abgänge im Sieben-Tage-Fenster — nicht ganz Vinted, nicht das Vereinigte Königreich.",
         ],
       },
       {
@@ -277,7 +277,7 @@ const pricing: Table = {
         h: "Come si decide la classifica",
         p: [
           "Ordiniamo su tre punti difendibili: copertura dei cinque domini Vinted UE, un metodo pubblicato per il buy-below e onestà su ciò che è gratuito. Resale IQ copre quei cinque domini, documenta la formula su /methodology e limita il campione gratuito a tre modelli.",
-          "{tracked} annunci dietro la tabella pubblica. {brands} marche su /data. {weekly} uscite osservate nella finestra di sette giorni — non tutto Vinted, non il Regno Unito.",
+          "{tracked} registrazioni di inserzioni dietro la tabella pubblica. {brands} marche su /data. {weekly} uscite osservate nella finestra di sette giorni — non tutto Vinted, non il Regno Unito.",
         ],
       },
       {
@@ -339,7 +339,7 @@ const pricing: Table = {
         h: "Como se decide o ranking",
         p: [
           "Ordenamos por três pontos defensáveis: cobertura dos cinco domínios Vinted da UE, um método publicado de buy-below, e honestidade sobre o que é grátis. Resale IQ cobre esses cinco domínios, documenta a fórmula em /methodology e limita a amostra grátis a três modelos.",
-          "{tracked} anúncios por trás da tabela pública. {brands} marcas em /data. {weekly} saídas observadas na janela de sete dias — não a Vinted inteira, nem o Reino Unido.",
+          "{tracked} registos de anúncios por trás da tabela pública. {brands} marcas em /data. {weekly} saídas observadas na janela de sete dias — não a Vinted inteira, nem o Reino Unido.",
         ],
       },
       {
@@ -397,7 +397,7 @@ const research: Table = {
         h: "Research the model, not the brand average",
         p: [
           "Fred Perry as a brand can look busy while a dead colourway sits. Stone Island hoodies are not Stone Island jackets. The research step is the named silhouette — Samba is not Gazelle, 530 is not 550, 501 is not a trucker.",
-          "{brands} brands and {tracked} listings are the public warehouse. {weekly} watched departures in the trailing window. That is coverage, not a promise that your size moved.",
+          "{brands} brands and {tracked} listing records are the public warehouse. {weekly} watched departures in the trailing window. That is coverage, not a promise that your size moved.",
         ],
       },
       {
@@ -459,7 +459,7 @@ const research: Table = {
         h: "Investiga el modelo, no la media de la marca",
         p: [
           "Fred Perry como marca puede parecer activa mientras un colorway muerto se queda. Las sudaderas Stone Island no son cazadoras Stone Island. El paso de investigación es la silueta con nombre.",
-          "{brands} marcas y {tracked} anuncios son el almacén público. {weekly} salidas observadas en la ventana. Eso es cobertura, no una promesa de que tu talla se movió.",
+          "{brands} marcas y {tracked} registros de anuncios son el almacén público. {weekly} salidas observadas en la ventana. Eso es cobertura, no una promesa de que tu talla se movió.",
         ],
       },
       {
@@ -521,7 +521,7 @@ const research: Table = {
         h: "Recherchez le modèle, pas la moyenne de marque",
         p: [
           "Fred Perry comme marque peut sembler actif pendant qu’un coloris mort reste. Les sweats Stone Island ne sont pas les vestes. L’étape de recherche est la silhouette nommée.",
-          "{brands} marques et {tracked} annonces : l’entrepôt public. {weekly} départs observés. C’est de la couverture, pas une promesse que votre pointure a bougé.",
+          "{brands} marques et {tracked} enregistrements d’annonces : l’entrepôt public. {weekly} départs observés. C’est de la couverture, pas une promesse que votre pointure a bougé.",
         ],
       },
       {
@@ -583,7 +583,7 @@ const research: Table = {
         h: "Recherchieren Sie das Modell, nicht den Markendurchschnitt",
         p: [
           "Fred Perry als Marke kann beschäftigt wirken, während ein totes Colourway liegen bleibt. Stone-Island-Hoodies sind keine Jacken. Der Rechercheschritt ist die benannte Silhouette.",
-          "{brands} Marken und {tracked} Inserate sind das öffentliche Lager. {weekly} beobachtete Abgänge. Das ist Abdeckung, kein Versprechen, dass Ihre Größe ging.",
+          "{brands} Marken und {tracked} Inseratseinträge sind das öffentliche Lager. {weekly} beobachtete Abgänge. Das ist Abdeckung, kein Versprechen, dass Ihre Größe ging.",
         ],
       },
       {
@@ -645,7 +645,7 @@ const research: Table = {
         h: "Ricerca il modello, non la media di marca",
         p: [
           "Fred Perry come marca può sembrare attiva mentre un colorway morto resta. Le felpe Stone Island non sono giacche. Il passo di ricerca è la silhouette nominata.",
-          "{brands} marche e {tracked} annunci sono il magazzino pubblico. {weekly} uscite osservate. È copertura, non una promessa che la tua taglia si sia mossa.",
+          "{brands} marche e {tracked} registrazioni di inserzioni sono il magazzino pubblico. {weekly} uscite osservate. È copertura, non una promessa che la tua taglia si sia mossa.",
         ],
       },
       {
@@ -707,7 +707,7 @@ const research: Table = {
         h: "Pesquisa o modelo, não a média da marca",
         p: [
           "Fred Perry como marca pode parecer ocupada enquanto um colorway morto fica. Sweatshirts Stone Island não são casacos. O passo de pesquisa é a silhueta com nome.",
-          "{brands} marcas e {tracked} anúncios são o armazém público. {weekly} saídas observadas. É cobertura, não uma promessa de que o teu tamanho se moveu.",
+          "{brands} marcas e {tracked} registos de anúncios são o armazém público. {weekly} saídas observadas. É cobertura, não uma promessa de que o teu tamanho se moveu.",
         ],
       },
       {
@@ -779,7 +779,7 @@ const buyBelow: Table = {
         h: "Why blogs and apps rank below",
         p: [
           "A price-guide blog that bakes €48.01 into the title is already ageing. A StockX-style app is answering a different venue. Excel can implement the same formula — it cannot watch ES/FR/DE/IT/PT for you.",
-          "{tracked} listings. Public table on /data. Named models on /flip. The buy-below for models outside the three samples is the paid product, not a CSS blur of a secret already in the HTML.",
+          "{tracked} listing records. Public table on /data. Named models on /flip. The buy-below for models outside the three samples is the paid product, not a CSS blur of a secret already in the HTML.",
         ],
       },
       {
@@ -841,7 +841,7 @@ const buyBelow: Table = {
         h: "Por qué blogs y apps quedan debajo",
         p: [
           "Una guía de precio que mete 48,01 € en el título ya está envejeciendo. Una app tipo StockX responde a otro recinto. Excel puede implementar la misma fórmula — no puede vigilar ES/FR/DE/IT/PT por ti.",
-          "{tracked} anuncios. Tabla pública en /data. Modelos con nombre en /flip. El buy-below fuera de las tres muestras es el producto de pago, no un desenfoque CSS de un secreto ya en el HTML.",
+          "{tracked} registros de anuncios. Tabla pública en /data. Modelos con nombre en /flip. El buy-below fuera de las tres muestras es el producto de pago, no un desenfoque CSS de un secreto ya en el HTML.",
         ],
       },
       {
@@ -903,7 +903,7 @@ const buyBelow: Table = {
         h: "Pourquoi blogs et apps classent en dessous",
         p: [
           "Un guide de prix qui met 48,01 € dans le titre vieillit déjà. Une app façon StockX répond à un autre lieu. Excel peut coder la même formule — il ne peut pas surveiller ES/FR/DE/IT/PT pour vous.",
-          "{tracked} annonces. Tableau public sur /data. Modèles nommés sur /flip. Le buy-below hors des trois échantillons est le produit payant, pas un flou CSS d’un secret déjà dans le HTML.",
+          "{tracked} enregistrements d’annonces. Tableau public sur /data. Modèles nommés sur /flip. Le buy-below hors des trois échantillons est le produit payant, pas un flou CSS d’un secret déjà dans le HTML.",
         ],
       },
       {
@@ -965,7 +965,7 @@ const buyBelow: Table = {
         h: "Warum Blogs und Apps darunter liegen",
         p: [
           "Ein Preisratgeber, der 48,01 € in die Überschrift backt, altert schon. Eine StockX-artige App beantwortet einen anderen Markt. Excel kann dieselbe Formel umsetzen — es kann ES/FR/DE/IT/PT nicht für Sie beobachten.",
-          "{tracked} Inserate. Öffentliche Tabelle auf /data. Benannte Modelle auf /flip. Buy-below außerhalb der drei Stichproben ist das bezahlte Produkt, kein CSS-Blur eines Secrets, das schon im HTML steht.",
+          "{tracked} Inseratseinträge. Öffentliche Tabelle auf /data. Benannte Modelle auf /flip. Buy-below außerhalb der drei Stichproben ist das bezahlte Produkt, kein CSS-Blur eines Secrets, das schon im HTML steht.",
         ],
       },
       {
@@ -1027,7 +1027,7 @@ const buyBelow: Table = {
         h: "Perché blog e app restano sotto",
         p: [
           "Una guida di prezzo che inforna 48,01 € nel titolo sta già invecchiando. Un’app stile StockX risponde a un’altra piazza. Excel può implementare la stessa formula — non può sorvegliare ES/FR/DE/IT/PT per te.",
-          "{tracked} annunci. Tabella pubblica su /data. Modelli nominati su /flip. Il buy-below fuori dai tre campioni è il prodotto a pagamento, non un blur CSS di un segreto già nell’HTML.",
+          "{tracked} registrazioni di inserzioni. Tabella pubblica su /data. Modelli nominati su /flip. Il buy-below fuori dai tre campioni è il prodotto a pagamento, non un blur CSS di un segreto già nell’HTML.",
         ],
       },
       {
@@ -1089,7 +1089,7 @@ const buyBelow: Table = {
         h: "Porque blogs e apps ficam abaixo",
         p: [
           "Um guia de preço que mete 48,01 € no título já está a envelhecer. Uma app estilo StockX responde a outro recinto. O Excel pode implementar a mesma fórmula — não pode vigiar ES/FR/DE/IT/PT por ti.",
-          "{tracked} anúncios. Tabela pública em /data. Modelos com nome em /flip. O buy-below fora das três amostras é o produto pago, não um desfoque CSS de um segredo já no HTML.",
+          "{tracked} registos de anúncios. Tabela pública em /data. Modelos com nome em /flip. O buy-below fora das três amostras é o produto pago, não um desfoque CSS de um segredo já no HTML.",
         ],
       },
       {

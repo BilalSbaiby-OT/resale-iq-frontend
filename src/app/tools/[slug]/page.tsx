@@ -294,7 +294,7 @@ export default async function IntentPage(
         <section style={{ marginTop: 56, paddingTop: 28, borderTop: "1px solid var(--color-border-ui)" }}>
           <h2 style={{ fontSize: 19, fontWeight: 700, color: "var(--color-text-primary)", marginBottom: 8 }}>{t.upsellTitle}</h2>
           <p style={{ fontSize: 15, color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: 16, maxWidth: 620 }}>
-            Buy-below price, exit price and best sizes on every item (sell-through rolling out as departure history matures) — from {tracked} unique Vinted listings across 5 EU markets.
+            Buy-below price, exit price and best sizes on every item (sell-through rolling out as departure history matures) — from {tracked} listing records across 5 EU markets.
           </p>
           {slug === "vinted-price-checker" ? (
             <div>

@@ -1,7 +1,10 @@
 "use client"
 /**
- * Client-side hook: fetches the live listings-tracked figure from the
- * market-snapshot endpoint and returns a formatted label ("5,970,000+").
+ * Client-side hook: fetches the live listing-records figure from the
+ * market-snapshot endpoint and returns the headline label ("14M+").
+ * Same source (total_listing_records) and same format (floorToMillion) as the
+ * server helper listingRecordsHeadline() in stats.ts, so the seeded first paint
+ * and the refreshed value can never disagree.
  *
  * Extracted from paywall.tsx and hard-paywall-card.tsx — a single source
  * so "two places to be wrong" doesn't happen again.
@@ -12,7 +15,7 @@
  * label fresh across navigation without a hard reload.
  */
 import { useEffect, useState } from "react"
-import { floorTo10k } from "@/lib/floor-to-10k"
+import { floorToMillion } from "@/lib/floor-to-10k"
 
 export function useTrackedLabel(seed?: string): string {
   const [tracked, setTracked] = useState(seed ?? "…")
@@ -21,8 +24,8 @@ export function useTrackedLabel(seed?: string): string {
     fetch("/api/public/market-snapshot")
       .then(r => (r.ok ? r.json() : null))
       .then(d => {
-        const n = d?.listings_tracked
-        if (live && typeof n === "number" && n > 0) setTracked(`${floorTo10k(n)}+`)
+        const n = d?.total_listing_records
+        if (live && typeof n === "number" && n > 0) setTracked(floorToMillion(n))
       })
       .catch(() => {})
     return () => { live = false }

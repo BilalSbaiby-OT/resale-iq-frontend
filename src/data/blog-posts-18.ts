@@ -2,6 +2,7 @@
 // Honest claims only: no earnings guarantees, no tax/legal advice as professional advice.
 // All departure data from /api/public/market-snapshot (2026-09-15 build).
 
+import { TRACKED } from "@/lib/stats"
 import type { BlogPost } from "./blog-posts"
 import { pricingBodyCta, pricingMidCta } from "@/lib/blog-mid-cta"
 import { ilinkHref } from "@/lib/blog-ilink"
@@ -22,7 +23,7 @@ export const POSTS_18: BlogPost[] = [
     definedTerm: {
       name: "Departure rate",
       description:
-        "Departure rate is the number of items for a given brand or category that complete a sale on Vinted within a set period, typically 7 days. Resale IQ tracks departure rates across 28 brands and 6,034,566 EU Vinted listings. A higher departure rate means more buyers in that market — which also means more competition from other sellers. High departure rate is necessary but not sufficient for fast sales: listing quality determines which items in the pool depart first.",
+        `Departure rate is the number of items for a given brand or category that complete a sale on Vinted within a set period, typically 7 days. Resale IQ tracks departure rates across 28 brands and ${TRACKED} listing records. A higher departure rate means more buyers in that market — which also means more competition from other sellers. High departure rate is necessary but not sufficient for fast sales: listing quality determines which items in the pool depart first.`,
     },
     sections: [
       {

@@ -146,7 +146,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           Previous order: plan cards → TrustBlock → ... → ROI card (position 8).
           CRO #12 (conversion momentum): objections fire in sequence — "worth it?" comes before
           "cancel anytime." Visitor sees €19, immediately sees "one flip = ~€30 margin, that covers
-          a month" (ROI), THEN sees "cancel anytime, 5.9M tracked" (TrustBlock). The ROI card
+          a month" (ROI), THEN sees "cancel anytime, the listing-records count" (TrustBlock). The ROI card
           already exists and renders nothing when no suitable row is available — zero risk.
           CRO #4 (objection: is it worth it?) directly adjacent to the price.
           Revenue 2026-09-30. H192. */}

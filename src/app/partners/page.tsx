@@ -10,6 +10,7 @@ import {
   BASE_URL,
 } from "@/lib/affiliate-programme"
 import { AiAgentRegisterForm } from "@/components/partners/ai-agent-register-form"
+import { listingRecordsHeadline } from "@/lib/stats"
 
 import { fitMetadata } from "@/lib/meta-fit"
 export const metadata: Metadata = fitMetadata({
@@ -36,13 +37,13 @@ export const metadata: Metadata = fitMetadata({
 /**
  * /partners — affiliate and creator-partner landing page.
  *
- * Data figures are VERIFIED against the live production DB before publish.
- * Source:
- *   listings total    → SELECT COUNT(*) FROM listings          → 13,371,381
- *   sold listings     → SELECT COUNT(*) FROM listings WHERE sold_at IS NOT NULL → 1,121,053
+ * The listing-records headline is LIVE (listingRecordsHeadline() — the same
+ * "14M+" every other surface carries). It used to be a frozen "13.4M" typed in
+ * from a 2026-09-22 DB query, labelled "active listings" although the count
+ * includes listings that already left the shelf. The two cards below are still
+ * DB-verified literals, queried 2026-09-22 against production DB via docker exec:
  *   tracked brands    → SELECT COUNT(DISTINCT brand) FROM demand_index → 55
  *   model rows live   → SELECT COUNT(*) FROM model_signals WHERE sold_30d > 0 → 141
- * (queried 2026-09-22 against production DB via docker exec)
  *
  * No social proof, no partner count, no invented testimonials — we have ZERO partners.
  * Commission paid only on money actually received from Stripe.
@@ -56,14 +57,23 @@ const EXAMPLE_BRANDS = [
   { brand: "Patagonia", category: "Jackets", sold30d: 202, avgEur: 45.87 },
 ]
 
+// The "1.1M confirmed sold transactions" card is GONE (2026-10-02 founder
+// decision): it counted rows with sold_at IS NOT NULL, a timestamp stamped when
+// the scraper first SAW an already-sold item — discovery, not a sale. Only
+// mark_listing_sold() / sold_observed=1 may claim a sale.
 const STAT_CARDS = [
-  { value: "13.4M", label: "listings tracked across 5 EU markets" },
-  { value: "1.1M", label: "confirmed sold transactions in the DB" },
   { value: "55", label: "brands with active demand signals" },
   { value: "141", label: "brand + model pairs with live 30-day data" },
 ]
 
-export default function PartnersPage() {
+export default async function PartnersPage() {
+  // ONE headline, floored to the whole million. "—" (no figure) drops the card
+  // and the sentence clause rather than printing a placeholder or a stale number.
+  const records = await listingRecordsHeadline()
+  const hasRecords = records !== "—"
+  const statCards = hasRecords
+    ? [{ value: records, label: "listing records across 5 EU markets" }, ...STAT_CARDS]
+    : STAT_CARDS
   return (
     <div
       style={{
@@ -123,8 +133,8 @@ export default function PartnersPage() {
             marginBottom: 32,
           }}
         >
-          Resale IQ tracks 13.4 million active listings across Spain, France,
-          Germany, Italy and Portugal. We can tell you which brands are selling
+          Resale IQ tracks {hasRecords ? `${records} listing records` : "listing records"} across
+          Spain, France, Germany, Italy and Portugal. We can tell you which brands are selling
           in the last 30 days, the average selling price, and the buy‑below
           number that makes a flip profitable. If you make content for resellers,
           that data is your next video.
@@ -193,7 +203,7 @@ export default function PartnersPage() {
             gap: 12,
           }}
         >
-          {STAT_CARDS.map((s) => (
+          {statCards.map((s) => (
             <div
               key={s.label}
               style={{
@@ -232,7 +242,7 @@ export default function PartnersPage() {
             marginTop: 8,
           }}
         >
-          Figures verified against production DB, September 2026.
+          {hasRecords ? "Listing records update live; the other figures were verified against the production DB, September 2026." : "Figures verified against production DB, September 2026."}
         </p>
       </section>
 

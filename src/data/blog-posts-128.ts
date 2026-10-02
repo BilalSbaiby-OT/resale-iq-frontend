@@ -152,7 +152,7 @@ export const POSTS_128: BlogPost[] = [
     readMins: 6,
     preflightQuery: "New Balance 550",
     intro:
-      `As of 22 September 2026, Resale IQ tracks ${TRACKED} listings across 5 EU Vinted markets. By raw 30-day departure volume, Stone Island leads with ~13,900 watched departures, followed by Patagonia (~12,200) and Balenciaga (~10,300). These are conservative minimums — a Sep 14–22 sold-detection outage understates all 30-day figures by up to ~25%. The question 'which brand sells fastest' depends on whether you mean volume (Stone Island, Patagonia, Fred Perry) or sell speed in days (Balenciaga Track at avg 0.3 days). Here is the full breakdown.`,
+      `As of 22 September 2026, Resale IQ tracks ${TRACKED} listing records across 5 EU Vinted markets. By raw 30-day departure volume, Stone Island leads with ~13,900 watched departures, followed by Patagonia (~12,200) and Balenciaga (~10,300). These are conservative minimums — a Sep 14–22 sold-detection outage understates all 30-day figures by up to ~25%. The question 'which brand sells fastest' depends on whether you mean volume (Stone Island, Patagonia, Fred Perry) or sell speed in days (Balenciaga Track at avg 0.3 days). Here is the full breakdown.`,
     definedTerm: {
       name: "Watched departure",
       description:
@@ -235,7 +235,7 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "What brand has the most sales on EU Vinted?",
         a:
-          `Among tracked brands in September 2026, Stone Island has the highest 30-day departure volume at ~13,900, followed by Patagonia (~12,200), Balenciaga (~10,300), Fred Perry (~9,500) and Gucci (~8,400). These are tracked-brand figures, not the full Vinted catalogue. Resale IQ tracks ${TRACKED} listings across Spain, France, Germany, Italy and Portugal.`,
+          `Among tracked brands in September 2026, Stone Island has the highest 30-day departure volume at ~13,900, followed by Patagonia (~12,200), Balenciaga (~10,300), Fred Perry (~9,500) and Gucci (~8,400). These are tracked-brand figures, not the full Vinted catalogue. Resale IQ tracks ${TRACKED} listing records across Spain, France, Germany, Italy and Portugal.`,
       },
     ],
   },
