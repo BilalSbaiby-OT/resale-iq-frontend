@@ -130,7 +130,7 @@ export const copy = {
     },
     signIn: "Sign in",
     pricing: "Pricing",
-    heroTitle: "Vinted EU demand check — buy-below price for resellers.",
+    heroTitle: "Resale IQ — Resale price + max buy for 100 popular pieces",
     heroAudience: "For resellers on Vinted EU.",
     heroTrust: "Item checks from €19 a month. Weekly brand volumes on /data stay public.",
     heroFreeScope: "Live signals, updated several times daily. Real numbers, no guru promises.",
@@ -171,7 +171,7 @@ export const copy = {
     howToCoverage:
       "We track {{BRANDS}} brands across 5 EU markets. Samba, Air Force 1 and Fred Perry Polo are free — no account needed.",
     heroBody:
-      "For resellers: what an item resells for on Vinted and the max price to pay when sourcing stock.",
+      "BUY / WATCH / SKIP signals for resellers: typical resale price and the max price to pay before you source stock. Vinted FR · DE · ES · IT · PT data.",
     heroFrom: (tracked: string) =>
       `From ${tracked} listing records across the brands we watch.`,
     // Additive, not a replacement for the confident demo above it — see
@@ -748,7 +748,7 @@ export const copy = {
     },
     signIn: "Connexion",
     pricing: "Tarifs",
-    heroTitle: "Quel stock sourcer pour revendre sur Vinted, et à quel prix max",
+    heroTitle: "Resale IQ — Prix de revente + achat max, 100 pièces phares",
     heroAudience: "Pour les revendeurs sur Vinted.",
     heroTrust: "Vérifications d'articles dès 19 € par mois. Les volumes hebdo par marque restent publics sur /data.",
     heroFreeScope: "Signaux en direct, mis à jour plusieurs fois par jour. De vrais chiffres, pas de promesses de gourou.",
@@ -785,7 +785,7 @@ export const copy = {
     howToCoverage:
       "Nous ne suivons pas les articles à faible demande ni les marques hors de ce catalogue. Samba, Air Force 1 et Fred Perry Polo sont les exemples gratuits sur Vinted ES/FR/DE/IT/PT. Un échec est un trou de couverture — pas un chiffre caché derrière une offre payante.",
     heroBody:
-      "Pour les revendeurs : à quel prix un article se revend sur Vinted et le prix max à payer pour sourcer du stock.",
+      "Signaux BUY / WATCH / SKIP pour revendeurs : prix de revente typique et prix max à payer avant de sourcer du stock. Données Vinted FR · DE · ES · IT · PT.",
     heroFrom: (tracked: string) =>
       `À partir de ${tracked} enregistrements d'annonces, et les disparitions observées, sur cinq marchés UE.`,
     heroHonesty:
@@ -1206,7 +1206,7 @@ export const copy = {
     },
     signIn: "Entrar",
     pricing: "Precios",
-    heroTitle: "Qué stock comprar para revender en Vinted, precio máx.",
+    heroTitle: "Resale IQ — Precio de reventa + compra máx., 100 prendas",
     heroAudience: "Para revendedores en Vinted.",
     heroTrust: "Comprobaciones de artículos desde 19 € al mes. Los volúmenes semanales por marca siguen públicos en /data.",
     heroFreeScope: "Señales en directo, actualizadas varias veces al día. Números reales, sin promesas de gurú.",
@@ -1243,7 +1243,7 @@ export const copy = {
     howToCoverage:
       "No rastreamos artículos de baja demanda ni marcas que no están en este catálogo. Samba, Air Force 1 y Fred Perry Polo son los ejemplos gratis en Vinted ES/FR/DE/IT/PT. Un fallo es un hueco de cobertura — no un número escondido detrás de un muro de pago.",
     heroBody:
-      "Para revendedores: a cuánto se revende un artículo en Vinted y el precio máximo a pagar al comprar stock.",
+      "Señales BUY / WATCH / SKIP para revendedores: precio de reventa típico y precio máximo a pagar antes de comprar stock. Datos de Vinted FR · DE · ES · IT · PT.",
     heroFrom: (tracked: string) =>
       `De ${tracked} registros de anuncios, y las desapariciones observadas, en cinco mercados de la UE.`,
     heroHonesty:
@@ -1666,7 +1666,7 @@ export const copy = {
     },
     signIn: "Anmelden",
     pricing: "Preise",
-    heroTitle: "Welchen Bestand einkaufen, um auf Vinted zu verkaufen",
+    heroTitle: "Resale IQ — Wiederverkaufspreis + Max-Einkauf, 100 Teile",
     heroAudience: "Für Wiederverkäufer auf Vinted.",
     heroTrust: "Artikelprüfungen ab 19 € im Monat. Wöchentliche Markenvolumen bleiben öffentlich auf /data.",
     heroFreeScope: "Live-Signale, mehrmals täglich aktualisiert. Echte Zahlen, keine Guru-Versprechen.",
@@ -1703,7 +1703,7 @@ export const copy = {
     howToCoverage:
       "Wir erfassen keine schwachen Nachfragemodelle und keine Marken, die nicht in diesem Katalog stehen. Samba, Air Force 1 und Fred Perry Polo sind kostenlose Beispiele auf Vinted in ES/FR/DE/IT/PT. Eine Lücke ist Abdeckung — keine Zahl hinter einem Bezahl-Tarif.",
     heroBody:
-      "Für Wiederverkäufer: wofür ein Artikel auf Vinted weiterverkauft wird und der Maximalpreis beim Einkauf von Bestand.",
+      "BUY / WATCH / SKIP-Signale für Wiederverkäufer: typischer Wiederverkaufspreis und Maximalpreis, bevor du Bestand einkaufst. Vinted-Daten FR · DE · ES · IT · PT.",
     heroFrom: (tracked: string) =>
       `Basierend auf ${tracked} Inseratseinträgen und beobachteten Abgängen in fünf EU-Märkten.`,
     heroHonesty:
@@ -2125,7 +2125,7 @@ export const copy = {
     },
     signIn: "Accedi",
     pricing: "Prezzi",
-    heroTitle: "Quale stock prendere per rivendere su Vinted, prezzo max",
+    heroTitle: "Resale IQ — Prezzo di rivendita + acquisto max, 100 capi",
     heroAudience: "Per i rivenditori su Vinted.",
     heroTrust: "Controlli articolo da 19 € al mese. I volumi settimanali per marca restano pubblici su /data.",
     heroFreeScope: "Segnali in tempo reale, aggiornati più volte al giorno. Numeri veri, niente promesse da guru.",
@@ -2162,7 +2162,7 @@ export const copy = {
     howToCoverage:
       "Non copriamo articoli a bassa domanda né marche fuori da questo catalogo. Samba, Air Force 1 e Fred Perry Polo sono gli esempi gratuiti su Vinted ES/FR/DE/IT/PT. Un mancato risultato è un buco di copertura — non un numero nascosto dietro un paywall.",
     heroBody:
-      "Per chi rivende: a quanto si rivende un articolo su Vinted e il prezzo massimo da pagare per il tuo stock.",
+      "Segnali BUY / WATCH / SKIP per chi rivende: prezzo di rivendita tipico e prezzo massimo da pagare prima di prendere stock. Dati Vinted FR · DE · ES · IT · PT.",
     heroFrom: (tracked: string) =>
       `Basato su ${tracked} registrazioni di inserzioni e uscite osservate in cinque mercati UE.`,
     heroHonesty:
@@ -2582,7 +2582,7 @@ export const copy = {
     },
     signIn: "Entrar",
     pricing: "Preços",
-    heroTitle: "Que stock comprar para revender na Vinted, preço máx.",
+    heroTitle: "Resale IQ — Preço de revenda + compra máx., 100 peças",
     heroAudience: "Para revendedores na Vinted.",
     heroTrust: "Verificações de artigos a partir de 19 € por mês. Os volumes semanais por marca continuam públicos em /data.",
     heroFreeScope: "Sinais em direto, atualizados várias vezes por dia. Números reais, sem promessas de guru.",
@@ -2619,7 +2619,7 @@ export const copy = {
     howToCoverage:
       "Não acompanhamos artigos de baixa procura nem marcas fora deste catálogo. Samba, Air Force 1 e Fred Perry Polo são os exemplos grátis na Vinted ES/FR/DE/IT/PT. Uma falha é um buraco de cobertura — não um número escondido atrás de um muro de pagamento.",
     heroBody:
-      "Para revendedores: por quanto um artigo se revende na Vinted e o preço máximo a pagar ao comprar stock.",
+      "Sinais BUY / WATCH / SKIP para revendedores: preço de revenda típico e preço máximo a pagar antes de comprar stock. Dados Vinted FR · DE · ES · IT · PT.",
     heroFrom: (tracked: string) =>
       `A partir de ${tracked} registos de anúncios e saídas observadas em cinco mercados da UE.`,
     heroHonesty:
