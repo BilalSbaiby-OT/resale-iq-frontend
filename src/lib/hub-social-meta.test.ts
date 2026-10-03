@@ -157,7 +157,7 @@ test("homepage layout owns answer-first title + matching og/twitter (EX-HOMEPAGE
   const titleMatch = layout.match(/const TITLE = "([^"]+)"/)
   assert.ok(titleMatch)
   const title = titleMatch[1]
-  assert.equal(title, "Resale IQ — Resale price + max buy for 100 popular pieces")
+  assert.equal(title, "Resale IQ — Resale price + max buy for popular pieces")
   assert.ok(title.length <= 60)
   assert.match(title, /Resale IQ/)
   assert.doesNotMatch(title, /buy .* on Vinted/i)

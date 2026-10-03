@@ -28,7 +28,7 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", 
 
 // EX-HOMEPAGE-AEO — answer-first, brand suffix. Demand OS, not Vinted-sourcing.
 // Soft cap 60. H1 on `/` stays t.heroHeadline.
-const TITLE = "Resale IQ — Resale price + max buy for 100 popular pieces"
+const TITLE = "Resale IQ — Resale price + max buy for popular pieces"
 
 // The dataset size is FETCHED, never typed. The meta description and JSON-LD
 // carry the ONE headline ("14M+ listing records", listingRecordsHeadline() in
