@@ -24,6 +24,7 @@ import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { itemDisplayName } from "@/lib/item-display-name"
 import { LISTING_RECORDS_NOUN } from "@/lib/listing-records-noun"
 import { buyBelowLabel, targetLabel, BUY_LIST_UNLOCK_LABEL } from "@/lib/buy-list-display"
+import { makeT } from "@/lib/ui-translate"
 
 const VERDICT_COLOR: Record<string, string> = {
   "STRONG BUY": "#30D158",
@@ -178,6 +179,7 @@ export function SsrBuyListTeaser({
    */
   trackedLabel?: string | null
 }) {
+  const tx = makeT(locale)
   // Top 3 unlocked rows, including WATCH. The list is often all WATCH; dropping
   // those made the teaser render nothing. SKIP never appears (the API excludes it).
   const freeRows = items
@@ -275,7 +277,7 @@ export function SsrBuyListTeaser({
                 <rect x="1" y="5" width="9" height="7" rx="2" stroke="#6A7D9A" strokeWidth="1.5" fill="none"/>
                 <path d="M3 5V3.5a2.5 2.5 0 0 1 5 0V5" stroke="#6A7D9A" strokeWidth="1.5" fill="none"/>
               </svg>
-              {BUY_LIST_UNLOCK_LABEL}
+              {tx(BUY_LIST_UNLOCK_LABEL)}
             </span>
           </div>
         ))}
@@ -299,11 +301,11 @@ export function SsrBuyListTeaser({
         >
           <div>
             <p style={{ fontSize: 12.5, fontWeight: 600, color: "var(--color-text-primary)", margin: "0 0 2px" }}>
-              Full weekly list.
+              {tx("Full weekly list.")}
             </p>
             {showPrice ? (
               <p style={{ fontSize: 11.5, color: "var(--color-text-muted)", margin: 0 }}>
-                Starter €19/mo · cancel anytime
+                {tx("Starter €19/mo · cancel anytime")}
               </p>
             ) : (
               /* Proof substitute, not a price. Keepa leads with "Monitoring
@@ -314,7 +316,7 @@ export function SsrBuyListTeaser({
                  Live value passed from SSR page to keep in sync with meta desc. */
               trackedLabel && trackedLabel !== "—" ? (
                 <p style={{ fontSize: 11.5, color: "var(--color-text-muted)", margin: 0 }}>
-                  {trackedLabel} {LISTING_RECORDS_NOUN[locale]}, 5 EU markets
+                  {trackedLabel} {LISTING_RECORDS_NOUN[locale]}, {tx("5 EU markets")}
                 </p>
               ) : null
             )}
@@ -345,7 +347,7 @@ export function SsrBuyListTeaser({
                       display: "inline-block",
                     }}
                   >
-                    See plans →
+                    {tx("See plans →")}
                   </a>
                 ) : (
                   <GuestCheckoutButton locale={locale} src="ssr_buy_list_pricing" />

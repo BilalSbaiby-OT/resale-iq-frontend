@@ -33,6 +33,7 @@
 
 import type { Locale } from "@/lib/i18n"
 import { flowParam } from "@/lib/verdict-flow"
+import { makeT, N_ } from "@/lib/ui-translate"
 
 interface SampleVerdict {
   verdict: string
@@ -106,7 +107,8 @@ function publicVerdictLabel(verdict: string): string {
  * Fetched, never hardcoded. Renders nothing if the sample has no buy-below.
  * Does not use id="pricing-proof" — that anchor stays on the full demo below.
  */
-export async function PricingVerdictStrip() {
+export async function PricingVerdictStrip({ locale = "en" }: { locale?: Locale } = {}) {
+  const tx = makeT(locale)
   const v = await fetchSampleVerdict()
   if (!v || v.buy_below == null) return null
   const label = publicVerdictLabel(v.verdict)
@@ -127,11 +129,11 @@ export async function PricingVerdictStrip() {
       <span style={{ fontWeight: 700, color: "var(--color-text-primary)" }}>{v.product}</span>
       {" · "}
       <span style={{ fontWeight: 700, color: "var(--color-buy, #30D158)" }}>{label}</span>
-      {" · buy below "}
+      {" · "}{tx("buy below")}{" "}
       <span style={{ fontWeight: 800, color: "var(--color-buy, #30D158)", fontVariantNumeric: "tabular-nums" }}>{buy}</span>
       {exit ? (
         <>
-          {" · typical exit "}
+          {" · "}{tx("typical exit")}{" "}
           <span style={{ fontWeight: 700, color: "var(--color-text-primary)", fontVariantNumeric: "tabular-nums" }}>{exit}</span>
         </>
       ) : null}
@@ -140,7 +142,7 @@ export async function PricingVerdictStrip() {
         href="#pricing-try"
         style={{ color: "var(--color-text-primary)", fontWeight: 600, textDecoration: "underline", textUnderlineOffset: 2 }}
       >
-        Check yours before you pick a plan →
+        {tx("Check yours before you pick a plan →")}
       </a>
     </p>
   )
@@ -167,6 +169,7 @@ const VERDICT_BG: Record<string, string> = {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function PricingVerdictDemo({ locale }: { locale: Locale }) {
+  const tx = makeT(locale)
   const v = await fetchSampleVerdict()
   if (!v || !v.buy_below) return null
 
@@ -195,7 +198,7 @@ export async function PricingVerdictDemo({ locale }: { locale: Locale }) {
           margin: "0 0 10px",
         }}
       >
-        Example verdict — {v.product}, a free sample
+        {tx("Example verdict — {0}, a free sample", [v.product])}
       </p>
 
       <div
@@ -248,7 +251,7 @@ export async function PricingVerdictDemo({ locale }: { locale: Locale }) {
               }}
             >
               <div style={{ fontSize: 11, color: "#6a7d9a", marginBottom: 3, fontWeight: 600 }}>
-                BUY BELOW
+                {tx("BUY BELOW")}
               </div>
               <div style={{ fontSize: 22, fontWeight: 800, color: "#30D158", letterSpacing: "-0.5px" }}>
                 €{v.buy_below.toFixed(0)}
@@ -265,7 +268,7 @@ export async function PricingVerdictDemo({ locale }: { locale: Locale }) {
               }}
             >
               <div style={{ fontSize: 11, color: "#6a7d9a", marginBottom: 3, fontWeight: 600 }}>
-                AVG AT DEPARTURE
+                {tx("AVG AT DEPARTURE")}
               </div>
               <div style={{ fontSize: 22, fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-0.5px" }}>
                 €{v.sell_avg.toFixed(0)}
@@ -276,10 +279,10 @@ export async function PricingVerdictDemo({ locale }: { locale: Locale }) {
 
         {/* Locked fields — blurred to show depth without leaking paid data */}
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          {["Sell-through rate", "Top sizes", "Size velocity", "Opportunity score"].map((f) => (
+          {[N_("Sell-through rate"), N_("Top sizes"), N_("Size velocity"), N_("Opportunity score")].map((f) => (
             <span
               key={f}
-              aria-label={`${f} — subscriber only`}
+              aria-label={tx("{0} — subscriber only", [tx(f)])}
               style={{
                 fontSize: 12,
                 color: "#4a5a7a",
@@ -292,7 +295,7 @@ export async function PricingVerdictDemo({ locale }: { locale: Locale }) {
                 pointerEvents: "none",
               }}
             >
-              {f}
+              {tx(f)}
             </span>
           ))}
           <span
@@ -303,7 +306,7 @@ export async function PricingVerdictDemo({ locale }: { locale: Locale }) {
               alignSelf: "center",
             }}
           >
-            + more — unlocked with Starter
+            {tx("+ more — unlocked with Starter")}
           </span>
         </div>
 
@@ -330,10 +333,10 @@ export async function PricingVerdictDemo({ locale }: { locale: Locale }) {
               whiteSpace: "nowrap",
             }}
           >
-            Check your own items →
+            {tx("Check your own items →")}
           </a>
           <span style={{ marginLeft: 14, fontSize: 12, color: "#5b6b8c" }}>
-            Starter €19/mo · cancel anytime
+            {tx("Starter €19/mo · cancel anytime")}
           </span>
         </div>
       </div>

@@ -3,9 +3,11 @@
  *  Founder decision 2026-10-02: a buy-list row carries NO departure count. It
  *  leads with the price answer (entry = max price to pay, target = resale price). */
 
-export const BUY_LIST_UNLOCK_LABEL = "Unlock the rest — €19/mo"
-
 import type { Locale } from "./i18n"
+import { N_ } from "./ui-translate.ts"
+
+/** English source; render with tx(BUY_LIST_UNLOCK_LABEL). */
+export const BUY_LIST_UNLOCK_LABEL = N_("Unlock the rest — €19/mo")
 
 /** Plain signal words for buy-list rows: entry = max price to pay, target =
  *  typical resale price. */

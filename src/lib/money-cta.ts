@@ -1,3 +1,5 @@
+import { N_ } from "./ui-translate.ts"
+
 /** Paid-door hrefs for the money CTAs. */
 
 /**
@@ -19,8 +21,8 @@
  */
 export const INTERNAL_CTA_CAMPAIGN = "internal_money_cta"
 
-export const MONEY_CTA_LABEL = "Get the numbers"
-export const MONEY_CTA_SUBLINE = "Buy-below + demand before cash sticks."
+export const MONEY_CTA_LABEL = N_("Get the numbers")
+export const MONEY_CTA_SUBLINE = N_("Buy-below + demand before cash sticks.")
 
 export function moneyCtaPricingHref(content: string): string {
   return `/pricing?utm_source=site&utm_medium=internal&utm_campaign=${INTERNAL_CTA_CAMPAIGN}&utm_content=${content}`

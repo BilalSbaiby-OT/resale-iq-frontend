@@ -11,6 +11,7 @@ import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
 import { fitMetadata } from "@/lib/meta-fit"
+import { makeT } from "@/lib/ui-translate"
 // The trust page. Three questions kill conversion on a data product: where did
 // the number come from, how old is it, and what does it actually mean. This
 // answers all three in public, including the parts that are unflattering.
@@ -74,6 +75,7 @@ function decodeCopyEntities<T extends Record<string, string>>(obj: T): T {
 // English on first ship of locale routing (all closed as of this commit;
 // see methodology-copy.ts's changelog note for the source of each batch).
 export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {}) {
+  const tx = makeT(locale)
   const t = decodeCopyEntities(methodology(locale))
   const tracked = await listingsTrackedLabel()
   const market = await getMarketNumbers()
@@ -105,9 +107,9 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
     {
       "@context": "https://schema.org",
       "@type": "Dataset",
-      name: "Resale IQ Vinted market dataset",
+      name: tx("Resale IQ Vinted market dataset"),
       description:
-        "Live Vinted listings across Spain, France, Germany, Italy and Portugal, plus which ones leave the shelf, aggregated into per-brand and per-model resale signals.",
+        tx("Live Vinted listings across Spain, France, Germany, Italy and Portugal, plus which ones leave the shelf, aggregated into per-brand and per-model resale signals."),
       url: `${BASE}${canonicalPath(locale, "/methodology")}`,
       creator: { "@type": "Organization", name: "Resale IQ", url: BASE },
       spatialCoverage: "Spain, France, Germany, Italy, Portugal",
@@ -272,7 +274,7 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
               {t.text31}
             </Link>
             <Link href="/buy" style={{ border: "1px solid var(--color-border-2)", color: "#8fa3c4", fontWeight: 600, fontSize: 14, padding: "11px 20px", borderRadius: 9, textDecoration: "none" }}>
-              Buy-below prices
+              {tx("Buy-below prices")}
             </Link>
           </div>
         </div>

@@ -94,7 +94,7 @@ export function WeeklyBuyList({ rows, trialMode = false }: { rows: BuyRow[]; tri
           )
         })}
       </ol>
-      <div style={{ fontSize: 12, color: "var(--color-graphite-muted)", marginTop: 8, lineHeight: 1.5 }}>{isLiveAsk(basisOfRows(rows)) ? tx("Buy below = most you should pay, for ~30% margin before fees. Exit = typical resale price, based on current asking prices for this model on Vinted. Tap an item to check it.") : tx("Buy below = most you should pay, for ~30% margin before fees. Exit = average asking price at departure. Tap an item to check it.")}</div>
+      <div style={{ fontSize: 12, color: "var(--color-graphite-muted)", marginTop: 8, lineHeight: 1.5 }}>{isLiveAsk(basisOfRows(rows)) ? tx("Buy below = most you should pay (70% of the typical resale price). Exit = typical resale price, based on current asking prices for this model on Vinted. Tap an item to check it.") : tx("Buy below = most you should pay (70% of the typical resale price). Exit = average asking price at departure. Tap an item to check it.")}</div>
     </section>
   )
 }

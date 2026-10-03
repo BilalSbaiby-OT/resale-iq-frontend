@@ -10,6 +10,7 @@
 //   intentQuery → personalises the third step label when a brand was typed.
 
 import { CheckCircle2, Circle, ArrowRight } from "lucide-react"
+import { useT } from "@/components/i18n/locale-provider"
 
 const AUTH_TEXT = "text-[var(--color-text-primary)]"
 const AUTH_TEXT_MUTED = "text-[var(--color-text-muted)]"
@@ -21,18 +22,19 @@ export function ActivationSteps({
   step: 1 | 2 | 3
   intentQuery?: string
 }) {
+  const tx = useT()
   const thirdLabel = intentQuery
-    ? `See your ${intentQuery} verdict`
-    : "Get your first verdict"
+    ? tx("See your {0} verdict", [intentQuery])
+    : tx("Get your first verdict")
 
   const steps = [
     {
-      label: "Create account",
+      label: tx("Create account"),
       done: step > 1,
       active: step === 1,
     },
     {
-      label: "Verify email",
+      label: tx("Verify email"),
       done: step > 2,
       active: step === 2,
     },

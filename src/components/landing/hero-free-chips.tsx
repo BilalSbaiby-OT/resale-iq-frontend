@@ -41,6 +41,7 @@ import { buyBelowFromAvg } from "@/lib/buy-below"
 import { FREE_SAMPLES } from "@/lib/free-samples"
 import { getPlanFromToken } from "@/lib/utils"
 import { flowParam, typedFlow } from "@/lib/verdict-flow"
+import { makeT, N_ } from "@/lib/ui-translate"
 
 // The chips ARE the free samples: one list, src/lib/free-samples.ts.
 const SAMPLES = FREE_SAMPLES
@@ -129,6 +130,7 @@ function HeroInlineVerdictCard({
   capturedEmail?: string
   onEmailCapture?: (email: string) => void
 }) {
+  const tx = makeT(locale)
   const [email, setEmail] = useState(initialEmail ?? "")
   const handleEmailChange = (v: string) => {
     setEmail(v)
@@ -214,7 +216,7 @@ function HeroInlineVerdictCard({
         {result.buy_below != null && (
           <div>
             <div style={{ fontSize: 10.5, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 1 }}>
-              Buy below
+              {tx("Buy below")}
             </div>
             <div style={{ fontSize: 20, fontWeight: 800, color: col, letterSpacing: "-0.4px" }}>
               €{result.buy_below.toFixed(0)}
@@ -224,7 +226,7 @@ function HeroInlineVerdictCard({
         {result.sell_avg != null && (
           <div>
             <div style={{ fontSize: 10.5, color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 1 }}>
-              Avg resale
+              {tx("Avg resale")}
             </div>
             <div style={{ fontSize: 20, fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-0.4px" }}>
               €{result.sell_avg.toFixed(0)}
@@ -241,7 +243,7 @@ function HeroInlineVerdictCard({
       {buyListPreview && buyListPreview.length > 0 ? (
         <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 10, border: "1px solid var(--color-border-2)", borderRadius: 9, padding: "8px 10px" }}>
           <span style={{ fontSize: 10, fontWeight: 700, color: "var(--color-text-secondary)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>
-            Also in your buy list
+            {tx("Also in your buy list")}
           </span>
           {buyListPreview.filter(it => it.brand).slice(0, 3).map((it, i) => (
             <div key={`${it.brand}-${it.model ?? i}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
@@ -257,7 +259,7 @@ function HeroInlineVerdictCard({
         </div>
       ) : (
         <div style={{ display: "flex", gap: 5, flexWrap: "wrap", marginBottom: 10 }}>
-          {["Sell-through rate", "Top sizes", "Market trend", "Opportunity score"].map((f) => (
+          {[N_("Sell-through rate"), N_("Top sizes"), N_("Market trend"), N_("Opportunity score")].map((f) => (
             <span
               key={f}
               style={{
@@ -270,7 +272,7 @@ function HeroInlineVerdictCard({
                 userSelect: "none",
               }}
             >
-              {f}
+              {tx(f)}
             </span>
           ))}
         </div>
@@ -306,7 +308,7 @@ function HeroInlineVerdictCard({
         data-testid="riq-hero-sample-line"
         style={{ fontSize: 12, color: "var(--color-text-body)", margin: "0 0 8px", lineHeight: 1.5 }}
       >
-        That is the sample&apos;s number. For the model you are about to buy, Starter runs the same check: 7-day free trial, card required, €0 today, then €19/mo.
+        {tx("That is the sample's number. For the model you are about to buy, Starter runs the same check: 7-day free trial, card required, €0 today, then €19/mo.")}
       </p>
 
       <CustomQueryInput
@@ -326,8 +328,8 @@ function HeroInlineVerdictCard({
       {!email && (
         <input
           type="email"
-          placeholder="Email for checkout (optional)"
-          aria-label="Email for checkout, optional"
+          placeholder={tx("Email for checkout (optional)")}
+          aria-label={tx("Email for checkout, optional")}
           onChange={e => handleEmailChange(e.target.value)}
           style={{
             width: "100%",
@@ -356,6 +358,7 @@ function HeroInlineVerdictCard({
 }
 
 export function HeroFreeChips({ locale, buyListPreview }: { locale: Locale; buyListPreview?: SsrBuyListItem[] | null }) {
+  const tx = makeT(locale)
   const [activeChip, setActiveChip] = useState<string | null>(null)
   const [inlineResult, setInlineResult] = useState<InlineVerdict | null>(null)
   const [loading, setLoading] = useState(false)
@@ -422,7 +425,7 @@ export function HeroFreeChips({ locale, buyListPreview }: { locale: Locale; buyL
         }}
       >
         <span style={{ fontSize: 12, color: "var(--color-text-dim)", whiteSpace: "nowrap" }}>
-          Free samples:
+          {tx("Free samples:")}
         </span>
         {SAMPLES.map((q) => (
           <button
@@ -457,7 +460,7 @@ export function HeroFreeChips({ locale, buyListPreview }: { locale: Locale; buyL
           lineHeight: 1.45,
         }}
       >
-        {SAMPLES.length} free samples, no account. Any other model: Starter, 7-day free trial (card required, €0 today), then €19/mo.
+        {tx("{0} free samples, no account. Any other model: Starter, 7-day free trial (card required, €0 today), then €19/mo.", [SAMPLES.length])}
       </p>
 
       {/* Inline verdict — appears below chips when a chip is clicked */}

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { RegisterForm } from "@/app/(auth)/register/register-form"
 import { copy } from "@/lib/i18n"
 import { isPathLocale, hreflangLanguages, canonicalPath, localeStaticParams } from "@/lib/locale-routes"
+import { makeT } from "@/lib/ui-translate"
 
 export const generateStaticParams = localeStaticParams
 
@@ -56,6 +57,7 @@ export default async function LocaleRegisterPage({
 }) {
   const { locale } = await params
   if (!isPathLocale(locale)) notFound()
+  const tx = makeT(locale)
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6" style={{ background: "var(--color-bg)", color: "var(--color-text-primary)" }}>
       {/* Same "logo -> home" convention as (auth)/layout.tsx (UX-RULES.md
@@ -63,7 +65,7 @@ export default async function LocaleRegisterPage({
           class of bug this route exists to fix (see [locale]/methodology's
           back-link note). RegisterForm renders its own LocaleSwitcher
           already, so this wrapper does not mount a second one. */}
-      <Link href={canonicalPath(locale)} aria-label="Resale IQ home" className="flex items-center gap-2 mb-8">
+      <Link href={canonicalPath(locale)} aria-label={tx("Resale IQ home")} className="flex items-center gap-2 mb-8">
         <div className="w-7 h-7 rounded-lg bg-[var(--color-buy)] flex items-center justify-center text-[var(--color-on-buy)] font-bold text-[14px]">R</div>
         <span className="text-[15px] font-bold text-[var(--color-text-primary)]">Resale IQ</span>
       </Link>

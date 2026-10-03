@@ -1,16 +1,21 @@
 import Link from "next/link"
 import { MONEY_CTA_LABEL, MONEY_CTA_SUBLINE } from "@/lib/money-cta"
+import { makeT } from "@/lib/ui-translate"
+import type { Locale } from "@/lib/i18n"
 
 /** Primary paid-door button. Same copy on /tools and /category. */
 export function MoneyCta({
   href,
   secondaryHref,
   secondaryLabel,
+  locale = "en",
 }: {
   href: string
   secondaryHref?: string
   secondaryLabel?: string
+  locale?: Locale
 }) {
+  const tx = makeT(locale)
   return (
     <div
       style={{
@@ -35,10 +40,10 @@ export function MoneyCta({
           textDecoration: "none",
         }}
       >
-        {MONEY_CTA_LABEL}
+        {tx(MONEY_CTA_LABEL)}
       </Link>
       <p style={{ fontSize: 13.5, color: "#8b99b8", margin: "10px 0 0", lineHeight: 1.6 }}>
-        {MONEY_CTA_SUBLINE}
+        {tx(MONEY_CTA_SUBLINE)}
       </p>
       {secondaryHref && secondaryLabel && (
         <div style={{ marginTop: 12 }}>

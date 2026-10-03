@@ -38,6 +38,7 @@ import { collectVerdictMetrics, hasVerdictIntelligence, type ReconstructedSignal
 import { formatStrPctString } from "@/lib/str-pct"
 import { verdictWord, confidenceBand, categoryName, localizeConfidenceNote } from "@/lib/verdict-words"
 import { trackEvent } from "@/lib/analytics"
+import { makeT } from "@/lib/ui-translate"
 
 // 10s: long enough for a real answer (matches the extension's own budget,
 // extension/background.js), short enough that a hung request — the PENDING
@@ -491,6 +492,7 @@ export function FreeChecker({
    */
   buyListPreview?: SsrBuyListItem[] | null
 }) {
+  const tx = makeT(locale)
   const t = copy[locale].checker
   const resolvedPlaceholder = placeholder ?? `${t.placeholderPrefix} ${FREE_SAMPLES.join(", ")}`
   const { user, checkAuth } = useAuthStore()
@@ -855,7 +857,7 @@ export function FreeChecker({
                   background: "rgba(255,69,58,.12)",
                   padding: "5px 9px", borderRadius: 6,
                 }}>
-                  DON&apos;T STOCK
+                  {tx("DON'T STOCK")}
                 </span>
                 <span style={{ fontSize: 15, color: "var(--color-text-primary)", fontWeight: 600 }}>
                   {res.brand ?? q}
@@ -905,7 +907,7 @@ export function FreeChecker({
                   fontSize: 14, fontWeight: 600, textDecoration: "none",
                 }}
               >
-                See what&apos;s leaving the shelf this week →
+                {tx("See what's leaving the shelf this week →")}
               </a>
               {/* C212: OVERSUPPLIED was a conversion dead end — visitor just got
                   real value (told NOT to stock something) then had no path to
@@ -1000,7 +1002,7 @@ export function FreeChecker({
                     href={canonicalPath(locale, "/data")}
                     style={{ fontSize: 12, color: "#5b6b8c", textDecoration: "none", marginTop: 2 }}
                   >
-                    Browse the full catalog →
+                    {tx("Browse the full catalog →")}
                   </Link>
                 </div>
               )}
@@ -1084,7 +1086,7 @@ export function FreeChecker({
                   href={canonicalPath(locale, "/data")}
                   style={{ fontSize: 12.5, color: "#5b6b8c", textDecoration: "none" }}
                 >
-                  Browse the full catalog →
+                  {tx("Browse the full catalog →")}
                 </Link>
               </div>
 
@@ -1285,10 +1287,10 @@ export function FreeChecker({
               }}
             >
               <p style={{ fontSize: 13, fontWeight: 700, color: "var(--color-text-primary)", margin: "0 0 3px", lineHeight: 1.4 }}>
-                That was a public demo item.
+                {tx("That was a public demo item.")}
               </p>
               <p style={{ fontSize: 12, color: "var(--color-text-secondary)", margin: "0 0 10px", lineHeight: 1.5 }}>
-                Type any brand + item to see its real verdict. Starter €19/mo — cancel anytime.
+                {tx("Type any brand + item to see its real verdict. Starter €19/mo — cancel anytime.")}
               </p>
               <GuestCheckoutButton locale={locale} src="tools_sample_bridge" />
             </div>

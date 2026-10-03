@@ -42,6 +42,8 @@ import { itemDisplayName } from "@/lib/item-display-name"
 import { buyBelowLabel, BUY_LIST_UNLOCK_LABEL } from "@/lib/buy-list-display"
 import { proofStripNote, basisOfRows } from "@/lib/price-basis"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import { makeT, N_ } from "@/lib/ui-translate"
+import type { Locale } from "@/lib/i18n"
 
 export const VERDICT_COLOR: Record<string, string> = {
   "STRONG BUY": "#30D158",
@@ -54,11 +56,12 @@ export const VERDICT_COLOR: Record<string, string> = {
 export function BlogProofStrip({
   items,
   ctaHref,
-  ctaLabel = "Check any item now →",
+  ctaLabel = N_("Check any item now →"),
   hasInlineChecker = false,
   checkerAbove = false,
   topicQuery,
   topicComparableN,
+  locale = "en",
 }: {
   items: SsrBuyListItem[] | null
   /** Where the CTA sends them — the post's own preflight query when it has one. */
@@ -84,7 +87,10 @@ export function BlogProofStrip({
    * when > 0 so a null/undefined gracefully suppresses the row.
    */
   topicComparableN?: number | null
+  /** Page locale; English default keeps blog callers unchanged. */
+  locale?: Locale
 }) {
+  const tx = makeT(locale)
   if (!items || items.length === 0) return null
 
   // Unlocked rows carry the real buy_below. Locked rows keep the name and a
@@ -108,10 +114,10 @@ export function BlogProofStrip({
       }}
     >
       <p style={{ fontSize: 13, fontWeight: 700, color: "#EEF1F7", margin: "0 0 2px" }}>
-        This week&rsquo;s best finds to look for
+        {tx("This week’s best finds to look for")}
       </p>
       <p style={{ fontSize: 11.5, color: "#8FA3C4", margin: "0 0 10px" }}>
-        {proofStripNote(basisOfRows(items.map((i) => ({ honest: { basis: i.price_basis } }))))}
+        {tx(proofStripNote(basisOfRows(items.map((i) => ({ honest: { basis: i.price_basis } })))))}
       </p>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -135,7 +141,7 @@ export function BlogProofStrip({
             <span style={{ color: "#EEF1F7", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
               ✓ {topicQuery}
               <span style={{ color: "#8FA3C4", fontWeight: 400 }}>
-                {" · "}data ready
+                {" · "}{tx("data ready")}
               </span>
             </span>
             {hasInlineChecker && (
@@ -143,14 +149,14 @@ export function BlogProofStrip({
                 href="#riq-blog-checker"
                 style={{ color: "#30D158", fontWeight: 700, fontSize: 12, whiteSpace: "nowrap", textDecoration: "none", flexShrink: 0 }}
               >
-                {checkerAbove ? "See verdict ↑" : "See verdict ↓"}
+                {checkerAbove ? tx("See verdict ↑") : tx("See verdict ↓")}
               </a>
             )}
           </div>
         )}
         {unlocked.map((it, i) => {
           const color = VERDICT_COLOR[it.verdict] ?? "#8FA3C4"
-          const price = buyBelowLabel(it.buy_below)
+          const price = buyBelowLabel(it.buy_below, locale)
           return (
             <div
               key={`${it.brand}-${it.model ?? i}`}
@@ -195,13 +201,13 @@ export function BlogProofStrip({
             </span>
             <span style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0, color: "#6A7D9A" }}>
               <Lock size={12} aria-hidden />
-              <span style={{ fontSize: 12, fontWeight: 600 }}>{BUY_LIST_UNLOCK_LABEL}</span>
+              <span style={{ fontSize: 12, fontWeight: 600 }}>{tx(BUY_LIST_UNLOCK_LABEL)}</span>
             </span>
           </div>
         ))}
         {locked.length > 0 && (
           <div style={{ marginTop: 8 }}>
-            <GuestCheckoutButton locale="en" src="blog_buy_list_locked" />
+            <GuestCheckoutButton locale={locale} src="blog_buy_list_locked" />
           </div>
         )}
       </div>
@@ -222,7 +228,7 @@ export function BlogProofStrip({
             textDecoration: "none",
           }}
         >
-          See the verdict ↓
+          {tx("See the verdict ↓")}
         </a>
       ) : !hasInlineChecker ? (
       <Link
@@ -239,7 +245,7 @@ export function BlogProofStrip({
           textDecoration: "none",
         }}
       >
-        {ctaLabel}
+        {tx(ctaLabel)}
       </Link>
       ) : null}
     </aside>

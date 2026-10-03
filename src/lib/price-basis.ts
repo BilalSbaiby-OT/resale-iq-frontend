@@ -17,6 +17,7 @@
  * Plain .ts with type-only imports so node:test can load it.
  */
 import type { Locale } from "./i18n.ts"
+import { N_ } from "./ui-translate.ts"
 
 export type PriceBasis = "departed" | "active_asking" | "live_ask"
 
@@ -49,37 +50,37 @@ export const basisCopy: Record<Locale, BasisCopy> = {
   en: {
     liveAskNote: "Based on current asking prices for this model on Vinted (lower third of the market)",
     liveAskRangeLabel: "Typical resale price · typical range",
-    methodologyFaq: "The typical resale price is based on current asking prices for this model on Vinted (the lower third of the market, with each listing counted once across the Vinted sites we track), multiplied by 0.70 to target roughly a 30% margin. There is no fee step: Vinted charges private sellers no selling fee. These are asking prices; we do not observe the price an item finally changes hands at.",
+    methodologyFaq: "The typical resale price is based on current asking prices for this model on Vinted (the lower third of the market, with each listing counted once across the Vinted sites we track), multiplied by 0.70. There is no fee step: Vinted charges private sellers no selling fee. These are asking prices; we do not observe the price an item finally changes hands at.",
     methodologyNote: "Typical resale price: based on current asking prices for this model on Vinted (lower third of the market). The range shown is the typical range.",
   },
   es: {
     liveAskNote: "Basado en los precios pedidos actuales de este modelo en Vinted (tercio inferior del mercado)",
     liveAskRangeLabel: "Precio de reventa típico · rango típico",
-    methodologyFaq: "El precio de reventa típico se basa en los precios pedidos actuales de este modelo en Vinted (el tercio inferior del mercado, contando cada anuncio una sola vez entre los sitios de Vinted que seguimos), multiplicado por 0.70 para apuntar aproximadamente a un margen del 30%. No hay ningún paso de comisiones: Vinted no cobra comisión de venta a los vendedores particulares. Son precios pedidos; no observamos el precio al que un artículo cambia finalmente de manos.",
+    methodologyFaq: "El precio de reventa típico se basa en los precios pedidos actuales de este modelo en Vinted (el tercio inferior del mercado, contando cada anuncio una sola vez entre los sitios de Vinted que seguimos), multiplicado por 0.70. No hay ningún paso de comisiones: Vinted no cobra comisión de venta a los vendedores particulares. Son precios pedidos; no observamos el precio al que un artículo cambia finalmente de manos.",
     methodologyNote: "Precio de reventa típico: basado en los precios pedidos actuales de este modelo en Vinted (tercio inferior del mercado). El rango mostrado es el rango típico.",
   },
   fr: {
     liveAskNote: "Basé sur les prix demandés actuels de ce modèle sur Vinted (tiers inférieur du marché)",
     liveAskRangeLabel: "Prix de revente typique · fourchette typique",
-    methodologyFaq: "Le prix de revente typique repose sur les prix demandés actuels de ce modèle sur Vinted (le tiers inférieur du marché, chaque annonce n'étant comptée qu'une fois sur les sites Vinted que nous suivons), multiplié par 0.70 pour viser environ 30% de marge. Il n'y a aucune étape de frais : Vinted ne prélève aucun frais de vente aux vendeurs particuliers. Ce sont des prix demandés ; nous n'observons pas le prix auquel un article change finalement de mains.",
+    methodologyFaq: "Le prix de revente typique repose sur les prix demandés actuels de ce modèle sur Vinted (le tiers inférieur du marché, chaque annonce n'étant comptée qu'une fois sur les sites Vinted que nous suivons), multiplié par 0.70. Il n'y a aucune étape de frais : Vinted ne prélève aucun frais de vente aux vendeurs particuliers. Ce sont des prix demandés ; nous n'observons pas le prix auquel un article change finalement de mains.",
     methodologyNote: "Prix de revente typique : basé sur les prix demandés actuels de ce modèle sur Vinted (tiers inférieur du marché). La fourchette affichée est la fourchette typique.",
   },
   de: {
     liveAskNote: "Basiert auf aktuellen Angebotspreisen für dieses Modell auf Vinted (unteres Marktdrittel)",
     liveAskRangeLabel: "Typischer Wiederverkaufspreis · typische Spanne",
-    methodologyFaq: "Der typische Wiederverkaufspreis basiert auf aktuellen Angebotspreisen für dieses Modell auf Vinted (das untere Marktdrittel, wobei jedes Inserat über die von uns erfassten Vinted-Seiten hinweg nur einmal zählt), multipliziert mit 0.70, um eine Marge von etwa 30% anzustreben. Einen Gebührenschritt gibt es nicht: Vinted erhebt von privaten Verkäufern keine Verkaufsgebühr. Es sind Angebotspreise; den Preis, zu dem ein Artikel am Ende den Besitzer wechselt, beobachten wir nicht.",
+    methodologyFaq: "Der typische Wiederverkaufspreis basiert auf aktuellen Angebotspreisen für dieses Modell auf Vinted (das untere Marktdrittel, wobei jedes Inserat über die von uns erfassten Vinted-Seiten hinweg nur einmal zählt), multipliziert mit 0.70. Einen Gebührenschritt gibt es nicht: Vinted erhebt von privaten Verkäufern keine Verkaufsgebühr. Es sind Angebotspreise; den Preis, zu dem ein Artikel am Ende den Besitzer wechselt, beobachten wir nicht.",
     methodologyNote: "Typischer Wiederverkaufspreis: basiert auf aktuellen Angebotspreisen für dieses Modell auf Vinted (unteres Marktdrittel). Die angezeigte Spanne ist die typische Spanne.",
   },
   it: {
     liveAskNote: "Basato sui prezzi richiesti attuali per questo modello su Vinted (terzo inferiore del mercato)",
     liveAskRangeLabel: "Prezzo di rivendita tipico · fascia tipica",
-    methodologyFaq: "Il prezzo di rivendita tipico si basa sui prezzi richiesti attuali per questo modello su Vinted (il terzo inferiore del mercato, con ogni inserzione contata una sola volta tra i siti Vinted che monitoriamo), moltiplicato per 0.70 per puntare a un margine di circa il 30%. Non c'è nessun passaggio di commissioni: Vinted non applica commissioni di vendita ai venditori privati. Sono prezzi richiesti; non osserviamo il prezzo a cui un articolo cambia infine di mano.",
+    methodologyFaq: "Il prezzo di rivendita tipico si basa sui prezzi richiesti attuali per questo modello su Vinted (il terzo inferiore del mercato, con ogni inserzione contata una sola volta tra i siti Vinted che monitoriamo), moltiplicato per 0.70. Non c'è nessun passaggio di commissioni: Vinted non applica commissioni di vendita ai venditori privati. Sono prezzi richiesti; non osserviamo il prezzo a cui un articolo cambia infine di mano.",
     methodologyNote: "Prezzo di rivendita tipico: basato sui prezzi richiesti attuali per questo modello su Vinted (terzo inferiore del mercato). La fascia mostrata è la fascia tipica.",
   },
   pt: {
     liveAskNote: "Com base nos preços pedidos atuais deste modelo no Vinted (terço inferior do mercado)",
     liveAskRangeLabel: "Preço de revenda típico · intervalo típico",
-    methodologyFaq: "O preço de revenda típico baseia-se nos preços pedidos atuais deste modelo no Vinted (o terço inferior do mercado, contando cada anúncio uma só vez entre os sites da Vinted que acompanhamos), multiplicado por 0.70 para visar uma margem de cerca de 30%. Não há nenhum passo de taxas: a Vinted não cobra comissão de venda a vendedores particulares. São preços pedidos; não observamos o preço a que um artigo acaba por mudar de mãos.",
+    methodologyFaq: "O preço de revenda típico baseia-se nos preços pedidos atuais deste modelo no Vinted (o terço inferior do mercado, contando cada anúncio uma só vez entre os sites da Vinted que acompanhamos), multiplicado por 0.70. Não há nenhum passo de taxas: a Vinted não cobra comissão de venda a vendedores particulares. São preços pedidos; não observamos o preço a que um artigo acaba por mudar de mãos.",
     methodologyNote: "Preço de revenda típico: com base nos preços pedidos atuais deste modelo no Vinted (terço inferior do mercado). O intervalo apresentado é o intervalo típico.",
   },
 }
@@ -107,9 +108,9 @@ export function methodologyNoteFor(basis: unknown, locale: Locale): string | nul
   return isLiveAsk(basis) ? (basisCopy[locale] ?? basisCopy.en).methodologyNote : null
 }
 
-/** Blog proof strip subtitle (English-only surface). */
+/** Proof strip subtitle (English source; render through tx()). */
 export function proofStripNote(basis: unknown): string {
   return isLiveAsk(basis)
-    ? "Buy price → resale price → margin. Resale prices are based on current asking prices for each model on Vinted (lower third of the market) — not confirmed sales."
-    : "Buy price → resale price → margin. These are watched departures — listings that left the shelf — not confirmed sales."
+    ? N_("Buy price → typical resale price. Resale prices are based on current asking prices for each model on Vinted (lower third of the market) — not confirmed sales.")
+    : N_("Buy price → typical resale price. These are watched departures — listings that left the shelf — not confirmed sales.")
 }

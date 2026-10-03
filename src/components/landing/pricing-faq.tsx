@@ -54,7 +54,8 @@ import { useState, useEffect } from "react"
 import { ChevronDown, ChevronUp } from "lucide-react"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import type { Locale } from "@/lib/i18n"
-import { BRANDS_TRACKED, fillBrands } from "@/lib/fill-brands"
+import { fillBrands } from "@/lib/fill-brands"
+import { makeT, N_, type TFn } from "@/lib/ui-translate"
 
 interface FaqItem {
   q: string
@@ -71,41 +72,40 @@ const FAQS: FaqItem[] = [
     // Placed first because it is the blocking objection for anyone who saw the price cards
     // and scrolled to the FAQ instead of clicking — they need the trial answer before coverage.
     // Revenue 2026-09-30. H193.
-    q: "What happens at the end of the 7-day trial?",
-    a: "Your card is charged at the plan price on day 7. You will get an email reminder a few days before your first charge so you are never surprised. Cancel any time before then from your account page — no call, no confirmation screen, no retention trap. If you forget and get charged, email support@resaleiq.dev within 30 days for a full refund.",
+    q: N_("What happens at the end of the 7-day trial?"),
+    a: N_("Your card is charged at the plan price on day 7. You will get an email reminder a few days before your first charge so you are never surprised. Cancel any time before then from your account page — no call, no confirmation screen, no retention trap. If you forget and get charged, email support@resaleiq.dev within 30 days for a full refund."),
   },
   {
-    q: "Which markets does Resale IQ cover?",
-    a: "All five major Vinted EU markets: Spain, France, Germany, Italy and Portugal. Data is ingested daily from live listings across all five — a jacket trending in FR shows up alongside the same jacket in DE.",
+    q: N_("Which markets does Resale IQ cover?"),
+    a: N_("All five major Vinted EU markets: Spain, France, Germany, Italy and Portugal. Data is ingested daily from live listings across all five — a jacket trending in FR shows up alongside the same jacket in DE."),
   },
   {
-    q: "How is the buy-below price calculated?",
-    a: "Average asking price at departure × 0.70. The 0.70 multiplier targets a ~30% gross margin. Vinted charges private sellers no selling fee, so no platform cut is built into the number. We only show the number when we have enough comparable departures to be confident — when the data is thin, we say so instead of guessing.",
+    q: N_("How is the buy-below price calculated?"),
+    a: N_("Average asking price at departure × 0.70. That is a fixed 70% of the typical resale price — a ceiling to stay under, not a forecast. Vinted charges private sellers no selling fee, so no platform cut is built into the number. We only show the number when we have enough comparable departures to be confident — when the data is thin, we say so instead of guessing."),
   },
   {
-    q: "What if my item isn't in the catalog?",
-    // BRANDS_TRACKED is the live brands_tracked count; fillBrands drops it (and the
-    // space after it) if the snapshot has no number. Priced verdicts need enough
+    q: N_("What if my item isn't in the catalog?"),
+    // No brand count is printed (founder no-counts rule). Priced verdicts need enough
     // watched comparable listings, so this says "track", never "price".
-    a: `We track ${BRANDS_TRACKED} brands across Vinted ES, FR, DE, IT and PT. A priced BUY, WATCH or SKIP needs enough watched comparable listings; where we don't have them, the checker says so and suggests alternatives. New models are added regularly — the data page lists every brand with published weekly volume.`,
-    link: { href: "/data", label: "Browse the brands we publish →" },
+    a: N_("We track brands across Vinted ES, FR, DE, IT and PT. A priced BUY, WATCH or SKIP needs enough watched comparable listings; where we don't have them, the checker says so and suggests alternatives. New models are added regularly — the data page lists every brand with published weekly volume."),
+    link: { href: "/data", label: N_("Browse the brands we publish →") },
   },
   {
-    q: "Can I really cancel anytime?",
-    a: "Yes. Cancel from your account page — no call, no confirmation flow, no retention screen. If you cancel within 30 days of your first payment and it wasn't useful, email support@resaleiq.dev for a full refund.",
+    q: N_("Can I really cancel anytime?"),
+    a: N_("Yes. Cancel from your account page — no call, no confirmation flow, no retention screen. If you cancel within 30 days of your first payment and it wasn't useful, email support@resaleiq.dev for a full refund."),
   },
   {
-    q: "How often is the data updated?",
-    a: "Daily. Our scrapers run across all five Vinted markets every 24 hours. Watched departures, price movements, and new stock are reflected in the next day's verdicts. The timestamp of the last snapshot is shown on the data page.",
-    link: { href: "/data", label: "See data freshness →" },
+    q: N_("How often is the data updated?"),
+    a: N_("Daily. Our scrapers run across all five Vinted markets every 24 hours. Watched departures, price movements, and new stock are reflected in the next day's verdicts. The timestamp of the last snapshot is shown on the data page."),
+    link: { href: "/data", label: N_("See data freshness →") },
   },
   {
-    q: "Is the buy-below price a guaranteed profit?",
-    a: "No — and we will never claim it is. The buy-below is a decision threshold: if you can acquire the item at or below that number, the historical data suggests a profitable resale is likely. Individual results depend on your listing quality, timing, and negotiation. We show the evidence; you make the call.",
+    q: N_("Is the buy-below price a guarantee?"),
+    a: N_("No — and we will never claim it is. The buy-below is a decision threshold: a reference ceiling computed from historical data, not a promise about any single item. Individual results depend on your listing quality, timing, and negotiation. We show the evidence; you make the call."),
   },
 ]
 
-function FaqRow({ item }: { item: FaqItem }) {
+function FaqRow({ item, tx }: { item: FaqItem; tx: TFn }) {
   const [open, setOpen] = useState(false)
   return (
     <div
@@ -137,7 +137,7 @@ function FaqRow({ item }: { item: FaqItem }) {
             lineHeight: 1.4,
           }}
         >
-          {item.q}
+          {tx(item.q)}
         </span>
         {open ? (
           <ChevronUp size={16} color="var(--color-text-secondary)" style={{ flexShrink: 0 }} />
@@ -155,7 +155,7 @@ function FaqRow({ item }: { item: FaqItem }) {
               margin: 0,
             }}
           >
-            {item.a}
+            {tx(item.a)}
           </p>
           {item.link && (
             <a
@@ -168,7 +168,7 @@ function FaqRow({ item }: { item: FaqItem }) {
                 textDecoration: "none",
               }}
             >
-              {item.link.label}
+              {tx(item.link.label)}
             </a>
           )}
         </div>
@@ -178,6 +178,7 @@ function FaqRow({ item }: { item: FaqItem }) {
 }
 
 export function PricingFaq({ locale = "en", brands = null }: { locale?: Locale; brands?: number | null }) {
+  const tx = makeT(locale)
   const faqs = fillBrands(FAQS, brands)
   // H188: pre-fill email from localStorage if captured by an earlier surface.
   const [capturedEmail, setCapturedEmail] = useState("")
@@ -202,7 +203,7 @@ export function PricingFaq({ locale = "en", brands = null }: { locale?: Locale; 
           margin: "0 0 4px",
         }}
       >
-        Common questions
+        {tx("Common questions")}
       </h2>
       <p
         style={{
@@ -212,7 +213,7 @@ export function PricingFaq({ locale = "en", brands = null }: { locale?: Locale; 
           lineHeight: 1.5,
         }}
       >
-        Honest answers — including the limits.
+        {tx("Honest answers — including the limits.")}
       </p>
       <div
         style={{
@@ -220,7 +221,7 @@ export function PricingFaq({ locale = "en", brands = null }: { locale?: Locale; 
         }}
       >
         {faqs.map((item) => (
-          <FaqRow key={item.q} item={item} />
+          <FaqRow key={item.q} item={item} tx={tx} />
         ))}
       </div>
       {/* H188 CRO: earned checkout CTA after all objections are answered.
@@ -242,7 +243,7 @@ export function PricingFaq({ locale = "en", brands = null }: { locale?: Locale; 
           customerEmail={capturedEmail}
         />
         <p style={{ margin: "8px 0 0", fontSize: 12, color: "var(--color-text-muted)", lineHeight: 1.4 }}>
-          Cancel anytime · 30-day refund policy
+          {tx("Cancel anytime · 30-day refund policy")}
         </p>
       </div>
     </div>

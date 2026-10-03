@@ -17,7 +17,7 @@ function read(rel: string): string {
 
 test("/pricing renders the live sample strip before the plan cards", () => {
   const page = read("app/pricing/page.tsx")
-  const stripAt = page.indexOf("<PricingVerdictStrip />")
+  const stripAt = page.indexOf("<PricingVerdictStrip locale={locale} />")
   const plansAt = page.indexOf('id="pricing-plans"')
   assert.ok(stripAt > 0, "PricingVerdictStrip missing from /pricing")
   assert.ok(plansAt > stripAt, "plan cards must follow the live sample strip")

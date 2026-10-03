@@ -18,6 +18,8 @@
  * - EU markets covered — factually correct (ES, FR, DE, IT, PT).
  */
 import type { MarketNumbers } from "@/lib/market-numbers"
+import { makeT } from "@/lib/ui-translate"
+import type { Locale } from "@/lib/i18n"
 
 function TrustItem({
   icon,
@@ -80,26 +82,27 @@ const IconGlobe = () => (
   </svg>
 )
 
-export function TrustBlock({ market }: { market: MarketNumbers }) {
+export function TrustBlock({ market, locale = "en" }: { market: MarketNumbers; locale?: Locale }) {
+  const tx = makeT(locale)
   // Format data freshness — show "updated X min ago" if snapshot_at is available,
   // otherwise fall back to a generic freshness statement.
-  let freshnessLabel = "Refreshed regularly"
+  let freshnessLabel = tx("Refreshed regularly")
   if (market.updatedAt) {
     const minsAgo = Math.round((Date.now() - new Date(market.updatedAt).getTime()) / 60000)
     if (minsAgo < 60) {
-      freshnessLabel = `Updated ${minsAgo} min ago`
+      freshnessLabel = tx("Updated {0} min ago", [minsAgo])
     } else if (minsAgo < 1440) {
-      freshnessLabel = `Updated ${Math.round(minsAgo / 60)}h ago`
+      freshnessLabel = tx("Updated {0}h ago", [Math.round(minsAgo / 60)])
     } else {
-      freshnessLabel = `Updated ${Math.round(minsAgo / 1440)}d ago`
+      freshnessLabel = tx("Updated {0}d ago", [Math.round(minsAgo / 1440)])
     }
   } else if (market.stamp) {
-    freshnessLabel = `Data: ${market.stamp}`
+    freshnessLabel = tx("Data: {0}", [market.stamp])
   }
 
   return (
     <section
-      aria-label="Trust and data signals"
+      aria-label={tx("Trust and data signals")}
       style={{
         maxWidth: "var(--width-hero)",
         margin: "0 auto",
@@ -120,24 +123,24 @@ export function TrustBlock({ market }: { market: MarketNumbers }) {
         <TrustItem
           icon={<IconClock />}
           label={freshnessLabel}
-          sub="Watched departures, not sold prices — items that left the shelf."
+          sub={tx("Watched departures, not sold prices — items that left the shelf.")}
         />
         <TrustItem
           icon={<IconGlobe />}
-          label="5 EU markets"
-          sub="Vinted ES · FR · DE · IT · PT."
+          label={tx("5 EU markets")}
+          sub="Vinted ES · FR · DE · IT · PT"
         />
         <TrustItem
           icon={<IconLock />}
-          label="Stripe secure checkout"
-          sub="Cancel anytime — no contracts, no lock-in."
+          label={tx("Stripe secure checkout")}
+          sub={tx("Cancel anytime — no contracts, no lock-in.")}
         />
         <TrustItem
           icon={<IconCheck />}
-          label="Transparent methodology"
+          label={tx("Transparent methodology")}
           sub={
             <a href="/methodology" style={{ color: "var(--color-text-dim)", textDecoration: "underline" }}>
-              How we compute buy-below prices →
+              {tx("How we compute buy-below prices →")}
             </a>
           }
         />

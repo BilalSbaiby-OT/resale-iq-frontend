@@ -18,7 +18,7 @@ import {
 import { trackEvent } from "@/lib/analytics"
 import { copy, type Locale, type FaqItem } from "@/lib/i18n"
 import { canonicalPath } from "@/lib/locale-routes"
-import { trialCtaLabel, trialLine, trialCardLine, firstChargeDate } from "@/lib/trial-cta"
+import { trialCtaLabel, trialLine, trialCardLine, firstChargeDate, TRIAL_DAYS } from "@/lib/trial-cta"
 import { LlmEyebrow } from "./llm-eyebrow"
 import { useTrackedLabel } from "@/lib/use-tracked-label"
 import { LISTING_RECORDS_NOUN } from "@/lib/listing-records-noun"
@@ -32,6 +32,7 @@ import { FreeChecker } from "@/components/tools/free-checker"
 import { ExitSurvey } from "@/components/ui/exit-survey"
 import type { VerdictFlow } from "@/lib/verdict-flow"
 import { FREE_SAMPLES, FREE_SAMPLE_CHIPS, isFreeSample } from "@/lib/free-samples"
+import { makeT, N_ } from "@/lib/ui-translate"
 
 // The public demo queries that bypass the paywall by design live in ONE
 // place, src/lib/free-samples.ts (FREE_SAMPLES). After the visitor sees one
@@ -100,6 +101,7 @@ const COMPACT: Scale = {
  */
 function TryFreeInput({ locale = "en", onQuery }: { locale?: Locale; onQuery?: (q: string) => void }) {
   const router = useRouter()
+  const tx = makeT(locale)
   const [val, setVal] = useState("")
   return (
     <form
@@ -116,7 +118,7 @@ function TryFreeInput({ locale = "en", onQuery }: { locale?: Locale; onQuery?: (
         type="text"
         value={val}
         onChange={(e) => setVal(e.target.value)}
-        placeholder="Or type your own: Stone Island, Carhartt…"
+        placeholder={tx("Or type your own: Stone Island, Carhartt…")}
         style={{
           flex: 1,
           minWidth: 0,
@@ -142,7 +144,7 @@ function TryFreeInput({ locale = "en", onQuery }: { locale?: Locale; onQuery?: (
           whiteSpace: "nowrap",
         }}
       >
-        Check →
+        {tx("Check →")}
       </button>
     </form>
   )
@@ -175,6 +177,7 @@ export function PricingSection({
   seedBrands?: number | null
 }) {
   const router = useRouter()
+  const tx = makeT(locale)
   const t = copy[locale].pricingSection
   const faq = fillBrands(t.faq as unknown as FaqItem[], seedBrands ?? null)
   const { user, checkAuth } = useAuthStore()
@@ -440,10 +443,10 @@ export function PricingSection({
             Names their item when ?q= is present; generic "first verdict" when not. */}
         {verifySrc && (
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.6px", color: "var(--color-text-muted)", margin: "10px 0 0", lineHeight: 1.4, textTransform: "uppercase" }}>
-            ✅ Email confirmed —{" "}
+            {tx("✅ Email confirmed —")}{" "}
             {verifyIntentQuery
-              ? <>your {verifyIntentQuery} verdict is ready — pick a plan to unlock it</>
-              : <>you&apos;re one step from your first verdict — pick a plan below</>
+              ? tx("your {0} verdict is ready — pick a plan to unlock it", [verifyIntentQuery])
+              : tx("you're one step from your first verdict — pick a plan below")
             }
           </p>
         )}
@@ -482,7 +485,7 @@ export function PricingSection({
                 borderBottom: "1px solid currentColor",
               }}
             >
-              → Not sure yet? See a live verdict example first
+              {tx("→ Not sure yet? See a live verdict example first")}
             </a>
           </p>
         )}
@@ -648,7 +651,7 @@ export function PricingSection({
                     marginBottom: 14,
                   }}
                 >
-                  Save €{saved} vs monthly
+                  {tx("Save €{0} vs monthly", [saved])}
                 </div>
               )
             })()}
@@ -669,7 +672,7 @@ export function PricingSection({
                       if (e.target.value.trim()) localStorage.setItem("riq_capture_email", e.target.value.trim())
                     } catch { /* private mode */ }
                   }}
-                  placeholder="Your email — pre-fills Stripe (optional)"
+                  placeholder={tx("Your email — pre-fills Stripe (optional)")}
                   autoComplete="email"
                   data-testid="riq-pricing-card-email"
                   style={{
@@ -773,14 +776,14 @@ export function PricingSection({
                 until after day 7. CRO #4 (objection handling adjacent to CTA). Starter only. */}
             {!compact && tier.id === "operator" && pricingCtaKind(user, tier.id) !== "current" && pricingCtaKind(user, tier.id) !== "manage" && (
               <p data-testid="riq-card-stored-chip" style={{ textAlign: "center", fontSize: 11.5, color: "var(--color-text-muted)", margin: "4px 0 0", lineHeight: 1.4 }}>
-                <span aria-hidden="true">&#128274;</span>{" "}Card stored &middot; charged only after day 7
+                <span aria-hidden="true">&#128274;</span>{" "}{tx("Card stored · charged only after day {0}", [TRIAL_DAYS])}
               </p>
             )}
             {/* H90 CRO: add 30-day money-back guarantee to under-CTA copy at decision moment.
                 CRO #4 (objection #4: what if it fails) + #7 (trust before CTA). Revenue 2026-09-23. */}
             {tier.highlight && (
               <p style={{ textAlign: "center", fontSize: 11.5, color: "var(--color-text-muted)", margin: "8px 0 0", lineHeight: 1.4 }}>
-                <a href="/terms" style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}>30-day refund policy</a>
+                <a href="/terms" style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}>{tx("30-day refund policy")}</a>
               </p>
             )}
             {/* stepUp / ceiling keep every word — only their boxes are gone.
@@ -845,7 +848,7 @@ export function PricingSection({
           Revenue 2026-09-21. */}
       {!compact && !isPaidPlan(user) && (
         <p style={{ textAlign: "center", marginTop: 8, fontSize: 13, lineHeight: 1.5 }}>
-          <span style={{ color: "var(--color-text-muted)" }}>Not ready to subscribe? </span>
+          <span style={{ color: "var(--color-text-muted)" }}>{tx("Not ready to subscribe?")} </span>
           <a
             href={AW26_REPORT_URL}
             target="_blank"
@@ -853,7 +856,7 @@ export function PricingSection({
             data-testid="riq-aw26-pricing-cta"
             style={{ color: "#60a5fa", fontWeight: 600, textDecoration: "none" }}
           >
-            Get the AW26 Vinted Demand Report — €49 one-off →
+            {tx("Get the AW26 Vinted Demand Report — €49 one-off →")}
           </a>
         </p>
       )}
@@ -956,9 +959,9 @@ export function PricingSection({
             padding: "10px 16px",
             gap: 8,
           }}>
-            <span style={{ fontSize: 11, fontWeight: 700, color: "var(--color-text-muted)", letterSpacing: "0.5px", textTransform: "uppercase" }}>What the verdict shows</span>
-            <span style={{ fontSize: 11, fontWeight: 600, color: "var(--color-text-muted)", textAlign: "center", letterSpacing: "0.3px" }}>Free samples</span>
-            <span style={{ fontSize: 11, fontWeight: 700, color: "#30D158", textAlign: "center", letterSpacing: "0.3px" }}>Starter — any item</span>
+            <span style={{ fontSize: 11, fontWeight: 700, color: "var(--color-text-muted)", letterSpacing: "0.5px", textTransform: "uppercase" }}>{tx("What the verdict shows")}</span>
+            <span style={{ fontSize: 11, fontWeight: 600, color: "var(--color-text-muted)", textAlign: "center", letterSpacing: "0.3px" }}>{tx("Free samples")}</span>
+            <span style={{ fontSize: 11, fontWeight: 700, color: "#30D158", textAlign: "center", letterSpacing: "0.3px" }}>{tx("Starter — any item")}</span>
           </div>
           {/* Data rows
               H124 CRO: buy-below row was "—" for free, but the inline demo chips
@@ -969,11 +972,11 @@ export function PricingSection({
               upgrade, not a correction of a trust-breaking discrepancy.
               CRO #7 (trust) + #1 (clarity). Revenue 2026-09-28. */}
           {[
-            { label: "BUY / WATCH / SKIP verdict",  free: `${FREE_SAMPLES.length} samples`, paid: "✓ any item" },
-            { label: "Buy-below price",              free: "samples only",   paid: "✓ any item" },
-            { label: "Sell-through rate",            free: "—",              paid: "✓" },
-            { label: "Demand direction",             free: "—",              paid: "✓" },
-            { label: "Your own brand + item",        free: "—",              paid: "✓ unlimited" },
+            { label: tx("BUY / WATCH / SKIP verdict"),  free: tx("{0} samples", [FREE_SAMPLES.length]), paid: tx("✓ any item") },
+            { label: tx("Buy-below price"),              free: tx("samples only"),   paid: tx("✓ any item") },
+            { label: tx("Sell-through rate"),            free: "—",              paid: "✓" },
+            { label: tx("Demand direction"),             free: "—",              paid: "✓" },
+            { label: tx("Your own brand + item"),        free: "—",              paid: tx("✓ unlimited") },
           ].map((row, i) => (
             <div
               key={row.label}
@@ -1015,10 +1018,10 @@ export function PricingSection({
           }}
         >
           <p style={{ fontSize: 13, fontWeight: 700, color: "#30D158", margin: "0 0 4px", letterSpacing: "0.02em" }}>
-            Try a live verdict before you subscribe — no account needed
+            {tx("Try a live verdict before you subscribe — no account needed")}
           </p>
           <p style={{ fontSize: 12.5, color: "var(--color-text-muted)", margin: "0 0 14px", lineHeight: 1.5 }}>
-            Click any item to see BUY / WATCH / SKIP + buy-below price live, right here.
+            {tx("Click any item to see BUY / WATCH / SKIP + buy-below price live, right here.")}
           </p>
           {/* H92 CRO: two chip rows — free demo items + real paywall items.
               ZIK Analytics / SellerAmp pattern: let the visitor experience the
@@ -1030,7 +1033,7 @@ export function PricingSection({
               they recognise, not a vague demo). Revenue 2026-09-23. */}
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-              <span style={{ fontSize: 10.5, fontWeight: 600, color: "var(--color-text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Free samples</span>
+              <span style={{ fontSize: 10.5, fontWeight: 600, color: "var(--color-text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", whiteSpace: "nowrap" }}>{tx("Free samples")}</span>
               {FREE_SAMPLE_CHIPS.map(({ label, q }) => (
                 <button
                   key={q}
@@ -1054,7 +1057,7 @@ export function PricingSection({
               ))}
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-              <span style={{ fontSize: 10.5, fontWeight: 600, color: "var(--color-text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", whiteSpace: "nowrap" }}>Your brands</span>
+              <span style={{ fontSize: 10.5, fontWeight: 600, color: "var(--color-text-muted)", letterSpacing: "0.04em", textTransform: "uppercase", whiteSpace: "nowrap" }}>{tx("Your brands")}</span>
               {[
                 { label: "Stone Island Hoodies", q: "Stone Island Hoodies" },
                 { label: "The North Face Jacket", q: "The North Face Jacket" },
@@ -1123,10 +1126,10 @@ export function PricingSection({
                       #10 (CTA discipline: solution-aware → named item CTA).
                       Revenue 2026-09-28. */}
                   <p style={{ fontSize: 13.5, fontWeight: 700, color: "var(--color-text-primary)", margin: "0 0 4px", lineHeight: 1.4 }}>
-                    {inlineQuery} is a free sample. Your own models start with Starter.
+                    {tx("{0} is a free sample. Your own models start with Starter.", [inlineQuery])}
                   </p>
                   <p style={{ fontSize: 12.5, color: "var(--color-text-secondary)", margin: "0 0 12px", lineHeight: 1.5 }}>
-                    Starter runs the same BUY / WATCH / SKIP and buy-below price on every model we track, not just {FREE_SAMPLES.length}. 7-day free trial, card required, €0 today, then €19/mo. Cancel anytime.
+                    {tx("Starter runs the same BUY / WATCH / SKIP and buy-below price on every model we track, not just {0}. 7-day free trial, card required, €0 today, then €19/mo. Cancel anytime.", [FREE_SAMPLES.length])}
                   </p>
                   <GuestCheckoutButton locale={locale} src="pricing_sample_bridge" query={inlineQuery ?? undefined} />
                 </div>
@@ -1287,14 +1290,14 @@ export function PricingSection({
           }}
         >
           <p style={{ fontSize: 17, fontWeight: 700, color: "var(--color-text-primary)", margin: "0 0 8px", letterSpacing: "-0.2px" }}>
-            Know the most to pay before your next buy.
+            {tx("Know the most to pay before your next buy.")}
           </p>
           <p style={{ fontSize: 14, color: "var(--color-text-secondary)", margin: "0 0 20px", lineHeight: 1.55 }}>
-            One search. BUY, WATCH or SKIP — and the most you can pay. Starter €19/mo, instant access, cancel anytime.
+            {tx("One search. BUY, WATCH or SKIP — and the most you can pay. Starter €19/mo, instant access, cancel anytime.")}
           </p>
           <GuestCheckoutButton locale={locale} src="post-faq-cta" />
           <p style={{ fontSize: 12, color: "var(--color-text-muted)", margin: "12px 0 0" }}>
-            Instant access · cancel anytime · <a href="/terms" style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}>30-day refund policy</a>
+            {tx("Instant access · cancel anytime")} · <a href="/terms" style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}>{tx("30-day refund policy")}</a>
           </p>
         </div>
       )}

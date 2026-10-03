@@ -17,6 +17,7 @@ import { SsrBuyListTeaser } from "./ssr-buy-list-teaser"
 import { HeroFreeChips } from "./hero-free-chips"
 import { PricingSection } from "./pricing-section"
 import { fillBrands } from "@/lib/fill-brands"
+import { makeT } from "@/lib/ui-translate"
 
 type Dict = (typeof copy)[keyof typeof copy]
 
@@ -69,11 +70,12 @@ export function LandingContent({
   void trackedExact
   void heroQuery
   void heroResult
+  const tx = makeT(locale)
   return (
     <div className="riq-public-page" style={{ background: "var(--color-bg)", color: "var(--color-text-primary)", minHeight: "100vh" }}>
       <RedirectIfAuthed />
       <nav className="riq-apple-nav" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--space-3) var(--space-3) 0", maxWidth: "var(--width-marketing)", margin: "0 auto", gap: "var(--space-2)", flexWrap: "wrap" }}>
-        <Link href={canonicalPath(locale)} aria-label="Resale IQ home" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "inherit" }}>
+        <Link href={canonicalPath(locale)} aria-label={tx("Resale IQ home")} style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "inherit" }}>
           <span style={{ fontSize: 15, fontWeight: 500, letterSpacing: "-0.2px" }}>Resale IQ</span>
         </Link>
         <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}>
@@ -191,7 +193,7 @@ export function LandingContent({
                 </div>
                 <img
                   src="/product/verdict-preview.png"
-                  alt="Resale IQ verdict screen showing a WATCH decision with buy-below, average exit price and sell-through for New Balance 530"
+                  alt={tx("Resale IQ verdict screen showing a WATCH decision with buy-below, average exit price and sell-through for New Balance 530")}
                   width={1440}
                   height={1000}
                   loading="eager"
@@ -303,14 +305,14 @@ export function LandingContent({
           <Link href={`${canonicalPath(locale, "/pricing")}?src=footer`} style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.pricing}</Link>
           <Link href="/tools" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.toolsLink}</Link>
           <Link href="/flip" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.whatToFlip}</Link>
-          <Link href="/buy" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>Buy prices</Link>
+          <Link href="/buy" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{tx("Buy prices")}</Link>
           <Link href="/category" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.categories}</Link>
           {/* Founder feedback 2026-09-29: /partners worked (200) but nothing on the
               site linked to it — a human or an AI agent had no way to discover the
               affiliate programme except by guessing the URL. "Partners" stays
               English across locales, same precedent as "Buy prices" two links up —
               this is a footer link label, not core conversion copy. */}
-          <Link href="/partners" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>Partners</Link>
+          <Link href="/partners" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{tx("Partners")}</Link>
           <Link href="/flip/nike" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.nikeResale}</Link>
           <Link href="/category/sneakers" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.sneakers}</Link>
           <Link href="/manual" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.siteFooter.resellingManual}</Link>
@@ -326,7 +328,7 @@ export function LandingContent({
           <Link href="/login" style={{ color: "var(--color-text-muted)", textDecoration: "none" }}>{t.signIn}</Link>
         </div>
         <div style={{ marginBottom: 14 }}>
-          <SocialLinks />
+          <SocialLinks locale={locale} />
         </div>
         <div style={{ marginBottom: 8 }}>{t.footerTag}</div>
         <div style={{ maxWidth: 620, margin: "0 auto", fontSize: 11, color: "var(--color-text-muted)", lineHeight: 1.6 }}>

@@ -17,8 +17,11 @@
  */
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { itemDisplayName } from "@/lib/item-display-name"
+import { makeT } from "@/lib/ui-translate"
+import type { Locale } from "@/lib/i18n"
 
-export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
+export function RoiExampleCard({ items, locale = "en" }: { items: SsrBuyListItem[]; locale?: Locale }) {
+  const tx = makeT(locale)
   // Find best (highest avg price) free, unlocked row with a price
   const row = items
     .filter(i => !i.locked && i.avg_price_eur != null && i.avg_price_eur > 0 && i.buy_below != null)
@@ -52,7 +55,7 @@ export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
           color: "var(--color-text-primary)",
         }}
       >
-        What one good flip actually looks like
+        {tx("A worked example from this week's data")}
       </h2>
       <div
         style={{
@@ -75,7 +78,7 @@ export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
               padding: "2px 8px",
             }}
           >
-            EXAMPLE
+            {tx("EXAMPLE")}
           </span>
           <span style={{ fontSize: 14, fontWeight: 600, color: "var(--color-text-primary)" }}>
             {label}
@@ -89,16 +92,16 @@ export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
             fontSize: 14,
           }}
         >
-          <span style={{ color: "var(--color-text-dim)" }}>Buy below</span>
+          <span style={{ color: "var(--color-text-dim)" }}>{tx("Buy below")}</span>
           <span style={{ fontWeight: 700, color: "var(--color-text-primary)", fontVariantNumeric: "tabular-nums" }}>
             €{buyBelow}
           </span>
-          <span style={{ color: "var(--color-text-dim)" }}>Typical Vinted exit</span>
+          <span style={{ color: "var(--color-text-dim)" }}>{tx("Typical resale price")}</span>
           <span style={{ fontWeight: 500, color: "var(--color-text-primary)", fontVariantNumeric: "tabular-nums" }}>
             €{exit}
           </span>
           <span style={{ color: "var(--color-text-dim)", paddingTop: 4, borderTop: "1px solid var(--color-hairline)" }}>
-            Margin per flip
+            {tx("Difference")}
           </span>
           <span
             style={{
@@ -123,10 +126,9 @@ export function RoiExampleCard({ items }: { items: SsrBuyListItem[] }) {
           lineHeight: 1.5,
         }}
       >
-        Resale IQ shows which items have demand, not a sell guarantee. All figures from
-        live Vinted listings.{" "}
+        {tx("Resale IQ shows which items have demand, not a sell guarantee. All figures from live Vinted listings.")}{" "}
         <a href="/methodology" style={{ color: "var(--color-text-dim)", textDecoration: "underline" }}>
-          Methodology
+          {tx("Methodology")}
         </a>
       </p>
     </section>

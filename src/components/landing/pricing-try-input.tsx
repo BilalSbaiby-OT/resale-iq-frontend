@@ -62,6 +62,7 @@ import { FREE_SAMPLE_CHIPS } from "@/lib/free-samples"
 import { ExitSurvey } from "@/components/ui/exit-survey"
 import { getPlanFromToken } from "@/lib/utils"
 import { flowParam, typedFlow } from "@/lib/verdict-flow"
+import { makeT, N_ } from "@/lib/ui-translate"
 
 type VerdictType = "BUY" | "WATCH" | "SKIP"
 
@@ -76,6 +77,7 @@ interface InlineVerdict {
 
 /** Inline paywall nudge — shown when a custom-item fetch returns 402 (PAYWALL). */
 function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onEmailCapture, comparableN, buyListPreview }: { query: string; locale: Locale; capturedEmail?: string; onEmailCapture?: (email: string) => void; comparableN?: number | null; buyListPreview?: SsrBuyListItem[] | null }) {
+  const tx = makeT(locale)
   const [email, setEmail] = useState(initialEmail ?? "")
   const handleEmailChange = (v: string) => {
     setEmail(v)
@@ -107,11 +109,11 @@ function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onE
           Revenue 2026-09-28. */}
       {comparableN != null && comparableN > 0 ? (
         <p style={{ fontSize: 12.5, color: "#34C759", margin: "0 0 10px", lineHeight: 1.45, fontWeight: 600 }}>
-          ✓ We have data on this item — the answer is ready.
+          {tx("✓ We have data on this item — the answer is ready.")}
         </p>
       ) : (
         <p style={{ fontSize: 12.5, color: "#8b99b8", margin: "0 0 12px", lineHeight: 1.5 }}>
-          BUY / WATCH / SKIP verdict + exact buy-below price · Starter €19/mo
+          {tx("BUY / WATCH / SKIP verdict + exact buy-below price")} · {tx("Starter €19/mo")}
         </p>
       )}
       {/* H158 CRO: real locked buy-list rows in CustomItemPaywallCard — same pattern as
@@ -128,7 +130,7 @@ function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onE
       {buyListPreview && buyListPreview.length > 0 ? (
         <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 12, border: "1px solid #1e2d45", borderRadius: 9, padding: "9px 11px" }}>
           <span style={{ fontSize: 10.5, fontWeight: 700, color: "#8b99b8", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>
-            Also in your buy list
+            {tx("Also in your buy list")}
           </span>
           {buyListPreview.filter(it => it.brand).slice(0, 3).map((it, i) => (
             <div key={`${it.brand}-${it.model ?? i}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
@@ -144,7 +146,7 @@ function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onE
         </div>
       ) : (
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
-          {["Buy-below price", "Sell-through rate", "Top sizes", "Demand trend"].map((f) => (
+          {[N_("Buy-below price"), N_("Sell-through rate"), N_("Top sizes"), N_("Demand trend")].map((f) => (
             <span
               key={f}
               style={{
@@ -157,7 +159,7 @@ function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onE
                 userSelect: "none",
               }}
             >
-              {f}
+              {tx(f)}
             </span>
           ))}
         </div>
@@ -166,7 +168,7 @@ function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onE
       {!email && (
         <input
           type="email"
-          placeholder="Enter your email to unlock →"
+          placeholder={tx("Enter your email to unlock →")}
           onChange={e => handleEmailChange(e.target.value)}
           style={{
             width: "100%",
@@ -189,7 +191,7 @@ function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onE
         customerEmail={email || undefined}
       />
       <p style={{ fontSize: 11.5, color: "#5b6b8c", margin: "8px 0 0" }}>
-        <a href="/terms" style={{ color: "#5b6b8c", textDecoration: "underline" }}>Full refund within 30 days of your first payment — see Terms</a>
+        <a href="/terms" style={{ color: "#5b6b8c", textDecoration: "underline" }}>{tx("Full refund within 30 days of your first payment — see Terms")}</a>
       </p>
       <ExitSurvey context="paywall" locale={locale} query={query} />
     </div>
@@ -210,6 +212,7 @@ function VerdictMomentumIcon({ v }: { v: VerdictType }) {
 
 /** Mini inline verdict card — shown when a free sample chip is clicked. */
 function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail, onEmailCapture, buyListPreview }: { result: InlineVerdict; query: string; locale: Locale; capturedEmail?: string; onEmailCapture?: (email: string) => void; buyListPreview?: SsrBuyListItem[] | null }) {
+  const tx = makeT(locale)
   const [email, setEmail] = useState(initialEmail ?? "")
   const handleEmailChange = (v: string) => {
     setEmail(v)
@@ -259,7 +262,7 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
         {result.buy_below != null && (
           <div>
             <div style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>
-              Buy below
+              {tx("Buy below")}
             </div>
             <div style={{ fontSize: 22, fontWeight: 800, color: col, letterSpacing: "-0.4px" }}>
               €{result.buy_below.toFixed(0)}
@@ -269,7 +272,7 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
         {result.sell_avg != null && (
           <div>
             <div style={{ fontSize: 11, color: "#5b6b8c", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>
-              Avg resale
+              {tx("Avg resale")}
             </div>
             <div style={{ fontSize: 22, fontWeight: 800, color: "var(--color-text-primary)", letterSpacing: "-0.4px" }}>
               €{result.sell_avg.toFixed(0)}
@@ -292,7 +295,7 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
       {buyListPreview && buyListPreview.length > 0 ? (
         <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBottom: 10, border: "1px solid #1e2d45", borderRadius: 9, padding: "9px 11px" }}>
           <span style={{ fontSize: 10.5, fontWeight: 700, color: "#8b99b8", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 2 }}>
-            Also in your buy list
+            {tx("Also in your buy list")}
           </span>
           {buyListPreview.filter(it => it.brand).slice(0, 3).map((it, i) => (
             <div key={`${it.brand}-${it.model ?? i}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
@@ -308,7 +311,7 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
         </div>
       ) : (
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
-          {["Sell-through rate", "Top sizes", "Market trends", "Opportunity score"].map((f) => (
+          {[N_("Sell-through rate"), N_("Top sizes"), N_("Market trends"), N_("Opportunity score")].map((f) => (
             <span
               key={f}
               style={{
@@ -321,7 +324,7 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
                 userSelect: "none",
               }}
             >
-              {f}
+              {tx(f)}
             </span>
           ))}
         </div>
@@ -344,7 +347,7 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
       {!capturedEmail && (
         <input
           type="email"
-          placeholder="Enter your email to unlock →"
+          placeholder={tx("Enter your email to unlock →")}
           onChange={e => handleEmailChange(e.target.value)}
           style={{
             width: "100%",
@@ -361,7 +364,7 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
         />
       )}
       <p style={{ fontSize: 12, color: "#5b6b8c", margin: "0 0 8px", lineHeight: 1.5 }}>
-        Unlock sell-through, top sizes & all items for <strong style={{ color: "var(--color-text-primary)" }}>€19/mo</strong>
+        {tx("Unlock sell-through, top sizes & all items for")} <strong style={{ color: "var(--color-text-primary)" }}>{tx("€19/mo")}</strong>
       </p>
       {/* H156 CRO: query-specific CTA label on /pricing inline verdict card.
           Before: "Unlock all items — €19/mo →" — generic, no message match.
@@ -384,6 +387,7 @@ function InlineVerdictCard({ result, query, locale, capturedEmail: initialEmail,
 }
 
 export function PricingTryInput({ locale, buyListPreview }: { locale: Locale; buyListPreview?: import("@/lib/ssr-buy-list").SsrBuyListItem[] | null }) {
+  const tx = makeT(locale)
   const [q, setQ] = useState("")
   const router = useRouter()
 
@@ -509,7 +513,7 @@ export function PricingTryInput({ locale, buyListPreview }: { locale: Locale; bu
           fontWeight: 500,
         }}
       >
-        Check your own item — type any brand + garment:
+        {tx("Check your own item — type any brand + garment:")}
       </p>
       <form
         onSubmit={handleSubmit}
@@ -536,7 +540,7 @@ export function PricingTryInput({ locale, buyListPreview }: { locale: Locale; bu
             type="text"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="e.g. Stone Island Hoodie"
+            placeholder={tx("e.g. Stone Island Hoodie")}
             autoComplete="off"
             style={{
               flex: 1,
@@ -565,7 +569,7 @@ export function PricingTryInput({ locale, buyListPreview }: { locale: Locale; bu
             whiteSpace: "nowrap",
           }}
         >
-          {customLoading ? "…" : "Check it →"}
+          {customLoading ? "…" : tx("Check it →")}
         </button>
       </form>
 
@@ -587,7 +591,7 @@ export function PricingTryInput({ locale, buyListPreview }: { locale: Locale; bu
         }}
       >
         <span style={{ fontSize: 12, color: "#5b6b8c", whiteSpace: "nowrap" }}>
-          Or try a free sample:
+          {tx("Or try a free sample:")}
         </span>
         {FREE_SAMPLE_CHIPS.map(({ label, q: sampleQ }) => (
           <button
@@ -611,7 +615,7 @@ export function PricingTryInput({ locale, buyListPreview }: { locale: Locale; bu
           </button>
         ))}
         <span style={{ fontSize: 11.5, color: "#4a5970", whiteSpace: "nowrap" }}>
-          — no account required
+          {tx("— no account required")}
         </span>
       </div>
 

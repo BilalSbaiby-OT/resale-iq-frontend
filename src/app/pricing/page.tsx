@@ -16,6 +16,7 @@ import { RoiExampleCard } from "@/components/landing/roi-example-card"
 import { PricingStickyCta } from "@/components/landing/pricing-sticky-cta"
 import { TrustBlock } from "@/components/landing/trust-block"
 import { PricingFaq } from "@/components/landing/pricing-faq"
+import { makeT } from "@/lib/ui-translate"
 
 /**
  * /pricing is a REAL page, not the "/#pricing" anchor it used to 307 to.
@@ -56,6 +57,7 @@ export const metadata: Metadata = {
 // src/app/[locale]/pricing/page.tsx imports this same function and passes the
 // path locale — the same split MethodologyPage and SupportPage already use.
 export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
+  const tx = makeT(locale)
   // H53 CRO: resolve the tracked count server-side so first paint shows a real
   // number under the Starter CTA instead of "…". Same revalidation window as the
   // homepage (15-minute market-numbers cache), so the figure is never stale by
@@ -119,7 +121,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
               minHeight: 32,
             }}
           >
-            Plans from €19/mo ↓
+            {tx("Plans from €19/mo ↓")}
           </a>
         </div>
       </div>
@@ -139,7 +141,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           H180: one live sample row sits above the cards. The product (a real
           public-sample buy-below) is in the first viewport; the wall is not.
           /pricing 12 unique humans / 7d. */}
-      <PricingVerdictStrip />
+      <PricingVerdictStrip locale={locale} />
       <div id="pricing-plans">
         <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedBrands={brandsTracked} />
       </div>
@@ -154,7 +156,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           Revenue 2026-09-30. H192. */}
       {buyList && buyList.length > 0 && (
         <div style={{ maxWidth: 1040, margin: "0 auto" }}>
-          <RoiExampleCard items={buyList} />
+          <RoiExampleCard items={buyList} locale={locale} />
         </div>
       )}
 
@@ -165,7 +167,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           + #4 (objection handling next to the doubt: "cancel anytime" belongs right after the
           price is shown). Zero content change; zero extra data requests (market already fetched).
           Revenue 2026-09-30. H187. */}
-      {market && <TrustBlock market={market} />}
+      {market && <TrustBlock market={market} locale={locale} />}
 
       {buyList && buyList.length > 0 && (
         <div style={{ maxWidth: 1040, margin: "0 auto", padding: "20px 24px 0" }}>
@@ -256,7 +258,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           PricingSection's own CTA cards above), not a new footer component. */}
       <div style={{ maxWidth: 1040, margin: "0 auto", padding: "0 24px 24px", textAlign: "center" }}>
         <Link href="/partners" style={{ color: "var(--color-text-muted)", fontSize: 12.5, textDecoration: "underline" }}>
-          Partners / Affiliate programme
+          {tx("Partners / Affiliate programme")}
         </Link>
       </div>
       <PricingStickyCta locale={locale} />

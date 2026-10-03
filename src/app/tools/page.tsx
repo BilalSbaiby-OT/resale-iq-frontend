@@ -29,6 +29,7 @@ import { RoiExampleCard } from "@/components/landing/roi-example-card"
 
 import { withFittedMetadata } from "@/lib/meta-fit"
 import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
+import { makeT, N_ } from "@/lib/ui-translate"
 // Shared so <title>, og:title and twitter:title cannot drift. Root layout
 // pins homepage openGraph/twitter strings; Next.js does not copy a child
 // `title` into those tags, so /tools used to share as the generic homepage.
@@ -47,7 +48,7 @@ async function generateMetadataRaw(
   const cite = formatTeaserCite(q ?? "", teaser)
   if (itemMeta && cite && teaser?.verdict && teaser.buy_below != null) {
     const description =
-      `Should you buy ${q?.trim()} to resell? ${teaser.verdict}. Max buy price: €${Math.round(Number(teaser.buy_below))}, for ~30% margin before fees. Other models Starter €19/mo.`
+      `Should you buy ${q?.trim()} to resell? ${teaser.verdict}. Max buy price: €${Math.round(Number(teaser.buy_below))} (70% of the typical resale price). Other models Starter €19/mo.`
     return {
       ...itemMeta,
       description,
@@ -57,7 +58,7 @@ async function generateMetadataRaw(
   }
   if (itemMeta) return itemMeta
   const description =
-    `Should you buy this clothing model to resell? Check demand, BUY / WATCH / SKIP, and the max buy price, for ~30% margin before fees. ${tracked} listing records. Starter €19/mo.`
+    `Should you buy this clothing model to resell? Check demand, BUY / WATCH / SKIP, and the max buy price (70% of the typical resale price). ${tracked} listing records. Starter €19/mo.`
   return {
     title: TITLE,
     description,
@@ -111,8 +112,9 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
         <BlogProofStrip
           items={proofRows}
           ctaHref={TOOLS_MONEY_HREF}
-          ctaLabel="Check any model now →"
+          ctaLabel={N_("Check any model now →")}
           hasInlineChecker
+          locale={locale}
         />
         <WebmcpDeclarativeForm html={CHECK_VINTED_ITEM_FORM_HTML} />
         {/* H144 CRO: pass proofRows into FreeChecker so HardPaywallCard can show
@@ -137,11 +139,11 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
             /tools: 10/7d. Revenue 2026-09-29. H172. */}
         {proofRows && proofRows.length > 0 && (
           <div style={{ maxWidth: 720, margin: "0 auto" }}>
-            <RoiExampleCard items={proofRows} />
+            <RoiExampleCard items={proofRows} locale={locale} />
           </div>
         )}
 
-        <MoneyCta href={TOOLS_MONEY_HREF} />
+        <MoneyCta href={TOOLS_MONEY_HREF} locale={locale} />
 
         <h2 style={{ fontSize: 20, fontWeight: 600, color: "var(--color-text-primary)", margin: "28px 0 8px", letterSpacing: "-0.4px" }}>
           {hub.termName}
@@ -185,7 +187,7 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
 
         <p style={{ marginTop: 8, fontSize: 14.5, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
           <Link href={TOOLS_FAQ_CTA_HREF} style={{ color: "var(--color-buy)", fontWeight: 600, textDecoration: "none" }}>
-            {MONEY_CTA_LABEL}
+            {makeT(locale)(MONEY_CTA_LABEL)}
           </Link>
         </p>
 

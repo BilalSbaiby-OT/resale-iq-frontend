@@ -1,3 +1,6 @@
+import { makeT } from "@/lib/ui-translate"
+import type { Locale } from "@/lib/i18n"
+
 /**
  * The company's real, live social accounts.
  *
@@ -52,7 +55,8 @@ export const SOCIALS: Social[] = [
  * site and that account are the same entity; noopener/noreferrer are the
  * standard safety pair for target="_blank".
  */
-export function SocialLinks({ size = 18, gap = 16 }: { size?: number; gap?: number }) {
+export function SocialLinks({ size = 18, gap = 16, locale = "en" }: { size?: number; gap?: number; locale?: Locale }) {
+  const tx = makeT(locale)
   return (
     <div
       style={{ display: "flex", gap, alignItems: "center", justifyContent: "center" }}
@@ -64,8 +68,8 @@ export function SocialLinks({ size = 18, gap = 16 }: { size?: number; gap?: numb
           href={s.href}
           target="_blank"
           rel="me noopener noreferrer"
-          aria-label={`Resale IQ on ${s.name}`}
-          title={`Resale IQ on ${s.name}`}
+          aria-label={tx("Resale IQ on {0}", [s.name])}
+          title={tx("Resale IQ on {0}", [s.name])}
           style={{ color: "#8b99b8", display: "inline-flex", lineHeight: 0 }}
         >
           <svg
