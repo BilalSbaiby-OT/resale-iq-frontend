@@ -136,4 +136,26 @@ test.describe("verdict flow tag", () => {
     await expect.poll(() => urls.length).toBe(2)
     expect(new URL(urls[1]).searchParams.get("flow")).toBe("own_item")
   })
+
+  test("buy-list deep link -> buylist; typing afterwards -> own_item", async ({ page }) => {
+    const urls: string[] = []
+    await page.route("**/api/verdict**", async (route) => {
+      urls.push(route.request().url())
+      await route.fulfill({
+        status: 402,
+        contentType: "application/json",
+        body: JSON.stringify({ verdict: "PAYWALL", locked: true, plans: [] }),
+      })
+    })
+    await page.goto("/tools?q=Stone%20Island%20Hoodie&src=buy_list_locked")
+    // (next dev double-invokes the mount effect, so there may be 2 identical calls)
+    await expect.poll(() => urls.length).toBeGreaterThan(0)
+    const autoRuns = urls.length
+    for (const u of urls) expect(new URL(u).searchParams.get("flow")).toBe("buylist")
+    // typing afterwards is the visitor's own action, not the buy-list row
+    await page.getByLabel(/Item to check/i).fill("Carhartt Jacket")
+    await page.getByRole("button", { name: /Check this item/i }).click()
+    await expect.poll(() => urls.length).toBe(autoRuns + 1)
+    expect(new URL(urls[autoRuns]).searchParams.get("flow")).toBe("own_item")
+  })
 })

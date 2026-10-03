@@ -463,6 +463,7 @@ export function FreeChecker({
   webmcpName = CHECK_VINTED_ITEM_NAME,
   webmcpDescription = CHECK_VINTED_ITEM_DESCRIPTION,
   src,
+  flow: flowProp,
   buyListPreview,
 }: {
   placeholder?: string
@@ -475,6 +476,8 @@ export function FreeChecker({
   // H54: traffic source. When "blog-check" the paid CTA is message-matched to
   // the checked item. No effect on hero variant (no CTA bar there).
   src?: string
+  /** O2: how the INITIAL query was chosen, when the host knows (e.g. a sample chip). Later runs are tagged on their own. */
+  flow?: VerdictFlow
   /**
    * C228(elon): real catalog rows to show LOCKED (price blurred) inside
    * HardPaywallCard itself. Passed through from BlogInlineChecker's SSR
@@ -526,7 +529,10 @@ export function FreeChecker({
     try {
       const token = getToken()
     const headers: HeadersInit = token ? { Authorization: `Bearer ${token}` } : {}
-    const flow = how ?? flowFromSrc(src) ?? typedFlow(query, user?.plan ?? tokenPlan)
+    // Entry-point tags (?src=) describe how the visitor ARRIVED, so they only
+    // tag the auto-run below — except the blog, whose embedded checker is a
+    // blog_example surface for every run.
+    const flow = how ?? (src === "blog-check" ? "blog_example" : undefined) ?? typedFlow(query, user?.plan ?? tokenPlan)
     const r = await fetch(`/api/verdict?q=${encodeURIComponent(query)}${flowParam(flow)}`, { signal: controller.signal, headers })
       let body: unknown = null
       try { body = await r.json() } catch { /* non-JSON error page */ }
@@ -582,7 +588,7 @@ export function FreeChecker({
   // redirected here, or an LLM citation links /tools?q=Model). initialResult means
   // a sample is seeded server-side; don't auto-run over it.
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { if (initialQuery && !initialResult) run(initialQuery) }, [])
+  useEffect(() => { if (initialQuery && !initialResult) run(initialQuery, flowProp ?? flowFromSrc(src)) }, [])
 
   const color = res?.verdict ? (VERDICT_COLOR[res.verdict] ?? "var(--color-text-secondary)") : "var(--color-text-secondary)"
   const hasPrices = res?.buy_below != null || res?.sell_avg != null

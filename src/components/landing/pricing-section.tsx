@@ -31,6 +31,7 @@ import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { AW26_REPORT_URL } from "@/lib/hard-paywall"
 import { FreeChecker } from "@/components/tools/free-checker"
 import { ExitSurvey } from "@/components/ui/exit-survey"
+import type { VerdictFlow } from "@/lib/verdict-flow"
 import { FREE_SAMPLES, FREE_SAMPLE_CHIPS, isFreeSample } from "@/lib/free-samples"
 
 // The public demo queries that bypass the paywall by design live in ONE
@@ -304,6 +305,10 @@ export function PricingSection({
     }
     return null
   })
+  // O2: how the inline checker's query was chosen. The page-load default and the
+  // chips are samples; only TryFreeInput (typed) and ?item= leave it to FreeChecker.
+  const [inlineFlow, setInlineFlow] = useState<VerdictFlow | undefined>(
+    !compact && !itemParam?.trim() ? "sample_button" : undefined)
 
   useEffect(() => {
     getPlans()
@@ -1054,7 +1059,7 @@ export function PricingSection({
                   key={q}
                   type="button"
                   data-testid="riq-try-free-query"
-                  onClick={() => setInlineQuery(q)}
+                  onClick={() => { setInlineFlow("sample_button"); setInlineQuery(q) }}
                   style={{
                     fontSize: 13,
                     fontWeight: 600,
@@ -1082,7 +1087,7 @@ export function PricingSection({
                   key={q}
                   type="button"
                   data-testid="riq-try-real-query"
-                  onClick={() => setInlineQuery(q)}
+                  onClick={() => { setInlineFlow("sample_button"); setInlineQuery(q) }}
                   style={{
                     fontSize: 13,
                     fontWeight: 600,
@@ -1101,14 +1106,15 @@ export function PricingSection({
             </div>
           </div>
           {/* H68 CRO: own-item inline — verdict runs inline on /pricing */}
-          <TryFreeInput locale={locale} onQuery={setInlineQuery} />
+          <TryFreeInput locale={locale} onQuery={(q) => { setInlineFlow(undefined); setInlineQuery(q) }} />
           {/* Inline FreeChecker: renders once a query is selected. The visitor
               sees the real verdict (or paywall+checkout) without leaving /pricing. */}
           {inlineQuery && (
             <div style={{ marginTop: 18 }}>
               <FreeChecker
-                key={inlineQuery}
+                key={`${inlineQuery}|${inlineFlow ?? ""}`}
                 initialQuery={inlineQuery}
+                flow={inlineFlow}
                 locale={locale}
                 variant="card"
                 src="pricing-inline"
