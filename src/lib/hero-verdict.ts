@@ -63,6 +63,7 @@
 import { promises as fs } from "node:fs"
 import os from "node:os"
 import path from "node:path"
+import { flowParam } from "./verdict-flow.ts"
 
 export type HeroVerdict = {
   verdict?: string
@@ -164,7 +165,7 @@ export async function getHeroVerdict(): Promise<{ query: string; result: HeroVer
     return { query: QUERY, result: withoutComparableN(cached.result) }
   }
   try {
-    const r = await fetchBounded(`${backendUrl()}/api/verdict?q=${encodeURIComponent(QUERY)}`)
+    const r = await fetchBounded(`${backendUrl()}/api/verdict?q=${encodeURIComponent(QUERY)}${flowParam("ssr")}`)
     if (r.ok) {
       const result = (await r.json()) as HeroVerdict
       if (isUsable(result)) {

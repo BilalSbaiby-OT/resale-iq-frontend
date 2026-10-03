@@ -32,6 +32,7 @@
  */
 
 import type { Locale } from "@/lib/i18n"
+import { flowParam } from "@/lib/verdict-flow"
 
 interface SampleVerdict {
   verdict: string
@@ -60,7 +61,7 @@ async function fetchSampleVerdict(): Promise<SampleVerdict | null> {
     let r: Response
     try {
       r = await fetch(
-        `${backendUrl()}/api/verdict?q=${encodeURIComponent("Nike Air Force 1")}`,
+        `${backendUrl()}/api/verdict?q=${encodeURIComponent("Nike Air Force 1")}${flowParam("ssr")}`,
         { next: { revalidate: 3600 }, signal: pvc.signal }
       )
     } finally {

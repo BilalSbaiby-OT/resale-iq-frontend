@@ -11,6 +11,7 @@ import path from "node:path"
 import { fetchBounded, type HeroVerdict } from "./hero-verdict.ts"
 import { isUsableVerdict as isUsable } from "./usable-verdict.ts"
 import { FREE_SAMPLES } from "./free-samples.ts"
+import { flowParam } from "./verdict-flow.ts"
 
 // The teasers ARE the free samples (one list, ./free-samples.ts): anything
 // else is paywalled and must not be rendered for crawlers.
@@ -71,7 +72,7 @@ export async function getTeaserVerdict(q: string | undefined | null): Promise<He
   const cached = await readCache(query)
   if (cached && Date.now() - cached.fetchedAt < MAX_AGE_MS) return cached.result
   try {
-    const r = await fetchBounded(`${backendUrl()}/api/verdict?q=${encodeURIComponent(query)}`)
+    const r = await fetchBounded(`${backendUrl()}/api/verdict?q=${encodeURIComponent(query)}${flowParam("ssr")}`)
     if (r.ok) {
       const result = (await r.json()) as HeroVerdict
       if (isUsable(result)) {

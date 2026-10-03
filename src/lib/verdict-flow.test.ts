@@ -12,8 +12,8 @@ import { dirname, join, extname } from "node:path"
 import { fileURLToPath } from "node:url"
 import { VERDICT_FLOWS, flowParam, flowFromSrc, typedFlow, isPaidPlan } from "./verdict-flow.ts"
 
-test("exactly the five backend-whitelisted flows", () => {
-  assert.deepEqual([...VERDICT_FLOWS], ["sample_button", "own_item", "typed", "buylist", "blog_example"])
+test("exactly the six backend-whitelisted flows", () => {
+  assert.deepEqual([...VERDICT_FLOWS], ["sample_button", "own_item", "typed", "buylist", "blog_example", "ssr"])
 })
 
 test("flowParam builds an appendable query fragment, or nothing", () => {
@@ -84,4 +84,14 @@ test("every /api/verdict fetch in src carries a flow (or is allow-listed)", () =
   }
   walk(join(root, "src"))
   assert.deepEqual(hits, [], `untagged /api/verdict calls: ${hits.join(", ")}`)
+})
+
+test("server-side verdict fetches (hero, teaser, pricing demo) all send flow=ssr", () => {
+  const here = dirname(fileURLToPath(import.meta.url))
+  for (const rel of ["hero-verdict.ts", "teaser-verdict.ts", "../components/landing/pricing-verdict-demo.tsx"]) {
+    const src = readFileSync(join(here, rel), "utf8")
+    const calls = src.split("${backendUrl()}/api/verdict?q=").slice(1)
+    assert.ok(calls.length > 0, rel)
+    for (const c of calls) assert.match(c.slice(0, 160), /flowParam\("ssr"\)/, `${rel}: verdict call without flow=ssr`)
+  }
 })

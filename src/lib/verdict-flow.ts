@@ -13,15 +13,18 @@
  *   typed          anything else the visitor typed (paid user, or a sample typed by hand)
  *   buylist        a buy-list row click
  *   blog_example   the blog's embedded checker / examples / SSR blog prefetch
+ *   ssr            our own server-side calls with no visitor behind them (homepage
+ *                  hero, pricing demo, teaser) — so they stop polluting NULL
  *
  * Calls with no user action behind them (SSR hero / pricing demo / crawler
- * teaser) send no flow and are stored as NULL on purpose.
+ * teaser) send flow=ssr (PC, 2026-10-04) so funnel counts can exclude them; an
+ * old backend without "ssr" in its whitelist stores NULL, which is harmless.
  *
  * Plain .ts with one sibling import so node:test can load it.
  */
 import { isFreeSample } from "./free-samples.ts"
 
-export const VERDICT_FLOWS = ["sample_button", "own_item", "typed", "buylist", "blog_example"] as const
+export const VERDICT_FLOWS = ["sample_button", "own_item", "typed", "buylist", "blog_example", "ssr"] as const
 export type VerdictFlow = (typeof VERDICT_FLOWS)[number]
 
 /** `&flow=x` for a URL that already has `?q=`; "" when there is no flow. */
