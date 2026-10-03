@@ -127,7 +127,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
           <Lock size={13} /> {pro ? tx("Order Planner & Compare are Pro features") : tx("Upgrade for the full dashboard")}
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 800, letterSpacing: "-0.6px" }}>
-          {pro ? tx("Source at volume. Track five markets, search 26.") : tx("The most to pay for a model, before you buy it.")}
+          {pro ? tx("Price across 5 Vinted sites, plus the Order Planner and API.") : tx("The most to pay for a model, before you buy it.")}
         </h1>
         <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>
           {pro
