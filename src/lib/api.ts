@@ -411,7 +411,7 @@ export const comparePrices = (params: {
 
 /** Free, public example comparison (one sample model, real data). 404 / error -> null: the caller hides the block. */
 export const getCompareSample = (): Promise<PriceCompareResult | null> =>
-  request<PriceCompareResult>("/api/public/compare/sample").catch(() => null)
+  request<PriceCompareResult>("/api/public/compare/sample").catch(() => null) // why: 404 before the backend ships / any error = hide the example block
 
 // Price history sparklines
 export interface PricePoint { day: string; avg_price: number; sold_count?: number }
