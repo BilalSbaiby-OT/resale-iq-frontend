@@ -45,7 +45,7 @@ async function generateMetadataRaw({
   const description =
     `What to pay for ${brand.brand} to resell on Vinted. ` +
     `Buy-below for ${topCat?.category ?? "top items"}: ${topCat?.buy_below ? fmtEurBuy(topCat.buy_below) : "see below"}, ` +
-    `from the average price at departure with a 30% margin target, across ES, FR, DE, IT and PT.`
+    `from the average price at departure, across ES, FR, DE, IT and PT.`
 
   return {
     title,
@@ -76,7 +76,7 @@ export default async function BuyBrandPage({
   const brandPace = tierPhrase(brand.tier)
   const intro =
     (topCat?.buy_below
-      ? `For ~30% margin before fees on ${brand.brand} ${topCat.category}, the category with the most watched departures, buy below ${fmtEurBuy(topCat.buy_below)}` +
+      ? `For a buy price at 70% of the typical resale price on ${brand.brand} ${topCat.category}, the category with the most watched departures, buy below ${fmtEurBuy(topCat.buy_below)}` +
         (topCat.avg_price_eur ? ` — the average price at departure is ${fmtEurBuy(topCat.avg_price_eur)}.` : ".")
       : `${brand.brand} buy-below prices are derived from average prices at departure, with data from multiple snapshots.`) +
     (brandPace
@@ -169,7 +169,7 @@ export default async function BuyBrandPage({
             {brand.brand} buy-below by category
           </h2>
           <p style={{ fontSize: 13.5, color: "#8b99b8", marginBottom: 16, lineHeight: 1.6 }}>
-            Buy-below is the maximum you should pay to keep a 30% margin: the average price at departure × 0.70. It is derived from the average
+            Buy-below is the maximum you should pay at 70% of the typical resale price: the average price at departure × 0.70. It is derived from the average
             price at departure — not from listed asking prices, which are wishes not facts. Check the exact model for a model-level verdict.{" "}
             {BUY_TIER_NOTE}
           </p>

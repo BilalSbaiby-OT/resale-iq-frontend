@@ -34,7 +34,7 @@ export interface BuyCategory {
   /** Median price at departure in EUR */
   median_price_eur: number | null
   /**
-   * Buy-below: the most a reseller should pay and still hit a 30% gross margin.
+   * Buy-below: the most a reseller should pay and still hit the 0.70 multiplier.
    * Formula: avg_price_eur × 0.70 (no fee factor: Vinted charges private sellers
    * no selling fee). Same formula as engine/insight.buy_below_from_avg and
    * /api/verdict buy_below; BUY_BELOW_MULTIPLIER in lib/buy-below.ts.

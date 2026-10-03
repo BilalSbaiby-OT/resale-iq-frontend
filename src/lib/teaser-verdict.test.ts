@@ -36,7 +36,7 @@ test("cite block is 134–167 words and carries the live number", () => {
   const n = cite.trim().split(/\s+/).length
   assert.ok(n >= 134 && n <= 167, `word count ${n}`)
   assert.match(cite, /WATCH/)
-  assert.match(cite, /The max buy price is €24, for ~30% margin before fees\./)
+  assert.match(cite, /The max buy price is €24 \(70% of the typical resale price\)\./)
   assert.doesNotMatch(cite, /€\d+\.\d{2}/)
   assert.doesNotMatch(cite, /after fees/)
   assert.match(cite, /Adidas Samba/)

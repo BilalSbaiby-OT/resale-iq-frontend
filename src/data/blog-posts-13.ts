@@ -36,7 +36,7 @@ export const POSTS_13: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Jackets averaging €38.29 (brand-level, 55 departures/30d on EU Vinted), applying a 30% target margin gives a rough buy-below of approximately €27. For CKJ trucker jackets specifically (which exit at €30–60), the implied buy-below stretches to €21–42. ResaleIQ does not publish per-model buy-below for Calvin Klein (not in per-model catalogue).",
+          "With Jackets averaging €38.29 (brand-level, 55 departures/30d on EU Vinted), applying the 0.70 multiplier gives a rough buy-below of approximately €27. For CKJ trucker jackets specifically (which exit at €30–60), the implied buy-below stretches to €21–42. ResaleIQ does not publish per-model buy-below for Calvin Klein (not in per-model catalogue).",
           "Jeans at €17.84 average give a rough buy-below near €12.49. Hoodies at €15.74 give a rough buy-below near €11.02. Tracksuits at €14.53 give a rough buy-below near €10.17. T-Shirts at €6.95 are not a viable sourcing target. Jeans are viable when sourced at clearance pricing.",
         ],
         cta: pricingMidCta("ctr_calvinklein_20260915"),
@@ -115,7 +115,7 @@ export const POSTS_13: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Sneakers averaging €110 at departure, applying a 30% target margin gives a buy-below of approximately €77. Any Off-White sneaker sourced below that price — authenticity confirmed, condition correct — has a realistic margin at current departure prices.",
+          "With Sneakers averaging €110 at departure, applying the 0.70 multiplier gives a buy-below of approximately €77. Any Off-White sneaker sourced below that price — authenticity confirmed, condition correct — has a realistic margin at current departure prices.",
           "Hoodies at €71 average give a buy-below near €50. T-Shirts at €31 give a buy-below near €22. Caps at €70 give a buy-below near €49. Shirts at €6 average are non-viable. The sourcing floor for T-Shirts is achievable at charity shops where Off-White pieces surface (often at €10–20 regardless of model), making T-Shirts the highest-accessibility entry point — though not the highest-margin. The primary sourcing goal remains Sneakers and Hoodies.",
         ],
         cta: pricingMidCta("ctr_offwhite_20260915"),

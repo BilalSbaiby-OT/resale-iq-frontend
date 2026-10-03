@@ -26,7 +26,7 @@ export const POSTS_57: BlogPost[] = [
     definedTerm: {
       name: "Balenciaga bag departure average",
       description:
-        "The Balenciaga bag departure average is the average price at which a tracked Balenciaga bag listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Balenciaga bags track 46 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €324 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The Balenciaga brand overall tracks 1323 departures in the last 30 days at a €150 brand average across all categories. The buy-below ceiling at the bag category level is €226.80 — that is €324 × 0.70, targeting a 30% gross margin. The City B and Hourglass are the two highest-value Balenciaga bag models on EU Vinted; the City B exits at a premium to the category average in classic black leather with intact edge stitching and all original hardware.",
+        "The Balenciaga bag departure average is the average price at which a tracked Balenciaga bag listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Balenciaga bags track 46 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €324 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The Balenciaga brand overall tracks 1323 departures in the last 30 days at a €150 brand average across all categories. The buy-below ceiling at the bag category level is €226.80 — that is €324 × 0.70, i.e. 70% of the typical resale price. The City B and Hourglass are the two highest-value Balenciaga bag models on EU Vinted; the City B exits at a premium to the category average in classic black leather with intact edge stitching and all original hardware.",
     },
     sections: [
       {
@@ -86,7 +86,7 @@ export const POSTS_57: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Balenciaga bags on EU Vinted?",
-        a: "The buy-below ceiling for the Balenciaga bag category is €226.80 — calculated as €324 × 0.70, targeting a 30% gross margin. In practice, sourcing at €100–160 for a standard City B or Hourglass in good condition is the viable range for EU charity shops and consignment stores. A Balenciaga City B sourced at €130 and relisted at €320 generates approximately €190 gross.",
+        a: "The buy-below ceiling for the Balenciaga bag category is €226.80 — calculated as €324 × 0.70, i.e. 70% of the typical resale price. In practice, sourcing at €100–160 for a standard City B or Hourglass in good condition is the viable range for EU charity shops and consignment stores. A Balenciaga City B sourced at €130 and relisted at €320 generates approximately €190 gross.",
       },
       {
         q: "Is the Balenciaga City B worth reselling on EU Vinted?",

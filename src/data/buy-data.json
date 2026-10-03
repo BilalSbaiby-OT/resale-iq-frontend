@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-10-03",
   "source": "listings: distinct external_id departures (Vinted DE/FR/ES/IT/PT), prices/signals from market_stats",
-  "formula": "buy_below = avg_price_eur * 0.70 (30% gross margin; no fee factor, Vinted charges private sellers no selling fee - same as engine/insight.buy_below_from_avg)",
+  "formula": "buy_below = avg_price_eur * 0.70 (70% of the typical resale price; no fee factor, Vinted charges private sellers no selling fee - same as engine/insight.buy_below_from_avg)",
   "threshold": "sold_30d >= 3 (30-day departures)",
   "total_pairs": 232,
   "total_brands": 38,

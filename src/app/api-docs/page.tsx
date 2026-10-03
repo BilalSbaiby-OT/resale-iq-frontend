@@ -123,8 +123,7 @@ export default async function ApiDocs() {
   "count": 1
 }`}</code></pre>
         <p style={{ fontSize: 12.5, color: "#5b6b8c" }}>
-          <code style={{ color: "#8fe3b0" }}>max_buy_price</code> is the highest price you can pay and still
-          clear roughly a 30% margin (average asking price at departure × 0.70; Vinted charges private sellers no selling fee). <code style={{ color: "#8fe3b0" }}>str_pct</code> is
+          <code style={{ color: "#8fe3b0" }}>max_buy_price</code> is the reference maximum buy price (average asking price at departure × 0.70; Vinted charges private sellers no selling fee). <code style={{ color: "#8fe3b0" }}>str_pct</code> is
           the observed share — watched departures divided by watched departures plus still-listed items, capped at
           100%. It is withheld (<code style={{ color: "#8fe3b0" }}>null</code>) below 30 watched departures in
           the window, or when we have no still-listed sample; null is not 0 and not 100. Weekly turnover

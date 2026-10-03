@@ -37,10 +37,10 @@ export const POSTS_127: BlogPost[] = [
     definedTerm: {
       name: "Should I buy New Balance FuelCell to resell?",
       description:
-        "New Balance FuelCell resale data on Resale IQ: the live BUY, WATCH or SKIP verdict and buy-below price render on /tools with Starter. The buy-below is the most you can pay and still keep a 30% margin, computed from watched departures across Spain, France, Germany, Italy and Portugal.",
+        "New Balance FuelCell resale data on Resale IQ: the live BUY, WATCH or SKIP verdict and buy-below price render on /tools with Starter. The buy-below is the most to pay (70% of the typical resale price), computed from watched departures across Spain, France, Germany, Italy and Portugal.",
     },
     intro:
-      "New Balance FuelCell needs Starter at €19 a month for a priced BUY, WATCH or SKIP verdict on /tools — the buy-below is the most you can pay for ~30% margin before fees. The verdict and buy-below update from watched departures across Spain, France, Germany, Italy and Portugal. This guide explains what the FuelCell is, where it sits in the New Balance catalogue, and how to use the checker before you source.",
+      "New Balance FuelCell needs Starter at €19 a month for a priced BUY, WATCH or SKIP verdict on /tools — the buy-below is the most you can pay (70% of the typical resale price). The verdict and buy-below update from watched departures across Spain, France, Germany, Italy and Portugal. This guide explains what the FuelCell is, where it sits in the New Balance catalogue, and how to use the checker before you source.",
     sections: [
       {
         h: "What is the New Balance FuelCell?",
@@ -53,8 +53,8 @@ export const POSTS_127: BlogPost[] = [
       {
         h: "How to use the checker",
         p: [
-          "Visit /tools and type 'New Balance FuelCell' as a Starter subscriber. The checker runs against the live Vinted departure data and returns: BUY, WATCH or SKIP; the buy-below price (the most you can pay for ~30% margin before fees); the watched-departure count behind the verdict; and confidence level.",
-          "The buy-below is computed as average asking price at departure × 0.70. The 0.70 targets roughly a 30% margin, and there is no fee factor because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a guaranteed profit — adjust for condition, size, and how far you are from the average case. A FuelCell in good rather than very good condition should be bought below the buy-below, not at it.",
+          "Visit /tools and type 'New Balance FuelCell' as a Starter subscriber. The checker runs against the live Vinted departure data and returns: BUY, WATCH or SKIP; the buy-below price (the most you can pay (70% of the typical resale price)); the watched-departure count behind the verdict; and confidence level.",
+          "The buy-below is computed as average asking price at departure × 0.70. The 0.70 is 70% of the typical resale price, and there is no fee factor because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a guaranteed profit — adjust for condition, size, and how far you are from the average case. A FuelCell in good rather than very good condition should be bought below the buy-below, not at it.",
           "The FuelCell is a Starter model, same as the rest of the New Balance catalogue — the 550, 2002R, 9060. The free samples are Adidas Samba, Nike Air Force 1 and Fred Perry Polo. Weekly New Balance brand volumes stay public on /data.",
         ],
         cta: pricingMidCta("ctr_fuelcell_20260922"),
@@ -87,7 +87,7 @@ export const POSTS_127: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for New Balance FuelCell?",
-        a: "The live buy-below is on https://resaleiq.dev/tools — it changes with the data and should be checked fresh, not cited as a fixed number. The formula is average asking price at departure × 0.70, which targets a 30% margin. Adjust downward for condition below very good and for edge sizes.",
+        a: "The live buy-below is on https://resaleiq.dev/tools — it changes with the data and should be checked fresh, not cited as a fixed number. The formula is average asking price at departure × 0.70, which is 70% of the typical resale price. Adjust downward for condition below very good and for edge sizes.",
       },
       {
         q: "What markets does the FuelCell check cover?",

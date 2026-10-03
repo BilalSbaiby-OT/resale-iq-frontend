@@ -26,7 +26,7 @@ export const POSTS_48: BlogPost[] = [
     definedTerm: {
       name: "Balenciaga bag departure average",
       description:
-        "The Balenciaga bag departure average is the average price at which a tracked Balenciaga bag listing leaves the shelf on EU Vinted — not the asking price and not the retail price. Balenciaga bags track 9 departures in the last 30 days in the week to 19 September 2026 across France, Germany, Spain, Italy, and Portugal at a €193 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The broader Balenciaga brand tracks 2322 departures in the last 30 days at a €133 average across all categories. The buy-below ceiling for the Balenciaga bag category at the €193 exit average is €135.10 — targeting a 30% gross margin. Balenciaga bags carry the highest average exit price of any tracked Balenciaga category on EU Vinted.",
+        "The Balenciaga bag departure average is the average price at which a tracked Balenciaga bag listing leaves the shelf on EU Vinted — not the asking price and not the retail price. Balenciaga bags track 9 departures in the last 30 days in the week to 19 September 2026 across France, Germany, Spain, Italy, and Portugal at a €193 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The broader Balenciaga brand tracks 2322 departures in the last 30 days at a €133 average across all categories. The buy-below ceiling for the Balenciaga bag category at the €193 exit average is €135.10 —, i.e. 70% of the typical resale price. Balenciaga bags carry the highest average exit price of any tracked Balenciaga category on EU Vinted.",
     },
     sections: [
       {
@@ -49,7 +49,7 @@ export const POSTS_48: BlogPost[] = [
       {
         h: "Buy-below ceiling: €135.10 — and when to go higher",
         p: [
-          "The category buy-below ceiling of €135.10 targets a 30% gross margin at the €193 category average. This ceiling applies to median condition bags — clean exterior, functional hardware, minor interior marks. A bag in near-mint condition (no exterior wear, no strap fraying, hardware with full original shine) with original strap warrants sourcing up to €150–170, because it will exit in the top quartile of the category range rather than the median. Original hardware bags — pewter on early City models, brass on Cagole — carry premium exit positions above the category average.",
+          "The category buy-below ceiling of €135.10 targets the 0.70 multiplier at the €193 category average. This ceiling applies to median condition bags — clean exterior, functional hardware, minor interior marks. A bag in near-mint condition (no exterior wear, no strap fraying, hardware with full original shine) with original strap warrants sourcing up to €150–170, because it will exit in the top quartile of the category range rather than the median. Original hardware bags — pewter on early City models, brass on Cagole — carry premium exit positions above the category average.",
           "The ceiling is not a hard stop for curated one-off sourcing at auction. At a French brocante or a German estate auction, a clearly authentic Balenciaga City from a private wardrobe can appear at €50–90 from a seller who has no reference price. In that context, the ceiling expands: you are sourcing at 40–70% of ceiling. These events are the highest-ROI Balenciaga bag sourcing channel — not Vinted (where the floor is set by other resellers who already know the exit price) and not UK-market eBay (different buyer base and platform fees).",
           "For the Cagole in particular: sourcing at or below €115 (60% of a €193 target exit) gives meaningful downside protection on the hardware condition risk. Cagole hardware (buckles, chain strap links) is the primary exit-price risk factor — damaged or tarnished hardware cannot be replaced authentically and reduces exit price by €30–60. Pre-inspection of hardware function and finish before purchase is non-negotiable on the Cagole.",
         ],
@@ -98,7 +98,7 @@ export const POSTS_48: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Balenciaga bag on Vinted?",
-        a: "The category buy-below ceiling is €135.10 — calculated as €193 × 0.70, targeting a 30% gross margin. Near-mint condition bags with original hardware warrant sourcing up to €150–170 because they exit in the top quartile of the exit range, not the category median.",
+        a: "The category buy-below ceiling is €135.10 — calculated as €193 × 0.70, i.e. 70% of the typical resale price. Near-mint condition bags with original hardware warrant sourcing up to €150–170 because they exit in the top quartile of the exit range, not the category median.",
       },
       {
         q: "Are Balenciaga bags or Gucci bags better to resell on EU Vinted?",

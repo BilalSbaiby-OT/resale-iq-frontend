@@ -176,7 +176,7 @@ export const POSTS_16: BlogPost[] = [
         h: "The buy-below principle: where the money is made",
         p: [
           "The money is made at purchase, not at sale. If you buy right, almost any sale makes you money. If you buy wrong, no sale price will save the trade.",
-          "The buy-below price is the maximum you can pay at source to hit a 25–30% margin at expected exit price. For a Patagonia jacket you expect to clear at €50 on Vinted:",
+          "The buy-below price is the maximum to pay at source, set at 70% of the expected exit price. For a Patagonia jacket you expect to clear at €50 on Vinted:",
           "- Exit price: €50",
           "- Buyer pays label (typical): €0 to you",
           "- Target margin (30%): €15",
@@ -224,7 +224,7 @@ export const POSTS_16: BlogPost[] = [
     faq: [
       {
         q: "Can you actually make money on Vinted?",
-        a: "Yes — resellers running 20–50 items per month regularly earn €500–2,000/month net on Vinted, depending on brand selection, sourcing discipline, and pricing accuracy. The key is buying below the buy-below price (the maximum source price that lets you hit a 25–30% margin) and listing in high-departure categories like Hoodies, Jackets, and Sneakers from tracked brands like Fred Perry, Patagonia, and Stone Island.",
+        a: "Resale IQ makes no income promise: results depend on brand selection, sourcing discipline, pricing accuracy and your own time. The data-led approach is buying below the buy-below price (the maximum source price, 70% of the typical resale price) and listing in high-departure categories like Hoodies, Jackets, and Sneakers from tracked brands like Fred Perry, Patagonia, and Stone Island.",
       },
       {
         q: "What sells fastest on Vinted to make money?",
@@ -236,7 +236,7 @@ export const POSTS_16: BlogPost[] = [
       },
       {
         q: "What is the best strategy to make money on Vinted?",
-        a: "The best strategy is: (1) identify brands with 200+ weekly departures in your target market, (2) calculate a buy-below price at 30% margin below expected exit, (3) source only when you can meet that buy-below, (4) list within 48 hours with clean photos and accurate sizing, (5) let buyers pay labels, (6) reduce price after 14 days if unsold. This compounds: faster turnover = more capital cycles per month = more total profit.",
+        a: "The best strategy is: (1) identify brands with 200+ weekly departures in your target market, (2) calculate a buy-below price at the 0.70 multiplier below expected exit, (3) source only when you can meet that buy-below, (4) list within 48 hours with clean photos and accurate sizing, (5) let buyers pay labels, (6) reduce price after 14 days if unsold. This compounds: faster turnover = more capital cycles per month = more total profit.",
       },
       {
         q: "Do I need to declare Vinted income for tax?",
@@ -244,7 +244,7 @@ export const POSTS_16: BlogPost[] = [
       },
       {
         q: "What is a buy-below price on Vinted?",
-        a: "The buy-below price is the maximum you should pay for an item at source to achieve a target margin when it sells on Vinted. For a 30% margin target: buy-below = expected exit price × 0.70, minus any costs you absorb (free shipping, boost spend). If a Patagonia jacket exits at €50 on average, your buy-below is ~€35 — and ideally you pay €25–30 to leave room for price reductions. Buying above the buy-below means the trade will not hit margin even if it sells immediately.",
+        a: "The buy-below price is the maximum you should pay for an item at source to achieve a target margin when it sells on Vinted. For the 0.70 multiplier: buy-below = expected exit price × 0.70, minus any costs you absorb (free shipping, boost spend). If a Patagonia jacket exits at €50 on average, your buy-below is ~€35 — and ideally you pay €25–30 to leave room for price reductions. Buying above the buy-below means the trade will not hit margin even if it sells immediately.",
       },
       {
         q: "Is Vinted good for reselling compared to eBay or Depop?",

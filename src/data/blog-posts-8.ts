@@ -36,7 +36,7 @@ export const POSTS_8: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Jackets averaging €39.91 (brand-level, 177 departures/30d), applying a 30% target margin gives a buy-below of approximately €53. Any Lacoste Jacket sourced below that price — correct condition and era — has a realistic margin at current departure prices.",
+          "With Jackets averaging €39.91 (brand-level, 177 departures/30d), applying the 0.70 multiplier gives a buy-below of approximately €53. Any Lacoste Jacket sourced below that price — correct condition and era — has a realistic margin at current departure prices.",
           "Shirts at €27 average give a buy-below near €19. T-Shirts at €21 give a buy-below near €15. Hoodies at €41 give a buy-below near €29. Tracksuits at €37 give a buy-below near €26. The Jacket category is the clearest margin target; Shirts at buy-below €18 are viable as a high-volume charity shop play if sourcing costs are consistently below that floor.",
         ],
         cta: pricingMidCta("ctr_lacoste_20260915"),
@@ -120,7 +120,7 @@ export const POSTS_8: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Jackets averaging €75 at departure, applying a 30% target margin gives a buy-below of approximately €53. Sneakers at €58 average give a buy-below near €41. Tracksuits at €40 give a buy-below near €28. T-Shirts at €20 give a buy-below near €14. Hoodies at €29 give a buy-below near €20.",
+          "With Jackets averaging €75 at departure, applying the 0.70 multiplier gives a buy-below of approximately €53. Sneakers at €58 average give a buy-below near €41. Tracksuits at €40 give a buy-below near €28. T-Shirts at €20 give a buy-below near €14. Hoodies at €29 give a buy-below near €20.",
           "The practical hierarchy: Jackets and Sneakers are the primary sourcing targets by margin. T-Shirts at €13 buy-below are viable only as incidental sourcing (charity shop fillers) — they are not worth deliberate targeting at €20 average given the condition sensitivity and photography time required.",
         ],
         cta: pricingMidCta("ctr_adidas_20260915"),
@@ -162,7 +162,7 @@ export const POSTS_8: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Adidas Sneakers on Vinted?",
-        a: "With Adidas Sneakers averaging €58 at departure across EU Vinted markets (week to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €41. This applies to models that consistently reach or exceed €58 exit — Samba OG, Gazelle, Campus 00s in correct colourways. Generic Adidas Sneakers (Stan Smith, Superstar in standard colourways) average €20–40 and do not support a €39 sourcing price.",
+        a: "With Adidas Sneakers averaging €58 at departure across EU Vinted markets (week to 14 September 2026), and applying the 0.70 multiplier, the buy-below sits around €41. This applies to models that consistently reach or exceed €58 exit — Samba OG, Gazelle, Campus 00s in correct colourways. Generic Adidas Sneakers (Stan Smith, Superstar in standard colourways) average €20–40 and do not support a €39 sourcing price.",
       },
       {
         q: "What Adidas items sell best on Vinted?",
@@ -204,7 +204,7 @@ export const POSTS_8: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Jeans averaging €29 at departure, a 30% target margin gives a buy-below of approximately €20. That figure applies across the Jeans category, but the distribution inside the category is wide: the 501 Original in an age-faded indigo with a readable selvedge line can exit at €55–80, while a 2020 mass-retail 501 in standard mid-wash exits at €22–28. Sourcing strategy is not 'buy any 501 under €19' — it is 'buy the 501 that exits above the category average.'",
+          "With Jeans averaging €29 at departure, the 0.70 multiplier gives a buy-below of approximately €20. That figure applies across the Jeans category, but the distribution inside the category is wide: the 501 Original in an age-faded indigo with a readable selvedge line can exit at €55–80, while a 2020 mass-retail 501 in standard mid-wash exits at €22–28. Sourcing strategy is not 'buy any 501 under €19' — it is 'buy the 501 that exits above the category average.'",
           "Jackets at €40 average give a buy-below near €28. The Trucker Jacket (Type III) is the primary exit vehicle; the Sherpa Trucker occasionally exceeds €50 in clean condition. These are low-volume categories — 2 departures in the reference week — but individual unit margin is the strongest in the brand.",
         ],
         cta: pricingMidCta("ctr_levis_20260915"),
@@ -246,7 +246,7 @@ export const POSTS_8: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Levi's on Vinted?",
-        a: "With Levi's Jeans averaging €29 at departure (week to 14 September 2026), a 30% target margin gives a buy-below of approximately €20. This applies to contemporary cuts (501 Slim, 511, 505). Vintage 501 Originals with selvedge construction can exit at €60–80 — buy-below on those pieces is ~€50 at the same margin model. Trucker Jackets averaging €40 give a buy-below near €28.",
+        a: "With Levi's Jeans averaging €29 at departure (week to 14 September 2026), the 0.70 multiplier gives a buy-below of approximately €20. This applies to contemporary cuts (501 Slim, 511, 505). Vintage 501 Originals with selvedge construction can exit at €60–80 — buy-below on those pieces is ~€50 at the same margin model. Trucker Jackets averaging €40 give a buy-below near €28.",
       },
       {
         q: "Which Levi's jeans sell best on Vinted?",

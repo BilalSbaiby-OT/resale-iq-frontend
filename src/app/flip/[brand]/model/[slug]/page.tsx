@@ -80,7 +80,7 @@ export default async function ModelFlipPage(
     definedTermJsonLd({
       name: "Buy-below price",
       description:
-        "A buy-below price is the most you can pay for an item for ~30% margin before fees. Resale IQ models it as average asking price at departure × 0.70.",
+        "A buy-below price is the most to pay for an item: 70% of its typical resale price. Resale IQ models it as average asking price at departure × 0.70.",
       url: `${BASE}${modelPath(m)}`,
     }),
     {
@@ -144,7 +144,7 @@ export default async function ModelFlipPage(
             </div>
           </div>
           <p style={{ fontSize: 13, color: "#8b99b8", marginTop: 12, lineHeight: 1.55 }}>
-            Sell-through is withheld on public pages. The buy-below is the most to pay to keep a 30% margin
+            Sell-through is withheld on public pages. The buy-below is the most to pay at 70% of the typical resale price
             against the average price at departure. Other models need Starter at €19 a month.
           </p>
         </div>

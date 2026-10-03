@@ -36,7 +36,7 @@ export const POSTS_12: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Hoodies averaging €28 at departure, applying a 30% target margin gives a buy-below of approximately €20. Any Uniqlo Hoodie sourced below €19 — and it must be a collab or UNIQLO U piece, not a standard fleece — has a realistic margin at current departure prices.",
+          "With Hoodies averaging €28 at departure, applying the 0.70 multiplier gives a buy-below of approximately €20. Any Uniqlo Hoodie sourced below €19 — and it must be a collab or UNIQLO U piece, not a standard fleece — has a realistic margin at current departure prices.",
           "Jackets at €20 average give a buy-below near €14. T-Shirts at €12 give a buy-below near €8. Shirts at €10 give a buy-below near €7. Bags at €10 give a buy-below near €7. The Hoodie category is the only one with a realistic sourcing case — and only for collab or premium sub-line pieces. Jackets at a €14 buy-below are theoretically viable at charity shop clearance pricing only, and competition for collab Uniqlo outerwear is higher than standard category.",
         ],
         cta: pricingMidCta("ctr_uniqlo_20260915"),
@@ -120,7 +120,7 @@ export const POSTS_12: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Sneakers averaging €44 at departure, applying a 30% target margin gives a buy-below of approximately €31. Any Puma sneaker sourced below that price — correct model confirmed, correct condition, correct size — has a realistic margin at current departure prices.",
+          "With Sneakers averaging €44 at departure, applying the 0.70 multiplier gives a buy-below of approximately €31. Any Puma sneaker sourced below that price — correct model confirmed, correct condition, correct size — has a realistic margin at current departure prices.",
           "Tracksuits at €21 average give a buy-below near €15. Jackets at €19 give a buy-below near €13. Hoodies at €16 give a buy-below near €11. T-Shirts at €9 give a buy-below near €6. The Sneaker category is where the practical sourcing case lives entirely. Tracksuits at a €14 buy-below are theoretically achievable at clearance pricing only; Hoodies, Jackets, and T-Shirts are not viable sourcing targets for deliberate resale strategy.",
         ],
         cta: pricingMidCta("ctr_puma_20260915"),

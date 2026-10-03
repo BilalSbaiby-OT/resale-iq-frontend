@@ -157,7 +157,7 @@ function BillingSuccessContent() {
               <Tag size={15} style={{ color: "#34C759", marginTop: 1, flexShrink: 0 }} />
               <div>
                 <div style={{ fontSize: 13.5, fontWeight: 600, color: "#eef1f7" }}>{tx("Buy-below price on any item")}</div>
-                <div style={{ fontSize: 12, color: "#8b99b8", marginTop: 2 }}>{tx("The max you should pay to profit — for every brand and model we track.")}</div>
+                <div style={{ fontSize: 12, color: "#8b99b8", marginTop: 2 }}>{tx("The max buy price for every brand and model we track.")}</div>
               </div>
             </div>
             <div style={{ display: "flex", alignItems: "flex-start", gap: 10, background: "rgba(52,199,89,.08)", border: "1px solid rgba(52,199,89,.2)", borderRadius: 10, padding: "10px 14px" }}>

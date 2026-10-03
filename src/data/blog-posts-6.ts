@@ -36,7 +36,7 @@ export const POSTS_6: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Sneakers averaging €96 at departure, applying a 30% target margin gives a buy-below of approximately €67. Any Nike Sneaker sourced below that price — in sellable condition, correct model — has a realistic margin at current departure prices.",
+          "With Sneakers averaging €96 at departure, applying the 0.70 multiplier gives a buy-below of approximately €67. Any Nike Sneaker sourced below that price — in sellable condition, correct model — has a realistic margin at current departure prices.",
           "Jackets at €55 average give a buy-below near €39. Tracksuits at €30 give a buy-below near €21. Hoodies at €23 give a buy-below near €16. T-Shirts at €19 give a buy-below near €13. The apparel categories are viable but volume plays — the per-unit margin is thinner than Sneakers, and sourcing depth matters more than model selection.",
         ],
         cta: pricingMidCta("ctr_nike_20260914"),
@@ -85,7 +85,7 @@ export const POSTS_6: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Nike Sneakers on Vinted?",
-        a: "With Nike Sneakers averaging €96 at departure across EU Vinted markets (to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €67. This applies only to models that actually exit at or above €96 — Air Max 1, Jordan 1, Vapormax. Budget models exit well below €96 and have correspondingly lower buy-below prices. Resale IQ returns the exact buy-below for a specific Nike model.",
+        a: "With Nike Sneakers averaging €96 at departure across EU Vinted markets (to 14 September 2026), and applying the 0.70 multiplier, the buy-below sits around €67. This applies only to models that actually exit at or above €96 — Air Max 1, Jordan 1, Vapormax. Budget models exit well below €96 and have correspondingly lower buy-below prices. Resale IQ returns the exact buy-below for a specific Nike model.",
       },
       {
         q: "What Nike items sell best on Vinted?",

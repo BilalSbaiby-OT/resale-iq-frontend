@@ -138,7 +138,7 @@ export default async function BrandFlipPage(
                 <strong style={{ color: "#eef1f7" }}>{fmtEur(avg)}</strong>
               </>
             ) : null}
-            . But volume alone doesn&apos;t make you money — the margin depends entirely on which model you buy and
+            . But volume alone doesn&apos;t make a buy a good one — that depends entirely on which model you buy and
             what you pay for it.
           </>
         ) : avg != null ? (
@@ -337,7 +337,7 @@ export default async function BrandFlipPage(
         </p>
         <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8, marginBottom: 18 }}>
           {[
-            "Max buy price per model — the number that targets ~30% margin before fees",
+            "Max buy price per model — 70% of the typical resale price",
             "Sell-through rate — how much of what we watched has left the shelf, model by model",
             // "which models are heating up" was a trend claim. Momentum is a
             // percentile rank of each model's recent share of its own watched

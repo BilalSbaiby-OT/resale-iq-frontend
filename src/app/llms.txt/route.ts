@@ -65,7 +65,7 @@ export async function GET() {
     const v = await getTeaserVerdict(q)
     if (v && v.verdict && typeof v.buy_below === "number") {
       teaserLines.push(
-        `- ${q}: ${v.verdict}, max buy price EUR ${Math.round(Number(v.buy_below))} (for ~30% margin before fees). ${BASE}/tools?q=${encodeURIComponent(q)}`,
+        `- ${q}: ${v.verdict}, max buy price EUR ${Math.round(Number(v.buy_below))} (70% of the typical resale price). ${BASE}/tools?q=${encodeURIComponent(q)}`,
       )
     }
   }

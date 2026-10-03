@@ -27,7 +27,7 @@ export const POSTS_111: BlogPost[] = [
     definedTerm: {
       name: "Buy-below price",
       description:
-        "The buy-below price is the maximum you should pay for an item to make a profit after shipping. ResaleIQ calculates it as 70% of the average exit price (watched departures) across the 5 main EU Vinted markets — ES, FR, DE, IT, PT. It is not the asking price and not the retail price: it is the price at which a reseller who sources, photographs, lists, and ships the item can expect a 30% gross margin. The checker shows the buy-below ceiling on every free item lookup.",
+        "The buy-below price is the maximum you should pay for an item to make a profit after shipping. ResaleIQ calculates it as 70% of the average exit price (watched departures) across the 5 main EU Vinted markets — ES, FR, DE, IT, PT. It is not the asking price and not the retail price: it is the price at which a reseller who sources, photographs, lists, and ships the item can expect the 0.70 multiplier. The checker shows the buy-below ceiling on every free item lookup.",
     },
 
     sections: [
@@ -86,7 +86,7 @@ export const POSTS_111: BlogPost[] = [
       },
       {
         q: "What is a buy-below price?",
-        a: "The buy-below price is the maximum you should pay for an item to make a profit after shipping. ResaleIQ calculates it as 70% of the average exit price (watched departures) across the 5 main EU Vinted markets — ES, FR, DE, IT, PT. It is not the asking price and not the retail price: it is the price at which a reseller can expect a 30% gross margin.",
+        a: "The buy-below price is the maximum you should pay for an item to make a profit after shipping. ResaleIQ calculates it as 70% of the average exit price (watched departures) across the 5 main EU Vinted markets — ES, FR, DE, IT, PT. It is not the asking price and not the retail price: it is the price at which a reseller can expect the 0.70 multiplier.",
       },
       {
         q: "What does the BUY verdict mean?",

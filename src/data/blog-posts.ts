@@ -6,7 +6,7 @@ import { ilinkHref } from "@/lib/blog-ilink"
 // and is structured Q&A-first so search engines AND answer engines (ChatGPT,
 // Perplexity, Google AI, Claude) can lift clean, citable answers.
 // Claims kept honest: `the live tracked-listings figure listings across 5 EU markets` is true; no fabricated
-// per-item stats. Methodology figures (30% margin math) are the product's real logic.
+// per-item stats. Methodology figures (0.70 multiplier) are the product's real logic.
 
 export interface BlogPost {
   slug: string
@@ -255,11 +255,11 @@ export const POSTS: BlogPost[] = [
     readMins: 6,
     preflightQuery: "New Balance 530",
     intro:
-      "To price an item on Vinted in 2026, ignore the retail tag. Anchor to the asking price comparable listings had when they left the shelf, then sit slightly under that number. We do not see sale receipts. We watch listings leave. Snapshot 20 September 2026 at 16:49: across Spain, France, Germany, Italy and Portugal, eighteen of 28 tracked brands cleared the publish floor of 5 watched departures and produced 443 observed transitions this week. Fred Perry averaged €16 across 84 departures. Balenciaga averaged €121 across 56. Stone Island averaged €73 across 62. Same garment type, different brand, different price. Price off the brand's real departure number, not retail. If you source to resell, work backwards to a buy-below: average departure × 0.70. That targets a 30% margin; Vinted charges private sellers no selling fee. Type the model on /tools for BUY, WATCH or SKIP. Starter €19/mo. Weekly volumes stay free on /data.",
+      "To price an item on Vinted in 2026, ignore the retail tag. Anchor to the asking price comparable listings had when they left the shelf, then sit slightly under that number. We do not see sale receipts. We watch listings leave. Snapshot 20 September 2026 at 16:49: across Spain, France, Germany, Italy and Portugal, eighteen of 28 tracked brands cleared the publish floor of 5 watched departures and produced 443 observed transitions this week. Fred Perry averaged €16 across 84 departures. Balenciaga averaged €121 across 56. Stone Island averaged €73 across 62. Same garment type, different brand, different price. Price off the brand's real departure number, not retail. If you source to resell, work backwards to a buy-below: average departure × 0.70. That is 70% of the typical resale price; Vinted charges private sellers no selling fee. Type the model on /tools for BUY, WATCH or SKIP. Starter €19/mo. Weekly volumes stay free on /data.",
     definedTerm: {
       name: "What is a buy-below price?",
       description:
-        "A buy-below price is the most you can pay for an item for ~30% margin before fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 targets roughly a 30% margin. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
+        "A buy-below price is the most to pay for an item: 70% of its typical resale price. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 is 70% of the typical resale price. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
     },
     sections: [
       {
@@ -274,8 +274,8 @@ export const POSTS: BlogPost[] = [
       {
         h: "Work backwards to your buy-below price",
         p: [
-          "If you're sourcing to resell, the number that decides profit is the buy-below price — the most you can pay for ~30% margin before fees.",
-          "A common rule: buy-below = average asking price at departure × 0.70, which targets roughly a 30% margin. Vinted charges private sellers no selling fee, so there is no fee to take off first; the [Vinted profit calculator](/tools/vinted-profit-calculator) shows the net on your own numbers. Pay more than that and you're gambling on price appreciation.",
+          "If you're sourcing to resell, the number that decides profit is the buy-below price — the most you can pay (70% of the typical resale price).",
+          "A common rule: buy-below = average asking price at departure × 0.70, which is 70% of the typical resale price. Vinted charges private sellers no selling fee, so there is no fee to take off first; the [Vinted profit calculator](/tools/vinted-profit-calculator) shows the net on your own numbers. Pay more than that and you're gambling on price appreciation.",
         ],
         // EX-CTR-PRICE-001. Campaign ctr_price_20260913. QC button/subline.
         cta: pricingMidCta("ctr_price_20260913"),
@@ -292,7 +292,7 @@ export const POSTS: BlogPost[] = [
           "Stone Island — 62 · avg €73",
           "Gucci — 26 · avg €303 (price play, thinner volume)",
           "Same week, same markets. Price-alone math would treat a Gucci “deal” and a Fred Perry tee as the same kind of decision. They aren’t.",
-          "Buy-below answers “what’s the most I can pay for ~30% margin before fees.” Demand answers “will it leave the shelf before my cash is stuck.” Skip either and you’re guessing.",
+          "Buy-below answers “what’s the most I can pay (70% of the typical resale price).” Demand answers “will it leave the shelf before my cash is stuck.” Skip either and you’re guessing.",
           "Full weekly table (free to cite): [weekly market data](" +
             dataCiteHref("body_price_20260913") +
             ").",
@@ -312,7 +312,7 @@ export const POSTS: BlogPost[] = [
     ],
     faq: [
       { q: "How should I price items on Vinted?", a: "Anchor to the median recently-departed asking price for that exact model and condition, then price slightly below it to sell faster. Don't price off retail — resale value is what matters." },
-      { q: "What is a buy-below price?", a: "A buy-below price is the most you can pay for an item for ~30% margin before fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 targets roughly a 30% margin. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy." },
+      { q: "What is a buy-below price?", a: "A buy-below price is the most to pay for an item: 70% of its typical resale price. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 is 70% of the typical resale price. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy." },
       { q: "Should I price high and negotiate, or price to sell?", a: "For most items, pricing near or slightly below the median departure price sells faster and keeps your cash moving. Hold-for-more only makes sense for genuinely scarce items." },
     ],
   },
@@ -332,7 +332,7 @@ export const POSTS: BlogPost[] = [
       {
         h: "Tracked brands ranked by weekly watched departures — week to 14 September 2026",
         p: [
-          "Week to 14 September 2026, across Spain, France, Germany, Italy and Portugal. 'Watched departures' = listings that left the shelf (sold or removed) as tracked by Resale IQ. Average is the departure-weighted mean exit price across all categories for that brand. Buy-below is the departure average × 0.70 (30% margin target) — the most you can pay and still hit a realistic margin at these departure prices.",
+          "Week to 14 September 2026, across Spain, France, Germany, Italy and Portugal. 'Watched departures' = listings that left the shelf (sold or removed) as tracked by Resale IQ. Average is the departure-weighted mean exit price across all categories for that brand. Buy-below is the departure average × 0.70  — the most you can pay and still hit a realistic margin at these departure prices.",
           "Volume brands (Fred Perry, Stone Island, Nike) reward fast stock turnover. Margin brands (Balenciaga, Gucci, Jordan) reward colourway and authentication knowledge. The two strategies are not better and worse — they are different businesses.",
         ],
         table: {
@@ -412,7 +412,7 @@ export const POSTS: BlogPost[] = [
       { q: "What are the best brands to resell on Vinted?", a: "Week to 14 September 2026, the highest-volume brands on EU Vinted are Fred Perry (199 departures in the last 30 days, €14 avg), Stone Island (796/week, €55 avg) and Patagonia (792/week, €50 avg). The highest-exit-price brands are Gucci (€212 avg), Balenciaga (€146 avg), Jordan (€133 avg) and Off-White (€67 avg). 'Best' is volume-first or margin-first depending on your sourcing strategy." },
       { q: "Which Vinted brand has the highest resale value?", a: "Gucci averages €212 per departure on EU Vinted (week to 14 September 2026), the highest of 28 tracked brands. Balenciaga averages €146, Jordan €133, and Off-White €67. Stone Island (€55 avg) and Patagonia (€50 avg) offer the best combination of volume and price for systematic resellers." },
       { q: "Are there brands not worth reselling on Vinted?", a: "Yes. Pull&Bear (€11 avg), Mango (€11 avg) and Bershka (€27 avg — inflated by a low-volume jacket outlier) are deliberate passes at current EU Vinted departure prices. The buy-below thresholds (~€7–18) are below achievable charity shop sourcing prices. Uniqlo is a collab-only play — mainline basics have no margin, but KAWS and JW Anderson collaboration pieces exit at a premium." },
-      { q: "What is the buy-below price for reselling on Vinted?", a: "Buy-below = departure average × 0.70 (30% margin target). For Fred Perry Shirts (€14 avg): buy-below ~€10. For Stone Island Hoodies (€55 avg): buy-below ~€39. For Jordan Sneakers (€156 avg): buy-below ~€109. Resale IQ calculates buy-below at item level — model, category, and condition — not just brand level." },
+      { q: "What is the buy-below price for reselling on Vinted?", a: "Buy-below = departure average × 0.70 . For Fred Perry Shirts (€14 avg): buy-below ~€10. For Stone Island Hoodies (€55 avg): buy-below ~€39. For Jordan Sneakers (€156 avg): buy-below ~€109. Resale IQ calculates buy-below at item level — model, category, and condition — not just brand level." },
       { q: "How do I know if a brand is worth reselling on Vinted?", a: "Three numbers: weekly watched departures (is there demand?), average exit price (is there margin room?), and buy-below relative to your sourcing price. If your sourcing price is consistently above buy-below for a brand, pass. Resale IQ publishes weekly departures and averages free at resaleiq.dev/data for every brand with published weekly data." },
       { q: "Does it matter which country I sell from on Vinted?", a: "Resale IQ covers Spain, France, Germany, Italy and Portugal — the five EU Vinted markets. The departure data in this table and in each brand guide reflects those five markets. UK Vinted operates separately with different pricing dynamics. If you sell from the UK, the EU averages here are directionally useful but not exact." },
     ],
@@ -520,7 +520,7 @@ export const POSTS: BlogPost[] = [
         h: "Where Resale IQ fits, and where it does not",
         p: [
           "Resale IQ covers Vinted only, across five markets: Spain, France, Germany, Italy and Portugal. It does not cover Depop, and it does not cover the UK or the US. If you sell on Depop, or you sell in Britain, it will not price your stock — worth saying plainly rather than letting you find out after signing up.",
-          "For those five Vinted markets it answers the sourcing question directly: what an item genuinely sells for, the most you can pay and still profit, and how fast it moves. The buy-below price is calculated as the average asking price at departure × 0.70, which targets roughly a 30% margin — [the methodology](/methodology) sets out every step and, more usefully, what the data cannot tell you.",
+          "For those five Vinted markets it answers the sourcing question directly: what an item genuinely sells for, the most to pay (70% of the typical resale price), and how fast it moves. The buy-below price is calculated as the average asking price at departure × 0.70, which is 70% of the typical resale price — [the methodology](/methodology) sets out every step and, more usefully, what the data cannot tell you.",
           "You can check a specific item with the [Vinted price checker](/tools/vinted-price-checker), or work out what a flip actually nets after fees with the [profit calculator](/tools/vinted-profit-calculator). Buy-below is on a plan; weekly brand volumes stay public on [/data](" +
             ilinkHref("data") +
             ").",
@@ -568,7 +568,7 @@ export const POSTS: BlogPost[] = [
       {
         h: "Why it beats margin on a single item",
         p: [
-          "A 50% margin item that sells once a year is worse than a 30% margin item that sells every week. Speed compounds; a fat margin on dead stock doesn't.",
+          "A high-priced item that sells once a year is worse than a cheaper one that sells every week. Speed compounds; a wide price gap on dead stock doesn't.",
           "This is why experienced resellers weight sell-through heavily when deciding what to buy — a slightly lower margin that moves fast usually wins.",
         ],
       },
@@ -741,7 +741,7 @@ export const POSTS: BlogPost[] = [
     slug: "buy-below-price-explained",
     seoTitle: "Buy-Below Price: The Max to Pay, Explained",
     title: "Buy-Below Price: The One Number That Decides Your Profit",
-    description: "The ceiling that keeps a flip profitable for ~30% margin before fees, and how we compute it from watched departure prices.",
+    description: "The ceiling to stay under (70% of the typical resale price), and how we compute it from watched departure prices.",
     date: "2026-08-05",
     updated: "2026-09-14",
     category: "Pricing",
@@ -752,13 +752,13 @@ export const POSTS: BlogPost[] = [
     definedTerm: {
       name: "Buy-below price",
       description:
-        "A buy-below price is the most you can pay for an item for ~30% margin before fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 targets roughly a 30% margin. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
+        "A buy-below price is the most to pay for an item: 70% of its typical resale price. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 is 70% of the typical resale price. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
     },
     sections: [
       {
         h: "What buy-below price means",
         p: [
-          "Your buy-below price is the maximum you can pay for an item for ~30% margin before fees. Pay under it and you're set up to profit; pay over it and you're speculating.",
+          "Your buy-below price is the maximum you can pay for an item (70% of the typical resale price). Pay under it and you're set up to profit; pay over it and you're speculating.",
           "It reframes sourcing: you're not asking 'is this cheap?', you're asking 'is this under my number?'.",
         ],
       },
@@ -768,7 +768,7 @@ export const POSTS: BlogPost[] = [
           "A widely used rule: buy-below = average sale price × 0.70. The average is [what actually left the shelf this week](" +
             ilinkHref("data") +
             "), not the retail tag.",
-          "The 0.70 targets roughly a 30% margin, and no platform deduction is built in because Vinted charges private sellers no selling fee. Adjust it to your own goals, but keep the discipline.",
+          "The 0.70 is 70% of the typical resale price, and no platform deduction is built in because Vinted charges private sellers no selling fee. Adjust it to your own goals, but keep the discipline.",
         ],
       },
       {
@@ -786,7 +786,7 @@ export const POSTS: BlogPost[] = [
       {
         h: "Demand is the other half of buy-below",
         p: [
-          "A buy-below number without demand still burns cash. Pair (1) max pay (for ~30% margin before fees) with (2) whether that brand is leaving the shelf this week.",
+          "A buy-below number without demand still burns cash. Pair (1) max pay (70% of the typical resale price) with (2) whether that brand is leaving the shelf this week.",
           "Week to 14 September 2026 (EU5): we watched 5,377 departures across 28 brands — Fred Perry 939 @ €18 · Stone Island 796 @ €70 · Gucci 221 @ €212. [Weekly market data](" +
             dataCiteHref("body_buybelow_20260913") +
             ").",
@@ -796,8 +796,8 @@ export const POSTS: BlogPost[] = [
       },
     ],
     faq: [
-      { q: "What is a buy-below price?", a: "A buy-below price is the most you can pay for an item for ~30% margin before fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 targets roughly a 30% margin. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy." },
-      { q: "How do you calculate a buy-below price?", a: "Buy-below price = average asking price at departure × 0.70. The 0.70 targets about a 30% margin, and no fee factor is built in because Vinted charges private sellers no selling fee. If you resell on a platform that does charge a fee, take it off first. Never pay more than the result when sourcing." },
+      { q: "What is a buy-below price?", a: "A buy-below price is the most to pay for an item: 70% of its typical resale price. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 is 70% of the typical resale price. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy." },
+      { q: "How do you calculate a buy-below price?", a: "Buy-below price = average asking price at departure × 0.70. The 0.70 is 70% of the typical resale price, and no fee factor is built in because Vinted charges private sellers no selling fee. If you resell on a platform that does charge a fee, take it off first. Never pay more than the result when sourcing." },
       { q: "Why is buy-below price important?", a: "It protects your margin before you list. Profit in reselling is mostly decided at the buy, not the sale — buying under your buy-below price is what makes an item profitable." },
     ],
   },

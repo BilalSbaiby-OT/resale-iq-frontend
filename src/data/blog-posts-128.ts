@@ -54,18 +54,18 @@ export const POSTS_128: BlogPost[] = [
         "A watched departure is a listing Resale IQ tracked from active to no longer listed — not a confirmed buyer receipt. " +
         "We count those transitions across 5 EU Vinted markets (ES/FR/DE/IT/PT), " +
         "not every transaction on Vinted as a whole. Buy-below is modelled as avg departure price × 0.70 " +
-        "(30% margin target; no fee factor, because Vinted charges private sellers no selling fee). Treat it as a sourcing ceiling, not a profit guarantee.",
+        "(0.70 multiplier; no fee factor, because Vinted charges private sellers no selling fee). Treat it as a sourcing ceiling, not a profit guarantee.",
     },
     sections: [
       {
         h: "How to read this table",
         p: [
-          "The order is by watched departures across the 5 EU Vinted markets over the trailing 30 days — a lower bound, not a total. Avg price is the mean asking price at departure, not a confirmed sale price. Buy-below is the most you can pay and still clear a ~30% margin.",
+          "The order is by watched departures across the 5 EU Vinted markets over the trailing 30 days — a lower bound, not a total. Avg price is the mean asking price at departure, not a confirmed sale price. Buy-below is 70% of the typical resale price.",
           "The table is ordered with the fastest movers first. Volume and margin are different things — the New Balance 550 moves fast at €24 avg, while the Balenciaga Track moves almost as fast at €290 avg. Both are worth buying at the right source price; the math is in the buy-below column.",
         ],
         table: {
           caption:
-            "Buy list — September 2026 snapshot, EU Vinted (ES/FR/DE/IT/PT), fastest movers first by watched departures. Buy-below = sourcing ceiling for a ~30% margin.",
+            "Buy list — September 2026 snapshot, EU Vinted (ES/FR/DE/IT/PT), fastest movers first by watched departures. Buy-below = sourcing ceiling at 70% of the typical resale price.",
           head: ["#", "Model", "Category", "Avg exit price", "Buy-below"],
           rows: [
             ["1", "[New Balance 530](/blog/new-balance-530-resell-guide-vinted)", "Sneakers", "€38.51", "€25.61"],
@@ -106,7 +106,7 @@ export const POSTS_128: BlogPost[] = [
       {
         h: "The buy-below floor — what it means in practice",
         p: [
-          "Buy-below = avg departure price × 0.70. There is no fee factor: Vinted charges private sellers no selling fee, and Buyer Protection is paid by the buyer. The 0.70 targets a 30% gross margin on the sell price — not profit after your time, shipping, or failed listings.",
+          "Buy-below = avg departure price × 0.70. There is no fee factor: Vinted charges private sellers no selling fee, and Buyer Protection is paid by the buyer. The 0.70 targets the 0.70 multiplier on the sell price — not profit after your time, shipping, or failed listings.",
           "If you source a New Balance 530 for €20 against a buy-below of €26.96, you have ~€5.61 of sourcing headroom and can expect to sell around €38.51. That is arithmetic, not a guarantee. Size, condition and timing affect the actual sell price.",
           `[Free weekly market data →](` + dataCiteHref("body_buynow_20260922") + `) · [Run the item checker for any model →](/tools)`,
         ],
@@ -122,7 +122,7 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "What is a buy-below price?",
         a:
-          "A buy-below price is the most you can pay for an item for ~30% margin before fees. Resale IQ models it as: average departure price × 0.70 (30% margin target). For the New Balance 530, that is €38.51 × 0.70 = €26.96. It is a sourcing ceiling, not a profit promise — condition, size and timing all affect the actual outcome.",
+          "A buy-below price is the most to pay for an item: 70% of its typical resale price. Resale IQ models it as: average departure price × 0.70 . For the New Balance 530, that is €38.51 × 0.70 = €26.96. It is a sourcing ceiling, not a profit promise — condition, size and timing all affect the actual outcome.",
       },
       {
         q: "Is the New Balance 530 worth buying to resell on Vinted?",
@@ -263,7 +263,7 @@ export const POSTS_128: BlogPost[] = [
         h: "New Balance 530 EU Vinted signal — September 2026",
         p: [
           "Production figures queried 22 September 2026:",
-          "At least 1,235 watched departures in the trailing 30 days · avg asking price at departure €38.51 · buy-below (sourcing ceiling for ~30% margin) €26.96 · 5 EU Vinted markets (ES, FR, DE, IT, PT).",
+          "At least 1,235 watched departures in the trailing 30 days · avg asking price at departure €38.51 · buy-below (sourcing ceiling at 70% of the typical resale price) €26.96 · 5 EU Vinted markets (ES, FR, DE, IT, PT).",
           "The 1,235 figure is a minimum. A Sep 14–22 shelf-detection outage left an ~8-day gap in the trailing 30d window — real demand is likely up to ~25% higher. We publish the measured figure.",
         ],
       },
@@ -271,7 +271,7 @@ export const POSTS_128: BlogPost[] = [
         h: "What to pay — buy-below breakdown",
         p: [
           "Buy-below = avg exit price × 0.70. For the NB 530: €38.51 × 0.70 = €26.96.",
-          "That models a 30% gross margin target on the sell price, with no fee factor (Vinted charges private sellers no selling fee). At a €20 source price you have ~€6.96 of headroom and a gross margin of ~48%. At a €25 source price your headroom is €1.96 and the margin is ~35% — buy it only if the condition and size are strong.",
+          "That models the 0.70 multiplier on the sell price, with no fee factor (Vinted charges private sellers no selling fee). At a €20 source price you have ~€6.96 of headroom and a gross margin of ~48%. At a €25 source price your headroom is €1.96 and the margin is ~35% — buy it only if the condition and size are strong.",
           "Common sizes command the full average. Outlier sizes (very small, very large) typically exit below the average — adjust your source ceiling down for non-mid sizes. Colourways matter less for the 530 than for some models: it is bought for the silhouette more than a specific colourway.",
         ],
         table: {
@@ -320,7 +320,7 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "What is the buy-below price for New Balance 530?",
         a:
-          "€26.96 as of 22 September 2026. Computed as avg departure price (€38.51) × 0.70 (30% gross margin target). Do not pay above this ceiling to resell on EU Vinted at a healthy margin. If the specific condition or size warrants a premium, verify via the live checker before paying above the floor.",
+          "€26.96 as of 22 September 2026. Computed as avg departure price (€38.51) × 0.70 . Do not pay above this ceiling to resell on EU Vinted at a healthy margin. If the specific condition or size warrants a premium, verify via the live checker before paying above the floor.",
       },
       {
         q: "Which New Balance sells best on Vinted?",
@@ -356,7 +356,7 @@ export const POSTS_128: BlogPost[] = [
         ],
         table: {
           caption:
-            "Patagonia models ranked by 30-day departure volume, EU Vinted (ES/FR/DE/IT/PT), 22 September 2026. All figures are minimums. Buy-below = avg exit × 0.70 (30% margin target).",
+            "Patagonia models ranked by 30-day departure volume, EU Vinted (ES/FR/DE/IT/PT), 22 September 2026. All figures are minimums. Buy-below = avg exit × 0.70 .",
           head: ["Model", "Category", "Dep/30d (min)", "Avg exit", "Buy-below"],
           rows: [
             ["Refugio", "Bags", "215", "€44.14", "€29.35"],
@@ -421,7 +421,7 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "What is the buy-below price for Patagonia Synchilla?",
         a:
-          "€32.11 as of 22 September 2026. Computed as avg departure price (€45.87) × 0.70 (30% gross margin target). Source at €15–25 from charity shops to hit a 45–55% gross margin. At source prices above €32 the margin is gone on a standard sale; buy only if you have evidence of above-average condition or rare colourway.",
+          "€32.11 as of 22 September 2026. Computed as avg departure price (€45.87) × 0.70 . Source at €15–25 from charity shops to hit a 45–55% gross margin. At source prices above €32 the margin is gone on a standard sale; buy only if you have evidence of above-average condition or rare colourway.",
       },
       {
         q: "What Patagonia model has the highest resale value on Vinted?",

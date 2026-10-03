@@ -476,7 +476,7 @@ export const POSTS_3: BlogPost[] = [
         h: "Tu precio máximo de compra",
         p: [
           "Si compras para revender, el número que decide si ganas dinero no es el precio al desaparecer el anuncio — es el máximo que puedes pagar y seguir teniendo margen.",
-          "La regla: precio máximo = precio medio al desaparecer el anuncio × 0,70, que apunta a un margen aproximado del 30 %. No hay deducción de comisión: Vinted no cobra comisión de venta a los vendedores particulares. Si pagas por encima de ese número, dejas de comprar con margen y empiezas a especular con que el precio suba.",
+          "La regla: precio máximo = precio medio al desaparecer el anuncio × 0,70, que es el 70 % del precio medio. No hay deducción de comisión: Vinted no cobra comisión de venta a los vendedores particulares. Si pagas por encima de ese número, dejas de comprar con margen y empiezas a especular con que el precio suba.",
           "Ese cálculo lo hace [la calculadora de beneficio](/tools/vinted-profit-calculator), y [la metodología](/methodology) explica cada paso y, más útil todavía, lo que los datos no pueden decirte.",
         ],
       },
@@ -513,7 +513,7 @@ export const POSTS_3: BlogPost[] = [
     ],
     faq: [
       { q: "¿Cómo pongo precio a un artículo en Vinted?", a: "Parte del precio medio al que desaparecen los anuncios recientes de ese modelo exacto y ese estado, y ponte ligeramente por debajo para vender antes. No uses el precio de tienda: en reventa sólo cuenta lo que el mercado paga hoy." },
-      { q: "¿Cuál es el precio máximo que debo pagar para revender con margen?", a: "Precio medio al desaparecer el anuncio × 0,70, lo que apunta a un margen aproximado del 30 %. No hay deducción de comisión: Vinted no cobra comisión de venta a los vendedores particulares. Por encima de ese número dejas de comprar con margen y empiezas a especular." },
+      { q: "¿Cuál es el precio máximo que debo pagar para revender con margen?", a: "Precio medio al desaparecer el anuncio × 0,70, lo que es el 70 % del precio medio. No hay deducción de comisión: Vinted no cobra comisión de venta a los vendedores particulares. Por encima de ese número dejas de comprar con margen y empiezas a especular." },
       { q: "¿Es mejor vender rápido o esperar a sacar más?", a: "Para casi todo, vender rápido. Un artículo que rota en nueve días a 40 € rinde más al año que uno que tarda setenta a 50 €, porque el dinero vuelve antes a comprar el siguiente. Esperar sólo compensa en piezas realmente escasas." },
       { q: "¿Qué marcas se venden más rápido en Vinted?", a: "Las zapatillas reconocibles y los básicos de marca dominan el volumen; las marcas de lujo mueven muchas menos unidades a precios mucho más altos. Cuál te conviene depende de cuánto tiempo puedes tener el dinero parado. Las cifras por marca se actualizan a diario en la página de datos de mercado." },
     ],
@@ -614,7 +614,7 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Buy-below for Patagonia Jackets",
         p: [
-          "If Patagonia Jackets leave the shelf at €50 on average, applying a 30% target margin gives a buy-below of approximately €35.",
+          "If Patagonia Jackets leave the shelf at €50 on average, applying the 0.70 multiplier gives a buy-below of approximately €35.",
           "That means a Patagonia jacket sourced below €33 — charity shop, car boot, estate sale — has a realistic margin if it is in sellable condition. Above €33 you are speculating on condition or on beating the average; below it you have a structural edge on every unit. The exact buy-below for your specific model is what " +
             BRAND +
             " returns on check.",
@@ -656,7 +656,7 @@ export const POSTS_3: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Patagonia jacket?",
-        a: "With Patagonia Jackets averaging €50 at departure across EU Vinted markets (to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €35. Above that you are speculating on condition or on beating the average price. Resale IQ returns the exact buy-below for a specific model on check.",
+        a: "With Patagonia Jackets averaging €50 at departure across EU Vinted markets (to 14 September 2026), and applying the 0.70 multiplier, the buy-below sits around €35. Above that you are speculating on condition or on beating the average price. Resale IQ returns the exact buy-below for a specific model on check.",
       },
       {
         q: "What condition issues kill Patagonia resale value?",
@@ -694,7 +694,7 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Buy-below for Stone Island Hoodies",
         p: [
-          "If Stone Island Hoodies leave the shelf at €55 on average, applying a 30% target margin gives a buy-below of approximately €39.",
+          "If Stone Island Hoodies leave the shelf at €55 on average, applying the 0.70 multiplier gives a buy-below of approximately €39.",
           "That means a Stone Island hoodie sourced below €36 — charity shop, car boot, estate sale — has a realistic margin at current departure prices. Above €36 you are betting on condition premium or beating the average. The exact buy-below for a specific model and colourway is what " +
             BRAND +
             " returns on check.",
@@ -733,7 +733,7 @@ export const POSTS_3: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Stone Island hoodie?",
-        a: "With Stone Island Hoodies averaging €55 at departure across EU Vinted markets (to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €39. Above that you are speculating on beating the market average. Resale IQ returns the exact buy-below for a specific model on check.",
+        a: "With Stone Island Hoodies averaging €55 at departure across EU Vinted markets (to 14 September 2026), and applying the 0.70 multiplier, the buy-below sits around €39. Above that you are speculating on beating the market average. Resale IQ returns the exact buy-below for a specific model on check.",
       },
       {
         q: "How do I authenticate Stone Island before buying to resell?",
@@ -775,7 +775,7 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Shirts averaging €14 at departure, applying a 30% target margin gives a buy-below of approximately €10. A Fred Perry Shirt sourced below €9 has a realistic margin at current departure prices.",
+          "With Shirts averaging €14 at departure, applying the 0.70 multiplier gives a buy-below of approximately €10. A Fred Perry Shirt sourced below €9 has a realistic margin at current departure prices.",
           "Hoodies at €22 average give a buy-below near €15. Jackets at €36 give a buy-below near €25. The numbers are tight — which is why floor discipline matters more on Fred Perry than on higher-ticket brands. A single pound or euro over floor on a £12 shirt is the entire margin.",
         ],
         cta: pricingMidCta("ctr_fredperry_20260914"),
@@ -815,7 +815,7 @@ export const POSTS_3: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Fred Perry shirt?",
-        a: "With Fred Perry Shirts averaging €14 at departure across EU Vinted markets (to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €10. Above that the margin disappears. Resale IQ returns the exact buy-below for a specific Fred Perry model on check.",
+        a: "With Fred Perry Shirts averaging €14 at departure across EU Vinted markets (to 14 September 2026), and applying the 0.70 multiplier, the buy-below sits around €10. Above that the margin disappears. Resale IQ returns the exact buy-below for a specific Fred Perry model on check.",
       },
       {
         q: "What is the most popular Fred Perry item on Vinted?",
@@ -827,7 +827,7 @@ export const POSTS_3: BlogPost[] = [
       },
       {
         q: "What is the buy-below for Fred Perry Jackets on Vinted?",
-        a: "Fred Perry Jackets average €36 at departure (199 departures in the last 30 days to 14 September 2026). Modelling a 30% target margin gives a buy-below of approximately €24. Harrington and track jackets in clean condition sourced below that price have a realistic margin. Size M and L move fastest.",
+        a: "Fred Perry Jackets average €36 at departure (199 departures in the last 30 days to 14 September 2026). Modelling the 0.70 multiplier gives a buy-below of approximately €24. Harrington and track jackets in clean condition sourced below that price have a realistic margin. Size M and L move fastest.",
       },
     ],
   },
@@ -857,7 +857,7 @@ export const POSTS_3: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Sneakers averaging €164 at departure, applying a 30% target margin gives a buy-below of approximately €115. Any Balenciaga Sneaker sourced below that price — authenticated and in wearable condition — has a realistic margin at current departure prices.",
+          "With Sneakers averaging €164 at departure, applying the 0.70 multiplier gives a buy-below of approximately €115. Any Balenciaga Sneaker sourced below that price — authenticated and in wearable condition — has a realistic margin at current departure prices.",
           "Hoodies at €103 average give a buy-below near €69. T-Shirts at €96 give a buy-below near €67. Shirts at €83 give a buy-below near €58. Bags at €193 average give a buy-below near €135 — the highest absolute floor, but bags are also the most condition- and authenticity-dependent category. A bag that fails authentication or photographs as worn has no real market at any price.",
         ],
         cta: pricingMidCta("ctr_balenciaga_20260919"),
@@ -903,7 +903,7 @@ export const POSTS_3: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Balenciaga Sneakers on Vinted?",
-        a: "With Balenciaga Sneakers averaging €140 at departure across EU Vinted markets (to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €98. Authenticated pairs sourced below that price in wearable condition have a realistic margin. Resale IQ returns the exact buy-below for a specific Balenciaga model on check.",
+        a: "With Balenciaga Sneakers averaging €140 at departure across EU Vinted markets (to 14 September 2026), and applying the 0.70 multiplier, the buy-below sits around €98. Authenticated pairs sourced below that price in wearable condition have a realistic margin. Resale IQ returns the exact buy-below for a specific Balenciaga model on check.",
       },
       {
         q: "Which Balenciaga items sell best on Vinted?",

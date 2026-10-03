@@ -134,7 +134,7 @@ export const CHAPTERS_1: ManualChapter[] = [
       },
       {
         q: "What margin should I target on Vinted?",
-        a: "There is no universal figure, because it depends on how fast the item turns. As a working rule, price-tier stock that sells in under three weeks can justify a thinner margin than stock that takes two months. Resale IQ's buy-below price is calculated for the specific model, for ~30% margin before fees.",
+        a: "There is no universal figure, because it depends on how fast the item turns. As a working rule, price-tier stock that sells in under three weeks can justify a thinner margin than stock that takes two months. Resale IQ's buy-below price is calculated for the specific model (70% of the typical resale price).",
       },
       {
         q: "Why is the buy price the number that matters?",
@@ -155,21 +155,21 @@ export const CHAPTERS_1: ManualChapter[] = [
     title: "How to work out the most you can pay",
     seoTitle: "What Is a Buy-Below Price? — The Vinted Reselling Manual",
     description:
-      "Buy-below is the most you can pay and still leave a 30% margin: average departure ask × 0.70. How to calculate it before you source.",
+      "Buy-below is the most you can pay (70% of the typical resale price): average departure ask × 0.70. How to calculate it before you source.",
     minutes: 6,
     intro:
       "You compute the number before you go sourcing, not as a feeling while standing in front of a rail. Pay under it and the flip is set up to profit; pay over it and you are speculating.",
     definedTerm: {
       name: "What is a buy-below price?",
       description:
-        "A buy-below price is the most you can pay for an item for ~30% margin before fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 targets roughly a 30% margin. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
+        "A buy-below price is the most to pay for an item: 70% of its typical resale price. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 is 70% of the typical resale price. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
     },
     sections: [
       {
         h2: "The derivation",
         body: [
           "Start from the price the item realistically sells for — the asking price similar items were last listed at before they left the shelf, not the price hopeful sellers are currently asking. Take off whatever the platform deducts from you — on Vinted, for a private seller, that is nothing. What remains is your net revenue. Multiply that by one minus your target margin, and you have the most you can pay.",
-          "Concretely: Vinted charges private sellers no selling fee, so an item that reliably sells for €40 nets €40. If you want a 30% margin on the sale, you can pay up to €28. Pay €32 and you are working for 20%. Pay €36 and you are working for 10%, which one item in ten failing to sell wipes out.",
+          "Concretely: Vinted charges private sellers no selling fee, so an item that reliably sells for €40 nets €40. If you pay 70% of that price, you can pay up to €28. Pay €32 and the gap to the typical resale price narrows. Pay €36 and you are working for 10%, which one item in ten failing to sell wipes out.",
           "If you resell somewhere that does charge a fee — other platforms take their own commission, and business accounts can differ — take it off before you multiply. The arithmetic does not care what the number is, only that you use the real one, so check the platform's own fee page rather than a figure you memorised a year ago.",
           "The arithmetic is trivial. The hard part is the first input — the realistic sale price — and that is where almost every bad buy originates.",
         ],
@@ -202,11 +202,11 @@ export const CHAPTERS_1: ManualChapter[] = [
     faq: [
       {
         q: "What is a buy-below price?",
-        a: "A buy-below price is the most you can pay for an item for ~30% margin before fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 targets roughly a 30% margin. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
+        a: "A buy-below price is the most to pay for an item: 70% of its typical resale price. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 is 70% of the typical resale price. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
       },
       {
         q: "How do you calculate a buy-below price?",
-        a: "Buy-below price = average asking price at departure × 0.70. The 0.70 targets about a 30% margin, and there is no fee factor because Vinted charges private sellers no selling fee. On a €40 departure that is €28. If you resell on a platform that does charge a fee, take it off first.",
+        a: "Buy-below price = average asking price at departure × 0.70. The 0.70 is 70% of the typical resale price, and there is no fee factor because Vinted charges private sellers no selling fee. On a €40 departure that is €28. If you resell on a platform that does charge a fee, take it off first.",
       },
       {
         q: "Where do I find real departure prices on Vinted?",

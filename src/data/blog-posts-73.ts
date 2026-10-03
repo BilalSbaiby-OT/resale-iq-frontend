@@ -26,7 +26,7 @@ export const POSTS_73: BlogPost[] = [
     definedTerm: {
       name: "Diesel Jeans departure average",
       description:
-        "The Diesel Jeans departure average is the average price at which a tracked Diesel Jeans listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Diesel Jeans track 55 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €20 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling is €14.00 — the maximum sourcing price that keeps gross margin positive, targeting a 30% gross margin. The Diesel brand overall tracks 88 departures in the last 30 days across all categories at a €25 brand-wide average. Diesel Jeans represent 45% of brand departure volume. High-value model tier: the 1DR-5005 and 1DR-509 low-rise wide-leg cuts exit at €35–55, significantly above the €20 category average.",
+        "The Diesel Jeans departure average is the average price at which a tracked Diesel Jeans listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Diesel Jeans track 55 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €20 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling is €14.00 — the maximum sourcing price that keeps gross margin positive, i.e. 70% of the typical resale price. The Diesel brand overall tracks 88 departures in the last 30 days across all categories at a €25 brand-wide average. Diesel Jeans represent 45% of brand departure volume. High-value model tier: the 1DR-5005 and 1DR-509 low-rise wide-leg cuts exit at €35–55, significantly above the €20 category average.",
     },
     sections: [
       {
@@ -41,7 +41,7 @@ export const POSTS_73: BlogPost[] = [
       {
         h: "Buy-below €14.00 — the category floor and the model-tier gap",
         p: [
-          "The buy-below ceiling for Diesel Jeans at the category level is €14.00 — derived from the €20 category average and a 30% gross margin target. At €14.00 or below, a Diesel Jean sourced from an EU charity shop or flea market exits at the category average with workable margin. EU charity shop pricing for Diesel Jeans ranges from €4–12, placing most finds comfortably inside the €14.00 ceiling.",
+          "The buy-below ceiling for Diesel Jeans at the category level is €14.00 — derived from the €20 category average and the 0.70 multiplier. At €14.00 or below, a Diesel Jean sourced from an EU charity shop or flea market exits at the category average with workable margin. EU charity shop pricing for Diesel Jeans ranges from €4–12, placing most finds comfortably inside the €14.00 ceiling.",
           "The model-tier gap changes this arithmetic substantially for specific cuts. The 1DR-5005 — Diesel's low-rise, wide-leg Y2K reference cut, the most demanded Diesel Jean model on EU Vinted — exits at €35–55 in good condition when listed with the correct model identification. The buy-below for a correctly identified 1DR-5005 scales to €24.50–€35.75, which is still achievable at charity shop pricing because sellers rarely identify the model. A 1DR-5005 acquired at €8–12 and listed at €40–50 with the model name in the title represents the highest single-item return available in the Diesel Jeans category.",
           `The 1DR-509 — the slim-tapered counterpart to the 1DR-5005, with a narrower leg from knee to hem and a lower-rise seat — exits at €28–40 in good condition, with a buy-below ceiling of €19.60–€26.00. The Jogg Jeans (elasticated waistband with denim appearance, introduced in the 2010s and still produced) exit at €22–30 consistently — above the €20 category average — due to demand from buyers seeking the specific comfort-fit silhouette. The buy-below for Jogg Jeans is €15.40–€21.00. [Diesel Jeans category page →](${ilinkHref("data")})`,
         ],
@@ -78,7 +78,7 @@ export const POSTS_73: BlogPost[] = [
     faq: [
       {
         q: "What is the buy-below price for Diesel Jeans on EU Vinted?",
-        a: "The buy-below ceiling for Diesel Jeans on EU Vinted is €14.00 as of 15 September 2026, based on 55 departures in the last 30 days at a €20 average exit price. This targets a 30% gross margin. The 1DR-5005 and 1DR-509 models have higher buy-below ceilings scaling to €24.50–€35.75 when correctly identified, reflecting their €35–55 exit range. EU charity shops typically price Diesel Jeans at €4–12 regardless of model — placing most finds inside the base €14.00 buy-below ceiling.",
+        a: "The buy-below ceiling for Diesel Jeans on EU Vinted is €14.00 as of 15 September 2026, based on 55 departures in the last 30 days at a €20 average exit price. This targets the 0.70 multiplier. The 1DR-5005 and 1DR-509 models have higher buy-below ceilings scaling to €24.50–€35.75 when correctly identified, reflecting their €35–55 exit range. EU charity shops typically price Diesel Jeans at €4–12 regardless of model — placing most finds inside the base €14.00 buy-below ceiling.",
       },
       {
         q: "How many Diesel Jeans sell on EU Vinted per week?",

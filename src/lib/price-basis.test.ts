@@ -53,13 +53,13 @@ test("methodology: departed returns the original FAQ text byte-for-byte; live_as
     const live = methodologyFaqFor("live_ask", loc, original)
     assert.notEqual(live, original, loc)
     assert.equal(methodologyNoteFor("live_ask", loc), basisCopy[loc].methodologyNote, loc)
-    // figure parity with the departed answer: the 0.70 multiplier and the 30% margin survive
-    assert.ok(live.includes("0.70") && live.includes("30%"), loc)
+    // figure parity with the departed answer: the 0.70 multiplier survives
+    assert.ok(live.includes("0.70"), loc)
   }
 })
 
 test("proof strip subtitle: departed unchanged, live_ask says asking prices, neither says sold", () => {
-  assert.equal(proofStripNote("departed"), "Buy price → resale price → margin. These are watched departures — listings that left the shelf — not confirmed sales.")
+  assert.equal(proofStripNote("departed"), "Buy price → typical resale price. These are watched departures — listings that left the shelf — not confirmed sales.")
   const live = proofStripNote("live_ask")
   assert.match(live, /current asking prices/)
   assert.doesNotMatch(live, /left the shelf|departures/)
@@ -74,8 +74,8 @@ test("basisOfRows: any live_ask row flips the footnote; missing honest = departe
 })
 
 test("buy-list footnote: both English keys exist with 5 translations and the same placeholders", () => {
-  const dep = "Buy below = most you should pay, for ~30% margin before fees. Exit = average asking price at departure. Tap an item to check it."
-  const live = "Buy below = most you should pay, for ~30% margin before fees. Exit = typical resale price, based on current asking prices for this model on Vinted. Tap an item to check it."
+  const dep = "Buy below = most you should pay (70% of the typical resale price). Exit = average asking price at departure. Tap an item to check it."
+  const live = "Buy below = most you should pay (70% of the typical resale price). Exit = typical resale price, based on current asking prices for this model on Vinted. Tap an item to check it."
   for (const k of [dep, live]) assert.equal(UI_STRINGS[k]?.length, 5, k)
   for (const v of UI_STRINGS[live]) assert.doesNotMatch(v, SOLD, v)
   const src = readFileSync(new URL("../components/dashboard/weekly-buy-list.tsx", import.meta.url), "utf8")

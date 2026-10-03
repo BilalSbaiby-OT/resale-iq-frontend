@@ -59,7 +59,7 @@ export default function BuyHubPage() {
           Spain, France, Germany, Italy and Portugal. We track{" "}
           <strong style={{ color: "#eef1f7" }}>{totalPairs.toLocaleString()} brand-category pairs</strong>{" "}
           with enough watched departures in the 30 days to {buyDataDate()}. The buy-below prices are derived from
-          the average price at departure, × 0.70, which targets a 30% margin. Vinted charges private sellers no selling fee.
+          the average price at departure, × 0.70, which is 70% of the typical resale price. Vinted charges private sellers no selling fee.
         </p>
         <p style={{ fontSize: 14.5, color: "#8b99b8", lineHeight: 1.6, marginBottom: 32 }}>
           Active listings are not departures. We never use supply as a proxy for demand — only listings we watched leave the shelf count.

@@ -170,7 +170,7 @@ test("descriptions never invent a buy-below and never call a paid model free", (
     live: { verdict: "WATCH", buy_below: 24.35, product: "Adidas Samba" },
   })
   assert.match(live, /WATCH/)
-  assert.match(live, /Max buy price: €24, for ~30% margin before fees/)
+  assert.match(live, /Max buy price: €24 \(70% of the typical resale price\)/)
   assert.doesNotMatch(live, /€24\.35|after fees/)
   assert.doesNotMatch(live, /Gazelle/)
 

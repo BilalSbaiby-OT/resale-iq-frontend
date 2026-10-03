@@ -38,7 +38,7 @@ async function generateMetadataRaw({
   const { brand, cat } = pair
   const title = `What to Pay for ${brand.brand} ${cat.category} — Buy-Below Price | ResaleIQ`
   const description =
-    `${brand.brand} ${cat.category}: buy below ${fmtEurBuy(cat.buy_below)} for ~30% margin before fees. ` +
+    `${brand.brand} ${cat.category}: buy below ${fmtEurBuy(cat.buy_below)} (70% of the typical resale price). ` +
     `Average price at departure ${fmtEurBuy(cat.avg_price_eur)} on Vinted across ES, FR, DE, IT and PT. ` +
     `Check the exact model before you pay.`
 
@@ -67,7 +67,7 @@ export default async function BuyBrandCategoryPage({
   // small brand x category count reads as "only 6 of these sold". The answer
   // leads with the price: what to pay, what it resells for, the margin.
   const directAnswer =
-    `For ~30% margin before fees on ${brand.brand} ${cat.category}, buy below ${fmtEurBuy(cat.buy_below)}. ` +
+    `For a buy price at 70% of the typical resale price on ${brand.brand} ${cat.category}, buy below ${fmtEurBuy(cat.buy_below)}. ` +
     `The average price at departure was ${fmtEurBuy(cat.avg_price_eur)}` +
     (cat.median_price_eur ? ` (median ${fmtEurBuy(cat.median_price_eur)})` : "") +
     ` across Vinted in Spain, France, Germany, Italy and Portugal in the 30 days to ${buyDataDate()} ` +
@@ -105,7 +105,7 @@ export default async function BuyBrandCategoryPage({
               cat.signal === "STRONG BUY" || cat.signal === "BUY"
                 ? `Yes — the demand signal for ${brand.brand} ${cat.category} is ${cat.signal} based on sell-through rate, ` +
                   `listing saturation and departure momentum from listings we watched leave the shelf. ` +
-                  `Buy below ${fmtEurBuy(cat.buy_below)} for ~30% margin before fees, and check the specific item you are considering on /tools before buying.`
+                  `Buy below ${fmtEurBuy(cat.buy_below)} (70% of the typical resale price), and check the specific item you are considering on /tools before buying.`
                 : cat.signal === "AVOID"
                 ? `With care. The demand signal is ${cat.signal} — the sell-through rate or saturation level suggests caution. ` +
                   `Check specific models rather than buying on category-level data alone.`
@@ -183,7 +183,7 @@ export default async function BuyBrandCategoryPage({
         {/* Key stats */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 12, marginBottom: 32 }}>
           {[
-            [fmtEurBuy(cat.buy_below), "buy below (~30% margin before fees)"],
+            [fmtEurBuy(cat.buy_below), "buy below (70% of the typical resale price)"],
             [fmtEurBuy(cat.avg_price_eur), "avg price at departure"],
             ...(cat.tier ? [[fmtTierBuy(cat.tier), "pace vs other tracked pairs"]] : []),
             ...(typeof cat.avg_price_eur === "number" && typeof cat.buy_below === "number"
@@ -191,7 +191,7 @@ export default async function BuyBrandCategoryPage({
               : []),
           ].map(([v, l]) => (
             <div key={l} style={{ background: "var(--color-surface, #131823)", border: "1px solid var(--color-border-ui, #1e2a3f)", borderRadius: 12, padding: "16px 18px" }}>
-              <div style={{ fontSize: 22, fontWeight: 800, color: l === "buy below (~30% margin before fees)" ? "#34C759" : "#eef1f7" }}>{v}</div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: l === "buy below (70% of the typical resale price)" ? "#34C759" : "#eef1f7" }}>{v}</div>
               <div style={{ fontSize: 12, color: "#5b6b8c", marginTop: 3 }}>{l}</div>
             </div>
           ))}
@@ -207,7 +207,7 @@ export default async function BuyBrandCategoryPage({
             <strong style={{ color: "#34C759" }}>{fmtEurBuy(cat.buy_below)}</strong>{" "}
             is derived from the average departure price of{" "}
             <strong style={{ color: "#eef1f7" }}>{fmtEurBuy(cat.avg_price_eur)}</strong>.
-            We apply a 30% gross margin target — meaning the buy-below is 70% of the average exit price (avg × 0.70).
+            We apply the 0.70 multiplier — meaning the buy-below is 70% of the average exit price (avg × 0.70).
             This is the same formula used by the ResaleIQ verdict engine on every surface.
             Vinted charges private sellers no selling fee, so no platform cut is built into that number.
           </p>

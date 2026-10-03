@@ -27,7 +27,7 @@ const SELL_LEAD =
   "Vinted sell-through is the share of watched listings that left the shelf in a period: watched departures divided by those departures plus items still listed. It is a demand-versus-supply share — not weekly turns, which can exceed 100% and are not a sell-through rate."
 
 const BUY_BELOW_MARKET_LEAD =
-  "A buy-below on the market is the most you can pay for a typical comparable for ~30% margin before fees. Resale IQ models it as average asking price at departure × 0.70. It is a sourcing ceiling derived from watched listings, not a promised profit."
+  "A buy-below on the market is the most to pay for a typical comparable: 70% of its typical resale price. Resale IQ models it as average asking price at departure × 0.70. It is a sourcing ceiling derived from watched listings, not a promised profit."
 
 const DEAD_STOCK_LEAD =
   "Dead stock is inventory that does not clear: the listing sits, capital sits, and a markdown — not a better photo — is usually what eventually moves it. Volume without sell-through is how dead stock hides in a busy category."
@@ -36,7 +36,7 @@ const FEES_LEAD =
   "No. Resale IQ's buy-below has no fee factor. Vinted charges private sellers no selling fee in Spain, France, Germany, Italy and Portugal: you receive the full sale price. The percentage-based charge on Vinted's fee card is the buyer's Buyer Protection fee, added at checkout on top of the item price, so it never comes out of your payout. Buy-below is the average asking price at departure × 0.70."
 
 const MARGIN_LEAD =
-  "Vinted profit margin in the buy-below model is the room you keep on the departure ask. The 0.70 multiplier targets roughly a 30% margin: pay 70% of the asking price at departure and the other 30% is yours, before your own packaging and travel. Vinted charges private sellers no selling fee, so nothing is taken off the sale price. It is a planning target, not a guaranteed net on the item in your hand."
+  "The 0.70 in the buy-below model is a fixed ratio: the ceiling is 70% of the average asking price at departure, which Resale IQ calls the typical resale price. Vinted charges private sellers no selling fee, so nothing is taken off the sale price. It is a reference ceiling for sourcing, not a promised outcome on the item in your hand — what you keep depends on your own costs, timing and the price the item finally changes hands at, which we do not observe."
 
 const MAX_BUY_LEAD =
   "Max buy price is the sourcing ceiling you take to the rail: pay at or under it, walk away above it. On Resale IQ it is the same arithmetic as buy-below — average asking price at departure × 0.70 — applied to the named model, then adjusted for condition and size."
@@ -136,7 +136,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       { q: "What is a buy-below on the market?", a: BUY_BELOW_MARKET_LEAD },
       {
         q: "How do you calculate a buy-below price?",
-        a: "Buy-below price = average asking price at departure × 0.70. The 0.70 targets about a 30% margin, and no platform cut is built in because Vinted charges private sellers no selling fee. Method: https://resaleiq.dev/manual/the-buy-below-price",
+        a: "Buy-below price = average asking price at departure × 0.70. The 0.70 is 70% of the typical resale price, and no platform cut is built in because Vinted charges private sellers no selling fee. Method: https://resaleiq.dev/manual/the-buy-below-price",
       },
       {
         q: "Where do I get a live buy-below?",
@@ -190,7 +190,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     ],
     seeAlso: [
       { href: "/glossary/buy-below-market", label: "Buy-below (market)" },
-      { href: "/glossary/vinted-profit-margin", label: "Vinted profit margin" },
+      { href: "/glossary/vinted-profit-margin", label: "The 0.70 in buy-below" },
       { href: "/tools/vinted-profit-calculator", label: "Profit calculator" },
       { href: "/manual/the-buy-below-price", label: "Manual: the buy-below price" },
     ],
@@ -208,16 +208,16 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
   },
   {
     slug: "vinted-profit-margin",
-    name: "Vinted profit margin",
-    h1: "What profit margin does buy-below target?",
-    title: "What Vinted profit margin does buy-below target? — Resale IQ",
+    name: "The 0.70 in buy-below",
+    h1: "What does the 0.70 in buy-below mean?",
+    title: "What does the 0.70 in buy-below mean? — Resale IQ",
     description:
-      "Buy-below's 0.70 targets about a 30% margin on the departure ask. A planning target, not guaranteed net.",
+      "Buy-below's 0.70 is 70% of the departure ask. A reference ceiling, not a promised outcome.",
     lead: MARGIN_LEAD,
     body: [
-      "On a €40 departure ask, a 30% margin implies a max buy of €28 (€40 × 0.70). Pay €32 and you are working for roughly 20%. Pay €36 and you are working for 10%, which one item in ten failing to sell wipes out. Those euros are an illustration of the formula, not a quote for a named model.",
-      "The target should not be identical on every piece. Slow, expensive stock needs a wider margin because cash is tied up longer. Fast, cheap stock can run thinner. A single blanket percentage is a reasonable starting point and a poor long-term policy.",
-      "Turns beat fat margins that never clear. Dead stock at a 60% sticker margin is worse than a 20% flip that leaves the shelf. Pair this page with sell-through and max buy price.",
+      "On a €40 departure ask, paying 70% of it implies a max buy of €28 (€40 × 0.70). Paying €32 or €36 instead means a thinner gap between what you pay and the typical resale price. Those euros are an illustration of the formula, not a quote for a named model.",
+      "The ratio should not be treated as identical for every piece. Slow, expensive stock ties up cash for longer, so many resellers pay less than the ceiling for it; fast, cheap stock is different. A single blanket percentage is a reasonable starting point and a poor long-term policy.",
+      "Turns matter more than a wide price gap on stock that never clears. Pair this page with sell-through and max buy price.",
     ],
     seeAlso: [
       { href: "/glossary/max-buy-price", label: "Max buy price" },
@@ -226,14 +226,14 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       { href: "/pricing", label: "Starter €19" },
     ],
     faqs: [
-      { q: "What profit margin does buy-below target?", a: MARGIN_LEAD },
+      { q: "What does the 0.70 in buy-below mean?", a: MARGIN_LEAD },
       {
-        q: "Should every item use 30%?",
-        a: "No. Slow, expensive stock needs a wider margin; fast stock can run thinner. The 0.70 is Resale IQ's default planning target, not a rule of nature. Method: https://resaleiq.dev/manual/the-buy-below-price",
+        q: "Should every item use 0.70?",
+        a: "No. The 0.70 is Resale IQ's default reference ratio, not a rule of nature; slow, expensive stock often deserves a lower ceiling. Method: https://resaleiq.dev/manual/the-buy-below-price",
       },
       {
-        q: "Does a live check guarantee that margin?",
-        a: "No. Buy-below is a sourcing ceiling. Condition, size, authentication risk and whether the item actually leaves the shelf still decide the realised net. Plans: https://resaleiq.dev/pricing",
+        q: "Does a live check guarantee an outcome?",
+        a: "No. Buy-below is a sourcing ceiling. Condition, size, authentication risk and whether the item actually leaves the shelf still decide the realised result. Plans: https://resaleiq.dev/pricing",
       },
     ],
   },

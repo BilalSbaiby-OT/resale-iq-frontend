@@ -18,11 +18,11 @@ export const POSTS_28: BlogPost[] = [
     readMins: 12,
     preflightQuery: "New Balance 550",
     intro:
-      "Every resale profit starts before you list anything — it starts when you buy. Sourcing well means paying below the number that leaves ~30% margin before fees. This guide ranks the four main sourcing channels by margin, time cost, and risk, and shows you exactly how to calculate the buy-below price before you commit to any item.",
+      "Every resale profit starts before you list anything — it starts when you buy. Sourcing well means paying below the number that is 70% of the typical resale price. This guide ranks the four main sourcing channels by margin, time cost, and risk, and shows you exactly how to calculate the buy-below price before you commit to any item.",
     definedTerm: {
       name: "Buy-below price",
       description:
-        "The buy-below price is the maximum you should pay for an item for ~30% margin before fees. It is calculated from the item's departure average (the typical asking price of comparable listings that left the shelf) and your target margin. Paying at or below this number makes the purchase worth taking.",
+        "The buy-below price is the maximum you should pay for an item (70% of the typical resale price). It is calculated from the item's departure average (the typical asking price of comparable listings that left the shelf) and your target margin. Paying at or below this number makes the purchase worth taking.",
     },
     sections: [
       {
@@ -31,7 +31,7 @@ export const POSTS_28: BlogPost[] = [
           "Most resellers lose money not at the listing stage but at the buying stage — they pay too much because they guessed the resale price from asking prices, not from actual departures.",
           "Asking prices on Vinted or Depop are wishes. Departure averages — the prices recent sales actually closed at — are facts. The gap between the two is where resellers either make or lose money.",
           "The formula is simple: Departure average − platform fee (none on Vinted for private sellers) − shipping − your time cost = maximum buy price. Anything you pay above that number is margin you've already given away before the item is listed.",
-          "For example: if a pair of Carhartt work trousers departs at an average of €42 on Vinted (the seller receives the full €42; the buyer pays Buyer Protection on top), and shipping costs €4, your time cost for listing and packing is ~€3, then the break-even buy price is €35. To hit a 30% margin on the sale you need to buy below about €22 (€42 × 0.70 = €29.40, less €7 for shipping and time).",
+          "For example: if a pair of Carhartt work trousers departs at an average of €42 on Vinted (the seller receives the full €42; the buyer pays Buyer Protection on top), and shipping costs €4, your time cost for listing and packing is ~€3, then the break-even buy price is €35. To stay at 70% of the typical resale price you need to buy below about €22 (€42 × 0.70 = €29.40, less €7 for shipping and time).",
           "This number — the buy-below price — is the only number that matters when you are standing at a charity shop rail or scrolling a Facebook Marketplace listing.",
         ],
       },

@@ -25,7 +25,7 @@ export const POSTS_41: BlogPost[] = [
     definedTerm: {
       name: "Fred Perry T-shirt departure average",
       description:
-        "The Fred Perry T-shirt departure average is the average price at which a tracked Fred Perry T-shirt listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Fred Perry T-shirts track 199 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €12 average exit price. This makes T-shirts the second-busiest Fred Perry category by departure volume on EU Vinted, behind shirts (199 departures in the last 30 days at €14) and ahead of hoodies (199 departures in the last 30 days at €22). The buy-below ceiling at the T-shirt category level is €8.40 — that is €12 × 0.70, targeting a 30% gross margin. The Ringer T-Shirt and Twin Tipped designs are the highest-exiting models within the category, typically departing €3–6 above the category average. Plain Logo tees and standard single-colour tees exit at or below the €12 average.",
+        "The Fred Perry T-shirt departure average is the average price at which a tracked Fred Perry T-shirt listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Fred Perry T-shirts track 199 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €12 average exit price. This makes T-shirts the second-busiest Fred Perry category by departure volume on EU Vinted, behind shirts (199 departures in the last 30 days at €14) and ahead of hoodies (199 departures in the last 30 days at €22). The buy-below ceiling at the T-shirt category level is €8.40 — that is €12 × 0.70, i.e. 70% of the typical resale price. The Ringer T-Shirt and Twin Tipped designs are the highest-exiting models within the category, typically departing €3–6 above the category average. Plain Logo tees and standard single-colour tees exit at or below the €12 average.",
     },
     sections: [
       {
@@ -87,7 +87,7 @@ export const POSTS_41: BlogPost[] = [
     faq: [
       {
         q: "What is the buy-below price for Fred Perry T-shirts on Vinted?",
-        a: "The buy-below ceiling for Fred Perry T-shirts on EU Vinted is €8.40 — that is the average exit price of €12 multiplied by 0.70, targeting a 30% gross margin. Ringer T-shirts and Twin Tipped models exit €3–6 higher than the category average, raising their buy-below ceiling to €10–11 for clean examples. Plain Logo tees and standard solid-colour tees exit at or below the €12 average.",
+        a: "The buy-below ceiling for Fred Perry T-shirts on EU Vinted is €8.40 — that is the average exit price of €12 multiplied by 0.70, i.e. 70% of the typical resale price. Ringer T-shirts and Twin Tipped models exit €3–6 higher than the category average, raising their buy-below ceiling to €10–11 for clean examples. Plain Logo tees and standard solid-colour tees exit at or below the €12 average.",
       },
       {
         q: "How many Fred Perry T-shirts sell on EU Vinted per week?",

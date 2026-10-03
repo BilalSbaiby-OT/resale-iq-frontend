@@ -42,7 +42,7 @@ export const POSTS_39: BlogPost[] = [
           "Not every Balenciaga sneaker exits at the same price. The category average of €164 blends several model types with different liquidity profiles.",
           "The Triple S is the highest-ceiling model and the highest-volume individual style within the category. Clean pairs in popular colourways (triple white, triple black, white/black multicolour) in sizes 40–44 typically depart between €140 and €200. Archive colourways and collaboration pieces occasionally reach €220–260. Worn or minor-scuff pairs in common sizes still exit around €90–110.",
           "The Speed Trainer exits faster but at a lower ceiling — roughly €80–130 for clean pairs. The elastic sock silhouette is polarising; the resale window is narrow (roughly 6–12 months post-season before the market saturates a colourway). Track and Track.2 runners depart in the €90–140 range. Bulkier than the Speed Trainer, they have a broader size appeal across EU markets but attract a slightly lower ceiling than the Triple S.",
-          `Buy-below ceiling across the sneaker category: €114.80 — that is €164 × 0.70, targeting a 30% gross margin. For near-new Triple S in core colourways, you can source up to €120–130 and still expect to exit at or above the category average. [See all Balenciaga departure data →](${ilinkHref("flip")})`,
+          `Buy-below ceiling across the sneaker category: €114.80 — that is €164 × 0.70, i.e. 70% of the typical resale price. For near-new Triple S in core colourways, you can source up to €120–130 and still expect to exit at or above the category average. [See all Balenciaga departure data →](${ilinkHref("flip")})`,
         ],
         cta: pricingMidCta("ctr_balenciaga_sneakers_20260919"),
       },
@@ -100,7 +100,7 @@ export const POSTS_39: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Balenciaga Triple S on Vinted?",
-        a: "At the sneaker category level, the buy-below ceiling is €114.80 — calculated at 70% of the €164 departure average to target a 30% gross margin. For near-new Triple S in core colourways (triple white, triple black, white/black), you can source up to €120–130 and still expect to exit at or above the category average. For worn or unusual colourways, tighten to €60–80 maximum.",
+        a: "At the sneaker category level, the buy-below ceiling is €114.80 — calculated at 70% of the €164 departure average to target the 0.70 multiplier. For near-new Triple S in core colourways (triple white, triple black, white/black), you can source up to €120–130 and still expect to exit at or above the category average. For worn or unusual colourways, tighten to €60–80 maximum.",
       },
       {
         q: "Is the Balenciaga Triple S still worth reselling on Vinted in 2026?",

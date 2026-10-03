@@ -79,7 +79,7 @@ test("extension treats HTTP 402 as paywall, not an outage", () => {
 
 test("tools lede states buy-below as avg × 0.70 and never builds a Vinted seller fee into it", () => {
   const src = read("data/search-intents.ts")
-  assert.match(src, /average departure ask × 0\.70, aiming at about a 30% margin/)
+  assert.match(src, /average departure ask × 0\.70, which is 70% of the typical resale price/)
   assert.match(src, /Vinted charges private sellers no selling fee/)
   assert.doesNotMatch(src, /5% seller fee/)
   assert.doesNotMatch(src, /5% platform deduction/)

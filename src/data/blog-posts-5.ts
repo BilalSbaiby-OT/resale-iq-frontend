@@ -36,7 +36,7 @@ export const POSTS_5: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Bags averaging €306 at departure, applying a 30% target margin gives a buy-below of approximately €214. Any Gucci Bag sourced below that price — authenticated, with no damage to hardware or leather — has a realistic margin at current departure prices. That is the highest buy-below floor of any brand in the EU5 top ten.",
+          "With Bags averaging €306 at departure, applying the 0.70 multiplier gives a buy-below of approximately €214. Any Gucci Bag sourced below that price — authenticated, with no damage to hardware or leather — has a realistic margin at current departure prices. That is the highest buy-below floor of any brand in the EU5 top ten.",
           "Caps at €146 average give a buy-below near €102. Sneakers at €209 give a buy-below near €146. Jackets at €257 give a buy-below near €180. Shirts at €105 give a buy-below near €74. Every category requires capital above €70 to operate at margin; this is not a starter brand. The " +
             BRAND +
             " check returns BUY / WATCH / SKIP with an exact buy-below for the specific Gucci model.",
@@ -89,7 +89,7 @@ export const POSTS_5: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Gucci Bag on Vinted?",
-        a: "With Gucci Bags averaging €306 at departure across EU Vinted markets (to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €214. That is the highest buy-below floor of any brand category in the EU5 top ten. Resale IQ returns the exact buy-below for a specific Gucci model on check.",
+        a: "With Gucci Bags averaging €306 at departure across EU Vinted markets (to 14 September 2026), and applying the 0.70 multiplier, the buy-below sits around €214. That is the highest buy-below floor of any brand category in the EU5 top ten. Resale IQ returns the exact buy-below for a specific Gucci model on check.",
       },
       {
         q: "What Gucci items sell best on Vinted?",

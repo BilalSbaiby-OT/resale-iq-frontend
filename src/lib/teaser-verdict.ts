@@ -96,7 +96,7 @@ function words(s: string): string[] {
 }
 
 const TAIL =
-  "The buy-below is the average price at departure × 0.70, which targets a 30% margin. " +
+  "The buy-below is the average price at departure × 0.70, which is 70% of the typical resale price. " +
   "Tracked markets are Spain, France, Germany, Italy and Portugal — not the UK. " +
   "These figures are listings we watched leave the shelf, not sale receipts we did not see. " +
   "Demand is treated as the same trend unless the numbers split. " +
@@ -120,7 +120,7 @@ export function formatTeaserCite(query: string, r: HeroVerdict | null): string |
   const product = (r.product && r.product.trim()) || query
   const bits: string[] = [
     `Should I buy ${product} to resell in 2026? ${r.verdict}.`,
-    `The max buy price is ${eurWhole(r.buy_below as number)}, for ~30% margin before fees.`,
+    `The max buy price is ${eurWhole(r.buy_below as number)} (70% of the typical resale price).`,
   ]
   if (typeof r.sell_avg === "number" && Number.isFinite(r.sell_avg) && r.sell_avg > 0) {
     let avg = `The watched-departure average is ${eurWhole(r.sell_avg)}`

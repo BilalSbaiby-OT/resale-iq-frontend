@@ -390,7 +390,7 @@ export const copy = {
         // than "immediately" (CRO #8 specificity). All three now say the same thing so
         // the claim echoes from the CTA button down to the FAQ and the fine-print footer.
         // Revenue 2026-09-16.
-        "Every paid plan unlocks the full numbers — verdicts, buy-below and sizes. Order Planner and Price across Vinted sites are Pro. Estimated margin, not a promised profit. Cancel anytime from Account → Manage subscription. Access starts in ~2s after payment — no waiting for an email.",
+        "Every paid plan unlocks the full numbers — verdicts, buy-below and sizes. Order Planner and Price across Vinted sites are Pro. Estimates from past data, not a promise of results. Cancel anytime from Account → Manage subscription. Access starts in ~2s after payment — no waiting for an email.",
       subhead:
         "The most to pay, before you buy: BUY / WATCH / SKIP + the exact buy-below price for every model we track. Starter €19/mo.",
       // H19 CRO: Objection #1 ("will it work for me?") answered above the plan cards — CRO Principle #4 (proof next to objection) + #7 (trust before CTA). Revenue 2026-09-15.
@@ -415,7 +415,7 @@ export const copy = {
         { q: "Is it worth €19 a month?", a: "At the default numbers — 30 items a month at €20 each, about €600 of stock — the calculator above shows Starter costs the same as 1 bad buy a month: avoid one €20 item and the €19 is covered. That is arithmetic on your own numbers, not a promised saving. Slide them to your own volume and see." },
         // H51 CRO: moved before hard-use/data-thin; reframed from "No." opener → lead with what IS free. Revenue 2026-09-16.
         { q: "Is there a free item checker?", a: "Yes. Check Adidas Samba, Nike Air Force 1 or Fred Perry Polo on /tools with no account. Weekly brand volumes are public on /data. Other models need Starter at €19 a month. Pro at €49 adds Order Planner, Price across Vinted sites and API access." },
-        { q: "Is it hard to use?", a: "Paste a listing or type a model and you get a BUY, WATCH or SKIP with the most you can pay and still profit. There's no setup and no spreadsheet to keep." },
+        { q: "Is it hard to use?", a: "Paste a listing or type a model and you get a BUY, WATCH or SKIP with the max buy price (70% of the typical resale price). There's no setup and no spreadsheet to keep." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "When does access start after paying?", a: "The moment Stripe confirms your payment — usually within 2 seconds. Next you check a real item; we pre-fill Nike Air Force 1. No email to wait for. If a connection error interrupts, sign in at /login." },
         // H67 CRO: split thin-data and not-in-catalog answers — INSUFFICIENT_DATA and UNKNOWN are different outcomes; a visitor who hit UNKNOWN needs to know it's a coverage gap, not a paywall. Adds /data link so they can verify which brands are tracked. CRO #4 (objection next to the doubt) + #1 (clarity). Revenue 2026-09-23.
@@ -493,7 +493,7 @@ export const copy = {
       planAddsHeading: "What a plan adds, per model",
       // BRAND-VOICE
       planAddsBody:
-        "The most you can pay and still profit, the price it typically leaves at, how fast it moves, and which sizes clear first — for the specific item in your hand, not the brand.",
+        "The max buy price, the typical resale price, how fast it moves, and which sizes clear first — for the specific item in your hand, not the brand.",
     },
     // extension-hero.tsx — the mock Chrome panel on a Vinted listing.
     // FUNCTIONAL except caption/payMargin (BRAND-VOICE: the sentence selling
@@ -504,7 +504,7 @@ export const copy = {
       condition: "Very good",
       matched: "matched:",
       // BRAND-VOICE
-      payMargin: "most you can pay for your margin",
+      payMargin: "max buy price",
       listedAbove: (price: string) => `listed at ${price} — above buy-below`,
       avgExit: "avg exit",
       // BRAND-VOICE
@@ -779,7 +779,7 @@ export const copy = {
     howToHeading: "Comment l'utiliser",
     howToSteps: [
       "Saisissez une marque et un modèle — ou collez le titre d'une annonce.",
-      "Lisez ACHETER, SURVEILLER ou ÉCARTER et le maximum à payer pour ~30 % de marge avant frais.",
+      "Lisez ACHETER, SURVEILLER ou ÉCARTER et le prix d'achat max : 70 % du prix de revente typique.",
       "N'achetez que sous ce prix d'achat max.",
     ],
     howToCoverage:
@@ -931,7 +931,7 @@ export const copy = {
       publicDataLine: "Données publiques uniquement (pas de vérifications d'articles) → /data",
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
-        "Chaque abonnement payant débloque tous les chiffres — verdicts, prix d'achat max et tailles. Order Planner et Prix sur les sites Vinted sont réservés à Pro. Marge estimée, pas un profit promis. Résiliable à tout moment depuis Compte → Gérer l'abonnement. L'accès démarre en ~2s après le paiement — pas d'attente d'e-mail.",
+        "Chaque abonnement payant débloque tous les chiffres — verdicts, prix d'achat max et tailles. Order Planner et Prix sur les sites Vinted sont réservés à Pro. Estimations tirées de données passées, pas une promesse de résultat. Résiliable à tout moment depuis Compte → Gérer l'abonnement. L'accès démarre en ~2s après le paiement — pas d'attente d'e-mail.",
       subhead: "Le maximum à payer, avant d'acheter : ACHETER / SURVEILLER / ÉCARTER + le prix d'achat max exact pour chaque modèle que nous suivons. Starter 19 €/mois.",
       // H19 CRO: Objection #1 — preuve de couverture avant les cartes tarifaires. Revenue 2026-09-15.
       scopeNote: "Conçu pour les vêtements, chaussures et accessoires sur Vinted · ES · FR · DE · IT · PT. Quand l'échantillon est insuffisant, le verdict indique UNKNOWN — jamais une supposition.",
@@ -952,7 +952,7 @@ export const copy = {
         { q: "Est-ce que ça marchera pour ce que je vends ?", a: "C'est conçu pour les vêtements, chaussures et accessoires sur Vinted en Espagne, France, Allemagne, Italie et Portugal, avec les prix affichés typiques sur ces sites Vinted en Pro. Quand nous n'avons pas assez observé un article pour répondre, le verdict indique UNKNOWN au lieu de deviner, car une lacune assumée vous coûte moins cher qu'un chiffre faux affirmé avec assurance.", cta: { text: "→ Essayez une vérification en direct", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "en général" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Est-ce que ça vaut €19 par mois ?", a: "Avec les valeurs par défaut — 30 articles par mois à 20 € pièce, soit environ 600 € de stock — le calculateur ci-dessus montre que Starter coûte autant que 1 mauvais achat par mois : évitez un article à 20 € et les 19 € sont couverts. C'est de l'arithmétique sur vos propres chiffres, pas une économie promise. Ajustez les curseurs à votre propre volume." },
-        { q: "Est-ce compliqué à utiliser ?", a: "Collez une annonce ou tapez un modèle et vous obtenez ACHETER, SURVEILLER ou ÉCARTER avec le prix maximum que vous pouvez payer en gardant votre marge. Aucune configuration et aucun tableur à tenir." },
+        { q: "Est-ce compliqué à utiliser ?", a: "Collez une annonce ou tapez un modèle et vous obtenez ACHETER, SURVEILLER ou ÉCARTER avec le prix d'achat max (70 % du prix de revente typique). Aucune configuration et aucun tableur à tenir." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Quand l'accès démarre-t-il après le paiement ?", a: "À l'instant où Stripe confirme votre paiement — en général en moins de 2 secondes. Ensuite vous vérifiez un vrai article ; Nike Air Force 1 est déjà saisi. Pas d'e-mail à attendre. Si une erreur de connexion interrompt, connectez-vous sur /login." },
         // H67 CRO: split thin-data and not-in-catalog answers (FR). Revenue 2026-09-23.
@@ -1017,14 +1017,14 @@ export const copy = {
       seeHow: "Voir comment on calcule ça →",
       planAddsHeading: "Ce qu'un abonnement ajoute, par modèle",
       planAddsBody:
-        "Le maximum à payer pour rester rentable, le prix de sortie réel, la vitesse d'écoulement, et les tailles qui partent en premier — pour l'article précis que vous avez en main, pas pour la marque.",
+        "Le prix d'achat max, le prix de revente typique, la vitesse d'écoulement, et les tailles qui partent en premier — pour l'article précis que vous avez en main, pas pour la marque.",
     },
     extensionHero: {
       listingLabel: "annonce",
       size: "Taille",
       condition: "Très bon état",
       matched: "correspondance :",
-      payMargin: "le maximum à payer pour votre marge",
+      payMargin: "prix d'achat max",
       listedAbove: (price: string) => `affiché à ${price} — au-dessus du prix d'achat max`,
       avgExit: "prix moyen de sortie",
       caption:
@@ -1237,7 +1237,7 @@ export const copy = {
     howToHeading: "Cómo usarlo",
     howToSteps: [
       "Escribe una marca y un modelo — o pega el título de un anuncio.",
-      "Lee COMPRA, OBSERVA o DESCARTA y lo máximo que puedes pagar para ~30 % de margen antes de comisiones.",
+      "Lee COMPRA, OBSERVA o DESCARTA y el precio máximo de compra: el 70 % del precio de reventa típico.",
       "Compra solo por debajo de ese precio máximo.",
     ],
     howToCoverage:
@@ -1390,7 +1390,7 @@ export const copy = {
       publicDataLine: "Solo datos públicos (no comprobaciones de artículos) → /data",
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
-        "Cada plan de pago desbloquea todos los números — veredictos, precio máximo de compra y tallas. Order Planner y Precios en los sitios de Vinted son de Pro. Margen estimado, no un beneficio prometido. Cancela cuando quieras desde Cuenta → Gestionar suscripción. El acceso empieza en ~2s después del pago — sin esperar un correo.",
+        "Cada plan de pago desbloquea todos los números — veredictos, precio máximo de compra y tallas. Order Planner y Precios en los sitios de Vinted son de Pro. Estimaciones basadas en datos pasados, no una promesa de resultados. Cancela cuando quieras desde Cuenta → Gestionar suscripción. El acceso empieza en ~2s después del pago — sin esperar un correo.",
       subhead:
         "Lo máximo a pagar, antes de comprar: COMPRA / OBSERVA / DESCARTA + el precio máximo de compra exacto para cada modelo que seguimos. Starter: 19 €/mes.",
       // H19 CRO: Objeción #1 — cobertura visible antes de los planes. Revenue 2026-09-15.
@@ -1412,7 +1412,7 @@ export const copy = {
         { q: "¿Funcionará para lo que yo vendo?", a: "Está pensado para ropa, calzado y accesorios en Vinted en España, Francia, Alemania, Italia y Portugal, con los precios pedidos típicos de esos sitios de Vinted en Pro. Cuando no hemos observado lo suficiente un artículo para responder, el veredicto muestra UNKNOWN en lugar de adivinar, porque un vacío admitido te cuesta menos que un número equivocado dicho con seguridad.", cta: { text: "→ Prueba una comprobación en directo", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "suele" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "¿Merece la pena €19 al mes?", a: "Con los valores predeterminados — 30 artículos al mes a 20 € cada uno, unos 600 € de stock — la calculadora de arriba muestra que Starter cuesta lo mismo que 1 mala compra al mes: evita un artículo de 20 € y los 19 € quedan cubiertos. Es aritmética con tus propias cifras, no un ahorro prometido. Ajusta los controles a tu propio volumen." },
-        { q: "¿Es difícil de usar?", a: "Pega un anuncio o escribe un modelo y obtienes COMPRA, OBSERVA o DESCARTA con el precio máximo que puedes pagar manteniendo tu margen. Sin configuración y sin hoja de cálculo que mantener." },
+        { q: "¿Es difícil de usar?", a: "Pega un anuncio o escribe un modelo y obtienes COMPRA, OBSERVA o DESCARTA con el precio máximo de compra (el 70 % del precio de reventa típico). Sin configuración y sin hoja de cálculo que mantener." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "¿Cuándo empieza el acceso después de pagar?", a: "En el momento en que Stripe confirma tu pago — normalmente en menos de 2 segundos. Luego compruebas un artículo real; Nike Air Force 1 ya está rellenado. Sin esperar un correo. Si un error de conexión interrumpe, inicia sesión en /login." },
         // H67 CRO: split thin-data and not-in-catalog answers (ES). Revenue 2026-09-23.
@@ -1477,14 +1477,14 @@ export const copy = {
       seeHow: "Ver cómo lo calculamos →",
       planAddsHeading: "Lo que añade un plan, por modelo",
       planAddsBody:
-        "El máximo que puedes pagar y seguir ganando margen, el precio real de salida, la velocidad de rotación, y qué tallas se agotan antes — para el artículo concreto que tienes en la mano, no para la marca.",
+        "El precio máximo de compra, el precio de reventa típico, la velocidad de rotación, y qué tallas se agotan antes — para el artículo concreto que tienes en la mano, no para la marca.",
     },
     extensionHero: {
       listingLabel: "anuncio",
       size: "Talla",
       condition: "Muy bueno",
       matched: "coincide con:",
-      payMargin: "el máximo que puedes pagar para tu margen",
+      payMargin: "precio máximo de compra",
       listedAbove: (price: string) => `publicado a ${price} — por encima del precio máximo de compra`,
       avgExit: "precio medio de salida",
       caption:
@@ -1697,7 +1697,7 @@ export const copy = {
     howToHeading: "So nutzt du es",
     howToSteps: [
       "Gib Marke und Modell ein — oder füge den Titel eines Angebots ein.",
-      "Lies KAUFEN, BEOBACHTEN oder VERWERFEN und den Höchstpreis für ~30 % Marge vor Gebühren.",
+      "Lies KAUFEN, BEOBACHTEN oder VERWERFEN und den max. Einkaufspreis: 70 % des typischen Wiederverkaufspreises.",
       "Kaufe nur unter dieser Kaufobergrenze.",
     ],
     howToCoverage:
@@ -1848,7 +1848,7 @@ export const copy = {
       publicDataLine: "Nur öffentliche Daten (keine Artikelprüfungen) → /data",
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
-        "Jeder kostenpflichtige Tarif schaltet alle Zahlen frei — Entscheidungen, Kaufobergrenze und Größen. Order Planner und Preise auf den Vinted-Seiten sind Pro. Geschätzte Marge, kein versprochener Gewinn. Jederzeit kündbar über Konto → Abo verwalten. Der Zugang startet in ~2s nach der Zahlung — keine Wartezeit auf eine E-Mail.",
+        "Jeder kostenpflichtige Tarif schaltet alle Zahlen frei — Entscheidungen, Kaufobergrenze und Größen. Order Planner und Preise auf den Vinted-Seiten sind Pro. Schätzungen auf Basis vergangener Daten, kein Ergebnisversprechen. Jederzeit kündbar über Konto → Abo verwalten. Der Zugang startet in ~2s nach der Zahlung — keine Wartezeit auf eine E-Mail.",
       subhead: "Der Höchstpreis, bevor du kaufst: KAUFEN / BEOBACHTEN / VERWERFEN + der genaue Kaufhöchstpreis für jedes Modell, das wir erfassen. Starter 19 €/Monat.",
       // H19 CRO: Einwand #1 — Abdeckungshinweis vor den Preis-Karten. Revenue 2026-09-15.
       scopeNote: "Entwickelt für Kleidung, Schuhe und Accessoires auf Vinted · ES · FR · DE · IT · PT. Wenn die Datenlage zu dünn ist, zeigt das Verdikt UNKNOWN — kein Raten.",
@@ -1869,7 +1869,7 @@ export const copy = {
         { q: "Funktioniert es für das, was ich verkaufe?", a: "Es ist für Kleidung, Schuhe und Accessoires auf Vinted in Spanien, Frankreich, Deutschland, Italien und Portugal gebaut, mit typischen Angebotspreisen auf diesen Vinted-Seiten in Pro. Wenn wir einen Artikel nicht genug beobachtet haben, um zu antworten, zeigt das Verdikt UNKNOWN statt zu raten, denn eine zugegebene Lücke kostet dich weniger als eine selbstbewusst falsche Zahl.", cta: { text: "→ Jetzt einen Live-Check ausprobieren", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "meist" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Sind €19 im Monat es wert?", a: "Bei den Standardwerten — 30 Artikel im Monat zu je 20 €, also rund 600 € Ware — zeigt der Rechner oben: Starter kostet so viel wie 1 Fehlkauf im Monat. Wer einen Artikel für 20 € nicht kauft, hat die 19 € wieder drin. Das ist Rechnen mit deinen eigenen Zahlen, keine versprochene Ersparnis. Schiebe die Regler auf dein eigenes Volumen." },
-        { q: "Ist es schwer zu bedienen?", a: "Füge ein Angebot ein oder tippe ein Modell, und du bekommst KAUFEN, BEOBACHTEN oder VERWERFEN mit dem höchsten Preis, den du zahlen kannst und noch Marge behältst. Keine Einrichtung und keine Tabelle zu pflegen." },
+        { q: "Ist es schwer zu bedienen?", a: "Füge ein Angebot ein oder tippe ein Modell, und du bekommst KAUFEN, BEOBACHTEN oder VERWERFEN mit dem max. Einkaufspreis (70 % des typischen Wiederverkaufspreises). Keine Einrichtung und keine Tabelle zu pflegen." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Wann beginnt der Zugang nach der Zahlung?", a: "In dem Moment, in dem Stripe deine Zahlung bestätigt — normalerweise innerhalb von 2 Sekunden. Als Nächstes prüfst du einen echten Artikel; Nike Air Force 1 ist vorausgefüllt. Keine E-Mail abwarten. Falls ein Verbindungsfehler unterbricht, melde dich auf /login an." },
         // H67 CRO: split thin-data and not-in-catalog answers (DE). Revenue 2026-09-23.
@@ -1934,14 +1934,14 @@ export const copy = {
       seeHow: "So berechnen wir das →",
       planAddsHeading: "Was ein Tarif zusätzlich bringt, pro Modell",
       planAddsBody:
-        "Die Kaufobergrenze, bei der du noch Marge machst, der tatsächliche Abgangspreis, wie schnell es sich bewegt, und welche Größen zuerst weggehen — für genau den Artikel in deiner Hand, nicht für die Marke.",
+        "Die Kaufobergrenze, der typische Wiederverkaufspreis, wie schnell es sich bewegt, und welche Größen zuerst weggehen — für genau den Artikel in deiner Hand, nicht für die Marke.",
     },
     extensionHero: {
       listingLabel: "Angebot",
       size: "Größe",
       condition: "Sehr gut",
       matched: "gefunden:",
-      payMargin: "das Maximum, das du für deine Marge zahlen solltest",
+      payMargin: "max. Einkaufspreis",
       listedAbove: (price: string) => `inseriert für ${price} — über der Kaufobergrenze`,
       avgExit: "Ø Abgangspreis",
       caption:
@@ -2156,7 +2156,7 @@ export const copy = {
     howToHeading: "Come si usa",
     howToSteps: [
       "Scrivi una marca e un modello — o incolla il titolo di un annuncio.",
-      "Leggi COMPRA, OSSERVA o SCARTA e il massimo che puoi pagare per un margine di ~30% prima delle commissioni.",
+      "Leggi COMPRA, OSSERVA o SCARTA e il prezzo massimo d'acquisto: il 70% del prezzo di rivendita tipico.",
       "Compra solo sotto quel prezzo massimo.",
     ],
     howToCoverage:
@@ -2307,7 +2307,7 @@ export const copy = {
       publicDataLine: "Solo dati pubblici (non controlli articolo) → /data",
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
-        "Ogni piano a pagamento sblocca tutti i numeri — verdetti, prezzo massimo di acquisto e taglie. Order Planner e Prezzi sui siti Vinted sono Pro. Margine stimato, non un profitto promesso. Cancella quando vuoi da Account → Gestisci abbonamento. L'accesso parte in ~2s dopo il pagamento — nessuna attesa via email.",
+        "Ogni piano a pagamento sblocca tutti i numeri — verdetti, prezzo massimo di acquisto e taglie. Order Planner e Prezzi sui siti Vinted sono Pro. Stime basate su dati passati, non una promessa di risultati. Cancella quando vuoi da Account → Gestisci abbonamento. L'accesso parte in ~2s dopo il pagamento — nessuna attesa via email.",
       subhead: "Il massimo da pagare, prima di comprare: COMPRA / OSSERVA / SCARTA + il prezzo massimo d'acquisto esatto per ogni modello che seguiamo. Starter 19 €/mese.",
       // H19 CRO: Obiezione #1 — nota di copertura sopra i piani. Revenue 2026-09-15.
       scopeNote: "Pensato per abbigliamento, scarpe e accessori su Vinted · ES · FR · DE · IT · PT. Quando il campione è troppo esiguo, il verdetto mostra UNKNOWN — mai un'ipotesi.",
@@ -2328,7 +2328,7 @@ export const copy = {
         { q: "Funzionerà per quello che vendo io?", a: "È pensato per abbigliamento, scarpe e accessori su Vinted in Spagna, Francia, Germania, Italia e Portogallo, con i prezzi richiesti tipici su quei siti Vinted in Pro. Quando non abbiamo osservato abbastanza un articolo per rispondere, il verdetto mostra UNKNOWN invece di indovinare, perché una lacuna ammessa ti costa meno di un numero sbagliato detto con sicurezza.", cta: { text: "→ Prova un controllo dal vivo ora", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "di solito" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Vale €19 al mese?", a: "Con i valori predefiniti — 30 articoli al mese a 20 € ciascuno, circa 600 € di merce — il calcolatore sopra mostra che Starter costa quanto 1 acquisto sbagliato al mese: evita un articolo da 20 € e i 19 € sono coperti. È aritmetica sui tuoi numeri, non un risparmio promesso. Sposta i cursori al tuo volume reale." },
-        { q: "È difficile da usare?", a: "Incolla un annuncio o scrivi un modello e ottieni COMPRA, OSSERVA o SCARTA con il prezzo massimo che puoi pagare mantenendo il margine. Nessuna configurazione e nessun foglio di calcolo da tenere." },
+        { q: "È difficile da usare?", a: "Incolla un annuncio o scrivi un modello e ottieni COMPRA, OSSERVA o SCARTA con il prezzo massimo d'acquisto (il 70% del prezzo di rivendita tipico). Nessuna configurazione e nessun foglio di calcolo da tenere." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Quando inizia l'accesso dopo il pagamento?", a: "Nel momento in cui Stripe conferma il tuo pagamento — di solito entro 2 secondi. Poi verifichi un articolo reale; Nike Air Force 1 è già compilato. Nessuna email da aspettare. Se un errore di connessione interrompe, accedi su /login." },
         // H67 CRO: split thin-data and not-in-catalog answers (IT). Revenue 2026-09-23.
@@ -2393,14 +2393,14 @@ export const copy = {
       seeHow: "Guarda come lo calcoliamo →",
       planAddsHeading: "Cosa aggiunge un piano, per modello",
       planAddsBody:
-        "Il massimo che puoi pagare restando in margine, il prezzo di uscita reale, la velocità di rotazione, e quali taglie finiscono per prime — per l'articolo specifico che hai in mano, non per il marchio.",
+        "Il prezzo massimo d'acquisto, il prezzo di rivendita tipico, la velocità di rotazione, e quali taglie finiscono per prime — per l'articolo specifico che hai in mano, non per il marchio.",
     },
     extensionHero: {
       listingLabel: "annuncio",
       size: "Taglia",
       condition: "Molto buono",
       matched: "corrispondenza:",
-      payMargin: "il massimo che puoi pagare per il tuo margine",
+      payMargin: "prezzo massimo d'acquisto",
       listedAbove: (price: string) => `in vendita a ${price} — sopra il prezzo massimo di acquisto`,
       avgExit: "prezzo medio di uscita",
       caption:
@@ -2613,7 +2613,7 @@ export const copy = {
     howToHeading: "Como usar",
     howToSteps: [
       "Escreve uma marca e um modelo — ou cola o título de um anúncio.",
-      "Lê COMPRAR, OBSERVAR ou DESCARTAR e o máximo que podes pagar para ~30% de margem antes de comissões.",
+      "Lê COMPRAR, OBSERVAR ou DESCARTAR e o preço máximo de compra: 70% do preço de revenda típico.",
       "Compra só abaixo desse preço máximo.",
     ],
     howToCoverage:
@@ -2764,7 +2764,7 @@ export const copy = {
       publicDataLine: "Apenas dados públicos (sem verificações de artigos) → /data",
       footer:
         // H57 CRO: ~2s specificity aligned across footer + FAQ + trust line (6 locales). Revenue 2026-09-16.
-        "Cada plano pago desbloqueia todos os números — veredictos, preço máximo de compra e tamanhos. Order Planner e Preços nos sites da Vinted são Pro. Margem estimada, não um lucro prometido. Cancela quando quiseres em Conta → Gerir subscrição. O acesso começa em ~2s após o pagamento — sem esperar por um e-mail.",
+        "Cada plano pago desbloqueia todos os números — veredictos, preço máximo de compra e tamanhos. Order Planner e Preços nos sites da Vinted são Pro. Estimativas com base em dados passados, não uma promessa de resultados. Cancela quando quiseres em Conta → Gerir subscrição. O acesso começa em ~2s após o pagamento — sem esperar por um e-mail.",
       subhead: "O máximo a pagar, antes de comprar: COMPRAR / OBSERVAR / DESCARTAR + o preço máximo de compra exato para cada modelo que seguimos. Starter 19 €/mês.",
       // H19 CRO: Objeção #1 — nota de cobertura acima dos planos. Revenue 2026-09-15.
       scopeNote: "Feito para roupa, calçado e acessórios na Vinted · ES · FR · DE · IT · PT. Quando a amostra é insuficiente, o veredicto mostra UNKNOWN — nunca uma suposição.",
@@ -2785,7 +2785,7 @@ export const copy = {
         { q: "Vai funcionar para o que eu vendo?", a: "Foi feito para roupa, calçado e acessórios na Vinted em Espanha, França, Alemanha, Itália e Portugal, com os preços pedidos típicos desses sites da Vinted no Pro. Quando não observámos o suficiente de um artigo para responder, o veredicto mostra UNKNOWN em vez de adivinhar, porque uma lacuna assumida custa-te menos do que um número errado dito com confiança.", cta: { text: "→ Experimenta uma verificação ao vivo agora", href: "/tools?q=Fred+Perry+Shirt&src=faq-works" } },
         // H11: specificity — removed "costuma" hedge, grounded in the calculator's own arithmetic (Principle #8 + #4).
         { q: "Vale €19 por mês?", a: "Com os valores predefinidos — 30 artigos por mês a 20 € cada, cerca de 600 € de stock — a calculadora acima mostra que o Starter custa o mesmo que 1 má compra por mês: evita um artigo de 20 € e os 19 € ficam cobertos. É aritmética sobre os teus próprios números, não uma poupança prometida. Ajusta os controlos ao teu próprio volume." },
-        { q: "É difícil de usar?", a: "Cola um anúncio ou escreve um modelo e recebes COMPRAR, OBSERVAR ou DESCARTAR com o preço máximo que podes pagar mantendo a margem. Sem configuração e sem folha de cálculo para manter." },
+        { q: "É difícil de usar?", a: "Cola um anúncio ou escreve um modelo e recebes COMPRAR, OBSERVAR ou DESCARTAR com o preço máximo de compra (70% do preço de revenda típico). Sem configuração e sem folha de cálculo para manter." },
         // H55 CRO: activation-timing objection — the moment-of-click doubt answered directly. CRO #4. Revenue 2026-09-16.
         { q: "Quando começa o acesso depois de pagar?", a: "No momento em que o Stripe confirma o teu pagamento — normalmente em menos de 2 segundos. Depois verificas um artigo real; Nike Air Force 1 já vem preenchido. Sem e-mail a aguardar. Se um erro de ligação interromper, inicia sessão em /login." },
         // H67 CRO: split thin-data and not-in-catalog answers (PT). Revenue 2026-09-23.
@@ -2850,14 +2850,14 @@ export const copy = {
       seeHow: "Vê como calculamos isto →",
       planAddsHeading: "O que um plano acrescenta, por modelo",
       planAddsBody:
-        "O máximo que podes pagar mantendo margem, o preço real de saída, a velocidade de rotação, e que tamanhos esgotam primeiro — para o artigo concreto que tens em mãos, não para a marca.",
+        "O preço máximo de compra, o preço de revenda típico, a velocidade de rotação, e que tamanhos esgotam primeiro — para o artigo concreto que tens em mãos, não para a marca.",
     },
     extensionHero: {
       listingLabel: "anúncio",
       size: "Tamanho",
       condition: "Muito bom",
       matched: "correspondência:",
-      payMargin: "o máximo que podes pagar para a tua margem",
+      payMargin: "preço máximo de compra",
       listedAbove: (price: string) => `anunciado a ${price} — acima do preço máximo de compra`,
       avgExit: "preço médio de saída",
       caption:

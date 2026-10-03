@@ -36,7 +36,7 @@ export const POSTS_14: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Sneakers averaging €156 at departure, applying a 30% target margin gives a buy-below of approximately €109. Any Jordan sneaker sourced below that price — confirmed model, confirmed colourway, confirmed condition — has a realistic margin at current departure prices.",
+          "With Sneakers averaging €156 at departure, applying the 0.70 multiplier gives a buy-below of approximately €109. Any Jordan sneaker sourced below that price — confirmed model, confirmed colourway, confirmed condition — has a realistic margin at current departure prices.",
           "The upper range for premium Jordan retro colourways (the Jordan 1 Retro High OG 'Chicago', the Jordan 4 Retro 'Military Blue', the Jordan 3 Retro 'White Cement') is €300–600+ for wearable deadstock or near-deadstock condition, shifting the buy-below ceiling significantly upward. For Jordan apparel: T-Shirts at €65 give a buy-below near €46. Hoodies at €25 give a buy-below near €18. The T-Shirt buy-below is achievable only for heritage graphic tees — Jordan 23 jumpsuit logo, authentic vintage 90s Jordan brand pieces — not current production.",
         ],
         cta: pricingMidCta("ctr_jordan_20260915"),

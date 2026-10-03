@@ -1,8 +1,8 @@
 /**
  * The buy-below multiplier, in one place.
  *
- * buy_below = average asking price at departure × 0.70 — the 0.70 targets a
- * ~30% margin. There is NO fee factor: Vinted charges private sellers no
+ * buy_below = average asking price at departure × 0.70 — the 0.70 is 70% of the
+ * typical resale price. There is NO fee factor: Vinted charges private sellers no
  * selling fee in ES / FR / DE / IT / PT (the percentage charge on Vinted's fee
  * card is the buyer's Buyer Protection fee, paid on top of the item price). Mirrors
  * engine/insight.buy_below_from_avg on the API.

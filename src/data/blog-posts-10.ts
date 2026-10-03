@@ -36,7 +36,7 @@ export const POSTS_10: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Jackets averaging €52 at departure, applying a 30% target margin gives a buy-below of approximately €36. Any Carhartt Jacket sourced below that price — correct sub-brand identified, correct condition, correct colourway — has a realistic margin at current departure prices.",
+          "With Jackets averaging €52 at departure, applying the 0.70 multiplier gives a buy-below of approximately €36. Any Carhartt Jacket sourced below that price — correct sub-brand identified, correct condition, correct colourway — has a realistic margin at current departure prices.",
           "Hoodies at €28 average give a buy-below near €20. Shirts at €22 give a buy-below near €15. Trousers at €35 give a buy-below near €24. T-Shirts at €14 give a buy-below near €10. Beanies at €10 give a buy-below near €7. The Jacket category is where the practical sourcing case lives — the WIP premium turns the buy-below into a wide window rather than a narrow one.",
         ],
         cta: pricingMidCta("ctr_carhartt_20260915"),
@@ -85,7 +85,7 @@ export const POSTS_10: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Carhartt on Vinted?",
-        a: "For Carhartt Jackets specifically: with an average departure of €52 across EU Vinted markets (week to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €36. For WIP Jackets specifically — which exit at €75–120 — the buy-below stretches to €53–84 on specific models. For Hoodies at €28 average, the buy-below is near €20. Resale IQ returns exact buy-below by brand, model, and condition.",
+        a: "For Carhartt Jackets specifically: with an average departure of €52 across EU Vinted markets (week to 14 September 2026), and applying the 0.70 multiplier, the buy-below sits around €36. For WIP Jackets specifically — which exit at €75–120 — the buy-below stretches to €53–84 on specific models. For Hoodies at €28 average, the buy-below is near €20. Resale IQ returns exact buy-below by brand, model, and condition.",
       },
       {
         q: "What Carhartt items sell best on Vinted?",
@@ -127,7 +127,7 @@ export const POSTS_10: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Jackets averaging €42 at departure, applying a 30% target margin gives a buy-below of approximately €29. Hoodies at €24 give a buy-below near €17. Shirts at €22 give a buy-below near €15. Trousers at €30 give a buy-below near €21. Polos at €16 give a buy-below near €11. T-Shirts at €14 give a buy-below near €10.",
+          "With Jackets averaging €42 at departure, applying the 0.70 multiplier gives a buy-below of approximately €29. Hoodies at €24 give a buy-below near €17. Shirts at €22 give a buy-below near €15. Trousers at €30 give a buy-below near €21. Polos at €16 give a buy-below near €11. T-Shirts at €14 give a buy-below near €10.",
           "The practical sourcing case: Jackets are the only category with a buy-below high enough to absorb mid-range charity shop pricing (€10–20). For Hoodies and Shirts, the buy-below requires sourcing at under €16 — achievable in charity shop clearance bins but not reliable as a deliberate sourcing line. Polos and T-Shirts require under €10 sourcing — restricted to end-of-day clearance or bulk lot pricing.",
         ],
         cta: pricingMidCta("ctr_th_20260915"),

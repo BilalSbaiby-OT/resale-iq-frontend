@@ -92,7 +92,7 @@ export const dataChrome: Record<Locale, DataChrome> = {
     howH2: "How these numbers are produced",
     howP:
       'Figures are aggregated from public Vinted listings across ES, FR, DE, IT and PT, deduplicated by listing ID. "Left the shelf / 7 days" counts listings we watched leave the shelf in the trailing week, not every sold listing in the catalogue. Average price at departure is the mean asking price of those listings. A brand with 5 to 9 watched departures shows as "Fewer than 10". Buy-below prices, sell-through rates and per-size demand are part of the paid product and are not published here.',
-    ctaTitle: "Want the numbers that make you money?",
+    ctaTitle: "Want the numbers behind each buy?",
     ctaP: "Buy-below price, sell-through and best sizes for any item.",
     checkCta: "Check this item →",
     plansCta: "or see plans",

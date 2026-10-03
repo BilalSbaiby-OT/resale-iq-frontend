@@ -36,7 +36,7 @@ export const POSTS_11: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Jackets averaging €32.29 (brand-level, 208 departures/30d on EU Vinted), applying a 30% target margin gives a rough buy-below of approximately €23. For BOSS blazers specifically — which exit at €50–90 in very good condition — the implied buy-below stretches to €35–65. ResaleIQ does not publish a per-model buy-below for Hugo Boss (not in per-model catalogue).",
+          "With Jackets averaging €32.29 (brand-level, 208 departures/30d on EU Vinted), applying the 0.70 multiplier gives a rough buy-below of approximately €23. For BOSS blazers specifically — which exit at €50–90 in very good condition — the implied buy-below stretches to €35–65. ResaleIQ does not publish a per-model buy-below for Hugo Boss (not in per-model catalogue).",
           "Hoodies at €16.91 average give a rough buy-below near €12. Shirts at €12.82 give a buy-below near €9. Tracksuits at €17.66 give a buy-below near €11.50. T-Shirts at €13.51 give a buy-below near €8.80. The Jacket category is where the practical sourcing case lives — particularly BOSS blazers at €50–90 exit.",
         ],
         cta: pricingMidCta("ctr_hugoboss_20260915"),
@@ -120,7 +120,7 @@ export const POSTS_11: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Hoodies averaging €46 at departure, applying a 30% target margin gives a buy-below of approximately €32. For vintage Polo hoodies specifically (which exit at €80–200), the buy-below stretches to €55–140 — making any vintage Polo hoodie found below €55 at a charity shop a rational sourcing decision at current EU Vinted departure prices.",
+          "With Hoodies averaging €46 at departure, applying the 0.70 multiplier gives a buy-below of approximately €32. For vintage Polo hoodies specifically (which exit at €80–200), the buy-below stretches to €55–140 — making any vintage Polo hoodie found below €55 at a charity shop a rational sourcing decision at current EU Vinted departure prices.",
           "Jackets at €50 average give a buy-below near €35. Shirts at €30 give a buy-below near €21. T-Shirts at €19 give a buy-below near €13. Caps at €20 give a buy-below near €14. The Hoodie and Jacket categories have the strongest sourcing cases — Shirts at a €21 buy-below are viable if sourcing prices remain under €12, which is achievable at charity shops but requires consistent stock volume to be a deliberate sourcing line.",
         ],
         cta: pricingMidCta("ctr_rl_20260915"),

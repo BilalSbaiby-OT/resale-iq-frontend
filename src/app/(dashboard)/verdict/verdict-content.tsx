@@ -443,7 +443,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
               // Each scenario is a button that pre-fills and runs the search immediately.
               <div className="mb-4">
                 <p className="text-[13px] font-semibold text-[#c8d0e0] mb-1">{tx("Run a check before you buy")}</p>
-                <p className="text-[12px] text-[#5b6b8c] mb-3">{tx("Type any brand + item you're thinking of buying. We'll tell you the max price to pay to profit on resale.")}</p>
+                <p className="text-[12px] text-[#5b6b8c] mb-3">{tx("Type any brand + item you're thinking of buying. We'll tell you the max buy price.")}</p>
                 <div className="flex flex-col gap-2 mb-4" data-testid="riq-activation-scenarios">
                   {/* C(tony): live activation scenarios — top-movers from /api/public/market-snapshot.
                       Replaces hardcoded Stone Island/Carhartt/Fred Perry with whatever is actually

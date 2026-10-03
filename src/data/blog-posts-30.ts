@@ -40,7 +40,7 @@ export const POSTS_30: BlogPost[] = [
         h: "New Balance 550: the trend model above the departure average",
         p: [
           "The 550 is the most culturally active New Balance silhouette on EU Vinted right now. Originally a 1989 basketball shoe, the 550 was revived in 2020 and accelerated through collaborations with Aimé Leon Dore (ALD), making it the most recognisable New Balance on social media across Europe. On EU Vinted, 550 listings exit above the brand's €52 departure average — clean pairs in neutral colourways (white/navy, white/grey, beige) exit at €60–90 depending on condition and colourway.",
-          "The buy-below for 550 pairs targeting the upper end of the departure window (€80+) is approximately €56 at a 30% margin. Clean white/grey and white/navy 550s sourced below €50 at charity shops or flea markets represent solid margin — the model's recognisability among younger buyers drives faster liquidation than more niche silhouettes.",
+          "The buy-below for 550 pairs targeting the upper end of the departure window (€80+) is approximately €56 at the 0.70 multiplier. Clean white/grey and white/navy 550s sourced below €50 at charity shops or flea markets represent solid margin — the model's recognisability among younger buyers drives faster liquidation than more niche silhouettes.",
           "ALD collaboration 550s are a separate tier: these exit at €150–400 depending on the colourway, but they require authentication (check the ALD hangtag and box — fakes circulate) and are rarely sourced casually. Do not apply the standard buy-below to ALD pieces; price them against the specific colourway's live Vinted exit data before committing.",
           "Condition priority on 550: the chunky midsole shows creasing and yellowing most visibly on this silhouette — a yellow midsole that looks white in photos is the most common complaint driving returns. Photograph the midsole in natural light before listing.",
         ],
@@ -48,7 +48,7 @@ export const POSTS_30: BlogPost[] = [
       {
         h: "New Balance 574: the volume workhorse",
         p: [
-          "The 574 is the highest-volume New Balance silhouette on EU Vinted by listing count — it is one of the most-listed secondhand sneakers across all EU markets. Exit prices run €25–55 for standard colourways, with the bulk of departures in the €30–45 range. Buy-below for a €38 average 574 exit is approximately €27 at 30% margin.",
+          "The 574 is the highest-volume New Balance silhouette on EU Vinted by listing count — it is one of the most-listed secondhand sneakers across all EU markets. Exit prices run €25–55 for standard colourways, with the bulk of departures in the €30–45 range. Buy-below for a €38 average 574 exit is approximately €27 at the 0.70 multiplier.",
           "The 574's volume is a double-edged signal: high buyer demand but also high seller supply, which compresses exit prices toward the lower end of the range. Standard 574s in grey, navy, or brown — the most common colourways — are competitive to list and price-sensitive. The margin exists but it is tighter than on the 550 or heritage running models.",
           "Where the 574 earns its keep in a sourcing operation: it is one of the easiest New Balance models to source below €15 at charity shops (it was a mass-retail product for decades), and even a €38 exit at that sourcing cost represents >100% gross return on the item cost alone. The challenge is condition — 574s are often sourced worn-in, and sole yellowing plus mesh discolouration are the most common value reducers.",
           `[Current New Balance departure data →](${ilinkHref("data")})`,
@@ -57,7 +57,7 @@ export const POSTS_30: BlogPost[] = [
       {
         h: "New Balance 990 and 993: the heritage running tier",
         p: [
-          "The 990 series (990v5, 990v6) and 993 are the premium end of the New Balance secondhand market on EU Vinted. These models retail at €250–400 new; secondhand exits range from €80–180 depending on condition, version, and colourway. The buy-below for a €120 exit target is approximately €84 at 30% margin.",
+          "The 990 series (990v5, 990v6) and 993 are the premium end of the New Balance secondhand market on EU Vinted. These models retail at €250–400 new; secondhand exits range from €80–180 depending on condition, version, and colourway. The buy-below for a €120 exit target is approximately €84 at the 0.70 multiplier.",
           "The 990/993 are 'Made in USA' (MIUSA) models — this is a real differentiator on Vinted. Buyers searching for MIUSA New Balance specifically target these models and will pay above the category average for confirmed MIUSA pairs. Verify on the insole or tongue tag: 'Made in USA' should be present; pairs marked 'Made in Vietnam' or 'Made in China' are non-MIUSA and exit at mainstream category prices, not the MIUSA premium.",
           "The 993 in grey marle (the classic colourway, worn by Steve Jobs) has consistent buyer recognition and exits at €80–130 in clean condition. The 990v5 in 'Marblehead' (light grey, tan accent) is the most-searched 990 colourway on EU Vinted. Both models source infrequently at charity shops (they were never mass-market in Europe) — the more reliable sourcing path is Facebook Marketplace and eBay listings where US-imported pairs surface.",
           "Condition priority: 990/993 upper mesh is delicate and darkens with wear — a dirty grey mesh reads as neglect and kills 20–30% of the exit price. A suede brush and sneaker cleaner applied before listing recovers most of this.",
@@ -69,13 +69,13 @@ export const POSTS_30: BlogPost[] = [
         p: [
           "The 327 is the mid-tier New Balance model with the widest colour and print range — it was introduced in 2020 as a retro-running riff on 1970s New Balance track shoes. On EU Vinted, 327 pairs exit at €40–65 for standard retail colourways, with bold collaborations (MS327 JJJJound, Salehe Bembury) reaching €100–150.",
           "The 327's broad colourway range is both its appeal and its sourcing complexity: high-demand colourways (earthy tones, seasonal limited editions) exit at the upper end; the numerous standard colourways (white, black, generic multicolour) exit toward €40. If sourcing a 327 below €30, verify the colourway before committing — a standard white 327 at €35 and a sand/brown 327 at €35 are not the same sourcing decision.",
-          "The buy-below for a €50 average 327 exit is approximately €35 at 30% margin. That sourcing ceiling is achievable at charity shops for retail-priced pairs — the 327 was stocked across mainstream EU sportswear retailers at €100–130, which puts it in regular charity shop rotation.",
+          "The buy-below for a €50 average 327 exit is approximately €35 at the 0.70 multiplier. That sourcing ceiling is achievable at charity shops for retail-priced pairs — the 327 was stocked across mainstream EU sportswear retailers at €100–130, which puts it in regular charity shop rotation.",
         ],
       },
       {
         h: "Model comparison: New Balance EU Vinted at a glance",
         p: [
-          "Departure volumes and exit prices vary meaningfully across the New Balance line. The table below maps the main models by departure tier, exit price range, and the buy-below ceiling for a 30% margin target.",
+          "Departure volumes and exit prices vary meaningfully across the New Balance line. The table below maps the main models by departure tier, exit price range, and the buy-below ceiling for the 0.70 multiplier.",
         ],
         table: {
           caption:
@@ -84,7 +84,7 @@ export const POSTS_30: BlogPost[] = [
             "Model",
             "Departure tier",
             "Exit range (EU Vinted)",
-            "Buy-below (30% margin)",
+            "Buy-below (70% of the typical resale price)",
             "Sourcing ease",
           ],
           rows: [
@@ -140,7 +140,7 @@ export const POSTS_30: BlogPost[] = [
     faq: [
       {
         q: "What do New Balance sneakers sell for on Vinted?",
-        a: "New Balance sneakers averaged €52 per departure across EU Vinted in September 2026, across France, Germany, Spain, Italy, and Portugal. The range is wide: 574s exit at €25–55, 327s at €40–65, 550s at €60–90, and heritage running models (990, 993) at €80–180 depending on condition and colourway. The buy-below price for the brand average (30% margin) is approximately €36.",
+        a: "New Balance sneakers averaged €52 per departure across EU Vinted in September 2026, across France, Germany, Spain, Italy, and Portugal. The range is wide: 574s exit at €25–55, 327s at €40–65, 550s at €60–90, and heritage running models (990, 993) at €80–180 depending on condition and colourway. The buy-below price for the brand average is approximately €36.",
       },
       {
         q: "Is New Balance worth reselling on Vinted?",
@@ -152,11 +152,11 @@ export const POSTS_30: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for New Balance on Vinted?",
-        a: "Using the EU Vinted departure average of €52 for New Balance sneakers (September 2026), the buy-below price at a 30% margin is approximately €36. This is the maximum sourcing cost to hit a defensible margin at the departure average. For specific models: 574 buy-below ~€27 (exits at €41 avg), 550 buy-below ~€56 (exits at €80 avg), 993 buy-below ~€61 (exits at €87 avg). Real-time buy-below prices update with each week's departure data via Resale IQ.",
+        a: "Using the EU Vinted departure average of €52 for New Balance sneakers (September 2026), the buy-below price at the 0.70 multiplier is approximately €36. This is the maximum sourcing cost to hit a defensible margin at the departure average. For specific models: 574 buy-below ~€27 (exits at €41 avg), 550 buy-below ~€56 (exits at €80 avg), 993 buy-below ~€61 (exits at €87 avg). Real-time buy-below prices update with each week's departure data via Resale IQ.",
       },
       {
         q: "Are New Balance 550s worth reselling?",
-        a: "Yes, with the right sourcing price. New Balance 550s exit at €60–90 on EU Vinted in standard neutral colourways; the buy-below at 30% margin is approximately €53. If you can source 550s below €45 (feasible at flea markets, car boots, or Facebook Marketplace), the margin window is 35–50% gross. ALD (Aimé Leon Dore) collaboration 550s are a separate tier at €150–400 — verify authenticity before sourcing. Avoid paying over €55 for standard retail colourways; the market is liquid but the margin disappears above that entry price.",
+        a: "Yes, with the right sourcing price. New Balance 550s exit at €60–90 on EU Vinted in standard neutral colourways; the buy-below at the 0.70 multiplier is approximately €53. If you can source 550s below €45 (feasible at flea markets, car boots, or Facebook Marketplace), the margin window is 35–50% gross. ALD (Aimé Leon Dore) collaboration 550s are a separate tier at €150–400 — verify authenticity before sourcing. Avoid paying over €55 for standard retail colourways; the market is liquid but the margin disappears above that entry price.",
       },
       {
         q: "How do I find New Balance 990 or 993 to resell?",

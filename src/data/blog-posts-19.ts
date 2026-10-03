@@ -39,7 +39,7 @@ export const POSTS_19: BlogPost[] = [
         p: [
           "Most resellers lose money at the buy, not the sell. They find an item, estimate it's worth something, and pay near retail. Then they list it, discover the Vinted departure average is lower than expected, and either hold the item at a loss or exit below the buy-below threshold.",
           "The correct sequence is: look up the departure average first, calculate your buy-below, then shop. Never the reverse.",
-          "Buy-below formula: `departure average × 0.70`. The 0.70 targets approximately 30% margin, with no fee factor because Vinted charges private sellers no selling fee. Example: Patagonia Hoodies depart at €41 average. Buy-below = €41 × 0.70 = €28.70. Pay up to €28 and you have a 30% margin. Pay €35 and you are working for €6, about 15% instead of 30%.",
+          "Buy-below formula: `departure average × 0.70`. The 0.70 is 70% of the typical resale price, with no fee factor because Vinted charges private sellers no selling fee. Example: Patagonia Hoodies depart at €41 average. Buy-below = €41 × 0.70 = €28.70. Pay up to €28 and you stay under the ceiling. Pay €35 and you are well above it.",
           "Adjust the 0.70 multiplier for higher-risk categories (designer, authentication-dependent) and raise it toward 0.80 for fast-velocity basics where the market is predictable. The formula is in depth at [buy-below price explained](/blog/buy-below-price-explained).",
         ],
         cta: pricingMidCta("ctr_flip_20260915"),

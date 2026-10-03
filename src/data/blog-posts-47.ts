@@ -25,7 +25,7 @@ export const POSTS_47: BlogPost[] = [
     definedTerm: {
       name: "Adidas Gazelle departure average",
       description:
-        "The Adidas Gazelle departure average is the average price at which a tracked Adidas Gazelle listing leaves the shelf on EU Vinted — not the asking price and not the retail price. The Adidas Gazelle Indoor variant tracks 4 departures in the last 30 days in the week to 15 September 2026 across France, Germany, Spain, Italy, and Portugal at a €58 average exit price. The broader Adidas sneaker category tracks 45 departures in the last 30 days at a €60 average across all Adidas trainer models. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The Adidas brand overall tracks 85 departures in the last 30 days at a €53 average across all categories. The buy-below ceiling for the Gazelle Indoor at the €58 exit average is €40.60 — targeting a 30% gross margin.",
+        "The Adidas Gazelle departure average is the average price at which a tracked Adidas Gazelle listing leaves the shelf on EU Vinted — not the asking price and not the retail price. The Adidas Gazelle Indoor variant tracks 4 departures in the last 30 days in the week to 15 September 2026 across France, Germany, Spain, Italy, and Portugal at a €58 average exit price. The broader Adidas sneaker category tracks 45 departures in the last 30 days at a €60 average across all Adidas trainer models. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The Adidas brand overall tracks 85 departures in the last 30 days at a €53 average across all categories. The buy-below ceiling for the Gazelle Indoor at the €58 exit average is €40.60 —, i.e. 70% of the typical resale price.",
     },
     sections: [
       {
@@ -33,7 +33,7 @@ export const POSTS_47: BlogPost[] = [
         p: [
           "Adidas trainers are the most liquid brand-specific sneaker category on EU Vinted by weekly departure volume. At 45 departures in the last 30 days in September 2026, Adidas sneakers outpace Nike (Air Force 1 and Jordan combined at approximately 67 departures in the last 30 days but across two brand families) and sit well above niche luxury trainers (Balenciaga at 460 departures in the last 30 days is brand-total, not category-specific). The €60 category average reflects a wide model spread: the Handball Spezial at €79, Gazelle Indoor at €58, and Samba at €48 are the anchors below-average by volume weight.",
           "The Adidas brand overall tracks 85 departures in the last 30 days across all categories — sneakers account for 53% of that activity. Tracksuits (16 departures in the last 30 days, €45), T-shirts (8 departures in the last 30 days, €16), jackets (7 departures in the last 30 days, €89), and hoodies (5 departures in the last 30 days, €38) make up the remainder. For EU Vinted resellers building a trainer-focused sourcing strategy, Adidas is the operationally simplest brand: authentication is well-documented, the Samba and Handball Spezial are not heavily counterfeited at EU second-hand market prices (unlike limited Nike SB or Jordan colourways), and the buyer base across France, Germany, Spain, and Italy is deep.",
-          `The €60 category average across 28 departures in the last 30 days is a reliable signal, not an outlier. It has been stable across the August-September 2026 observation window. A reseller sourcing Adidas sneakers at or below the buy-below ceiling (€39 at brand-sneaker category level) and exiting at the average targets a 30% gross margin — consistent with the Adidas brand's operating profile across EU Vinted. [Full Adidas brand data →](${ilinkHref("flip")})`,
+          `The €60 category average across 28 departures in the last 30 days is a reliable signal, not an outlier. It has been stable across the August-September 2026 observation window. A reseller sourcing Adidas sneakers at or below the buy-below ceiling (€39 at brand-sneaker category level) and exiting at the average targets the 0.70 multiplier — consistent with the Adidas brand's operating profile across EU Vinted. [Full Adidas brand data →](${ilinkHref("flip")})`,
         ],
       },
       {
@@ -97,7 +97,7 @@ export const POSTS_47: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for an Adidas Gazelle on EU Vinted?",
-        a: "The buy-below ceiling for the Adidas Gazelle Indoor at the €58 departure average is €40.60 — 70% of the average exit price, targeting a 30% gross margin. For size 36 specifically (the most observed departure size), the size-adjusted ceiling is €35.00 at a €50 size average.",
+        a: "The buy-below ceiling for the Adidas Gazelle Indoor at the €58 departure average is €40.60 — 70% of the average exit price. For size 36 specifically (the most observed departure size), the size-adjusted ceiling is €35.00 at a €50 size average.",
       },
       {
         q: "Which Adidas trainer has the highest resale value on EU Vinted?",

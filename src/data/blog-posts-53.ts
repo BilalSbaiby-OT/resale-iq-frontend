@@ -26,7 +26,7 @@ export const POSTS_53: BlogPost[] = [
     definedTerm: {
       name: "Ralph Lauren hoodie departure average",
       description:
-        "The Ralph Lauren hoodie category: ResaleIQ watches the Cable Knit model leave the shelf at a €47.07 average exit price. Brand-level Ralph Lauren averages €37.21 across all categories. Hoodies are the highest-volume and highest-margin category within the Ralph Lauren brand on EU Vinted, ahead of shirts (€29) and jackets (€64). The buy-below ceiling for hoodies at a 30% target margin is €31.50.",
+        "The Ralph Lauren hoodie category: ResaleIQ watches the Cable Knit model leave the shelf at a €47.07 average exit price. Brand-level Ralph Lauren averages €37.21 across all categories. Hoodies are the highest-volume and highest-margin category within the Ralph Lauren brand on EU Vinted, ahead of shirts (€29) and jackets (€64). The buy-below ceiling for hoodies at the 0.70 multiplier is €31.50.",
     },
     sections: [
       {
@@ -46,7 +46,7 @@ export const POSTS_53: BlogPost[] = [
         h: "Ralph Lauren hoodies: the category that actually works",
         p: [
           "Ralph Lauren hoodies: our per-model tracked Cable Knit model leaves the shelf at €47.07 average. Brand-level Ralph Lauren averages €37.21 across all categories. With a deep pool of active listings against a steady flow of watched departures, supply is elevated but not structurally broken the way shirts are.",
-          "**Buy-below for hoodies: €31.50** (€45 × 0.70 = 30% gross margin target). The realistic sourcing corridor is €18–28 to maintain margin.",
+          "**Buy-below for hoodies: €31.50** (€45 × 0.70). The realistic sourcing corridor is €18–28 to maintain margin.",
           "The hoodie category spans three main price bands on EU Vinted: classic crew-neck sweatshirts (€30–45), fleece quarter-zips (€40–65), and heavyweight double-knit hoodies (€55–90). The quarter-zip sub-category specifically tracks at ~€62 average exit where found — buy-below €43 for those.",
           "Size spread across the hoodie category is flat — Medium, Large, Small and XL all exit within €2 of each other based on historical watched departures. There is no size premium to chase.",
         ],
@@ -106,7 +106,7 @@ export const POSTS_53: BlogPost[] = [
     faq: [
       {
         q: "What is the average price for Ralph Lauren hoodies on EU Vinted?",
-        a: "Ralph Lauren's tracked Cable Knit hoodie model leaves the shelf at €47.07 average. Brand-level Ralph Lauren averages €37.21 across all categories. The buy-below ceiling for a 30% gross margin at that exit is €31.50. Classic crew-neck sweatshirts exit at €30–45; fleece quarter-zips at €40–65; heavyweight double-knit hoodies at €55–90. Size has minimal impact on exit price — Medium, Large, Small and XL are within €2 of each other.",
+        a: "Ralph Lauren's tracked Cable Knit hoodie model leaves the shelf at €47.07 average. Brand-level Ralph Lauren averages €37.21 across all categories. The buy-below ceiling for the 0.70 multiplier at that exit is €31.50. Classic crew-neck sweatshirts exit at €30–45; fleece quarter-zips at €40–65; heavyweight double-knit hoodies at €55–90. Size has minimal impact on exit price — Medium, Large, Small and XL are within €2 of each other.",
       },
       {
         q: "Are Ralph Lauren polo shirts worth reselling on EU Vinted?",
@@ -118,7 +118,7 @@ export const POSTS_53: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Ralph Lauren on Vinted?",
-        a: "Buy-below ceilings targeting a 30% gross margin as of September 2026: Hoodies → €31.50 (€45 avg exit); Polo shirts → €20.30 (€29 avg exit); Jackets → €44.80 (€64 avg exit); T-Shirts → €13.30 (€19 avg exit); Caps → €14.00 (€20 avg exit). These are category averages — condition, size, and sub-model affect individual exit prices.",
+        a: "Buy-below ceilings, i.e. 70% of the typical resale price as of September 2026: Hoodies → €31.50 (€45 avg exit); Polo shirts → €20.30 (€29 avg exit); Jackets → €44.80 (€64 avg exit); T-Shirts → €13.30 (€19 avg exit); Caps → €14.00 (€20 avg exit). These are category averages — condition, size, and sub-model affect individual exit prices.",
       },
       {
         q: "Which Ralph Lauren items sell fastest on EU Vinted?",

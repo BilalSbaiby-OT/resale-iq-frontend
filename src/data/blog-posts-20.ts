@@ -63,7 +63,7 @@ export const POSTS_20: BlogPost[] = [
           "Gross sales on the platform is not profit. Taxable profit in reselling is roughly: **sale price − cost of goods − platform fees − shipping − other direct costs**.",
           "For Vinted: declare what you actually received. Vinted charges private sellers no selling fee, so on a Vinted sale that is the full sale price (the buyer pays Buyer Protection on top, and it never reaches you). If you resell on another platform, use the amount actually paid out to you after its fees. Subtract the price you paid for the item. Subtract any shipping materials. What remains is your taxable margin on that transaction.",
           "Example: You buy a Stone Island hoodie for €30 at a charity shop. It sells on Vinted at €72, and you receive €72. Taxable profit: €72 − €30 − €1.50 (packaging) = €40.50.",
-          "Resale IQ's buy-below calculation models this: `departure average × 0.70`. The 0.70 leaves 30% of the sale price as your target margin. If you are consistently hitting that 30% margin, that is approximately what you would declare as profit per transaction.",
+          "Resale IQ's buy-below calculation models this: `departure average × 0.70`. The 0.70 leaves 30% of the sale price as your target margin. If you are consistently hitting that the 0.70 multiplier, that is approximately what you would declare as profit per transaction.",
           "This is general information, not tax advice. Rules differ by country and by whether you count as a trader, so check with an accountant or your tax authority before you file.",
           "The departure average you see in the [flip tracker](" + ilinkHref("flip") + ") is based on watched listings across EU Vinted markets — use it as the reference price for your records.",
         ],
@@ -83,7 +83,7 @@ export const POSTS_20: BlogPost[] = [
           "If you are turning a consistent profit from reselling, the practical question is not 'can I avoid registering' but 'when does registering become cheaper than the risk of not registering'.",
           "A registered micro-business or sole trader gives you access to deductible expenses that reduce your taxable income: sourcing mileage, packaging, subscription tools like Resale IQ, a proportion of your phone bill. A side-hustle with €15k gross and €6k in deductible costs has a very different tax bill from one declared as €15k flat.",
           "Registration thresholds vary: in Germany, a Gewerbeanmeldung costs ~€30 and is required once reselling is systematic; in the Netherlands, KVK registration applies when you cross the line from occasional to regular commercial activity; in France, auto-entrepreneur status is available from the first transaction and caps at €77,700/year.",
-          "The question to ask your tax adviser: 'I am buying secondhand clothing at charity shops and flea markets and reselling it on Vinted for a consistent 20–30% margin — should I register, and what expenses can I deduct?' That framing gets you a specific, useful answer.",
+          "The question to ask your tax adviser: 'I am buying secondhand clothing at charity shops and flea markets and reselling it on Vinted regularly — should I register, and what expenses can I deduct?' That framing gets you a specific, useful answer.",
         ],
       },
       {

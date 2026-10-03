@@ -36,7 +36,7 @@ export const POSTS_7: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Jackets averaging €61 at departure, applying a 30% target margin gives a buy-below of approximately €43. Any Diesel Jacket sourced below that price — in sellable condition, correct era — has a realistic margin at current departure prices.",
+          "With Jackets averaging €61 at departure, applying the 0.70 multiplier gives a buy-below of approximately €43. Any Diesel Jacket sourced below that price — in sellable condition, correct era — has a realistic margin at current departure prices.",
           "Jeans at €21 average give a buy-below near €15. Hoodies at €20 give a buy-below near €14. T-Shirts at €11 give a buy-below near €8. Shirts at €8 are effectively below any practical sourcing floor. The Jacket category is where capital should concentrate; the other categories are viable only as high-volume low-cost sourcing plays, and T-Shirts and Shirts are not worth deliberate sourcing at these averages.",
         ],
         cta: pricingMidCta("ctr_diesel_20260915"),
@@ -78,7 +78,7 @@ export const POSTS_7: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Diesel Jackets on Vinted?",
-        a: "With Diesel Jackets averaging €61 at departure across EU Vinted markets (week to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €43. This applies to Y2K era and Glenn Martens runway pieces that exit at or above €61 — generic Diesel outerwear from 2015–2020 does not reach this floor. Resale IQ returns the exact buy-below for specific Diesel models.",
+        a: "With Diesel Jackets averaging €61 at departure across EU Vinted markets (week to 14 September 2026), and applying the 0.70 multiplier, the buy-below sits around €43. This applies to Y2K era and Glenn Martens runway pieces that exit at or above €61 — generic Diesel outerwear from 2015–2020 does not reach this floor. Resale IQ returns the exact buy-below for specific Diesel models.",
       },
       {
         q: "What Diesel items sell best on Vinted?",

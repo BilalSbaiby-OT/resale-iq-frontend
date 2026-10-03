@@ -25,7 +25,7 @@ export const POSTS_43: BlogPost[] = [
     definedTerm: {
       name: "Lacoste polo departure average",
       description:
-        "The Lacoste polo departure figure is the count of confirmed Lacoste polo/shirt sales tracked on EU Vinted. As of the week to 15 September 2026, Lacoste shirts track a limited number of departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €28 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The Lacoste brand overall tracks 88 departures in the last 30 days at a €35 brand average. The buy-below ceiling at the shirt category level is €19.60 — that is €28 × 0.70, targeting a 30% gross margin. Jackets are the highest-value Lacoste category on EU Vinted at €99 average across 7 departures in the last 30 days.",
+        "The Lacoste polo departure figure is the count of confirmed Lacoste polo/shirt sales tracked on EU Vinted. As of the week to 15 September 2026, Lacoste shirts track a limited number of departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €28 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The Lacoste brand overall tracks 88 departures in the last 30 days at a €35 brand average. The buy-below ceiling at the shirt category level is €19.60 — that is €28 × 0.70, i.e. 70% of the typical resale price. Jackets are the highest-value Lacoste category on EU Vinted at €99 average across 7 departures in the last 30 days.",
     },
     sections: [
       {

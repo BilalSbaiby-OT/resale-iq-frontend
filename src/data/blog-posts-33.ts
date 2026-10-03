@@ -41,7 +41,7 @@ export const POSTS_33: BlogPost[] = [
         h: "Nike Air Force 1: the volume model — high turnover, moderate margin",
         p: [
           "The Air Force 1 Low is Nike's most consistently traded sneaker on EU Vinted and the model most likely to appear across all five tracked markets. Standard colourways (Triple White, Black/Black, White/University Red, and mass-retail GR releases) exit in the €30–60 range for used pairs in good condition. Premium and collaborative colourways — Off-White AF1s, Travis Scott joints, Fear of God editions — exit materially higher at €150–400+ but are comparatively rare in EU secondhand supply.",
-          "The buy-below for a standard AF1 Low targeting a €45 exit is approximately €32 at a 30% margin. At that sourcing ceiling, the Air Force 1 is a volume play, not a per-unit margin play. The model's strength is turnover speed: GR colourways in good condition move within 3–7 days at competitive pricing. Avoid AF1 Mids at standard colourway pricing — the Mid sits between two more popular tiers and carries lower liquidity than the Low.",
+          "The buy-below for a standard AF1 Low targeting a €45 exit is approximately €32 at the 0.70 multiplier. At that sourcing ceiling, the Air Force 1 is a volume play, not a per-unit margin play. The model's strength is turnover speed: GR colourways in good condition move within 3–7 days at competitive pricing. Avoid AF1 Mids at standard colourway pricing — the Mid sits between two more popular tiers and carries lower liquidity than the Low.",
           "Condition benchmark for AF1: the midsole yellowing threshold is the key pricing signal. Minimal yellowing (white or near-white midsole visible from 50cm) supports €40–60 pricing. Moderate yellowing (visible cream tone) drops to €25–35. Heavy yellowing or cracked midsole drops to €15–20 or unsellable. Clean the AF1 midsole before photographing — it is the single highest-impact detail photo for conversion on this model.",
         ],
       },
@@ -49,7 +49,7 @@ export const POSTS_33: BlogPost[] = [
         h: "Nike Dunk Low and Dunk High: the premium resale tier",
         p: [
           "The Dunk Low is Nike's highest-margin resale silhouette in the EU secondhand market. Limited colourways (Panda, University Blue, Chicago, Lottery, Raygun, SB collaborations) exit at €90–250+ depending on the specific release, condition, and size. The Dunk High follows at a slight discount to the Low for most colourways. GR Dunk Lows (Photon Dust, Plum Fog, and current Foot Locker exclusives) exit at €55–90 in good condition — still above average for Nike footwear, but not the premium tier.",
-          "The buy-below for a GR Dunk Low targeting a €75 exit is approximately €53 at 30% margin. For a limited colourway Dunk targeting a €150 exit, the buy-below is approximately €105. Identifying the specific release before setting a sourcing price is non-optional — two Dunk Lows in the same colourway family can differ by €80 in resale value depending on whether it is a GR or a limited drop. Cross-reference Vinted listings for the same colourway and StockX EU price history before bidding.",
+          "The buy-below for a GR Dunk Low targeting a €75 exit is approximately €53 at the 0.70 multiplier. For a limited colourway Dunk targeting a €150 exit, the buy-below is approximately €105. Identifying the specific release before setting a sourcing price is non-optional — two Dunk Lows in the same colourway family can differ by €80 in resale value depending on whether it is a GR or a limited drop. Cross-reference Vinted listings for the same colourway and StockX EU price history before bidding.",
           "Condition weight on Dunks is higher than AF1: Dunk buyers are more likely to be sneaker-aware and will pay for original laces, clean insoles, and an intact box. Box-included Dunks carry a €10–20 premium on average. Missing the dust bag on an SB collaboration reduces exit price by up to 15%. Size matters more here than on most Nike models: EU size 42–44 (US 8.5–10) is the sweet spot for liquidity; EU 45+ and EU 38– carry a 20–30% liquidity discount.",
         ],
         cta: pricingMidCta("ctr_nike_dunk_20260915"),
@@ -58,7 +58,7 @@ export const POSTS_33: BlogPost[] = [
         h: "Nike Air Max 90, 95 and 97: the heritage tier with colourway dependency",
         p: [
           "The Air Max family is the deepest and most colourway-dependent resale tier in Nike's catalogue. The Air Max 97 consistently commands the highest exits in the Air Max line on EU Vinted: Silver Bullet, Gold Bullet, and Metallic colourways exit at €100–160 for used pairs in good condition. The AM97 in GR colourways (Neon Yellow, Triple Black, premium SNKRS drops) exits at €65–100. The Air Max 90 sits slightly below: iconic colourways (Infrared, Elephant, OG colourways) exit at €60–90; standard GR colourways at €40–65.",
-          "The Air Max 95 is the most supply-constrained of the three in EU markets — it has a smaller retail footprint in France and Spain relative to the UK — which keeps exit prices for OG colourways (Neon, Black/White) at €80–120. The buy-below for a standard AM95 targeting an €85 exit is approximately €56 at 30% margin. For a limited AM97 Metallic targeting €130, the buy-below is approximately €91.",
+          "The Air Max 95 is the most supply-constrained of the three in EU markets — it has a smaller retail footprint in France and Spain relative to the UK — which keeps exit prices for OG colourways (Neon, Black/White) at €80–120. The buy-below for a standard AM95 targeting an €85 exit is approximately €56 at the 0.70 multiplier. For a limited AM97 Metallic targeting €130, the buy-below is approximately €91.",
           "Air Max sourcing signal: Air units are the primary condition flag. A visible bubble leak (air unit delamination or visible collapse) is not fixable and destroys resale value — a pair with a leaking AM97 heel unit is worth €10–20 for parts, not resale. Check the heel unit by applying gentle pressure: it should compress and return fully. The sole unit on the AM90 also separates from the upper with age — press the forefoot and heel seam before pricing as resellable.",
         ],
       },
@@ -66,7 +66,7 @@ export const POSTS_33: BlogPost[] = [
         h: "Nike Blazer Mid and Blazer Low: the charity-shop tier",
         p: [
           "The Blazer is Nike's lowest-ticket, highest-charity-shop-frequency silhouette in EU markets. Standard Blazer Mid 77 Vintage colourways (White/White, Black/White, White/Black) exit at €25–45 in good condition on EU Vinted — consistently below the Nike sneaker departure average. The model's strength for resellers is supply availability at low sourcing cost: Blazer Mids surface regularly in UK and German charity shops in the €3–10 range because the original buyers treat them as disposable fashion trainers rather than collectibles.",
-          "The buy-below for a Blazer Mid targeting a €35 exit is approximately €25 at 30% net margin. That sourcing ceiling is comfortably achievable through charity shop sourcing. Premium or collaborative Blazer editions (Supreme, Comme des Garçons, Off-White) are a different calculation — those exit at €80–200 but are rarely charity shop finds. Identify them by checking the colourway name against Nike's SNKRS archive or StockX before sourcing.",
+          "The buy-below for a Blazer Mid targeting a €35 exit is approximately €25 at the 0.70 multiplier. That sourcing ceiling is comfortably achievable through charity shop sourcing. Premium or collaborative Blazer editions (Supreme, Comme des Garçons, Off-White) are a different calculation — those exit at €80–200 but are rarely charity shop finds. Identify them by checking the colourway name against Nike's SNKRS archive or StockX before sourcing.",
           "The Blazer is a good Nike starting point for new resellers: low capital per unit, fast turnover at competitive pricing, and wide supply. The margin per pair is modest (€8–15 typical), so it works as a volume play alongside higher-ticket models rather than as a standalone strategy.",
           `[Check the departure average for Nike this week →](${ilinkHref("data")})`,
         ],
@@ -76,22 +76,22 @@ export const POSTS_33: BlogPost[] = [
         p: [
           "Nike SB Dunks sit in a separate category from standard Dunk Lows and Dunk Highs — they are designed for skateboarding use and historically command significant resale premiums for limited releases. SB Dunk colourways (Heineken, Tiffany, Paris, Pigeon, Strangelove, Travis Scott × Fragment) exit at €200–800+ on EU Vinted for used pairs in good condition with original lacing and insoles. These are capital-intensive buys requiring knowledge of the specific release history.",
           "For a reseller new to the Nike SB category: the primary identification check is the insole. SB Dunks carry an extra padded insole for impact cushioning — this is absent on standard Dunk Lows. The Nike SB branding appears on the tongue (a small green SB logo on many older releases) and on the box label. Misidentified standard Dunks listed as SB command no SB premium and generate buyer complaints. Verify the specific SB colourway against authenticated listings on Vinted ES/FR before pricing above €150.",
-          "Collaboration Nike models outside SB (Off-White, Sacai, Acronym, Union) follow a similar framework: identify the specific collaboration and colourway first, then source a comparable-listings baseline from Vinted, then set a buy-below at 30% margin on the realistic EU exit — not the StockX ask, which often sits 20–40% above actual EU Vinted transacted prices due to market depth differences.",
+          "Collaboration Nike models outside SB (Off-White, Sacai, Acronym, Union) follow a similar framework: identify the specific collaboration and colourway first, then source a comparable-listings baseline from Vinted, then set a buy-below at the 0.70 multiplier on the realistic EU exit — not the StockX ask, which often sits 20–40% above actual EU Vinted transacted prices due to market depth differences.",
         ],
         cta: pricingMidCta("ctr_nike_sb_20260915"),
       },
       {
         h: "Nike sneaker silhouette comparison: EU Vinted at a glance",
         p: [
-          "Exit volumes and prices vary significantly across Nike's sneaker range. The table below maps the key silhouettes by typical exit range, buy-below ceiling at 30% net margin, and liquidity on EU Vinted. All data anchored to the brand's sneaker departure average of €96 (September 2026). Colourway-specific exits can differ materially from these ranges — use as a starting baseline, not a final bid price.",
+          "Exit volumes and prices vary significantly across Nike's sneaker range. The table below maps the key silhouettes by typical exit range, buy-below ceiling at the 0.70 multiplier, and liquidity on EU Vinted. All data anchored to the brand's sneaker departure average of €96 (September 2026). Colourway-specific exits can differ materially from these ranges — use as a starting baseline, not a final bid price.",
         ],
         table: {
           caption:
-            "Nike EU Vinted sneaker silhouettes: typical exit ranges and buy-below at a 30% margin. September 2026. Exit ranges are market-observed approximations across standard condition pieces; limited colourways exit higher.",
+            "Nike EU Vinted sneaker silhouettes: typical exit ranges and buy-below at the 0.70 multiplier. September 2026. Exit ranges are market-observed approximations across standard condition pieces; limited colourways exit higher.",
           head: [
             "Silhouette",
             "Exit range (EU Vinted, GR)",
-            "Buy-below (30% margin)",
+            "Buy-below (70% of the typical resale price)",
             "Liquidity",
             "Key condition signal",
           ],
@@ -160,7 +160,7 @@ export const POSTS_33: BlogPost[] = [
     faq: [
       {
         q: "What do Nike sneakers sell for on Vinted?",
-        a: "Nike sneakers averaged €96 per departure across EU Vinted in September 2026, across France, Germany, Spain, Italy, and Portugal. The range is wide: Blazer Mid GR colourways exit at €25–45; Air Force 1 Low GR at €30–60; Air Max 90/95/97 at €40–120 depending on colourway; Dunk Low GR at €55–90; limited Dunk Low at €100–250+; Nike SB Dunks at €150–600+ for limited releases. The buy-below at 30% net margin for the €96 average is approximately €67.",
+        a: "Nike sneakers averaged €96 per departure across EU Vinted in September 2026, across France, Germany, Spain, Italy, and Portugal. The range is wide: Blazer Mid GR colourways exit at €25–45; Air Force 1 Low GR at €30–60; Air Max 90/95/97 at €40–120 depending on colourway; Dunk Low GR at €55–90; limited Dunk Low at €100–250+; Nike SB Dunks at €150–600+ for limited releases. The buy-below at the 0.70 multiplier for the €96 average is approximately €67.",
       },
       {
         q: "Is Nike worth reselling on Vinted?",
@@ -168,7 +168,7 @@ export const POSTS_33: BlogPost[] = [
       },
       {
         q: "What is the buy-below for Nike Air Force 1 on Vinted?",
-        a: "For a standard Air Force 1 Low GR colourway targeting a €45 EU Vinted exit (mid-range for a used pair in good condition), the buy-below at a 30% margin is approximately €32. Pairs with clean midsoles and minimal yellowing support €50–60 exits and a higher buy-below of ~€42. Heavy midsole yellowing drops exit price to €25–35, reducing the buy-below to ~€18–25. Real-time buy-below prices update weekly via Resale IQ.",
+        a: "For a standard Air Force 1 Low GR colourway targeting a €45 EU Vinted exit (mid-range for a used pair in good condition), the buy-below at the 0.70 multiplier is approximately €32. Pairs with clean midsoles and minimal yellowing support €50–60 exits and a higher buy-below of ~€42. Heavy midsole yellowing drops exit price to €25–35, reducing the buy-below to ~€18–25. Real-time buy-below prices update weekly via Resale IQ.",
       },
       {
         q: "What Nike sneakers are most profitable to resell?",

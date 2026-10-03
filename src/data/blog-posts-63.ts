@@ -25,7 +25,7 @@ export const POSTS_63: BlogPost[] = [
     definedTerm: {
       name: "Gucci jacket departure average",
       description:
-        "The Gucci jacket departure average is the average price at which a tracked Gucci jacket listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Gucci jackets track 7 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €304 average exit price. 'Watched departure' means a tracked listing transitioned out of active status — not a confirmed buyer-reported sale. The Gucci brand overall tracks 88 departures in the last 30 days at a €211 brand average across all categories. The buy-below ceiling at the jacket category level is €212.80 — that is €304 × 0.70, targeting a 30% gross margin. The Web Stripe GG canvas jacket and the GG Supreme bomber are the two highest-value Gucci jacket models on EU Vinted; condition of the canvas and hardware integrity are the primary price determinants.",
+        "The Gucci jacket departure average is the average price at which a tracked Gucci jacket listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Gucci jackets track 7 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €304 average exit price. 'Watched departure' means a tracked listing transitioned out of active status — not a confirmed buyer-reported sale. The Gucci brand overall tracks 88 departures in the last 30 days at a €211 brand average across all categories. The buy-below ceiling at the jacket category level is €212.80 — that is €304 × 0.70, i.e. 70% of the typical resale price. The Web Stripe GG canvas jacket and the GG Supreme bomber are the two highest-value Gucci jacket models on EU Vinted; condition of the canvas and hardware integrity are the primary price determinants.",
     },
     sections: [
       {
@@ -87,7 +87,7 @@ export const POSTS_63: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Gucci jacket on EU Vinted?",
-        a: "The buy-below ceiling for a standard Gucci jacket at the €304 departure average is €212.80 — 70% of the average exit price, targeting a 30% gross margin. In practice, sourcing at €80–150 for pieces exiting at €250–350 is the viable range for EU charity shops and consignment stores. A Gucci Web Stripe jacket sourced at €110 and relisted at €290 generates approximately €180 gross — equivalent to approximately 18 Fred Perry shirts at the Fred Perry shirt buy-below of €9.80.",
+        a: "The buy-below ceiling for a standard Gucci jacket at the €304 departure average is €212.80 — 70% of the average exit price. In practice, sourcing at €80–150 for pieces exiting at €250–350 is the viable range for EU charity shops and consignment stores. A Gucci Web Stripe jacket sourced at €110 and relisted at €290 generates approximately €180 gross — equivalent to approximately 18 Fred Perry shirts at the Fred Perry shirt buy-below of €9.80.",
       },
       {
         q: "Which Gucci jacket model is most valuable on EU Vinted?",

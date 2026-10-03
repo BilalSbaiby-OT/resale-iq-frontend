@@ -26,7 +26,7 @@ export const POSTS_50: BlogPost[] = [
     definedTerm: {
       name: "Patagonia jacket departure average",
       description:
-        "The Patagonia jacket departure average is the average price at which a tracked Patagonia jacket listing leaves the shelf on EU Vinted — not the asking price and not the retail price. Patagonia jackets track 780 departures in the last 30 days in the week to 15 September 2026 across France, Germany, Spain, Italy, and Portugal at a €51 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The broader Patagonia brand tracks 1323 departures in the last 30 days at a €37 average across all categories (jackets, hoodies, bags, caps, T-shirts). The buy-below ceiling for the Patagonia jacket category at the €51 exit average is €35.70 — targeting a 30% gross margin. Patagonia jackets have the highest weekly departure volume of any tracked jacket category on EU Vinted.",
+        "The Patagonia jacket departure average is the average price at which a tracked Patagonia jacket listing leaves the shelf on EU Vinted — not the asking price and not the retail price. Patagonia jackets track 780 departures in the last 30 days in the week to 15 September 2026 across France, Germany, Spain, Italy, and Portugal at a €51 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The broader Patagonia brand tracks 1323 departures in the last 30 days at a €37 average across all categories (jackets, hoodies, bags, caps, T-shirts). The buy-below ceiling for the Patagonia jacket category at the €51 exit average is €35.70 —, i.e. 70% of the typical resale price. Patagonia jackets have the highest weekly departure volume of any tracked jacket category on EU Vinted.",
     },
     sections: [
       {
@@ -49,13 +49,13 @@ export const POSTS_50: BlogPost[] = [
       {
         h: "Buy-below ceiling: €35.70 — and why Patagonia is the most accessible premium jacket category",
         p: [
-          "The category buy-below ceiling of €35.70 targets a 30% gross margin at the €51 category average. This ceiling is the most achievable of any premium outdoor brand tracked on EU Vinted: the Synchilla — the highest-volume model — is regularly found at EU charity shops at €10–25 in smaller towns and at €20–35 in larger cities, making €35.70 a ceiling that requires sourcing discipline rather than luck. Contrast with The North Face jacket category (buy-below €33.60 at €48 avg), where the Nuptse and McMurdo are well-understood by charity shop staff and increasingly priced above €25 in major DE and FR cities.",
-          "The ceiling varies by model. A Nano Puff sourced at €52 targeting an €85 exit is the same 30% margin at higher absolute value — the Nano Puff is the model to hunt at private sales and estate clearances where price knowledge is lower. A Synchilla sourced at €20 targeting a €45 exit is a simpler trade that requires no authentication expertise. The Synchilla's accessibility is its moat: you can build a Patagonia jacket rotation with no specialist knowledge, sourcing what you find and applying the category buy-below ceiling as a consistent filter.",
+          "The category buy-below ceiling of €35.70 targets the 0.70 multiplier at the €51 category average. This ceiling is the most achievable of any premium outdoor brand tracked on EU Vinted: the Synchilla — the highest-volume model — is regularly found at EU charity shops at €10–25 in smaller towns and at €20–35 in larger cities, making €35.70 a ceiling that requires sourcing discipline rather than luck. Contrast with The North Face jacket category (buy-below €33.60 at €48 avg), where the Nuptse and McMurdo are well-understood by charity shop staff and increasingly priced above €25 in major DE and FR cities.",
+          "The ceiling varies by model. A Nano Puff sourced at €52 targeting an €85 exit uses the same 0.70 multiplier at higher absolute value — the Nano Puff is the model to hunt at private sales and estate clearances where price knowledge is lower. A Synchilla sourced at €20 targeting a €45 exit is a simpler trade that requires no authentication expertise. The Synchilla's accessibility is its moat: you can build a Patagonia jacket rotation with no specialist knowledge, sourcing what you find and applying the category buy-below ceiling as a consistent filter.",
           "The vintage Synchilla premium is a genuine additional vector. A Synchilla fleece from the 1990s in an authentic heritage colourway — snap-T salmon/teal, Aztec pattern, early Made in USA label — can exit at €80–150 on EU Vinted from buyers specifically seeking archival pieces. These appear at brocantes, estate sales, and church jumble sales rather than organised charity shops. Identifying pre-2000 Synchillas requires checking the label generation (the block-font Patagonia text label predates the current brand iteration) and the snap-T button placement. The margin on a €25 heritage Synchilla exiting at €100 dwarfs the category average, but the units are infrequent.",
         ],
         table: {
           caption: "Patagonia jacket models — EU Vinted, week to 15 Sep 2026",
-          head: ["Model", "Exit range", "Buy-below (30% margin)", "Sourcing channel", "Risk level"],
+          head: ["Model", "Exit range", "Buy-below (70% of the typical resale price)", "Sourcing channel", "Risk level"],
           rows: [
             ["Down Sweater (hooded)", "€65–110", "€42–72", "Estate sales, outdoor clearances", "Med (condition)"],
             ["Nano Puff", "€55–90", "€36–59", "Private sales, estate sales", "Low (auth easy)"],
@@ -100,7 +100,7 @@ export const POSTS_50: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Patagonia jacket on Vinted?",
-        a: "The category buy-below ceiling is €35.70 — calculated as €51 × 0.70, targeting a 30% gross margin. Model-specific ceilings: Down Sweater → €46–77 (targeting €65–110 exit), Nano Puff → €39–63 (targeting €55–90 exit), vintage Synchilla → €56–105 (targeting €80–150 exit), Torrentshell → €32–49 (targeting €45–70 exit), contemporary Synchilla → €25–39 (targeting €35–55 exit). The Synchilla is the most findable model at or below buy-below in EU charity shop circuits.",
+        a: "The category buy-below ceiling is €35.70 — calculated as €51 × 0.70, i.e. 70% of the typical resale price. Model-specific ceilings: Down Sweater → €46–77 (targeting €65–110 exit), Nano Puff → €39–63 (targeting €55–90 exit), vintage Synchilla → €56–105 (targeting €80–150 exit), Torrentshell → €32–49 (targeting €45–70 exit), contemporary Synchilla → €25–39 (targeting €35–55 exit). The Synchilla is the most findable model at or below buy-below in EU charity shop circuits.",
       },
       {
         q: "Is Patagonia worth reselling on Vinted in Europe?",

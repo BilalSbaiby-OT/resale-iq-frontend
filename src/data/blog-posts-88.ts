@@ -31,7 +31,7 @@ export const POSTS_88: BlogPost[] = [
     definedTerm: {
       name: "Nike Shox departure average",
       description:
-        "The Nike Shox departure average is the average price at which a tracked Nike Shox listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 16 September 2026, Nike Shox track 19 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €136.58 average exit price and a 0.42 average days-to-sell (sub-10 hours). 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling at the €136.58 category average is €95.61 — that is €136.58 × 0.70, targeting approximately 30% gross margin. France (FR) is the strongest exit market in the current EU Vinted dataset. Nike Shox carry RISING momentum as of September 2026.",
+        "The Nike Shox departure average is the average price at which a tracked Nike Shox listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 16 September 2026, Nike Shox track 19 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €136.58 average exit price and a 0.42 average days-to-sell (sub-10 hours). 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling at the €136.58 category average is €95.61 — that is €136.58 × 0.70, i.e. 70% of the typical resale price. France (FR) is the strongest exit market in the current EU Vinted dataset. Nike Shox carry RISING momentum as of September 2026.",
     },
 
     sections: [
@@ -45,7 +45,7 @@ export const POSTS_88: BlogPost[] = [
         cta: pricingMidCta("ctr_nike_shox_guide_intro_20260916"),
       },
       {
-        h: "Buy-below ceiling: what to pay at source by size to hit 30% gross margin",
+        h: "Buy-below ceiling: what to pay at source by size to stay at or under the 70% ceiling",
         p: [
           "The category-wide buy-below ceiling at the €136.58 average exit is €95.61. This is the ceiling — not the target. The practical sourcing target is €50–€80 for Very Good condition, which delivers a 40–50% gross margin on an average exit and a comfortable cushion against condition downgrades or slower-than-average clears.",
           "Size-level data sharpens the ceiling significantly. Size 43 exits at a €210 average with a buy-below of €147.00 — this is the highest-margin Shox play available in the dataset, driven by demand for larger Nike Shox NZ and TL models that are genuinely scarce in Very Good condition. Source size 43 Shox aggressively below €100. Size 42 exits at €86.14 average with a buy-below of €60.30 — the highest-volume size (162 departures/30d) but a lower exit average, reflecting abundant supply at this size. Buy size 42 below €45 for strong margin. Size 41 exits at €120 average, buy-below €84.00. Size 44 exits at €99.33 average, buy-below €69.53. Size 45 exits at €96 average, buy-below €67.20. Size 42.5 — the Nike half-size — exits at €269.33 average, buy-below €188.53; this is a narrow but extremely high-yield opportunity if you encounter clean half-size Shox pairs.",
@@ -88,7 +88,7 @@ export const POSTS_88: BlogPost[] = [
       },
       {
         q: "What should I pay for Nike Shox to make a profit on Vinted?",
-        a: "The category-wide buy-below ceiling at the €136.58 average exit is €95.61 — that is €136.58 × 0.70, targeting approximately 30% gross margin. By size: size 43 (€210 avg exit) → buy-below €147.00; size 42 (€86.14 avg) → buy-below €60.30; size 41 (€120 avg) → buy-below €84.00; size 44 (€99.33 avg) → buy-below €69.53; size 45 (€103 avg) → buy-below €67.20; size 42.5 (€269.33 avg) → buy-below €188.53. In practice, source below €70 for Very Good condition pairs (no cracked columns, clean uppers) to target a 40–50% gross margin on the €94.50 median exit.",
+        a: "The category-wide buy-below ceiling at the €136.58 average exit is €95.61 — that is €136.58 × 0.70, i.e. 70% of the typical resale price. By size: size 43 (€210 avg exit) → buy-below €147.00; size 42 (€86.14 avg) → buy-below €60.30; size 41 (€120 avg) → buy-below €84.00; size 44 (€99.33 avg) → buy-below €69.53; size 45 (€103 avg) → buy-below €67.20; size 42.5 (€269.33 avg) → buy-below €188.53. In practice, source below €70 for Very Good condition pairs (no cracked columns, clean uppers) to target a 40–50% gross margin on the €94.50 median exit.",
       },
       {
         q: "Which Nike Shox models are best to resell on EU Vinted?",

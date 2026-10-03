@@ -30,7 +30,7 @@ export const POSTS_89: BlogPost[] = [
     definedTerm: {
       name: "Fred Perry Twin Tipped departure average",
       description:
-        "The Fred Perry Twin Tipped departure average is the average price at which a tracked Fred Perry Twin Tipped listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 16 September 2026, Fred Perry Twin Tipped tracks 29 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €18.98 average exit price and a 0.15 average days-to-sell (sub-4 hours). 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling at the €18.98 category average is €13.29 — that is €18.98 × 0.70, targeting approximately 30% gross margin. Spain (ES) is the strongest exit market in the current EU Vinted dataset. Fred Perry Twin Tipped carries RISING momentum as of September 2026.",
+        "The Fred Perry Twin Tipped departure average is the average price at which a tracked Fred Perry Twin Tipped listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 16 September 2026, Fred Perry Twin Tipped tracks 29 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €18.98 average exit price and a 0.15 average days-to-sell (sub-4 hours). 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling at the €18.98 category average is €13.29 — that is €18.98 × 0.70, i.e. 70% of the typical resale price. Spain (ES) is the strongest exit market in the current EU Vinted dataset. Fred Perry Twin Tipped carries RISING momentum as of September 2026.",
     },
 
     sections: [
@@ -44,7 +44,7 @@ export const POSTS_89: BlogPost[] = [
         cta: pricingMidCta("ctr_fp_twintipped_guide_intro_20260916"),
       },
       {
-        h: "Buy-below ceiling: what to pay at source by size to hit 30% gross margin",
+        h: "Buy-below ceiling: what to pay at source by size to stay at or under the 70% ceiling",
         p: [
           "The category-wide buy-below ceiling at the €18.98 average exit is €13.29. In practice, source Twin Tipped polos below €8 for the most common worn-condition examples, and below €10 for Very Good condition to target a 40–50% net margin. The absolute floor: if a Twin Tipped in Good condition is priced under €5 at a flea market, buy it regardless of size — every size moves at this DTS.",
           "Size-level data gives sharper ceilings. Size M exits at €22.26 average with a buy-below of €15.58 — this is the highest-volume size (29.5% of 30d departures at 127 units/month) and, critically, the highest per-unit exit among the three common sizes. Source size M Twin Tipped aggressively below €10. Size L exits at €15.75 average, buy-below €11.03 — strong volume (26.7% of departures) but a lower exit than M, reflecting broader M supply in the second-hand market. Size S exits at €29.27 average, buy-below €20.49 — smaller size with a surprisingly high exit driven by demand from younger buyers in Spain and France; a clean size S Twin Tipped sourced below €12 is a compelling flip. Size XL exits at €17.33, buy-below €12.13. Size XXL exits at €38.32, buy-below €26.82 — the highest-exit size tier, driven by scarcity; XXL Fred Perry Twin Tipped in Good or better condition is rare at source, but when found below €20, the margin is exceptional.",
@@ -87,7 +87,7 @@ export const POSTS_89: BlogPost[] = [
       },
       {
         q: "What should I pay for a Fred Perry Twin Tipped to make a profit on Vinted?",
-        a: "The category-wide buy-below ceiling at the €18.98 average exit is €13.29 — that is €18.98 × 0.70, targeting approximately 30% gross margin. By size: size M (€22.26 avg exit) → buy-below €15.58; size L (€15.75 avg) → buy-below €11.03; size S (€29.27 avg) → buy-below €20.49; size XL (€17.33 avg) → buy-below €12.13; size XXL (€38.32 avg) → buy-below €26.82. In practice, source below €8 for any size in Good or Very Good condition to target a 40–50% gross margin. Condition of the collar and cuff tipping is the primary value driver — faded or fraying tipping drops exit price significantly.",
+        a: "The category-wide buy-below ceiling at the €18.98 average exit is €13.29 — that is €18.98 × 0.70, i.e. 70% of the typical resale price. By size: size M (€22.26 avg exit) → buy-below €15.58; size L (€15.75 avg) → buy-below €11.03; size S (€29.27 avg) → buy-below €20.49; size XL (€17.33 avg) → buy-below €12.13; size XXL (€38.32 avg) → buy-below €26.82. In practice, source below €8 for any size in Good or Very Good condition to target a 40–50% gross margin. Condition of the collar and cuff tipping is the primary value driver — faded or fraying tipping drops exit price significantly.",
       },
       {
         q: "Which Fred Perry Twin Tipped colourways sell best on EU Vinted?",

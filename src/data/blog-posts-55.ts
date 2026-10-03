@@ -28,7 +28,7 @@ export const POSTS_55: BlogPost[] = [
     definedTerm: {
       name: "Fred Perry hoodie departure average",
       description:
-        "The Fred Perry hoodie departure average is the average price at which a tracked Fred Perry hoodie listing leaves the shelf on EU Vinted — not the asking price and not retail. As of the week to 19 September 2026, Fred Perry hoodies track 34 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €17 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling at the €17 departure average is €11.90 (€17 × 0.70), targeting 30% gross margin. ResaleIQ updates Fred Perry hoodie exit data weekly from EU Vinted departure observations across five markets.",
+        "The Fred Perry hoodie departure average is the average price at which a tracked Fred Perry hoodie listing leaves the shelf on EU Vinted — not the asking price and not retail. As of the week to 19 September 2026, Fred Perry hoodies track 34 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €17 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling at the €17 departure average is €11.90 (€17 × 0.70), i.e. 70% of the typical resale price. ResaleIQ updates Fred Perry hoodie exit data weekly from EU Vinted departure observations across five markets.",
     },
     sections: [
       {
@@ -43,7 +43,7 @@ export const POSTS_55: BlogPost[] = [
       {
         h: "Buy-below ceiling: €11.90 — the turnover number, not the margin number",
         p: [
-          "The buy-below ceiling for Fred Perry hoodies at the €17 average exit is €11.90 (€17 × 0.70), targeting 30% gross margin. On a €17 exit, a €11.90 buy leaves €5.10 gross (43% on capital). Absolute gross is €6 on a clean flip; the sourcing problem is getting a piece under €11.90 at source when Fred Perry hoodies in Europe routinely ticket at €5-25 at charity shops, vintage dealers, and car-boot sales.",
+          "The buy-below ceiling for Fred Perry hoodies at the €17 average exit is €11.90 (€17 × 0.70), i.e. 70% of the typical resale price. On a €17 exit, a €11.90 buy leaves €5.10 gross (43% on capital). Absolute gross is €6 on a clean flip; the sourcing problem is getting a piece under €11.90 at source when Fred Perry hoodies in Europe routinely ticket at €5-25 at charity shops, vintage dealers, and car-boot sales.",
           "Condition tiers move the ceiling, but the band is narrow because the average is narrow. Like New (no pilling, Laurel or logo crisp, zip or drawcord clean, no stains, tags present) → €28-40 exit, buy-below €19.60–28.00. Very Good (light seasonal use, no visible pilling, logo legible, construction sound) → €20-30 exit, buy-below €14.00–21.00 — the primary target. Good (minor pilling on cuffs or hem, slight logo fade, clean interior) → €14–21 exit, buy-below €9.10–14.00. Fair (heavy pilling, cracked Laurel print, stretched hem, missing drawcord) → €9–14 exit. Skip Fair unless the ticket is €5 or less.",
           "The vintage-vs-modern split moves more than the condition split on margins. A vintage Laurel hoodie — the older Laurel logo, the heavier cotton, the 90s-cut piece — exits at €28-45 in Very Good condition when the Laurel reads correctly and the cut reads current. A modern Fred Perry logo hoodie in the same condition exits at €15-25. A FW44 or 22 collaboration piece in Very Good exits at €30-50 if the collaboration is recognisable — but those are rare on EU Vinted and most listings that claim a collaboration are modern pieces with a wrong tag. Buying a modern piece expecting vintage Laurel money is the common Fred Perry hoodie mistake.",
         ],
@@ -81,7 +81,7 @@ export const POSTS_55: BlogPost[] = [
     faq: [
       {
         q: "What is the buy-below price for a Fred Perry hoodie on EU Vinted?",
-        a: "The buy-below ceiling for a Fred Perry hoodie on EU Vinted is €11.90 as of 19 September 2026, based on 34 departures in the last 30 days at a €17 average exit price — 70% of the €17 average, targeting 30% gross margin. By condition: Like New (targeting €34 exit) → buy-below €23.80; Very Good (targeting €25 exit) → buy-below €17.50; Good (targeting €16.50 exit) → buy-below €11.55; Fair (targeting €10.50 exit) → buy-below €7.35 or skip.",
+        a: "The buy-below ceiling for a Fred Perry hoodie on EU Vinted is €11.90 as of 19 September 2026, based on 34 departures in the last 30 days at a €17 average exit price — 70% of the €17 average. By condition: Like New (targeting €34 exit) → buy-below €23.80; Very Good (targeting €25 exit) → buy-below €17.50; Good (targeting €16.50 exit) → buy-below €11.55; Fair (targeting €10.50 exit) → buy-below €7.35 or skip.",
       },
       {
         q: "How many Fred Perry hoodies sell on EU Vinted per week?",

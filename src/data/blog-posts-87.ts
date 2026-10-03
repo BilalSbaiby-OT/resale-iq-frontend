@@ -44,9 +44,9 @@ export const POSTS_87: BlogPost[] = [
         cta: pricingMidCta("ctr_lacoste_shirt_guide_intro_20260916"),
       },
       {
-        h: "Buy-below ceiling: what to pay at source to hit 30% gross margin",
+        h: "Buy-below ceiling: what to pay at source to stay at or under the 70% ceiling",
         p: [
-          "At a €29 average exit price, the buy-below ceiling is €20.30 (€29 × 0.70). This targets a 30% gross margin on the exit price (Vinted charges sellers no selling fee; shipping and packaging are extra). On a €29 exit, a €20.30 buy leaves €8.70 gross — a 43% return on capital deployed per shirt, weak in absolute euros but structural at 57-unit 30-day throughput.",
+          "At a €29 average exit price, the buy-below ceiling is €20.30 (€29 × 0.70). This targets the 0.70 multiplier on the exit price (Vinted charges sellers no selling fee; shipping and packaging are extra). On a €29 exit, a €20.30 buy leaves €8.70 gross — a 43% return on capital deployed per shirt, weak in absolute euros but structural at 57-unit 30-day throughput.",
           "Condition tiers shift the ceiling. Excellent or Like New with tags attached or no visible wear: buy-below €25.20, targeting a €36 exit. Very Good with light wear and a firm collar: buy-below €20.30 at the €29 category average. Good with visible collar softening and mild pilling: buy-below €14.00, targeting a €20 exit. Fair with a bowed collar, underarm yellowing, or significant fading: skip unless linen-blend at €6 or below. The practical sourcing target is the Very Good tier at €6–€14 from French vide-greniers, Spanish rastros, German Flohmarkt, or EU thrift networks.",
         ],
         cta: pricingBodyCta("ctr_lacoste_shirt_buybelo_20260916"),
@@ -85,7 +85,7 @@ export const POSTS_87: BlogPost[] = [
       },
       {
         q: "What should I pay for a Lacoste shirt to make a profit on Vinted?",
-        a: "The rough buy-below for Lacoste shirts at the brand-level €23.41 average is €16.39 — that is €23.41 × 0.70. ResaleIQ does not publish a per-model buy-below for Lacoste, targeting a 30% gross margin. In practice, the profitable sourcing range is €6–€14 for Very Good condition Oxford or woven Lacoste shirts at French vide-greniers, German Flohmarkt, or Spanish rastros. Linen-blend variants command a higher ceiling: up to €25.20 for near-new condition targeting a €36 exit. Shirts with bowed collars, underarm yellowing, or visible pilling should be sourced below €6 or skipped — the exit range drops to €12–€18 and margin shrinks below the 30% target. Condition is the primary pricing variable; the collar is the key visual signal buyers inspect in listing photos.",
+        a: "The rough buy-below for Lacoste shirts at the brand-level €23.41 average is €16.39 — that is €23.41 × 0.70. ResaleIQ does not publish a per-model buy-below for Lacoste, i.e. 70% of the typical resale price. In practice, the profitable sourcing range is €6–€14 for Very Good condition Oxford or woven Lacoste shirts at French vide-greniers, German Flohmarkt, or Spanish rastros. Linen-blend variants command a higher ceiling: up to €25.20 for near-new condition targeting a €36 exit. Shirts with bowed collars, underarm yellowing, or visible pilling should be sourced below €6 or skipped — the exit range drops to €12–€18 and margin shrinks below the 30% target. Condition is the primary pricing variable; the collar is the key visual signal buyers inspect in listing photos.",
       },
       {
         q: "Are Lacoste shirts the same as Lacoste polos on Vinted?",

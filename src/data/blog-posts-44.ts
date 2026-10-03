@@ -25,7 +25,7 @@ export const POSTS_44: BlogPost[] = [
     definedTerm: {
       name: "Gucci bag departure average",
       description:
-        "The Gucci bag departure average is the average price at which a tracked Gucci bag listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Gucci bags track 72 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €312 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The Gucci brand overall tracks 489 departures in the last 30 days at a €216 brand average across all categories. The buy-below ceiling at the bag category level is €218.40 — that is €312 × 0.70, targeting a 30% gross margin. The Dionysus and GG Marmont are the two highest-volume Gucci bag models on EU Vinted; the Dionysus exits at a premium to the category average in GG Supreme canvas with an intact closure buckle.",
+        "The Gucci bag departure average is the average price at which a tracked Gucci bag listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Gucci bags track 72 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €312 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The Gucci brand overall tracks 489 departures in the last 30 days at a €216 brand average across all categories. The buy-below ceiling at the bag category level is €218.40 — that is €312 × 0.70, i.e. 70% of the typical resale price. The Dionysus and GG Marmont are the two highest-volume Gucci bag models on EU Vinted; the Dionysus exits at a premium to the category average in GG Supreme canvas with an intact closure buckle.",
     },
     sections: [
       {
@@ -87,7 +87,7 @@ export const POSTS_44: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Gucci bag on EU Vinted?",
-        a: "The buy-below ceiling for a standard Gucci bag at the €312 departure average is €218.40 — 70% of the average exit price, targeting a 30% gross margin. In practice, sourcing at €100–160 for pieces exiting at €250–350 is the viable range for EU charity shops and consignment stores in France and Italy. A Gucci bag sourced at €120 and relisted at €310 generates approximately €190 gross. Condition is the primary margin risk: a misgraded piece with interior staining or hardware damage can suppress the exit price by €80–150.",
+        a: "The buy-below ceiling for a standard Gucci bag at the €312 departure average is €218.40 — 70% of the average exit price. In practice, sourcing at €100–160 for pieces exiting at €250–350 is the viable range for EU charity shops and consignment stores in France and Italy. A Gucci bag sourced at €120 and relisted at €310 generates approximately €190 gross. Condition is the primary margin risk: a misgraded piece with interior staining or hardware damage can suppress the exit price by €80–150.",
       },
       {
         q: "Which Gucci bag model is most valuable on EU Vinted?",

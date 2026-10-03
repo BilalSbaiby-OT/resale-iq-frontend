@@ -36,7 +36,7 @@ export const POSTS_4: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Hoodies averaging €74 at departure, applying a 30% target margin gives a buy-below of approximately €52. Any Supreme Hoodie sourced below that price — authenticated, in clean condition — has a realistic margin at current departure prices.",
+          "With Hoodies averaging €74 at departure, applying the 0.70 multiplier gives a buy-below of approximately €52. Any Supreme Hoodie sourced below that price — authenticated, in clean condition — has a realistic margin at current departure prices.",
           "T-Shirts at €34 average give a buy-below near €24. Caps at €47 give a buy-below near €33. Bags at €44 give a buy-below near €31. Jackets at €132 average give a buy-below near €92 — the highest absolute floor of any Supreme category. A coaches jacket or quilted jacket sourced cleanly below €88 is the highest per-unit Supreme opportunity in EU5 Vinted right now.",
         ],
         cta: pricingMidCta("ctr_supreme_20260914"),
@@ -82,7 +82,7 @@ export const POSTS_4: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a Supreme Hoodie on Vinted?",
-        a: "With Supreme Hoodies averaging €74 at departure across EU Vinted markets (to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €52. Above that the margin disappears. Resale IQ returns the exact buy-below for a specific Supreme model on check.",
+        a: "With Supreme Hoodies averaging €74 at departure across EU Vinted markets (to 14 September 2026), and applying the 0.70 multiplier, the buy-below sits around €52. Above that the margin disappears. Resale IQ returns the exact buy-below for a specific Supreme model on check.",
       },
       {
         q: "What Supreme items sell best on Vinted?",
@@ -124,7 +124,7 @@ export const POSTS_4: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Jackets averaging €48 at departure, applying a 30% target margin gives a buy-below of approximately €34. Any North Face Jacket sourced below that price — in clean wearable condition — has a realistic margin at current departure prices.",
+          "With Jackets averaging €48 at departure, applying the 0.70 multiplier gives a buy-below of approximately €34. Any North Face Jacket sourced below that price — in clean wearable condition — has a realistic margin at current departure prices.",
           "Hoodies at €20 average give a buy-below near €14. T-Shirts at €13 give a buy-below near €9 — viable only when sourcing cost is very low (car boot, clearance rail). Tracksuits at €42 give a buy-below near €29. Bags at €66 average give a buy-below near €46 — the highest per-unit North Face floor, and a category that rewards condition grading.",
         ],
         cta: pricingMidCta("ctr_northface_20260914"),
@@ -168,7 +168,7 @@ export const POSTS_4: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for a North Face Jacket on Vinted?",
-        a: "With North Face Jackets averaging €48 at departure across EU Vinted markets (to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €34. Jackets sourced below that in clean condition have a realistic margin. Resale IQ returns the exact buy-below for a specific North Face model on check.",
+        a: "With North Face Jackets averaging €48 at departure across EU Vinted markets (to 14 September 2026), and applying the 0.70 multiplier, the buy-below sits around €34. Jackets sourced below that in clean condition have a realistic margin. Resale IQ returns the exact buy-below for a specific North Face model on check.",
       },
       {
         q: "What North Face items sell best on Vinted?",
@@ -210,7 +210,7 @@ export const POSTS_4: BlogPost[] = [
       {
         h: "Buy-below by category",
         p: [
-          "With Sneakers averaging €52 at departure, applying a 30% target margin gives a buy-below of approximately €36. Any New Balance Sneaker sourced below that price — in sellable condition, with correct model identification — has a realistic margin at current departure prices.",
+          "With Sneakers averaging €52 at departure, applying the 0.70 multiplier gives a buy-below of approximately €36. Any New Balance Sneaker sourced below that price — in sellable condition, with correct model identification — has a realistic margin at current departure prices.",
           "Tracksuits at €18 average give a buy-below near €13. Hoodies at €11 give a buy-below near €8. T-Shirts at €7 give a buy-below near €5. Jackets at €37 give a buy-below near €26. The apparel categories are only viable at near-zero sourcing cost — they are not the play in New Balance.",
         ],
         cta: pricingMidCta("ctr_newbalance_20260914"),
@@ -254,7 +254,7 @@ export const POSTS_4: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for New Balance Sneakers on Vinted?",
-        a: "With New Balance Sneakers averaging €52 at departure across EU Vinted markets (to 14 September 2026), and modelling a 30% target margin, the buy-below sits around €36. Sourcing a New Balance Sneaker below that price in sellable condition gives a realistic margin at current departure prices. Resale IQ returns the exact buy-below for a specific model and colourway on check.",
+        a: "With New Balance Sneakers averaging €52 at departure across EU Vinted markets (to 14 September 2026), and applying the 0.70 multiplier, the buy-below sits around €36. Sourcing a New Balance Sneaker below that price in sellable condition gives a realistic margin at current departure prices. Resale IQ returns the exact buy-below for a specific model and colourway on check.",
       },
       {
         q: "What New Balance models sell best on Vinted?",

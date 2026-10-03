@@ -233,7 +233,7 @@ export const POSTS_2: BlogPost[] = [
     ],
     faq: [
       { q: "What should I look for when thrift flipping?", a: "Recognisable brands in good condition and common sizes, priced below your buy-below number. Check labels, seams, armpits, hems and zips. If brand, condition, size or price fails, put it back." },
-      { q: "How much should I pay at a charity shop to resell?", a: "No more than your buy-below price — roughly the item's average sale price × 0.70 for about a 30% margin. Anything above that is speculation." },
+      { q: "How much should I pay at a charity shop to resell?", a: "No more than your buy-below price — roughly the item's average sale price × 0.70. Anything above that is speculation." },
     ],
   },
   {
@@ -307,7 +307,7 @@ export const POSTS_2: BlogPost[] = [
           "Week to 20 September 2026 (EU5: ES/FR/DE/IT/PT), we watched 566 departures across 20 published brands (28 tracked; floor of 5). Fred Perry: 96 departures. Stone Island: 62. Gucci: 26 departures at an average €303. Those are different demand-and-cash decisions: volume can turn money faster; a higher exit price can leave more per unit but move less often.",
           "The filter is simple:",
           "1. Demand: is this brand/model moving enough this week that extra views could become a sale?",
-          "2. Buy-below: what is the most you can pay for ~30% margin before fees?",
+          "2. Buy-below: what is the most you can pay (70% of the typical resale price)?",
           "Do not buy a cheap item just because it can attract views, and do not optimise a listing whose demand is too thin to clear stock. Use both numbers in the tool before you commit cash: demand selects the opportunity; buy-below caps the risk.",
           "Full weekly table (free to cite): [Vinted market data](" +
             dataCiteHref("body_views_deepen_002_20260913") +

@@ -26,7 +26,7 @@ export const POSTS_51: BlogPost[] = [
     definedTerm: {
       name: "Gucci sneaker departure average",
       description:
-        "The Gucci sneaker departure average is the average price at which a tracked Gucci sneaker listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Gucci sneakers track 37 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €212 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling at the sneaker category level is €148.40 — that is €212 × 0.70, targeting a 30% gross margin. The Rhyton and Ace are the two highest-volume Gucci sneaker models on EU Vinted; the Rhyton exits above category average in clean white colourways with intact logo print.",
+        "The Gucci sneaker departure average is the average price at which a tracked Gucci sneaker listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, Gucci sneakers track 37 departures in the last 30 days across France, Germany, Spain, Italy, and Portugal at a €212 average exit price. 'Watched departure' means a tracked listing left the shelf — not a confirmed buyer-reported sale. The buy-below ceiling at the sneaker category level is €148.40 — that is €212 × 0.70, i.e. 70% of the typical resale price. The Rhyton and Ace are the two highest-volume Gucci sneaker models on EU Vinted; the Rhyton exits above category average in clean white colourways with intact logo print.",
     },
     sections: [
       {
@@ -49,7 +49,7 @@ export const POSTS_51: BlogPost[] = [
       {
         h: "Buy-below ceilings by model — week to 15 Sep 2026",
         p: [
-          "Buy-below ceilings are calculated at the 30% gross margin target (avg_price × 0.70). The category-level ceiling of €148.40 (targeting €212 average) applies when you cannot identify the exact model or condition tier. Model-specific ceilings: Rhyton white/logo targeting €220 → €154; Ace leather targeting €160 → €112; Ace GG canvas targeting €130 → €91.00; Screener targeting €165 → €115.50; Flashtrek targeting €290 → €203.00; Tennis 1977 targeting €105 → €73.50.",
+          "Buy-below ceilings are calculated at the 0.70 multiplier (avg_price × 0.70). The category-level ceiling of €148.40 (targeting €212 average) applies when you cannot identify the exact model or condition tier. Model-specific ceilings: Rhyton white/logo targeting €220 → €154; Ace leather targeting €160 → €112; Ace GG canvas targeting €130 → €91.00; Screener targeting €165 → €115.50; Flashtrek targeting €290 → €203.00; Tennis 1977 targeting €105 → €73.50.",
           "The critical sourcing discipline for Gucci sneakers is condition assessment at point of purchase. Unlike clothing where condition is relatively visible, sneakers have specific failure modes that are not apparent at a glance: sole separation (particularly on the Rhyton's EVA midsole, check by pressing the midsole junction), lace replacement (original Gucci laces carry identification numbers inside the aglet — replica laces are plain), and insole condition (the Gucci insole has a woven logo panel that degrades under heavy wear). A sneaker that looks 7/10 from outside may be 5/10 once the buyer examines the insole and sole edge — pricing the risk into the buy-below is not optional.",
           "EU market split for Gucci sneakers: France leads departure velocity (10 departures in the last 30 days) and average exit price (€228 avg), consistent with the French luxury resale market's strong buyer base. Spain is volume-consistent (8 departures in the last 30 days, €195 avg). Italy represents the best sourcing-to-exit arbitrage opportunity within the five markets: Italian charity shops and flea markets (mercati) surface authentic Gucci more reliably than other EU countries given Italy's luxury goods manufacturing base, while the vinted.it buyer pool is active and willing to pay €180–220 for authenticated leather sneakers.",
         ],
@@ -100,7 +100,7 @@ export const POSTS_51: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for Gucci sneakers on Vinted?",
-        a: "The buy-below ceiling for Gucci sneakers targeting a 30% gross margin at the €212 category average is €148.40 (€212 × 0.70). Model-specific ceilings: Rhyton (targeting €220) → €154; Ace leather (targeting €160) → €112; Ace GG canvas (targeting €130) → €91.00; Tennis 1977 (targeting €105) → €73.50; Flashtrek (targeting €290) → €203.00. Always verify authentication before applying full buy-below ceilings — an unverified piece should use a 50% discount to the ceiling as a counterfeit risk buffer.",
+        a: "The buy-below ceiling for Gucci sneakers, i.e. 70% of the typical resale price at the €212 category average is €148.40 (€212 × 0.70). Model-specific ceilings: Rhyton (targeting €220) → €154; Ace leather (targeting €160) → €112; Ace GG canvas (targeting €130) → €91.00; Tennis 1977 (targeting €105) → €73.50; Flashtrek (targeting €290) → €203.00. Always verify authentication before applying full buy-below ceilings — an unverified piece should use a 50% discount to the ceiling as a counterfeit risk buffer.",
       },
       {
         q: "Is Gucci worth reselling on Vinted EU?",

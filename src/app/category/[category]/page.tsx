@@ -143,7 +143,7 @@ export default async function CategoryPage(
       q: `How do I use this ${lower} ranking with buy-below?`,
       a:
         `Volume tells you ${lower} demand exists among tracked brands — it is not a buy-below. ` +
-        `Buy-below is the most you should pay for a specific listing, for ~30% margin before fees. ` +
+        `Buy-below is the most you should pay for a specific listing (70% of the typical resale price). ` +
         `Weekly brand volumes stay public at https://resaleiq.dev/data. ` +
         `Item-level buy-below, sizes and BUY/WATCH/SKIP are on a paid plan at https://resaleiq.dev/pricing.`,
     },
