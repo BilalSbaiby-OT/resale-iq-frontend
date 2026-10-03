@@ -17,6 +17,7 @@
 import { useEffect, useState } from "react"
 import { getGoogleOAuthStatus } from "@/lib/google-oauth"
 import { useT } from "@/components/i18n/locale-provider"
+import { firstTouchQuery } from "@/lib/first-touch"
 
 export function GoogleSignInButton({
   label,
@@ -42,7 +43,13 @@ export function GoogleSignInButton({
   return (
     <a
       href="/auth/google/login"
-      onClick={() => onBeforeNavigate?.()}
+      onClick={(e) => {
+        onBeforeNavigate?.()
+        // Carry the first touch through the OAuth round-trip (it is signed into
+        // the backend's state token). Set at click time so it is always fresh.
+        const q = firstTouchQuery()
+        if (q) e.currentTarget.href = `/auth/google/login?${q}`
+      }}
       role="button"
       aria-label={tx("Continue with Google")}
       className={[

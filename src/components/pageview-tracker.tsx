@@ -1,6 +1,7 @@
 "use client"
 import { usePathname } from "next/navigation"
 import { useEffect, useRef } from "react"
+import { captureFirstTouch } from "@/lib/first-touch"
 import { captureAttribution, captureLandingPath, trackEvent, trackPageview, type FunnelEvent } from "@/lib/analytics"
 import { captureReferral } from "@/lib/referral"
 import { stripLocalePrefix } from "@/lib/locale-routes"
@@ -61,6 +62,7 @@ export function PageviewTracker() {
     captureReferral()
     captureAttribution()
     captureLandingPath()
+    captureFirstTouch()
 
     trackPageview(full)
 

@@ -1,4 +1,5 @@
 import { getAttribution, getLandingPath } from "@/lib/analytics"
+import { firstTouchFields } from "@/lib/first-touch"
 import { buildCheckoutBody, readStoredCountry, type CheckoutPlan, type VerifySessionResult } from "@/lib/checkout"
 import { readReferral } from "@/lib/referral"
 import type {
@@ -146,7 +147,7 @@ export const register = (email: string, password: string) => {
 
   return request<{ access_token: string; plan: string; email_sent?: boolean }>("/auth/register", {
     method: "POST",
-    body: JSON.stringify({ email, password, plan: "free", landing_path, ...attribution }),
+    body: JSON.stringify({ email, password, plan: "free", landing_path, ...attribution, ...firstTouchFields() }),
   })
 }
 export const forgotPassword = (email: string) =>
@@ -264,6 +265,9 @@ export const createCheckout = (price_id: string, opts?: { country?: string; plan
     // pre-populates the email field. Closes the 23/25 no-email gap.
     customer_email: opts?.customer_email,
   })
+  // First-touch attribution (utm_*, referrer host, landing, first-seen) so the
+  // Stripe session — guest or authed — can be tied to the visit that earned it.
+  Object.assign(body, firstTouchFields())
   return request<{ checkout_url: string }>("/stripe/checkout", {
     method: "POST",
     body: JSON.stringify(body),
