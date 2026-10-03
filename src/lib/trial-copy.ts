@@ -21,7 +21,7 @@ export const TRIAL_LIMITS_SHORT =
 
 /** Logged-in trial banner. Compare is Pro; live finds and one plan are in the trial. */
 export const TRIAL_BANNER =
-  "Starter trial: Deal Scanner, 5 live finds and 1 order plan. Price Compare is Pro."
+  "Starter trial: Deal Scanner, 5 live finds and 1 order plan. Price across Vinted sites is Pro."
 
 export const TRIAL_LIMITS_SENTENCE_BY_LOCALE: Record<Locale, string> = {
   en: TRIAL_LIMITS_SENTENCE,
@@ -43,9 +43,9 @@ export const TRIAL_LIMITS_SHORT_BY_LOCALE: Record<Locale, string> = {
 
 export const TRIAL_BANNER_BY_LOCALE: Record<Locale, string> = {
   en: TRIAL_BANNER,
-  fr: "Essai Starter : Deal Scanner, 5 recherches live et 1 plan de commande. Price Compare est réservé à Pro.",
-  es: "Prueba Starter: Deal Scanner, 5 búsquedas en vivo y 1 plan de pedido. Price Compare es de Pro.",
-  de: "Starter-Testphase: Deal Scanner, 5 Live-Suchen und 1 Bestellplan. Price Compare ist Pro.",
-  it: "Prova Starter: Deal Scanner, 5 ricerche live e 1 piano d'ordine. Price Compare è Pro.",
-  pt: "Teste Starter: Deal Scanner, 5 pesquisas em direto e 1 plano de encomenda. Price Compare é Pro.",
+  fr: "Essai Starter : Deal Scanner, 5 recherches live et 1 plan de commande. Prix sur les sites Vinted est réservé à Pro.",
+  es: "Prueba Starter: Deal Scanner, 5 búsquedas en vivo y 1 plan de pedido. Precios en los sitios de Vinted es de Pro.",
+  de: "Starter-Testphase: Deal Scanner, 5 Live-Suchen und 1 Bestellplan. Preise auf den Vinted-Seiten ist Pro.",
+  it: "Prova Starter: Deal Scanner, 5 ricerche live e 1 piano d'ordine. Prezzi sui siti Vinted è Pro.",
+  pt: "Teste Starter: Deal Scanner, 5 pesquisas em direto e 1 plano de encomenda. Preços nos sites da Vinted é Pro.",
 }

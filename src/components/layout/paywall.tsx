@@ -106,7 +106,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
             <Lock size={15} style={{ color: "#34C759" }} />
             <span style={{ fontSize: 15.5, fontWeight: 700, color: "#eef1f7" }}>{tx("This is a Pro feature")}</span>
           </div>
-          <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65 }}>{tx("Order Planner and Price Compare are on Pro. Starter keeps unlimited verdicts.")}</p>
+          <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65 }}>{tx("Order Planner and Price across Vinted sites are on Pro. Starter keeps unlimited verdicts.")}</p>
         </div>
       )}
 
@@ -126,7 +126,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
         </h1>
         <p style={{ fontSize: 15, color: "#8b99b8", marginTop: 10 }}>
           {pro
-            ? tx("The Order Planner and Price Compare are on Pro — full buy-below intelligence on ES/FR/DE/IT/PT, live asking-price search across 26 markets. Upgrade for the tools that let you source at volume — cancel anytime.")
+            ? tx("The Order Planner and Price across Vinted sites are on Pro — buy-below intelligence on ES/FR/DE/IT/PT and typical asking prices across the Vinted sites we track. Upgrade for the tools that let you source at volume — cancel anytime.")
             : tx(`{0} listing records, Order Planner, and buy/sell verdicts — the full toolkit. Cancel anytime.`, [tracked])}
         </p>
       </div>

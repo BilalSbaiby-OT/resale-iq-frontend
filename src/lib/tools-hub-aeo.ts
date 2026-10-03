@@ -58,7 +58,7 @@ export const TOOLS_HUB_FAQS: FaqItem[] = [
     q: "What does the Starter plan unlock?",
     a:
       "Starter is €19 a month: unlimited item checks, every product signal unblurred, fast sellers, market trends and brand rankings, watchlist and portfolio P&L, and the fee calculator. " +
-      "Order Planner, Price Compare and the API are Pro at €49. Weekly volumes stay public. See https://resaleiq.dev/pricing.",
+      "Order Planner, Price across Vinted sites and the API are Pro at €49. Weekly volumes stay public. See https://resaleiq.dev/pricing.",
   },
 ]
 
@@ -114,7 +114,7 @@ const TOOLS_HUB: Record<Locale, ToolsHubCopy> = {
         q: "Was schaltet Starter frei?",
         a:
           "Starter kostet 19 € im Monat: unbegrenzte Artikelprüfungen, jedes Produktsignal ohne Unschärfe, Deal Scanner, Markttrends und Markenrankings, Watchlist und Portfolio-P&L, und den Gebührenrechner. " +
-          "Order Planner, Price Compare und die API sind Pro für 49 €. Wöchentliche Volumen bleiben öffentlich. Siehe https://resaleiq.dev/de/pricing.",
+          "Order Planner, Preise auf den Vinted-Seiten und die API sind Pro für 49 €. Wöchentliche Volumen bleiben öffentlich. Siehe https://resaleiq.dev/de/pricing.",
       },
     ],
   },
@@ -156,7 +156,7 @@ const TOOLS_HUB: Record<Locale, ToolsHubCopy> = {
         q: "Que débloque Starter ?",
         a:
           "Starter coûte 19 € par mois : vérifications illimitées, chaque signal produit sans flou, Deal Scanner, tendances et classements de marques, watchlist et P&L du portefeuille, et le calculateur de frais. " +
-          "Order Planner, Price Compare et l'API sont Pro à 49 €. Les volumes hebdo restent publics. Voir https://resaleiq.dev/fr/pricing.",
+          "Order Planner, Prix sur les sites Vinted et l'API sont Pro à 49 €. Les volumes hebdo restent publics. Voir https://resaleiq.dev/fr/pricing.",
       },
     ],
   },
@@ -198,7 +198,7 @@ const TOOLS_HUB: Record<Locale, ToolsHubCopy> = {
         q: "¿Qué desbloquea Starter?",
         a:
           "Starter cuesta 19 € al mes: comprobaciones ilimitadas, cada señal de producto sin desenfoque, Deal Scanner, tendencias y rankings de marcas, watchlist y P&L de cartera, y el estimador de comisiones. " +
-          "Order Planner, Price Compare y la API son Pro a 49 €. Los volúmenes semanales siguen públicos. Ver https://resaleiq.dev/es/pricing.",
+          "Order Planner, Precios en los sitios de Vinted y la API son Pro a 49 €. Los volúmenes semanales siguen públicos. Ver https://resaleiq.dev/es/pricing.",
       },
     ],
   },
@@ -240,7 +240,7 @@ const TOOLS_HUB: Record<Locale, ToolsHubCopy> = {
         q: "Cosa sblocca Starter?",
         a:
           "Starter costa 19 € al mese: controlli illimitati, ogni segnale prodotto senza sfocatura, Deal Scanner, trend e classifiche di marche, watchlist e P&L del portafoglio, e il calcolatore di commissioni. " +
-          "Order Planner, Price Compare e l'API sono Pro a 49 €. I volumi settimanali restano pubblici. Vedi https://resaleiq.dev/it/pricing.",
+          "Order Planner, Prezzi sui siti Vinted e l'API sono Pro a 49 €. I volumi settimanali restano pubblici. Vedi https://resaleiq.dev/it/pricing.",
       },
     ],
   },
@@ -282,7 +282,7 @@ const TOOLS_HUB: Record<Locale, ToolsHubCopy> = {
         q: "O que o Starter desbloqueia?",
         a:
           "Starter custa 19 € por mês: verificações ilimitadas, cada sinal de produto sem desfoque, Deal Scanner, tendências e rankings de marcas, watchlist e P&L da carteira, e o estimador de taxas. " +
-          "Order Planner, Price Compare e a API são Pro a 49 €. Os volumes semanais ficam públicos. Ver https://resaleiq.dev/pt/pricing.",
+          "Order Planner, Preços nos sites da Vinted e a API são Pro a 49 €. Os volumes semanais ficam públicos. Ver https://resaleiq.dev/pt/pricing.",
       },
     ],
   },

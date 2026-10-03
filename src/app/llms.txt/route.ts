@@ -239,7 +239,7 @@ ${ALL_POSTS.map((p) => `- [${p.title}](${BASE}/blog/${p.slug})`).join("\n")}
 ## Pricing
 
 - Starter EUR 19/month: item-level BUY / WATCH / SKIP, buy-below, sell-through and sizes.
-- Pro EUR 49/month: adds the Order Planner, Price Compare (full intelligence on ES/FR/DE/IT/PT; live asking-price search on 26 markets total) and REST API access.
+- Pro EUR 49/month: adds the Order Planner, Price across Vinted sites (typical asking prices for the same search on ES/FR/DE/IT/PT) and REST API access.
 - /tools lets you try a check; most items unlock with Starter EUR 19. There is no Free-forever unlimited tier. Weekly brand volumes on /data stay public.
 
 ## Reference

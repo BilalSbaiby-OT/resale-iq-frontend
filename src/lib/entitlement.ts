@@ -90,11 +90,11 @@ const PLAN_COPY: Record<Locale, PlanCopy> = {
   en: {
     pro: {
       chip: "Pro",
-      sub: "Unlimited checks, every signal, Live Finder, Order Planner and Price Compare.",
+      sub: "Unlimited checks, every signal, Live Finder, Order Planner and Price across Vinted sites.",
     },
     starter: {
       chip: "Starter",
-      sub: "Unlimited checks and every verdict signal. Live Finder, Order Planner and Price Compare are Pro.",
+      sub: "Unlimited checks and every verdict signal. Live Finder, Order Planner and Price across Vinted sites are Pro.",
     },
     trial: {
       chip: "Starter trial",
@@ -112,11 +112,11 @@ const PLAN_COPY: Record<Locale, PlanCopy> = {
   fr: {
     pro: {
       chip: "Pro",
-      sub: "Vérifications illimitées, tous les signaux, Live Finder, Order Planner et Price Compare.",
+      sub: "Vérifications illimitées, tous les signaux, Live Finder, Order Planner et Prix sur les sites Vinted.",
     },
     starter: {
       chip: "Starter",
-      sub: "Vérifications illimitées et tous les signaux du verdict. Live Finder, Order Planner et Price Compare sont réservés à Pro.",
+      sub: "Vérifications illimitées et tous les signaux du verdict. Live Finder, Order Planner et Prix sur les sites Vinted sont réservés à Pro.",
     },
     trial: {
       chip: "Essai Starter",
@@ -134,11 +134,11 @@ const PLAN_COPY: Record<Locale, PlanCopy> = {
   es: {
     pro: {
       chip: "Pro",
-      sub: "Comprobaciones ilimitadas, todas las señales, Live Finder, Order Planner y Price Compare.",
+      sub: "Comprobaciones ilimitadas, todas las señales, Live Finder, Order Planner y Precios en los sitios de Vinted.",
     },
     starter: {
       chip: "Starter",
-      sub: "Comprobaciones ilimitadas y todas las señales del veredicto. Live Finder, Order Planner y Price Compare son de Pro.",
+      sub: "Comprobaciones ilimitadas y todas las señales del veredicto. Live Finder, Order Planner y Precios en los sitios de Vinted son de Pro.",
     },
     trial: {
       chip: "Prueba Starter",
@@ -156,11 +156,11 @@ const PLAN_COPY: Record<Locale, PlanCopy> = {
   de: {
     pro: {
       chip: "Pro",
-      sub: "Unbegrenzte Prüfungen, alle Signale, Live Finder, Order Planner und Price Compare.",
+      sub: "Unbegrenzte Prüfungen, alle Signale, Live Finder, Order Planner und Preise auf den Vinted-Seiten.",
     },
     starter: {
       chip: "Starter",
-      sub: "Unbegrenzte Prüfungen und alle Verdict-Signale. Live Finder, Order Planner und Price Compare sind Pro.",
+      sub: "Unbegrenzte Prüfungen und alle Verdict-Signale. Live Finder, Order Planner und Preise auf den Vinted-Seiten sind Pro.",
     },
     trial: {
       chip: "Starter-Test",
@@ -178,11 +178,11 @@ const PLAN_COPY: Record<Locale, PlanCopy> = {
   it: {
     pro: {
       chip: "Pro",
-      sub: "Controlli illimitati, tutti i segnali, Live Finder, Order Planner e Price Compare.",
+      sub: "Controlli illimitati, tutti i segnali, Live Finder, Order Planner e Prezzi sui siti Vinted.",
     },
     starter: {
       chip: "Starter",
-      sub: "Controlli illimitati e tutti i segnali del verdetto. Live Finder, Order Planner e Price Compare sono Pro.",
+      sub: "Controlli illimitati e tutti i segnali del verdetto. Live Finder, Order Planner e Prezzi sui siti Vinted sono Pro.",
     },
     trial: {
       chip: "Prova Starter",
@@ -200,11 +200,11 @@ const PLAN_COPY: Record<Locale, PlanCopy> = {
   pt: {
     pro: {
       chip: "Pro",
-      sub: "Verificações ilimitadas, todos os sinais, Live Finder, Order Planner e Price Compare.",
+      sub: "Verificações ilimitadas, todos os sinais, Live Finder, Order Planner e Preços nos sites da Vinted.",
     },
     starter: {
       chip: "Starter",
-      sub: "Verificações ilimitadas e todos os sinais do veredicto. Live Finder, Order Planner e Price Compare são Pro.",
+      sub: "Verificações ilimitadas e todos os sinais do veredicto. Live Finder, Order Planner e Preços nos sites da Vinted são Pro.",
     },
     trial: {
       chip: "Teste Starter",

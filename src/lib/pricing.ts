@@ -52,14 +52,14 @@ export const TIERS: Tier[] = [
     cta: "Let it find the deals",
     stepUp: "+€30 over Starter — about €1 a day",
     stepUpWhy:
-      "Starter tells you whether an item is worth buying once you've found it. Pro adds the Order Planner (how many pieces of each brand to buy), Price Compare and the API.",
+      "Starter tells you whether an item is worth buying once you've found it. Pro adds the Order Planner (how many pieces of each brand to buy), Price across Vinted sites and the API.",
     ceiling: "Need seats, bulk or a custom scope? That's a conversation.",
     features: [
       "Everything in Starter",
       "Order Planner — how many pieces of each brand to buy",
       "Per-size sell-through when the watched sample supports it",
       "REST API access (your own API key)",
-      "Price Compare — full buy-below intelligence on ES/FR/DE/IT/PT, plus live asking-price search across 26 markets total",
+      "Price across Vinted sites — typical asking prices for the same search on the Vinted sites we track (ES · FR · DE · IT · PT)",
     ],
   },
   {
@@ -80,7 +80,7 @@ export const TIERS: Tier[] = [
       "Watchlist & portfolio P&L",
       "Cross-platform fee calculator",
     ],
-    ceiling: "No Order Planner, Price Compare or API — that's Pro.",
+    ceiling: "No Order Planner, Price across Vinted sites or API — that's Pro.",
   },
   {
     id: "free",

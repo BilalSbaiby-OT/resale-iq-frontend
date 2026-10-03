@@ -38,7 +38,7 @@ test.describe("homepage market claims", () => {
     expect(body).not.toMatch(/\bBritish\b|\bBritain\b/i)
 
     // "26 markets" is legitimate ONLY when scoped to live asking-price
-    // search (Price Compare), never to buy-below/tracked coverage. If this
+    // search (Price across Vinted sites), never to buy-below/tracked coverage. If this
     // number appears, the surrounding sentence must say so.
     if (/26[- ]market/i.test(body)) {
       expect(body).toMatch(/26[- ]markets? total|live asking-price search across 26/i)
