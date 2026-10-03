@@ -3,7 +3,7 @@ import assert from "node:assert/strict"
 import { readFileSync } from "node:fs"
 import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
-import { applyBuyTiers, assignBuyTiers, buyTierLabel, BUY_TIER_LABELS, type BuyTier } from "./buy-tiers.ts"
+import { applyBuyTiers, type TierableData, assignBuyTiers, buyTierLabel, BUY_TIER_LABELS, type BuyTier } from "./buy-tiers.ts"
 
 const here = dirname(fileURLToPath(import.meta.url))
 
@@ -40,7 +40,7 @@ test("tier labels: 6 locales, natural wording, never 'sold'", () => {
 })
 
 test("applyBuyTiers stamps pairs, brands and categories; idempotent", () => {
-  const d = applyBuyTiers({
+  const d: TierableData = applyBuyTiers({
     brands: [
       { sold_30d: 300, categories: [{ category: "Shirts", sold_30d: 200 }, { category: "Hoodies", sold_30d: 100 }] },
       { sold_30d: 60, categories: [{ category: "Shirts", sold_30d: 50 }, { category: "Caps", sold_30d: 10 }] },

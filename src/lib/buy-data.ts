@@ -12,16 +12,23 @@
  * 30 days to `generated_at` — a watched departure, never a confirmed sale and
  * never "sold". Days-to-sell is not published (the engine withholds it
  * product-wide); `avg_days_to_sell` stays in the export but no page prints it.
- * Counts go through fmtDeparturesBuy() so the display floor applies here too.
+ *
+ * NO COUNTS ON /buy (founder no-counts rule, 2026-10-04): `sold_30d` is kept in
+ * the JSON ONLY for sorting. Pages print the stored `tier` (Moving fast /
+ * Steady / Slow, rank-based, see lib/buy-tiers.ts) and never the number.
  */
 import raw from "@/data/buy-data.json"
-import { departureDisplay } from "./departure-display.ts"
+import { buyTierLabel, type BuyTier } from "./buy-tiers.ts"
+
+export type { BuyTier }
 
 export interface BuyCategory {
   category: string
   slug: string
-  /** Estimated 30-day departures (avg across available market_stats snapshots) */
+  /** 30-day departures. SORT KEY ONLY — never rendered (use `tier`). */
   sold_30d: number
+  /** Pace tier vs every other brand x category pair, stamped at generation */
+  tier?: BuyTier
   /** Average price at departure in EUR */
   avg_price_eur: number | null
   /** Median price at departure in EUR */
@@ -48,8 +55,10 @@ export interface BuyCategory {
 export interface BuyBrand {
   brand: string
   slug: string
-  /** Estimated total 30-day departures across all categories */
+  /** Total 30-day departures across all categories. SORT KEY ONLY — never rendered. */
   sold_30d: number
+  /** Pace tier vs every other brand, stamped at generation */
+  tier?: BuyTier
   /** Blended avg price across categories */
   avg_price_eur: number
   /** 3 highest-volume categories */
@@ -64,6 +73,8 @@ export interface BuyData {
   threshold: string
   total_pairs: number
   total_brands: number
+  /** Pace tier per category name (ranked on the total across brands) */
+  category_tiers?: Record<string, BuyTier>
   brands: BuyBrand[]
 }
 
@@ -154,16 +165,33 @@ export function fmtEurBuy(n: number | null): string {
   return `€${Math.round(n)}`
 }
 
-/** Format count: 1,234 */
-export function fmtCountBuy(n: number | null): string {
-  if (n == null) return "—"
-  return n.toLocaleString("en-GB")
+/** Pace tier label for a /buy surface ("Moving fast" / "Steady" / "Slow", or "—"). */
+export function fmtTierBuy(tier: BuyTier | null | undefined): string {
+  return buyTierLabel(tier)
 }
 
-/** A 30-day watched-departure count through the display floor (—, "Fewer than 10", digits). */
-export function fmtDeparturesBuy(n: number | null): string {
-  return departureDisplay(n).text
+/** Pace tier of a category by name (rank on the total across brands). */
+export function categoryTier(category: string): BuyTier | undefined {
+  return BUY_DATA.category_tiers?.[category]
 }
+
+/** The tier as a mid-sentence phrase: "moving fast" / "moving at a steady pace" / "moving slowly". */
+export function tierPhrase(tier: BuyTier | null | undefined): string | null {
+  switch (tier) {
+    case "fast":
+      return "moving fast"
+    case "steady":
+      return "moving at a steady pace"
+    case "slow":
+      return "moving slowly"
+    default:
+      return null
+  }
+}
+
+/** One-line legend printed wherever a tier is shown. No numbers. */
+export const BUY_TIER_NOTE =
+  "Pace compares each row with the others we track, by listings we watched leave the shelf per day: the top third is Moving fast, the middle third Steady, the bottom third Slow. It is a ranking, not a sales figure."
 
 const BUY_MONTHS = [
   "January", "February", "March", "April", "May", "June",

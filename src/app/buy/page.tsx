@@ -1,6 +1,7 @@
 import Link from "next/link"
 import type { Metadata } from "next"
-import { BUY_DATA, BUY_CATEGORIES, BUY_BATCH1_PAIRS, buyDataDate, fmtEurBuy, catSlug } from "@/lib/buy-data"
+import { BUY_DATA, BUY_CATEGORIES, BUY_BATCH1_PAIRS, BUY_TIER_NOTE, buyDataDate, fmtEurBuy, catSlug } from "@/lib/buy-data"
+import { BuyTierChip } from "@/components/buy-tier-chip"
 
 import { fitMetadata } from "@/lib/meta-fit"
 import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
@@ -13,7 +14,7 @@ export const metadata: Metadata = fitMetadata({
   openGraph: {
     title: "Resale Buy-Below Intelligence — ResaleIQ",
     description:
-      "231 tracked brand-category pairs, 30-day watched departures, and buy-below prices built from the average price at departure.",
+      "231 tracked brand-category pairs, a pace tier for each (Moving fast, Steady, Slow), and buy-below prices built from the average price at departure.",
     url: "https://resaleiq.dev/buy",
   },
 })
@@ -94,7 +95,7 @@ export default function BuyHubPage() {
           Buy-below by brand &amp; category
         </h2>
         <p style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 16 }}>
-          Showing the {batch1.length} highest-evidence pairs in the 30 days to {buyDataDate()}. Built on watched departures, not confirmed sales.
+          Showing the highest-evidence pairs in the 30 days to {buyDataDate()}. Built on watched departures, not confirmed sales. {BUY_TIER_NOTE}
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 12, marginBottom: 40 }}>
           {batch1.map(({ brand: b, cat: c }) => (
@@ -111,8 +112,13 @@ export default function BuyHubPage() {
                   padding: "18px 20px",
                 }}
               >
-                <div style={{ fontSize: 15, fontWeight: 700, color: "#eef1f7", marginBottom: 2 }}>{b.brand}</div>
-                <div style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 10 }}>{c.category}</div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
+                  <div>
+                    <div style={{ fontSize: 15, fontWeight: 700, color: "#eef1f7", marginBottom: 2 }}>{b.brand}</div>
+                    <div style={{ fontSize: 13, color: "#5b6b8c", marginBottom: 10 }}>{c.category}</div>
+                  </div>
+                  <BuyTierChip tier={c.tier} />
+                </div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
                   <div>
                     <div style={{ fontSize: 18, fontWeight: 700, color: "#34C759" }}>

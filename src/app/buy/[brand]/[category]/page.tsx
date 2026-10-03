@@ -9,6 +9,7 @@ import {
   getBuyPair,
   BUY_BATCH1_SLUGS,
   buyDataDate,
+  fmtTierBuy,
   fmtEurBuy,
   signalDisplay,
   catSlug,
@@ -71,7 +72,8 @@ export default async function BuyBrandCategoryPage({
     (cat.median_price_eur ? ` (median ${fmtEurBuy(cat.median_price_eur)})` : "") +
     ` across Vinted in Spain, France, Germany, Italy and Portugal in the 30 days to ${buyDataDate()} ` +
     `(listings we watched leave the shelf, not confirmed sales). ` +
-    (cat.signal ? `Demand signal: ${cat.signal}.` : "")
+    (cat.signal ? `Demand signal: ${cat.signal}. ` : "") +
+    (cat.tier ? `Pace: ${fmtTierBuy(cat.tier)} compared with the other brand-category pairs we track.` : "")
 
   const jsonLd = [
     {
@@ -183,6 +185,7 @@ export default async function BuyBrandCategoryPage({
           {[
             [fmtEurBuy(cat.buy_below), "buy below (~30% margin before fees)"],
             [fmtEurBuy(cat.avg_price_eur), "avg price at departure"],
+            ...(cat.tier ? [[fmtTierBuy(cat.tier), "pace vs other tracked pairs"]] : []),
             ...(typeof cat.avg_price_eur === "number" && typeof cat.buy_below === "number"
               ? [[fmtEurBuy(cat.avg_price_eur - cat.buy_below), "margin per item at the buy-below"]]
               : []),
@@ -284,7 +287,7 @@ export default async function BuyBrandCategoryPage({
         <RelatedLinks to={{ kind: "buy-leaf", brand: brand.slug, category: cat.slug }} />
 
         <div style={{ marginTop: 24, fontSize: 12, color: "#3f4a63" }}>
-          Data updated {BUY_DATA.generated_at}. Source: {BUY_DATA.source}. Threshold: {BUY_DATA.threshold}.
+          Data updated {BUY_DATA.generated_at}. Source: {BUY_DATA.source}.
         </div>
       </div>
     </div>

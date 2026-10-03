@@ -1,6 +1,6 @@
 import { RelatedLinks } from "@/components/seo/related-links"
 import { withFittedMetadata } from "@/lib/meta-fit"
-import { departureSupportsConclusion } from "@/lib/departure-display"
+import { BuyTierChip } from "@/components/buy-tier-chip"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
@@ -10,7 +10,9 @@ import {
   BUY_BATCH1_SLUGS,
   buyDataDate,
   fmtEurBuy,
-  fmtDeparturesBuy,
+  fmtTierBuy,
+  tierPhrase,
+  BUY_TIER_NOTE,
   signalDisplay,
   catSlug,
 } from "@/lib/buy-data"
@@ -69,16 +71,16 @@ export default async function BuyBrandPage({
   const topCat = batch1Cats[0] ?? brand.categories[0]
   const sig = signalDisplay(topCat?.signal ?? null)
 
-  // Brand-level volume is quoted only when it can carry a conclusion (>= 30);
-  // per-category counts are never printed (founder decision 2026-10-02).
-  const brandVolume = departureSupportsConclusion(brand.sold_30d) ? fmtDeparturesBuy(brand.sold_30d) : null
+  // No departure count is printed anywhere on /buy (founder no-counts rule,
+  // 2026-10-04): the brand's pace is a rank-based tier stored in buy-data.json.
+  const brandPace = tierPhrase(brand.tier)
   const intro =
     (topCat?.buy_below
       ? `For ~30% margin before fees on ${brand.brand} ${topCat.category}, the category with the most watched departures, buy below ${fmtEurBuy(topCat.buy_below)}` +
         (topCat.avg_price_eur ? ` — the average price at departure is ${fmtEurBuy(topCat.avg_price_eur)}.` : ".")
       : `${brand.brand} buy-below prices are derived from average prices at departure, with data from multiple snapshots.`) +
-    (brandVolume
-      ? ` Across Spain, France, Germany, Italy and Portugal, ${brandVolume} ${brand.brand} listings left the shelf in the 30 days to ${buyDataDate()} (watched departures, not confirmed sales).`
+    (brandPace
+      ? ` Across Spain, France, Germany, Italy and Portugal, ${brand.brand} listings are ${brandPace} compared with the other brands we track, in the 30 days to ${buyDataDate()} (watched departures, not confirmed sales).`
       : "")
 
   const jsonLd = [
@@ -96,11 +98,11 @@ export default async function BuyBrandPage({
         },
         {
           "@type": "Question",
-          name: `How many ${brand.brand} items leave the shelf on Vinted each month?`,
+          name: `How fast do ${brand.brand} items leave the shelf on Vinted?`,
           acceptedAnswer: {
             "@type": "Answer",
-            text: brandVolume
-              ? `${brandVolume} ${brand.brand} listings left the shelf in the 30 days to ${buyDataDate()} across the five main EU Vinted markets (Spain, France, Germany, Italy, Portugal). These are watched departures, not confirmed sales and not active listings — supply counts are not demand.`
+            text: brandPace
+              ? `${brand.brand} listings are ${brandPace} compared with the other brands we track, in the 30 days to ${buyDataDate()} across the five main EU Vinted markets (Spain, France, Germany, Italy, Portugal). This is a ranking of listings we watched leave the shelf — not confirmed sales and not active listings; supply is not demand.`
               : `Weekly ${brand.brand} brand volume is published on https://resaleiq.dev/data. These are watched departures, not confirmed sales and not active listings — supply counts are not demand.`,
           },
         },
@@ -151,7 +153,7 @@ export default async function BuyBrandPage({
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 32 }}>
           {[
             [fmtEurBuy(brand.avg_price_eur), "avg price at departure"],
-            ...(brandVolume ? [[brandVolume, "left the shelf / 30 days"]] : []),
+            ...(brand.tier ? [[fmtTierBuy(brand.tier), "pace vs other brands"]] : []),
             [String(brand.categories.length), "categories tracked"],
           ].map(([v, l]) => (
             <div key={l} style={{ background: "var(--color-surface, #131823)", border: "1px solid var(--color-border-ui, #1e2a3f)", borderRadius: 12, padding: "16px 18px" }}>
@@ -168,7 +170,8 @@ export default async function BuyBrandPage({
           </h2>
           <p style={{ fontSize: 13.5, color: "#8b99b8", marginBottom: 16, lineHeight: 1.6 }}>
             Buy-below is the maximum you should pay to keep a 30% margin: the average price at departure × 0.70. It is derived from the average
-            price at departure — not from listed asking prices, which are wishes not facts. Check the exact model for a model-level verdict.
+            price at departure — not from listed asking prices, which are wishes not facts. Check the exact model for a model-level verdict.{" "}
+            {BUY_TIER_NOTE}
           </p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -182,7 +185,7 @@ export default async function BuyBrandPage({
                     borderRadius: 10,
                     padding: "14px 18px",
                     display: "grid",
-                    gridTemplateColumns: "1fr auto auto auto",
+                    gridTemplateColumns: "1fr auto auto auto auto",
                     alignItems: "center",
                     gap: 16,
                   }}>
@@ -197,6 +200,7 @@ export default async function BuyBrandPage({
                       <div style={{ fontSize: 13, color: "#5b6b8c" }}>buy below</div>
                       <div style={{ fontSize: 15, fontWeight: 700, color: "#34C759" }}>{fmtEurBuy(cat.buy_below)}</div>
                     </div>
+                    <BuyTierChip tier={cat.tier} />
                     {cat.signal && (
                       <div style={{
                         fontSize: 11, fontWeight: 700, padding: "4px 8px", borderRadius: 6,
@@ -262,7 +266,7 @@ export default async function BuyBrandPage({
         <RelatedLinks to={{ kind: "buy-brand", slug: brand.slug }} />
 
         <div style={{ marginTop: 28, fontSize: 12, color: "#3f4a63" }}>
-          Data updated {BUY_DATA.generated_at}. Source: {BUY_DATA.source}. Threshold: {BUY_DATA.threshold}.
+          Data updated {BUY_DATA.generated_at}. Source: {BUY_DATA.source}.
         </div>
       </div>
     </div>

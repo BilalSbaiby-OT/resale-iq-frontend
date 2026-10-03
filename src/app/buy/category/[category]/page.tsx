@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { BuyTierChip } from "@/components/buy-tier-chip"
 import { notFound } from "next/navigation"
 import type { Metadata } from "next"
 import {
@@ -7,7 +8,10 @@ import {
   catSlug,
   buyDataDate,
   fmtEurBuy,
-  fmtDeparturesBuy,
+  fmtTierBuy,
+  tierPhrase,
+  categoryTier,
+  BUY_TIER_NOTE,
   signalDisplay,
   type BuyBrand,
   type BuyCategory,
@@ -49,13 +53,13 @@ async function generateMetadataRaw({
 
   const { categoryName, rows } = data
   const top = rows[0]
-  const total30d = rows.reduce((s, r) => s + r.cat.sold_30d, 0)
+  const pace = tierPhrase(categoryTier(categoryName))
 
   const title = `Best Brands for ${categoryName} Resale — Buy-Below Prices | ResaleIQ`
   const description =
     `${rows.length} brands tracked for ${categoryName} resale on Vinted. ` +
     (top ? `${top.brand.brand} leads — buy below ${fmtEurBuy(top.cat.buy_below)} for ~30% margin before fees. ` : "") +
-    `${fmtDeparturesBuy(total30d)} listings left the shelf in 30 days.`
+    (pace ? `${categoryName} listings are ${pace} compared with other categories.` : "")
 
   return {
     title,
@@ -76,12 +80,15 @@ export default async function BuyCategoryPage({
 
   const { categoryName, rows } = data
   const top = rows[0]
-  const total30d = rows.reduce((s, r) => s + r.cat.sold_30d, 0)
+  const catTier = categoryTier(categoryName)
+  const pace = tierPhrase(catTier)
   const lower = categoryName.toLowerCase()
 
   const directAnswer =
     `${rows.length} brands had ${categoryName.toLowerCase()} leave the shelf on Vinted in the 30 days to ${buyDataDate()}. ` +
-    `Combined, that is ${fmtDeparturesBuy(total30d)} watched departures across Spain, France, Germany, Italy and Portugal. ` +
+    (pace
+      ? `Across Spain, France, Germany, Italy and Portugal, the ${lower} category is ${pace} compared with the other categories we track. `
+      : "") +
     (top
       ? `${top.brand.brand} leads the ${lower} ranking — buy below ${fmtEurBuy(top.cat.buy_below)} for ~30% margin before fees. `
       : "") +
@@ -167,7 +174,7 @@ export default async function BuyCategoryPage({
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 12, marginBottom: 32 }}>
           {[
             [String(rows.length), "brands tracked"],
-            [fmtDeparturesBuy(total30d), "total left the shelf / 30d"],
+            [fmtTierBuy(catTier), "category pace vs other categories"],
             [top ? fmtEurBuy(top.cat.buy_below) : "—", `top brand buy below (${top?.brand.brand ?? "—"})`],
           ].map(([v, l]) => (
             <div key={l} style={{ background: "var(--color-surface, #131823)", border: "1px solid var(--color-border-ui, #1e2a3f)", borderRadius: 12, padding: "16px 18px" }}>
@@ -193,7 +200,7 @@ export default async function BuyCategoryPage({
                     borderRadius: 10,
                     padding: "14px 18px",
                     display: "grid",
-                    gridTemplateColumns: "32px 1fr auto auto auto",
+                    gridTemplateColumns: "32px 1fr auto auto auto auto",
                     alignItems: "center",
                     gap: 14,
                   }}>
@@ -209,6 +216,7 @@ export default async function BuyCategoryPage({
                       <div style={{ fontSize: 12, color: "#5b6b8c" }}>buy below</div>
                       <div style={{ fontSize: 14, fontWeight: 700, color: "#34C759" }}>{fmtEurBuy(r.cat.buy_below)}</div>
                     </div>
+                    <BuyTierChip tier={r.cat.tier} />
                     {r.cat.signal && (
                       <div style={{
                         fontSize: 11, fontWeight: 700, padding: "4px 8px", borderRadius: 6,
@@ -229,6 +237,7 @@ export default async function BuyCategoryPage({
           <h2 style={{ fontSize: 18, fontWeight: 700, color: "#eef1f7", marginBottom: 10 }}>
             Volume vs margin in {lower} resale
           </h2>
+          <p style={{ fontSize: 13, lineHeight: 1.6, color: "#8b99b8", marginBottom: 12 }}>{BUY_TIER_NOTE}</p>
           <p style={{ fontSize: 14.5, lineHeight: 1.75, marginBottom: 12 }}>
             High-volume brands move fast but at lower price points — meaning thinner gross margins per item.
             Premium brands carry higher margins per unit but sit longer and require more capital tied up between
@@ -273,7 +282,7 @@ export default async function BuyCategoryPage({
         </div>
 
         <div style={{ marginTop: 16, fontSize: 12, color: "#3f4a63" }}>
-          Data updated {BUY_DATA.generated_at}. Source: {BUY_DATA.source}. {BUY_DATA.threshold}.
+          Data updated {BUY_DATA.generated_at}. Source: {BUY_DATA.source}.
         </div>
       </div>
     </div>

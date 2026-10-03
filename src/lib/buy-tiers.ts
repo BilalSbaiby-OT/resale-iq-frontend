@@ -98,7 +98,7 @@ export interface TierableData {
  * brand x category pair, brand.tier on every brand, category_tiers by category
  * name (ranked on the total across brands). Idempotent.
  */
-export function applyBuyTiers<T extends TierableData>(data: T): T {
+export function applyBuyTiers<T extends TierableData>(data: T): T & TierableData {
   const pairs = data.brands.flatMap((b) => b.categories)
   assignBuyTiers(pairs.map((c) => c.sold_30d)).forEach((t, i) => {
     pairs[i].tier = t
