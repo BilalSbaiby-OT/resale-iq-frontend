@@ -785,7 +785,7 @@ export const copy = {
     howToCoverage:
       "Nous ne suivons pas les articles à faible demande ni les marques hors de ce catalogue. Samba, Air Force 1 et Fred Perry Polo sont les exemples gratuits sur Vinted ES/FR/DE/IT/PT. Un échec est un trou de couverture — pas un chiffre caché derrière une offre payante.",
     heroBody:
-      "Signaux BUY / WATCH / SKIP pour revendeurs : prix de revente typique et prix max à payer avant de sourcer du stock. Données Vinted FR · DE · ES · IT · PT.",
+      "Signaux ACHETER / SURVEILLER / ÉCARTER pour revendeurs : prix de revente typique et prix max à payer avant de sourcer du stock. Données Vinted FR · DE · ES · IT · PT.",
     heroFrom: (tracked: string) =>
       `À partir de ${tracked} enregistrements d'annonces, et les disparitions observées, sur cinq marchés UE.`,
     heroHonesty:
@@ -835,7 +835,7 @@ export const copy = {
       volumesMid: ". Ce qui part dans cet instantané est classé sur ",
       volumesFlips: "les flips de marque",
       volumesEnd: ".",
-      oneItem: "Le checker répond un article à la fois.",
+      oneItem: "Le vérificateur répond à un article à la fois.",
       seePlansFooter: "Voir les offres →",
       calc: {
         pageTitle: "Calculateur de profit",
