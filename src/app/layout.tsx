@@ -28,7 +28,7 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", 
 
 // EX-HOMEPAGE-AEO — answer-first, brand suffix. Demand OS, not Vinted-sourcing.
 // Soft cap 60. H1 on `/` stays t.heroHeadline.
-const TITLE = "What to buy this week to resell on Vinted — Resale IQ"
+const TITLE = "Resale IQ — Resale price + max buy for 100 popular pieces"
 
 // The dataset size is FETCHED, never typed. The meta description and JSON-LD
 // carry the ONE headline ("14M+ listing records", listingRecordsHeadline() in
@@ -38,8 +38,8 @@ const TITLE = "What to buy this week to resell on Vinted — Resale IQ"
 // No records figure (warehouse unreachable) means NO figure clause — never the
 // distinct count wearing the "listing records" label, which is what this used
 // to do and is how one page came to carry two different "sizes".
-const desc = (tracked: string) =>
-  `${tracked !== "—" ? `${tracked} listing records across 5 EU markets. ` : ""}Vinted resale signals: what leaves the shelf, buy-below price, BUY/WATCH/SKIP verdict per item.`
+const desc = (_tracked: string) =>
+  "BUY / WATCH / SKIP signals for resellers: typical resale price and the max price to pay before you source stock. Vinted FR · DE · ES · IT · PT data."
 
 export async function generateMetadata(): Promise<Metadata> {
   const tracked = await listingRecordsHeadline()

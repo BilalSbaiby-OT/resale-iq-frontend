@@ -157,14 +157,14 @@ test("homepage layout owns answer-first title + matching og/twitter (EX-HOMEPAGE
   const titleMatch = layout.match(/const TITLE = "([^"]+)"/)
   assert.ok(titleMatch)
   const title = titleMatch[1]
-  assert.equal(title, "What to buy this week to resell on Vinted — Resale IQ")
+  assert.equal(title, "Resale IQ — Resale price + max buy for 100 popular pieces")
   assert.ok(title.length <= 60)
   assert.match(title, /Resale IQ/)
-  assert.match(title, /What to buy/)
+  assert.doesNotMatch(title, /buy .* on Vinted/i)
   assert.doesNotMatch(title, /Know what to pay/)
   assert.match(
     layout,
-    /listing records across 5 EU markets/,
+    /BUY \/ WATCH \/ SKIP signals for resellers/,
   )
   assert.match(layout, /openGraph: \{[\s\S]*title: TITLE/)
   assert.match(layout, /twitter: \{[\s\S]*title: TITLE/)

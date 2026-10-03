@@ -8,7 +8,7 @@ import { listingRecordsHeadline } from "@/lib/stats"
 //
 // Generated rather than a static PNG so it stays in step with the brand colours
 // and the headline claim, and so there is no binary asset to keep in sync.
-export const alt = "Resale IQ — know what to buy on Vinted, at what price, in which sizes"
+export const alt = "Resale IQ — typical resale price and max price to pay, with BUY / WATCH / SKIP signals"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 

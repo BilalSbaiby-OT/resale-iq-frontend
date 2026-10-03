@@ -13,7 +13,7 @@ export const OG_IMAGE = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
-  alt: "Resale IQ — know what to buy on Vinted, at what price, in which sizes",
+  alt: "Resale IQ — typical resale price and max price to pay, with BUY / WATCH / SKIP signals",
   type: "image/png" as const,
 }
 
