@@ -27,6 +27,7 @@ import { execSync } from "child_process"
 import fs from "fs"
 import path from "path"
 import { fileURLToPath } from "url"
+import { applyBuyTiers } from "../src/lib/buy-tiers.ts"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT_PATH = path.join(__dirname, "../src/data/buy-data.json")
@@ -169,6 +170,16 @@ result = {
 sys.stdout.write(json.dumps(result, ensure_ascii=False))
 `.trim()
 
+// Pace tiers (Moving fast / Steady / Slow) are stamped here, at generation time:
+// /buy prints the tier, never the departure count (src/lib/buy-tiers.ts).
+// `--tiers-only` re-tiers the committed file without touching prod.
+if (process.argv.includes("--tiers-only")) {
+  const data = applyBuyTiers(JSON.parse(fs.readFileSync(OUT_PATH, "utf8")))
+  fs.writeFileSync(OUT_PATH, JSON.stringify(data, null, 2), "utf8")
+  console.log(`Re-tiered ${data.total_pairs} pairs / ${data.total_brands} brands in ${OUT_PATH}`)
+  process.exit(0)
+}
+
 try {
   console.log("Getting container name...")
   const container = execSync(`ssh resaleiq "docker ps --format '{{.Names}}' | grep ph5cl"`, { encoding: "utf8" }).trim()
@@ -178,7 +189,7 @@ try {
   console.log("Running DB query (this may take a moment)...")
   const output = execSync(`ssh resaleiq "docker exec -i ${container} python3 -"`, { input: PY, encoding: "utf8", timeout: 120000, maxBuffer: 64 * 1024 * 1024 })
 
-  const data = JSON.parse(output)
+  const data = applyBuyTiers(JSON.parse(output))
   console.log(`Got ${data.total_brands} brands, ${data.total_pairs} pairs`)
   
   fs.writeFileSync(OUT_PATH, JSON.stringify(data, null, 2), "utf8")
