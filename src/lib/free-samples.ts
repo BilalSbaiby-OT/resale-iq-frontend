@@ -28,13 +28,13 @@ export const FREE_SAMPLES = ["Adidas Samba", "Nike Air Force 1", "Fred Perry Pol
 export type FreeSample = (typeof FREE_SAMPLES)[number]
 
 /**
- * The sample with the steadiest measured number (Fred Perry Polo: WATCH,
- * MEDIUM confidence, non-provisional on 2026-10-02; Samba and AF1 were still
- * provisional). It is the fallback a brand-new account is seeded with when
- * the live buy-list names none of the three. Typed as FreeSample, so it can
- * never drift out of the list above.
+ * The sample with the best live answer: Adidas Samba is BUY with a buy-below
+ * number (2026-10-04 live; Fred Perry Polo is now SKIP with no max buy, which
+ * made it the worst demo). It is the hero/seed query and the fallback a
+ * brand-new account is seeded with when the live buy-list names none of the
+ * three. Typed as FreeSample, so it can never drift out of the list above.
  */
-export const FREE_SAMPLE_DEMO: FreeSample = "Fred Perry Polo"
+export const FREE_SAMPLE_DEMO: FreeSample = "Adidas Samba"
 
 /** Same list as chip descriptors: label shown, query sent. */
 export const FREE_SAMPLE_CHIPS: ReadonlyArray<{ label: string; q: string }> = FREE_SAMPLES.map((q) => ({

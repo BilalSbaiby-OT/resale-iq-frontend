@@ -13,6 +13,10 @@ test("server-side hero/seed query is an anonymously-allowed free sample (anythin
   assert.ok(isFreeSample(HERO_QUERY), `${HERO_QUERY} is not in FREE_SAMPLES`)
 })
 
+test("hero/seed is Adidas Samba (BUY with a max buy live 2026-10-04; Fred Perry Polo is SKIP, no max buy)", () => {
+  assert.equal(HERO_QUERY, "Adidas Samba")
+})
+
 test("typical-price basis comes from the buy-list rows, defaulting to departed", () => {
   assert.equal(basisFromBuyList([row("live_ask"), row("live_ask")]), "live_ask")
   assert.equal(basisFromBuyList([row(), row("live_ask")]), "live_ask")

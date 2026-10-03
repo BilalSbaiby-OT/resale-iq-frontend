@@ -26,7 +26,7 @@ test.describe("first screen: a worked answer, not an empty box", () => {
     const seed = page.getByTestId("riq-seed-verdict")
     await expect(seed).toBeVisible()
     // The item-level answer, not a brand average and not a marketing line.
-    await expect(seed).toContainText("Fred Perry Polo")
+    await expect(seed).toContainText("Adidas Samba")
     await expect(seed).toContainText(/WATCH|BUY|SKIP/)
     // The buy-below tile IS the argument — a label with a dash under it would
     // pass a "the card rendered" assertion and fail the actual point.
