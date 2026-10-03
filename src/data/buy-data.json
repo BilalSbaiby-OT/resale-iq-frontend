@@ -1,1 +1,3269 @@
-{"generated_at": "2026-09-22", "source": "market_stats (Vinted DE/FR/ES/IT/PT)", "formula": "buy_below = avg_price_eur * 0.70 (30% gross margin; no fee factor, Vinted charges private sellers no selling fee - same as engine/insight.buy_below_from_avg)", "threshold": "sold_30d >= 3 (30-day departures)", "total_pairs": 232, "total_brands": 38, "brands": [{"brand": "Stone Island", "slug": "stone-island", "sold_30d": 2065, "avg_price_eur": 60.0, "top_categories": ["Hoodies", "Jackets", "Shirts"], "categories": [{"category": "Hoodies", "slug": "hoodies", "sold_30d": 1161, "avg_price_eur": 52.0, "median_price_eur": null, "buy_below": 36.65, "avg_days_to_sell": 0.3, "active_listings": 14852, "signal": "STRONG BUY", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 342, "avg_price_eur": 126.0, "median_price_eur": null, "buy_below": 88.52, "avg_days_to_sell": 0.2, "active_listings": 5158, "signal": "STRONG BUY", "confidence": 100.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 243, "avg_price_eur": 27.0, "median_price_eur": null, "buy_below": 19.24, "avg_days_to_sell": 0.1, "active_listings": 4267, "signal": "BUY", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 197, "avg_price_eur": 25.0, "median_price_eur": null, "buy_below": 17.23, "avg_days_to_sell": 0.2, "active_listings": 3129, "signal": "MONITOR", "confidence": 100.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 53, "avg_price_eur": 44.0, "median_price_eur": null, "buy_below": 31.0, "avg_days_to_sell": 0.2, "active_listings": 1234, "signal": "BUY", "confidence": 100.0}, {"category": "Caps", "slug": "caps", "sold_30d": 32, "avg_price_eur": 30.0, "median_price_eur": null, "buy_below": 20.93, "avg_days_to_sell": 0.3, "active_listings": 370, "signal": "MONITOR", "confidence": 100.0}, {"category": "Jeans", "slug": "jeans", "sold_30d": 15, "avg_price_eur": 49.0, "median_price_eur": null, "buy_below": 34.08, "avg_days_to_sell": 0.1, "active_listings": 604, "signal": "MONITOR", "confidence": 85.0}, {"category": "Coats", "slug": "coats", "sold_30d": 11, "avg_price_eur": 203.0, "median_price_eur": null, "buy_below": 142.24, "avg_days_to_sell": 0.4, "active_listings": 189, "signal": "AVOID", "confidence": 55.0}, {"category": "Sneakers", "slug": "sneakers", "sold_30d": 7, "avg_price_eur": 203.0, "median_price_eur": null, "buy_below": 142.2, "avg_days_to_sell": 1.0, "active_listings": 128, "signal": "AVOID", "confidence": 35.0}, {"category": "Bags", "slug": "bags", "sold_30d": 3, "avg_price_eur": 79.0, "median_price_eur": null, "buy_below": 55.22, "avg_days_to_sell": 0.1, "active_listings": 94, "signal": "AVOID", "confidence": 15.0}]}, {"brand": "Patagonia", "slug": "patagonia", "sold_30d": 1916, "avg_price_eur": 33.0, "top_categories": ["Jackets", "Bags", "Hoodies"], "categories": [{"category": "Jackets", "slug": "jackets", "sold_30d": 653, "avg_price_eur": 49.0, "median_price_eur": null, "buy_below": 34.47, "avg_days_to_sell": 0.6, "active_listings": 10982, "signal": "STRONG BUY", "confidence": 100.0}, {"category": "Bags", "slug": "bags", "sold_30d": 414, "avg_price_eur": 27.0, "median_price_eur": null, "buy_below": 18.63, "avg_days_to_sell": 0.4, "active_listings": 2025, "signal": "BUY", "confidence": 100.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 262, "avg_price_eur": 37.0, "median_price_eur": null, "buy_below": 26.12, "avg_days_to_sell": 0.2, "active_listings": 5505, "signal": "BUY", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 214, "avg_price_eur": 17.0, "median_price_eur": null, "buy_below": 11.68, "avg_days_to_sell": 0.4, "active_listings": 1975, "signal": "BUY", "confidence": 100.0}, {"category": "Caps", "slug": "caps", "sold_30d": 189, "avg_price_eur": 15.0, "median_price_eur": null, "buy_below": 10.23, "avg_days_to_sell": 0.1, "active_listings": 886, "signal": "BUY", "confidence": 100.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 117, "avg_price_eur": 18.0, "median_price_eur": null, "buy_below": 12.79, "avg_days_to_sell": 0.4, "active_listings": 1231, "signal": "BUY", "confidence": 100.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 39, "avg_price_eur": 25.0, "median_price_eur": null, "buy_below": 17.67, "avg_days_to_sell": 0.7, "active_listings": 629, "signal": "AVOID", "confidence": 100.0}, {"category": "Coats", "slug": "coats", "sold_30d": 29, "avg_price_eur": 62.0, "median_price_eur": null, "buy_below": 43.25, "avg_days_to_sell": 0.2, "active_listings": 502, "signal": "AVOID", "confidence": 100.0}]}, {"brand": "Fred Perry", "slug": "fred-perry", "sold_30d": 1702, "avg_price_eur": 21.0, "top_categories": ["Shirts", "T-Shirts", "Hoodies"], "categories": [{"category": "Shirts", "slug": "shirts", "sold_30d": 924, "avg_price_eur": 15.0, "median_price_eur": null, "buy_below": 10.41, "avg_days_to_sell": 0.2, "active_listings": 14972, "signal": "STRONG BUY", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 295, "avg_price_eur": 13.0, "median_price_eur": null, "buy_below": 9.03, "avg_days_to_sell": 0.2, "active_listings": 3366, "signal": "STRONG BUY", "confidence": 100.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 244, "avg_price_eur": 21.0, "median_price_eur": null, "buy_below": 14.38, "avg_days_to_sell": 0.2, "active_listings": 4030, "signal": "BUY", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 164, "avg_price_eur": 66.0, "median_price_eur": null, "buy_below": 46.05, "avg_days_to_sell": 0.2, "active_listings": 2735, "signal": "STRONG BUY", "confidence": 100.0}, {"category": "Sneakers", "slug": "sneakers", "sold_30d": 24, "avg_price_eur": 22.0, "median_price_eur": null, "buy_below": 15.46, "avg_days_to_sell": 0.1, "active_listings": 748, "signal": "AVOID", "confidence": 100.0}, {"category": "Caps", "slug": "caps", "sold_30d": 17, "avg_price_eur": 18.0, "median_price_eur": null, "buy_below": 12.53, "avg_days_to_sell": 0.1, "active_listings": 109, "signal": "AVOID", "confidence": 100.0}, {"category": "Bags", "slug": "bags", "sold_30d": 13, "avg_price_eur": 21.0, "median_price_eur": null, "buy_below": 14.72, "avg_days_to_sell": 0.1, "active_listings": 180, "signal": "AVOID", "confidence": 65.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 13, "avg_price_eur": 28.0, "median_price_eur": null, "buy_below": 19.75, "avg_days_to_sell": 0.1, "active_listings": 202, "signal": "AVOID", "confidence": 60.0}, {"category": "Coats", "slug": "coats", "sold_30d": 4, "avg_price_eur": 32.0, "median_price_eur": null, "buy_below": 22.58, "avg_days_to_sell": 0.1, "active_listings": 38, "signal": "AVOID", "confidence": 10.0}, {"category": "Jeans", "slug": "jeans", "sold_30d": 3, "avg_price_eur": 35.0, "median_price_eur": null, "buy_below": 24.49, "avg_days_to_sell": 0.1, "active_listings": 48, "signal": "AVOID", "confidence": 7.5}]}, {"brand": "Pokémon", "slug": "pok-mon", "sold_30d": 1130, "avg_price_eur": 84.0, "top_categories": ["Other"], "categories": [{"category": "Other", "slug": "other", "sold_30d": 1130, "avg_price_eur": 84.0, "median_price_eur": 14.0, "buy_below": 59.13, "avg_days_to_sell": 0.8, "active_listings": 9619, "signal": "AVOID", "confidence": 100.0}]}, {"brand": "Balenciaga", "slug": "balenciaga", "sold_30d": 972, "avg_price_eur": 128.0, "top_categories": ["Sneakers", "T-Shirts", "Hoodies"], "categories": [{"category": "Sneakers", "slug": "sneakers", "sold_30d": 329, "avg_price_eur": 130.0, "median_price_eur": null, "buy_below": 90.68, "avg_days_to_sell": 0.3, "active_listings": 2518, "signal": "BUY", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 168, "avg_price_eur": 72.0, "median_price_eur": null, "buy_below": 50.49, "avg_days_to_sell": 0.2, "active_listings": 933, "signal": "BUY", "confidence": 100.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 149, "avg_price_eur": 97.0, "median_price_eur": null, "buy_below": 68.15, "avg_days_to_sell": 0.2, "active_listings": 897, "signal": "BUY", "confidence": 100.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 130, "avg_price_eur": 60.0, "median_price_eur": null, "buy_below": 41.92, "avg_days_to_sell": 0.2, "active_listings": 659, "signal": "MONITOR", "confidence": 100.0}, {"category": "Bags", "slug": "bags", "sold_30d": 82, "avg_price_eur": 312.0, "median_price_eur": null, "buy_below": 218.46, "avg_days_to_sell": 0.9, "active_listings": 531, "signal": "STRONG BUY", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 42, "avg_price_eur": 193.0, "median_price_eur": null, "buy_below": 135.28, "avg_days_to_sell": 1.3, "active_listings": 379, "signal": "MONITOR", "confidence": 100.0}, {"category": "Jeans", "slug": "jeans", "sold_30d": 28, "avg_price_eur": 166.0, "median_price_eur": null, "buy_below": 116.05, "avg_days_to_sell": 0.2, "active_listings": 299, "signal": "MONITOR", "confidence": 100.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 22, "avg_price_eur": 175.0, "median_price_eur": null, "buy_below": 122.39, "avg_days_to_sell": 0.3, "active_listings": 217, "signal": "AVOID", "confidence": 100.0}, {"category": "Caps", "slug": "caps", "sold_30d": 17, "avg_price_eur": 69.0, "median_price_eur": null, "buy_below": 48.36, "avg_days_to_sell": 0.2, "active_listings": 181, "signal": "AVOID", "confidence": 75.0}, {"category": "Coats", "slug": "coats", "sold_30d": 5, "avg_price_eur": 838.0, "median_price_eur": null, "buy_below": 586.74, "avg_days_to_sell": 0.3, "active_listings": 51, "signal": "AVOID", "confidence": 30.0}]}, {"brand": "Gucci", "slug": "gucci", "sold_30d": 743, "avg_price_eur": 152.0, "top_categories": ["Bags", "Caps", "Sneakers"], "categories": [{"category": "Bags", "slug": "bags", "sold_30d": 262, "avg_price_eur": 235.0, "median_price_eur": null, "buy_below": 164.2, "avg_days_to_sell": 0.3, "active_listings": 5076, "signal": "BUY", "confidence": 100.0}, {"category": "Caps", "slug": "caps", "sold_30d": 223, "avg_price_eur": 77.0, "median_price_eur": null, "buy_below": 53.56, "avg_days_to_sell": 0.3, "active_listings": 3762, "signal": "AVOID", "confidence": 100.0}, {"category": "Sneakers", "slug": "sneakers", "sold_30d": 83, "avg_price_eur": 149.0, "median_price_eur": null, "buy_below": 104.09, "avg_days_to_sell": 0.3, "active_listings": 4676, "signal": "AVOID", "confidence": 100.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 43, "avg_price_eur": 133.0, "median_price_eur": null, "buy_below": 93.44, "avg_days_to_sell": 0.1, "active_listings": 1148, "signal": "AVOID", "confidence": 100.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 40, "avg_price_eur": 62.0, "median_price_eur": null, "buy_below": 43.67, "avg_days_to_sell": 0.1, "active_listings": 1360, "signal": "BUY", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 32, "avg_price_eur": 290.0, "median_price_eur": null, "buy_below": 203.22, "avg_days_to_sell": 0.2, "active_listings": 1035, "signal": "AVOID", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 32, "avg_price_eur": 38.0, "median_price_eur": null, "buy_below": 26.34, "avg_days_to_sell": 0.2, "active_listings": 1180, "signal": "AVOID", "confidence": 100.0}, {"category": "Jeans", "slug": "jeans", "sold_30d": 14, "avg_price_eur": 118.0, "median_price_eur": null, "buy_below": 82.35, "avg_days_to_sell": 0.1, "active_listings": 628, "signal": "AVOID", "confidence": 82.5}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 10, "avg_price_eur": 130.0, "median_price_eur": null, "buy_below": 90.89, "avg_days_to_sell": 0.1, "active_listings": 338, "signal": "AVOID", "confidence": 57.5}, {"category": "Coats", "slug": "coats", "sold_30d": 4, "avg_price_eur": 73.0, "median_price_eur": null, "buy_below": 50.86, "avg_days_to_sell": 0.2, "active_listings": 123, "signal": "AVOID", "confidence": 12.5}]}, {"brand": "The North Face", "slug": "the-north-face", "sold_30d": 571, "avg_price_eur": 32.0, "top_categories": ["Jackets", "T-Shirts", "Hoodies"], "categories": [{"category": "Jackets", "slug": "jackets", "sold_30d": 264, "avg_price_eur": 44.0, "median_price_eur": null, "buy_below": 30.78, "avg_days_to_sell": 0.3, "active_listings": 32584, "signal": "AVOID", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 83, "avg_price_eur": 9.0, "median_price_eur": null, "buy_below": 6.34, "avg_days_to_sell": 0.2, "active_listings": 11322, "signal": "AVOID", "confidence": 100.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 83, "avg_price_eur": 16.0, "median_price_eur": null, "buy_below": 10.91, "avg_days_to_sell": 0.4, "active_listings": 17486, "signal": "AVOID", "confidence": 100.0}, {"category": "Bags", "slug": "bags", "sold_30d": 41, "avg_price_eur": 52.0, "median_price_eur": null, "buy_below": 36.13, "avg_days_to_sell": 0.2, "active_listings": 4261, "signal": "AVOID", "confidence": 100.0}, {"category": "Caps", "slug": "caps", "sold_30d": 37, "avg_price_eur": 23.0, "median_price_eur": null, "buy_below": 15.91, "avg_days_to_sell": 0.2, "active_listings": 2803, "signal": "AVOID", "confidence": 100.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 22, "avg_price_eur": 17.0, "median_price_eur": null, "buy_below": 12.12, "avg_days_to_sell": 0.1, "active_listings": 3180, "signal": "AVOID", "confidence": 100.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 22, "avg_price_eur": 28.0, "median_price_eur": null, "buy_below": 19.59, "avg_days_to_sell": 0.2, "active_listings": 3541, "signal": "AVOID", "confidence": 100.0}, {"category": "Coats", "slug": "coats", "sold_30d": 16, "avg_price_eur": 37.0, "median_price_eur": null, "buy_below": 25.81, "avg_days_to_sell": 1.0, "active_listings": 2214, "signal": "AVOID", "confidence": 85.0}, {"category": "Sneakers", "slug": "sneakers", "sold_30d": 4, "avg_price_eur": 33.0, "median_price_eur": null, "buy_below": 23.19, "avg_days_to_sell": 0.1, "active_listings": 1166, "signal": "AVOID", "confidence": 27.5}]}, {"brand": "New Balance", "slug": "new-balance", "sold_30d": 557, "avg_price_eur": 41.0, "top_categories": ["Sneakers", "Tracksuits", "Jackets"], "categories": [{"category": "Sneakers", "slug": "sneakers", "sold_30d": 530, "avg_price_eur": 42.0, "median_price_eur": null, "buy_below": 29.47, "avg_days_to_sell": 0.3, "active_listings": 76565, "signal": "STRONG BUY", "confidence": 100.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 10, "avg_price_eur": 18.0, "median_price_eur": null, "buy_below": 12.29, "avg_days_to_sell": 0.1, "active_listings": 1351, "signal": "BUY", "confidence": 57.5}, {"category": "Jackets", "slug": "jackets", "sold_30d": 7, "avg_price_eur": 33.0, "median_price_eur": null, "buy_below": 23.0, "avg_days_to_sell": 0.2, "active_listings": 924, "signal": "AVOID", "confidence": 40.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 5, "avg_price_eur": 8.0, "median_price_eur": null, "buy_below": 5.31, "avg_days_to_sell": 0.2, "active_listings": 1710, "signal": "AVOID", "confidence": 37.5}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 5, "avg_price_eur": 14.0, "median_price_eur": null, "buy_below": 9.63, "avg_days_to_sell": 0.1, "active_listings": 1824, "signal": "MONITOR", "confidence": 37.5}]}, {"brand": "Diesel", "slug": "diesel", "sold_30d": 538, "avg_price_eur": 22.0, "top_categories": ["Jeans", "T-Shirts", "Hoodies"], "categories": [{"category": "Jeans", "slug": "jeans", "sold_30d": 250, "avg_price_eur": 19.0, "median_price_eur": null, "buy_below": 13.6, "avg_days_to_sell": 0.5, "active_listings": 24185, "signal": "AVOID", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 76, "avg_price_eur": 10.0, "median_price_eur": null, "buy_below": 7.06, "avg_days_to_sell": 0.2, "active_listings": 6253, "signal": "AVOID", "confidence": 100.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 65, "avg_price_eur": 18.0, "median_price_eur": null, "buy_below": 12.45, "avg_days_to_sell": 0.2, "active_listings": 5785, "signal": "AVOID", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 54, "avg_price_eur": 42.0, "median_price_eur": null, "buy_below": 29.2, "avg_days_to_sell": 0.3, "active_listings": 4914, "signal": "AVOID", "confidence": 100.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 33, "avg_price_eur": 12.0, "median_price_eur": null, "buy_below": 8.52, "avg_days_to_sell": 0.2, "active_listings": 3294, "signal": "AVOID", "confidence": 100.0}, {"category": "Bags", "slug": "bags", "sold_30d": 27, "avg_price_eur": 43.0, "median_price_eur": null, "buy_below": 30.02, "avg_days_to_sell": 0.2, "active_listings": 1216, "signal": "AVOID", "confidence": 100.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 13, "avg_price_eur": 13.0, "median_price_eur": null, "buy_below": 8.91, "avg_days_to_sell": 0.1, "active_listings": 1212, "signal": "AVOID", "confidence": 85.0}, {"category": "Sneakers", "slug": "sneakers", "sold_30d": 12, "avg_price_eur": 33.0, "median_price_eur": null, "buy_below": 22.76, "avg_days_to_sell": 0.2, "active_listings": 1365, "signal": "AVOID", "confidence": 92.5}, {"category": "Coats", "slug": "coats", "sold_30d": 4, "avg_price_eur": 92.0, "median_price_eur": null, "buy_below": 64.52, "avg_days_to_sell": 0.1, "active_listings": 314, "signal": "AVOID", "confidence": 25.0}, {"category": "Caps", "slug": "caps", "sold_30d": 4, "avg_price_eur": 21.0, "median_price_eur": null, "buy_below": 14.99, "avg_days_to_sell": 0.2, "active_listings": 318, "signal": "AVOID", "confidence": 20.0}]}, {"brand": "Supreme", "slug": "supreme", "sold_30d": 441, "avg_price_eur": 56.0, "top_categories": ["Hoodies", "T-Shirts", "Bags"], "categories": [{"category": "Hoodies", "slug": "hoodies", "sold_30d": 126, "avg_price_eur": 67.0, "median_price_eur": null, "buy_below": 46.71, "avg_days_to_sell": 0.2, "active_listings": 3584, "signal": "AVOID", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 114, "avg_price_eur": 31.0, "median_price_eur": null, "buy_below": 21.48, "avg_days_to_sell": 0.2, "active_listings": 4107, "signal": "AVOID", "confidence": 100.0}, {"category": "Bags", "slug": "bags", "sold_30d": 65, "avg_price_eur": 56.0, "median_price_eur": null, "buy_below": 38.98, "avg_days_to_sell": 0.2, "active_listings": 638, "signal": "AVOID", "confidence": 100.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 43, "avg_price_eur": 42.0, "median_price_eur": null, "buy_below": 29.08, "avg_days_to_sell": 0.1, "active_listings": 1077, "signal": "AVOID", "confidence": 100.0}, {"category": "Caps", "slug": "caps", "sold_30d": 42, "avg_price_eur": 39.0, "median_price_eur": null, "buy_below": 27.18, "avg_days_to_sell": 0.2, "active_listings": 1035, "signal": "AVOID", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 33, "avg_price_eur": 131.0, "median_price_eur": null, "buy_below": 91.53, "avg_days_to_sell": 0.1, "active_listings": 958, "signal": "AVOID", "confidence": 100.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 9, "avg_price_eur": 79.0, "median_price_eur": null, "buy_below": 55.27, "avg_days_to_sell": 0.7, "active_listings": 463, "signal": "AVOID", "confidence": 60.0}, {"category": "Sneakers", "slug": "sneakers", "sold_30d": 6, "avg_price_eur": 96.0, "median_price_eur": null, "buy_below": 67.11, "avg_days_to_sell": 0.1, "active_listings": 297, "signal": "AVOID", "confidence": 32.5}, {"category": "Jeans", "slug": "jeans", "sold_30d": 3, "avg_price_eur": 51.0, "median_price_eur": null, "buy_below": 35.41, "avg_days_to_sell": 0.1, "active_listings": 208, "signal": "AVOID", "confidence": 20.0}]}, {"brand": "Off-White", "slug": "off-white", "sold_30d": 394, "avg_price_eur": 32.0, "top_categories": ["Shirts", "T-Shirts", "Sneakers"], "categories": [{"category": "Shirts", "slug": "shirts", "sold_30d": 241, "avg_price_eur": 22.0, "median_price_eur": null, "buy_below": 15.57, "avg_days_to_sell": 0.2, "active_listings": 1314, "signal": "AVOID", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 74, "avg_price_eur": 29.0, "median_price_eur": null, "buy_below": 20.34, "avg_days_to_sell": 0.9, "active_listings": 2052, "signal": "AVOID", "confidence": 100.0}, {"category": "Sneakers", "slug": "sneakers", "sold_30d": 37, "avg_price_eur": 87.0, "median_price_eur": null, "buy_below": 60.99, "avg_days_to_sell": 0.2, "active_listings": 2093, "signal": "AVOID", "confidence": 100.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 29, "avg_price_eur": 41.0, "median_price_eur": null, "buy_below": 28.44, "avg_days_to_sell": 0.1, "active_listings": 1546, "signal": "AVOID", "confidence": 100.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 4, "avg_price_eur": 46.0, "median_price_eur": null, "buy_below": 32.12, "avg_days_to_sell": 0.4, "active_listings": 122, "signal": "AVOID", "confidence": 12.5}, {"category": "Caps", "slug": "caps", "sold_30d": 3, "avg_price_eur": 24.0, "median_price_eur": null, "buy_below": 16.92, "avg_days_to_sell": 0.1, "active_listings": 67, "signal": "AVOID", "confidence": 10.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 3, "avg_price_eur": 103.0, "median_price_eur": null, "buy_below": 72.04, "avg_days_to_sell": 0.2, "active_listings": 252, "signal": "AVOID", "confidence": 20.0}, {"category": "Jeans", "slug": "jeans", "sold_30d": 3, "avg_price_eur": 94.0, "median_price_eur": null, "buy_below": 65.57, "avg_days_to_sell": 0.7, "active_listings": 139, "signal": "AVOID", "confidence": 10.0}]}, {"brand": "Nike", "slug": "nike", "sold_30d": 379, "avg_price_eur": 70.0, "top_categories": ["Sneakers", "Jackets", "T-Shirts"], "categories": [{"category": "Sneakers", "slug": "sneakers", "sold_30d": 193, "avg_price_eur": 106.0, "median_price_eur": null, "buy_below": 74.34, "avg_days_to_sell": 0.8, "active_listings": 50518, "signal": "STRONG BUY", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 47, "avg_price_eur": 50.0, "median_price_eur": null, "buy_below": 34.88, "avg_days_to_sell": 0.1, "active_listings": 12899, "signal": "AVOID", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 45, "avg_price_eur": 23.0, "median_price_eur": null, "buy_below": 16.29, "avg_days_to_sell": 0.2, "active_listings": 16521, "signal": "AVOID", "confidence": 100.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 38, "avg_price_eur": 29.0, "median_price_eur": null, "buy_below": 20.51, "avg_days_to_sell": 0.3, "active_listings": 18980, "signal": "STRONG BUY", "confidence": 100.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 35, "avg_price_eur": 23.0, "median_price_eur": null, "buy_below": 16.4, "avg_days_to_sell": 0.3, "active_listings": 17156, "signal": "AVOID", "confidence": 100.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 9, "avg_price_eur": 24.0, "median_price_eur": null, "buy_below": 16.54, "avg_days_to_sell": 0.1, "active_listings": 5110, "signal": "AVOID", "confidence": 57.5}, {"category": "Bags", "slug": "bags", "sold_30d": 7, "avg_price_eur": 63.0, "median_price_eur": null, "buy_below": 44.15, "avg_days_to_sell": 0.2, "active_listings": 1162, "signal": "AVOID", "confidence": 35.0}, {"category": "Caps", "slug": "caps", "sold_30d": 5, "avg_price_eur": 25.0, "median_price_eur": null, "buy_below": 17.27, "avg_days_to_sell": 0.4, "active_listings": 1085, "signal": "AVOID", "confidence": 27.5}]}, {"brand": "Carhartt", "slug": "carhartt", "sold_30d": 352, "avg_price_eur": 27.0, "top_categories": ["Jackets", "Hoodies", "T-Shirts"], "categories": [{"category": "Jackets", "slug": "jackets", "sold_30d": 79, "avg_price_eur": 51.0, "median_price_eur": null, "buy_below": 35.88, "avg_days_to_sell": 0.4, "active_listings": 13120, "signal": "AVOID", "confidence": 100.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 69, "avg_price_eur": 21.0, "median_price_eur": null, "buy_below": 14.59, "avg_days_to_sell": 0.2, "active_listings": 14022, "signal": "AVOID", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 65, "avg_price_eur": 13.0, "median_price_eur": null, "buy_below": 9.13, "avg_days_to_sell": 0.5, "active_listings": 10762, "signal": "AVOID", "confidence": 100.0}, {"category": "Jeans", "slug": "jeans", "sold_30d": 38, "avg_price_eur": 25.0, "median_price_eur": null, "buy_below": 17.57, "avg_days_to_sell": 0.2, "active_listings": 9829, "signal": "AVOID", "confidence": 100.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 30, "avg_price_eur": 15.0, "median_price_eur": null, "buy_below": 10.17, "avg_days_to_sell": 0.1, "active_listings": 6325, "signal": "AVOID", "confidence": 100.0}, {"category": "Bags", "slug": "bags", "sold_30d": 24, "avg_price_eur": 33.0, "median_price_eur": null, "buy_below": 23.01, "avg_days_to_sell": 0.1, "active_listings": 2126, "signal": "AVOID", "confidence": 100.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 22, "avg_price_eur": 30.0, "median_price_eur": null, "buy_below": 21.09, "avg_days_to_sell": 0.2, "active_listings": 3288, "signal": "AVOID", "confidence": 100.0}, {"category": "Caps", "slug": "caps", "sold_30d": 21, "avg_price_eur": 10.0, "median_price_eur": null, "buy_below": 6.79, "avg_days_to_sell": 0.2, "active_listings": 2901, "signal": "AVOID", "confidence": 87.5}, {"category": "Coats", "slug": "coats", "sold_30d": 5, "avg_price_eur": 48.0, "median_price_eur": null, "buy_below": 33.27, "avg_days_to_sell": 0.1, "active_listings": 949, "signal": "AVOID", "confidence": 27.5}]}, {"brand": "Reebok", "slug": "reebok", "sold_30d": 352, "avg_price_eur": 18.0, "top_categories": ["Sneakers", "Hoodies", "T-Shirts"], "categories": [{"category": "Sneakers", "slug": "sneakers", "sold_30d": 169, "avg_price_eur": 21.0, "median_price_eur": null, "buy_below": 14.39, "avg_days_to_sell": 1.5, "active_listings": 21433, "signal": "BUY", "confidence": 100.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 42, "avg_price_eur": 11.0, "median_price_eur": null, "buy_below": 8.03, "avg_days_to_sell": 0.3, "active_listings": 5208, "signal": "BUY", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 40, "avg_price_eur": 32.0, "median_price_eur": null, "buy_below": 22.74, "avg_days_to_sell": 0.2, "active_listings": 6522, "signal": "BUY", "confidence": 100.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 39, "avg_price_eur": 9.0, "median_price_eur": null, "buy_below": 6.35, "avg_days_to_sell": 0.2, "active_listings": 5710, "signal": "AVOID", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 35, "avg_price_eur": 14.0, "median_price_eur": null, "buy_below": 10.11, "avg_days_to_sell": 0.3, "active_listings": 4606, "signal": "BUY", "confidence": 100.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 14, "avg_price_eur": 19.0, "median_price_eur": null, "buy_below": 13.55, "avg_days_to_sell": 0.1, "active_listings": 1650, "signal": "AVOID", "confidence": 82.5}, {"category": "Bags", "slug": "bags", "sold_30d": 10, "avg_price_eur": 6.0, "median_price_eur": null, "buy_below": 4.29, "avg_days_to_sell": 0.1, "active_listings": 800, "signal": "AVOID", "confidence": 57.5}, {"category": "Caps", "slug": "caps", "sold_30d": 3, "avg_price_eur": 8.0, "median_price_eur": null, "buy_below": 5.71, "avg_days_to_sell": 0.1, "active_listings": 596, "signal": "AVOID", "confidence": 17.5}]}, {"brand": "Lacoste", "slug": "lacoste", "sold_30d": 287, "avg_price_eur": 27.0, "top_categories": ["Shirts", "Hoodies", "T-Shirts"], "categories": [{"category": "Shirts", "slug": "shirts", "sold_30d": 122, "avg_price_eur": 23.0, "median_price_eur": null, "buy_below": 15.85, "avg_days_to_sell": 0.3, "active_listings": 34003, "signal": "AVOID", "confidence": 100.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 36, "avg_price_eur": 25.0, "median_price_eur": null, "buy_below": 17.81, "avg_days_to_sell": 0.2, "active_listings": 18696, "signal": "AVOID", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 36, "avg_price_eur": 23.0, "median_price_eur": null, "buy_below": 16.23, "avg_days_to_sell": 0.2, "active_listings": 9336, "signal": "AVOID", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 31, "avg_price_eur": 41.0, "median_price_eur": null, "buy_below": 29.01, "avg_days_to_sell": 0.1, "active_listings": 8147, "signal": "AVOID", "confidence": 100.0}, {"category": "Bags", "slug": "bags", "sold_30d": 22, "avg_price_eur": 37.0, "median_price_eur": null, "buy_below": 25.56, "avg_days_to_sell": 0.2, "active_listings": 3085, "signal": "AVOID", "confidence": 100.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 21, "avg_price_eur": 30.0, "median_price_eur": null, "buy_below": 21.05, "avg_days_to_sell": 0.1, "active_listings": 6004, "signal": "AVOID", "confidence": 100.0}, {"category": "Sneakers", "slug": "sneakers", "sold_30d": 10, "avg_price_eur": 34.0, "median_price_eur": null, "buy_below": 23.88, "avg_days_to_sell": 0.1, "active_listings": 6992, "signal": "AVOID", "confidence": 60.0}, {"category": "Caps", "slug": "caps", "sold_30d": 9, "avg_price_eur": 19.0, "median_price_eur": null, "buy_below": 13.07, "avg_days_to_sell": 0.1, "active_listings": 1756, "signal": "AVOID", "confidence": 40.0}]}, {"brand": "Adidas", "slug": "adidas", "sold_30d": 257, "avg_price_eur": 39.0, "top_categories": ["Sneakers", "Jackets", "Tracksuits"], "categories": [{"category": "Sneakers", "slug": "sneakers", "sold_30d": 121, "avg_price_eur": 47.0, "median_price_eur": null, "buy_below": 32.75, "avg_days_to_sell": 0.7, "active_listings": 46382, "signal": "AVOID", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 39, "avg_price_eur": 40.0, "median_price_eur": null, "buy_below": 28.16, "avg_days_to_sell": 0.2, "active_listings": 9727, "signal": "AVOID", "confidence": 100.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 36, "avg_price_eur": 30.0, "median_price_eur": null, "buy_below": 20.91, "avg_days_to_sell": 0.2, "active_listings": 15142, "signal": "STRONG BUY", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 31, "avg_price_eur": 25.0, "median_price_eur": null, "buy_below": 17.35, "avg_days_to_sell": 0.1, "active_listings": 11917, "signal": "AVOID", "confidence": 100.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 19, "avg_price_eur": 28.0, "median_price_eur": null, "buy_below": 19.28, "avg_days_to_sell": 0.3, "active_listings": 9265, "signal": "AVOID", "confidence": 100.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 7, "avg_price_eur": 34.0, "median_price_eur": null, "buy_below": 23.72, "avg_days_to_sell": 1.0, "active_listings": 3430, "signal": "AVOID", "confidence": 40.0}, {"category": "Bags", "slug": "bags", "sold_30d": 4, "avg_price_eur": 18.0, "median_price_eur": null, "buy_below": 12.56, "avg_days_to_sell": 0.1, "active_listings": 840, "signal": "AVOID", "confidence": 17.5}]}, {"brand": "Hugo Boss", "slug": "hugo-boss", "sold_30d": 244, "avg_price_eur": 19.0, "top_categories": ["Shirts", "Hoodies", "Jackets"], "categories": [{"category": "Shirts", "slug": "shirts", "sold_30d": 77, "avg_price_eur": 13.0, "median_price_eur": null, "buy_below": 9.29, "avg_days_to_sell": 0.2, "active_listings": 15765, "signal": "AVOID", "confidence": 100.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 43, "avg_price_eur": 18.0, "median_price_eur": null, "buy_below": 12.39, "avg_days_to_sell": 0.1, "active_listings": 6805, "signal": "AVOID", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 38, "avg_price_eur": 35.0, "median_price_eur": null, "buy_below": 24.25, "avg_days_to_sell": 0.1, "active_listings": 6859, "signal": "AVOID", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 30, "avg_price_eur": 13.0, "median_price_eur": null, "buy_below": 9.41, "avg_days_to_sell": 0.3, "active_listings": 6433, "signal": "AVOID", "confidence": 100.0}, {"category": "Jeans", "slug": "jeans", "sold_30d": 16, "avg_price_eur": 19.0, "median_price_eur": null, "buy_below": 12.96, "avg_days_to_sell": 0.2, "active_listings": 3224, "signal": "AVOID", "confidence": 100.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 15, "avg_price_eur": 16.0, "median_price_eur": null, "buy_below": 11.36, "avg_days_to_sell": 0.1, "active_listings": 1717, "signal": "AVOID", "confidence": 92.5}, {"category": "Sneakers", "slug": "sneakers", "sold_30d": 12, "avg_price_eur": 26.0, "median_price_eur": null, "buy_below": 18.28, "avg_days_to_sell": 0.1, "active_listings": 2070, "signal": "AVOID", "confidence": 70.0}, {"category": "Caps", "slug": "caps", "sold_30d": 5, "avg_price_eur": 13.0, "median_price_eur": null, "buy_below": 9.03, "avg_days_to_sell": 0.1, "active_listings": 695, "signal": "AVOID", "confidence": 27.5}, {"category": "Coats", "slug": "coats", "sold_30d": 4, "avg_price_eur": 53.0, "median_price_eur": null, "buy_below": 37.12, "avg_days_to_sell": 0.1, "active_listings": 1096, "signal": "AVOID", "confidence": 32.5}, {"category": "Bags", "slug": "bags", "sold_30d": 4, "avg_price_eur": 30.0, "median_price_eur": null, "buy_below": 20.71, "avg_days_to_sell": 0.2, "active_listings": 354, "signal": "AVOID", "confidence": 20.0}]}, {"brand": "Ralph Lauren", "slug": "ralph-lauren", "sold_30d": 174, "avg_price_eur": 37.0, "top_categories": ["Shirts", "Hoodies", "Jackets"], "categories": [{"category": "Shirts", "slug": "shirts", "sold_30d": 70, "avg_price_eur": 24.0, "median_price_eur": null, "buy_below": 17.04, "avg_days_to_sell": 0.2, "active_listings": 30356, "signal": "AVOID", "confidence": 100.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 58, "avg_price_eur": 47.0, "median_price_eur": null, "buy_below": 32.95, "avg_days_to_sell": 0.2, "active_listings": 16693, "signal": "BUY", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 18, "avg_price_eur": 64.0, "median_price_eur": null, "buy_below": 45.14, "avg_days_to_sell": 0.2, "active_listings": 4911, "signal": "AVOID", "confidence": 85.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 16, "avg_price_eur": 17.0, "median_price_eur": null, "buy_below": 11.68, "avg_days_to_sell": 0.1, "active_listings": 6163, "signal": "AVOID", "confidence": 90.0}, {"category": "Sneakers", "slug": "sneakers", "sold_30d": 4, "avg_price_eur": 50.0, "median_price_eur": null, "buy_below": 34.92, "avg_days_to_sell": 0.1, "active_listings": 528, "signal": "AVOID", "confidence": 10.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 4, "avg_price_eur": 53.0, "median_price_eur": null, "buy_below": 37.37, "avg_days_to_sell": 0.1, "active_listings": 1244, "signal": "AVOID", "confidence": 20.0}, {"category": "Caps", "slug": "caps", "sold_30d": 4, "avg_price_eur": 17.0, "median_price_eur": null, "buy_below": 12.12, "avg_days_to_sell": 0.2, "active_listings": 1135, "signal": "AVOID", "confidence": 17.5}]}, {"brand": "Tommy Hilfiger", "slug": "tommy-hilfiger", "sold_30d": 173, "avg_price_eur": 20.0, "top_categories": ["Hoodies", "Shirts", "Jackets"], "categories": [{"category": "Hoodies", "slug": "hoodies", "sold_30d": 92, "avg_price_eur": 19.0, "median_price_eur": null, "buy_below": 13.08, "avg_days_to_sell": 0.2, "active_listings": 27244, "signal": "BUY", "confidence": 100.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 24, "avg_price_eur": 14.0, "median_price_eur": null, "buy_below": 9.55, "avg_days_to_sell": 0.1, "active_listings": 22352, "signal": "AVOID", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 22, "avg_price_eur": 37.0, "median_price_eur": null, "buy_below": 26.22, "avg_days_to_sell": 0.5, "active_listings": 7636, "signal": "BUY", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 20, "avg_price_eur": 13.0, "median_price_eur": null, "buy_below": 9.14, "avg_days_to_sell": 0.2, "active_listings": 10749, "signal": "BUY", "confidence": 100.0}, {"category": "Jeans", "slug": "jeans", "sold_30d": 7, "avg_price_eur": 17.0, "median_price_eur": null, "buy_below": 12.16, "avg_days_to_sell": 0.2, "active_listings": 6579, "signal": "AVOID", "confidence": 35.0}, {"category": "Sneakers", "slug": "sneakers", "sold_30d": 5, "avg_price_eur": 35.0, "median_price_eur": null, "buy_below": 24.58, "avg_days_to_sell": 0.1, "active_listings": 3257, "signal": "AVOID", "confidence": 30.0}, {"category": "Caps", "slug": "caps", "sold_30d": 3, "avg_price_eur": 17.0, "median_price_eur": null, "buy_below": 11.89, "avg_days_to_sell": 2.6, "active_listings": 559, "signal": "AVOID", "confidence": 10.0}]}, {"brand": "Zara", "slug": "zara", "sold_30d": 157, "avg_price_eur": 21.0, "top_categories": ["Hoodies", "Jackets", "Jeans"], "categories": [{"category": "Hoodies", "slug": "hoodies", "sold_30d": 40, "avg_price_eur": 20.0, "median_price_eur": null, "buy_below": 13.95, "avg_days_to_sell": 0.2, "active_listings": 10014, "signal": "AVOID", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 31, "avg_price_eur": 27.0, "median_price_eur": null, "buy_below": 19.08, "avg_days_to_sell": 0.2, "active_listings": 15506, "signal": "AVOID", "confidence": 100.0}, {"category": "Jeans", "slug": "jeans", "sold_30d": 21, "avg_price_eur": 22.0, "median_price_eur": null, "buy_below": 15.28, "avg_days_to_sell": 3.3, "active_listings": 14265, "signal": "AVOID", "confidence": 100.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 19, "avg_price_eur": 11.0, "median_price_eur": null, "buy_below": 7.43, "avg_days_to_sell": 0.2, "active_listings": 8561, "signal": "AVOID", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 17, "avg_price_eur": 10.0, "median_price_eur": null, "buy_below": 6.68, "avg_days_to_sell": 0.3, "active_listings": 6553, "signal": "AVOID", "confidence": 100.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 11, "avg_price_eur": 12.0, "median_price_eur": null, "buy_below": 8.58, "avg_days_to_sell": 0.2, "active_listings": 3327, "signal": "AVOID", "confidence": 67.5}, {"category": "Bags", "slug": "bags", "sold_30d": 9, "avg_price_eur": 22.0, "median_price_eur": null, "buy_below": 15.29, "avg_days_to_sell": 0.9, "active_listings": 1185, "signal": "AVOID", "confidence": 35.0}, {"category": "Coats", "slug": "coats", "sold_30d": 4, "avg_price_eur": 21.0, "median_price_eur": null, "buy_below": 14.44, "avg_days_to_sell": 0.2, "active_listings": 2691, "signal": "AVOID", "confidence": 25.0}, {"category": "Sneakers", "slug": "sneakers", "sold_30d": 4, "avg_price_eur": 119.0, "median_price_eur": null, "buy_below": 83.65, "avg_days_to_sell": 0.2, "active_listings": 1370, "signal": "AVOID", "confidence": 17.5}]}, {"brand": "Puma", "slug": "puma", "sold_30d": 134, "avg_price_eur": 26.0, "top_categories": ["Sneakers", "T-Shirts", "Tracksuits"], "categories": [{"category": "Sneakers", "slug": "sneakers", "sold_30d": 62, "avg_price_eur": 40.0, "median_price_eur": null, "buy_below": 27.8, "avg_days_to_sell": 0.3, "active_listings": 36793, "signal": "AVOID", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 22, "avg_price_eur": 11.0, "median_price_eur": null, "buy_below": 7.86, "avg_days_to_sell": 0.1, "active_listings": 10577, "signal": "AVOID", "confidence": 100.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 19, "avg_price_eur": 13.0, "median_price_eur": null, "buy_below": 9.31, "avg_days_to_sell": 0.1, "active_listings": 11902, "signal": "AVOID", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 12, "avg_price_eur": 19.0, "median_price_eur": null, "buy_below": 13.17, "avg_days_to_sell": 0.1, "active_listings": 5930, "signal": "AVOID", "confidence": 70.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 11, "avg_price_eur": 11.0, "median_price_eur": null, "buy_below": 7.85, "avg_days_to_sell": 0.1, "active_listings": 10071, "signal": "AVOID", "confidence": 80.0}, {"category": "Bags", "slug": "bags", "sold_30d": 4, "avg_price_eur": 15.0, "median_price_eur": null, "buy_below": 10.49, "avg_days_to_sell": 0.2, "active_listings": 984, "signal": "AVOID", "confidence": 17.5}, {"category": "Shirts", "slug": "shirts", "sold_30d": 4, "avg_price_eur": 16.0, "median_price_eur": null, "buy_below": 10.98, "avg_days_to_sell": 0.1, "active_listings": 3212, "signal": "AVOID", "confidence": 25.0}]}, {"brand": "Levi's", "slug": "levis", "sold_30d": 128, "avg_price_eur": 23.0, "top_categories": ["Jeans", "T-Shirts", "Jackets"], "categories": [{"category": "Jeans", "slug": "jeans", "sold_30d": 89, "avg_price_eur": 25.0, "median_price_eur": null, "buy_below": 17.73, "avg_days_to_sell": 0.2, "active_listings": 60532, "signal": "AVOID", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 15, "avg_price_eur": 5.0, "median_price_eur": null, "buy_below": 3.58, "avg_days_to_sell": 0.1, "active_listings": 11503, "signal": "AVOID", "confidence": 70.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 7, "avg_price_eur": 27.0, "median_price_eur": null, "buy_below": 18.74, "avg_days_to_sell": 0.1, "active_listings": 6158, "signal": "AVOID", "confidence": 37.5}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 6, "avg_price_eur": 11.0, "median_price_eur": null, "buy_below": 7.39, "avg_days_to_sell": 0.2, "active_listings": 7593, "signal": "AVOID", "confidence": 35.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 5, "avg_price_eur": 51.0, "median_price_eur": null, "buy_below": 36.02, "avg_days_to_sell": 0.1, "active_listings": 2687, "signal": "AVOID", "confidence": 35.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 4, "avg_price_eur": 11.0, "median_price_eur": null, "buy_below": 7.77, "avg_days_to_sell": 0.1, "active_listings": 5153, "signal": "AVOID", "confidence": 22.5}, {"category": "Coats", "slug": "coats", "sold_30d": 3, "avg_price_eur": 12.0, "median_price_eur": null, "buy_below": 8.17, "avg_days_to_sell": 0.8, "active_listings": 245, "signal": "AVOID", "confidence": 7.5}]}, {"brand": "Calvin Klein", "slug": "calvin-klein", "sold_30d": 124, "avg_price_eur": 18.0, "top_categories": ["Hoodies", "T-Shirts", "Shirts"], "categories": [{"category": "Hoodies", "slug": "hoodies", "sold_30d": 32, "avg_price_eur": 14.0, "median_price_eur": null, "buy_below": 9.88, "avg_days_to_sell": 0.1, "active_listings": 8584, "signal": "AVOID", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 22, "avg_price_eur": 7.0, "median_price_eur": null, "buy_below": 4.75, "avg_days_to_sell": 0.1, "active_listings": 7450, "signal": "AVOID", "confidence": 100.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 17, "avg_price_eur": 11.0, "median_price_eur": null, "buy_below": 7.98, "avg_days_to_sell": 0.5, "active_listings": 6231, "signal": "AVOID", "confidence": 100.0}, {"category": "Bags", "slug": "bags", "sold_30d": 13, "avg_price_eur": 24.0, "median_price_eur": null, "buy_below": 16.82, "avg_days_to_sell": 0.1, "active_listings": 2852, "signal": "AVOID", "confidence": 95.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 10, "avg_price_eur": 39.0, "median_price_eur": null, "buy_below": 26.97, "avg_days_to_sell": 0.1, "active_listings": 3736, "signal": "AVOID", "confidence": 95.0}, {"category": "Jeans", "slug": "jeans", "sold_30d": 9, "avg_price_eur": 18.0, "median_price_eur": null, "buy_below": 12.33, "avg_days_to_sell": 0.2, "active_listings": 3553, "signal": "AVOID", "confidence": 80.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 7, "avg_price_eur": 14.0, "median_price_eur": null, "buy_below": 10.03, "avg_days_to_sell": 0.1, "active_listings": 1572, "signal": "AVOID", "confidence": 50.0}, {"category": "Coats", "slug": "coats", "sold_30d": 5, "avg_price_eur": 47.0, "median_price_eur": null, "buy_below": 32.93, "avg_days_to_sell": 0.2, "active_listings": 385, "signal": "AVOID", "confidence": 22.5}, {"category": "Sneakers", "slug": "sneakers", "sold_30d": 5, "avg_price_eur": 45.0, "median_price_eur": null, "buy_below": 31.32, "avg_days_to_sell": 0.2, "active_listings": 2414, "signal": "AVOID", "confidence": 32.5}, {"category": "Caps", "slug": "caps", "sold_30d": 4, "avg_price_eur": 12.0, "median_price_eur": null, "buy_below": 8.55, "avg_days_to_sell": 0.1, "active_listings": 605, "signal": "AVOID", "confidence": 27.5}]}, {"brand": "Pull&Bear", "slug": "pullandbear", "sold_30d": 112, "avg_price_eur": 8.0, "top_categories": ["Hoodies", "Jackets", "Jeans"], "categories": [{"category": "Hoodies", "slug": "hoodies", "sold_30d": 76, "avg_price_eur": 8.0, "median_price_eur": null, "buy_below": 5.71, "avg_days_to_sell": 0.3, "active_listings": 48866, "signal": "AVOID", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 12, "avg_price_eur": 12.0, "median_price_eur": null, "buy_below": 8.64, "avg_days_to_sell": 0.1, "active_listings": 9239, "signal": "AVOID", "confidence": 77.5}, {"category": "Jeans", "slug": "jeans", "sold_30d": 9, "avg_price_eur": 8.0, "median_price_eur": null, "buy_below": 5.46, "avg_days_to_sell": 0.1, "active_listings": 10051, "signal": "AVOID", "confidence": 57.5}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 7, "avg_price_eur": 7.0, "median_price_eur": null, "buy_below": 4.8, "avg_days_to_sell": 0.1, "active_listings": 4998, "signal": "AVOID", "confidence": 35.0}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 6, "avg_price_eur": 11.0, "median_price_eur": null, "buy_below": 7.73, "avg_days_to_sell": 17.0, "active_listings": 2998, "signal": "AVOID", "confidence": 27.5}, {"category": "Shirts", "slug": "shirts", "sold_30d": 4, "avg_price_eur": 3.0, "median_price_eur": null, "buy_below": 2.24, "avg_days_to_sell": 0.2, "active_listings": 2609, "signal": "AVOID", "confidence": 20.0}]}, {"brand": "Bershka", "slug": "bershka", "sold_30d": 85, "avg_price_eur": 11.0, "top_categories": ["Jeans", "Jackets", "Hoodies"], "categories": [{"category": "Jeans", "slug": "jeans", "sold_30d": 24, "avg_price_eur": 9.0, "median_price_eur": null, "buy_below": 6.33, "avg_days_to_sell": 0.1, "active_listings": 20720, "signal": "AVOID", "confidence": 100.0}, {"category": "Jackets", "slug": "jackets", "sold_30d": 14, "avg_price_eur": 18.0, "median_price_eur": null, "buy_below": 12.73, "avg_days_to_sell": 0.3, "active_listings": 9881, "signal": "AVOID", "confidence": 77.5}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 12, "avg_price_eur": 11.0, "median_price_eur": null, "buy_below": 7.68, "avg_days_to_sell": 0.2, "active_listings": 8678, "signal": "AVOID", "confidence": 75.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 9, "avg_price_eur": 7.0, "median_price_eur": null, "buy_below": 4.61, "avg_days_to_sell": 0.2, "active_listings": 7870, "signal": "AVOID", "confidence": 65.0}, {"category": "Sneakers", "slug": "sneakers", "sold_30d": 7, "avg_price_eur": 12.0, "median_price_eur": null, "buy_below": 8.58, "avg_days_to_sell": 0.2, "active_listings": 999, "signal": "AVOID", "confidence": 27.5}, {"category": "Coats", "slug": "coats", "sold_30d": 6, "avg_price_eur": 13.0, "median_price_eur": null, "buy_below": 9.36, "avg_days_to_sell": 0.1, "active_listings": 1606, "signal": "AVOID", "confidence": 32.5}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 5, "avg_price_eur": 6.0, "median_price_eur": null, "buy_below": 3.85, "avg_days_to_sell": 0.1, "active_listings": 3284, "signal": "AVOID", "confidence": 27.5}, {"category": "Bags", "slug": "bags", "sold_30d": 5, "avg_price_eur": 13.0, "median_price_eur": null, "buy_below": 8.97, "avg_days_to_sell": 0.2, "active_listings": 946, "signal": "AVOID", "confidence": 22.5}, {"category": "Shirts", "slug": "shirts", "sold_30d": 3, "avg_price_eur": 4.0, "median_price_eur": null, "buy_below": 2.65, "avg_days_to_sell": 0.1, "active_listings": 4105, "signal": "AVOID", "confidence": 22.5}]}, {"brand": "Mango", "slug": "mango", "sold_30d": 49, "avg_price_eur": 17.0, "top_categories": ["Jackets", "Jeans", "T-Shirts"], "categories": [{"category": "Jackets", "slug": "jackets", "sold_30d": 11, "avg_price_eur": 30.0, "median_price_eur": null, "buy_below": 21.25, "avg_days_to_sell": 0.1, "active_listings": 10352, "signal": "AVOID", "confidence": 65.0}, {"category": "Jeans", "slug": "jeans", "sold_30d": 10, "avg_price_eur": 13.0, "median_price_eur": null, "buy_below": 8.98, "avg_days_to_sell": 0.2, "active_listings": 10870, "signal": "AVOID", "confidence": 62.5}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 8, "avg_price_eur": 6.0, "median_price_eur": null, "buy_below": 4.46, "avg_days_to_sell": 0.1, "active_listings": 4064, "signal": "AVOID", "confidence": 50.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 8, "avg_price_eur": 7.0, "median_price_eur": null, "buy_below": 5.21, "avg_days_to_sell": 0.1, "active_listings": 5002, "signal": "AVOID", "confidence": 35.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 6, "avg_price_eur": 7.0, "median_price_eur": null, "buy_below": 5.02, "avg_days_to_sell": 0.1, "active_listings": 6462, "signal": "AVOID", "confidence": 45.0}, {"category": "Coats", "slug": "coats", "sold_30d": 4, "avg_price_eur": 47.0, "median_price_eur": null, "buy_below": 32.69, "avg_days_to_sell": 0.2, "active_listings": 3194, "signal": "AVOID", "confidence": 25.0}]}, {"brand": "Vans", "slug": "vans", "sold_30d": 45, "avg_price_eur": 37.0, "top_categories": ["Sneakers", "T-Shirts", "Hoodies"], "categories": [{"category": "Sneakers", "slug": "sneakers", "sold_30d": 26, "avg_price_eur": 56.0, "median_price_eur": null, "buy_below": 39.18, "avg_days_to_sell": 0.2, "active_listings": 4545, "signal": "AVOID", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 11, "avg_price_eur": 12.0, "median_price_eur": null, "buy_below": 8.27, "avg_days_to_sell": 0.3, "active_listings": 937, "signal": "AVOID", "confidence": 70.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 5, "avg_price_eur": 18.0, "median_price_eur": null, "buy_below": 12.82, "avg_days_to_sell": 0.2, "active_listings": 760, "signal": "AVOID", "confidence": 35.0}, {"category": "Bags", "slug": "bags", "sold_30d": 3, "avg_price_eur": 6.0, "median_price_eur": null, "buy_below": 4.55, "avg_days_to_sell": 0.3, "active_listings": 169, "signal": "AVOID", "confidence": 10.0}]}, {"brand": "Jordan", "slug": "jordan", "sold_30d": 41, "avg_price_eur": 112.0, "top_categories": ["Sneakers", "T-Shirts", "Hoodies"], "categories": [{"category": "Sneakers", "slug": "sneakers", "sold_30d": 32, "avg_price_eur": 138.0, "median_price_eur": null, "buy_below": 96.92, "avg_days_to_sell": 0.4, "active_listings": 7785, "signal": "BUY", "confidence": 100.0}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 3, "avg_price_eur": 19.0, "median_price_eur": null, "buy_below": 13.47, "avg_days_to_sell": 0.2, "active_listings": 1716, "signal": "AVOID", "confidence": 17.5}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 3, "avg_price_eur": 24.0, "median_price_eur": null, "buy_below": 17.03, "avg_days_to_sell": 1.5, "active_listings": 1846, "signal": "AVOID", "confidence": 12.5}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 3, "avg_price_eur": 22.0, "median_price_eur": null, "buy_below": 15.39, "avg_days_to_sell": 0.1, "active_listings": 1118, "signal": "AVOID", "confidence": 15.0}]}, {"brand": "Uniqlo", "slug": "uniqlo", "sold_30d": 40, "avg_price_eur": 23.0, "top_categories": ["Jackets", "Hoodies", "T-Shirts"], "categories": [{"category": "Jackets", "slug": "jackets", "sold_30d": 13, "avg_price_eur": 31.0, "median_price_eur": null, "buy_below": 21.52, "avg_days_to_sell": 0.3, "active_listings": 1108, "signal": "AVOID", "confidence": 65.0}, {"category": "Hoodies", "slug": "hoodies", "sold_30d": 9, "avg_price_eur": 26.0, "median_price_eur": null, "buy_below": 17.99, "avg_days_to_sell": 0.2, "active_listings": 1528, "signal": "AVOID", "confidence": 52.5}, {"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 6, "avg_price_eur": 17.0, "median_price_eur": null, "buy_below": 11.59, "avg_days_to_sell": 0.2, "active_listings": 958, "signal": "AVOID", "confidence": 45.0}, {"category": "Shirts", "slug": "shirts", "sold_30d": 5, "avg_price_eur": 10.0, "median_price_eur": null, "buy_below": 6.83, "avg_days_to_sell": 0.3, "active_listings": 1047, "signal": "AVOID", "confidence": 32.5}, {"category": "Tracksuits", "slug": "tracksuits", "sold_30d": 4, "avg_price_eur": 16.0, "median_price_eur": null, "buy_below": 11.02, "avg_days_to_sell": 0.1, "active_listings": 347, "signal": "AVOID", "confidence": 10.0}, {"category": "Coats", "slug": "coats", "sold_30d": 3, "avg_price_eur": 28.0, "median_price_eur": null, "buy_below": 19.37, "avg_days_to_sell": 0.3, "active_listings": 159, "signal": "AVOID", "confidence": 12.5}]}, {"brand": "Converse", "slug": "converse", "sold_30d": 26, "avg_price_eur": 29.0, "top_categories": ["Sneakers"], "categories": [{"category": "Sneakers", "slug": "sneakers", "sold_30d": 26, "avg_price_eur": 29.0, "median_price_eur": null, "buy_below": 20.27, "avg_days_to_sell": 0.2, "active_listings": 571, "signal": "AVOID", "confidence": 100.0}]}, {"brand": "Salomon", "slug": "salomon", "sold_30d": 8, "avg_price_eur": 52.0, "top_categories": ["Sneakers", "Jackets"], "categories": [{"category": "Sneakers", "slug": "sneakers", "sold_30d": 5, "avg_price_eur": 55.0, "median_price_eur": null, "buy_below": 38.68, "avg_days_to_sell": 0.4, "active_listings": 121, "signal": "AVOID", "confidence": 37.5}, {"category": "Jackets", "slug": "jackets", "sold_30d": 3, "avg_price_eur": 45.0, "median_price_eur": null, "buy_below": 31.79, "avg_days_to_sell": 0.2, "active_listings": 22, "signal": "AVOID", "confidence": 10.0}]}, {"brand": "Asics", "slug": "asics", "sold_30d": 4, "avg_price_eur": 53.0, "top_categories": ["Sneakers"], "categories": [{"category": "Sneakers", "slug": "sneakers", "sold_30d": 4, "avg_price_eur": 53.0, "median_price_eur": null, "buy_below": 37.15, "avg_days_to_sell": 0.2, "active_listings": 209, "signal": "AVOID", "confidence": 22.5}]}, {"brand": "Miu Miu", "slug": "miu-miu", "sold_30d": 4, "avg_price_eur": 452.0, "top_categories": ["Sneakers"], "categories": [{"category": "Sneakers", "slug": "sneakers", "sold_30d": 4, "avg_price_eur": 452.0, "median_price_eur": null, "buy_below": 316.11, "avg_days_to_sell": 0.2, "active_listings": 27, "signal": "AVOID", "confidence": 12.5}]}, {"brand": "Acne Studios", "slug": "acne-studios", "sold_30d": 3, "avg_price_eur": 128.0, "top_categories": ["T-Shirts"], "categories": [{"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 3, "avg_price_eur": 128.0, "median_price_eur": null, "buy_below": 89.83, "avg_days_to_sell": 0.3, "active_listings": 32, "signal": "AVOID", "confidence": 7.5}]}, {"brand": "Corteiz", "slug": "corteiz", "sold_30d": 3, "avg_price_eur": 23.0, "top_categories": ["T-Shirts"], "categories": [{"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 3, "avg_price_eur": 23.0, "median_price_eur": null, "buy_below": 16.34, "avg_days_to_sell": 0.2, "active_listings": 64, "signal": "AVOID", "confidence": 15.0}]}, {"brand": "Jacquemus", "slug": "jacquemus", "sold_30d": 3, "avg_price_eur": 70.0, "top_categories": ["Caps"], "categories": [{"category": "Caps", "slug": "caps", "sold_30d": 3, "avg_price_eur": 70.0, "median_price_eur": null, "buy_below": 48.65, "avg_days_to_sell": 0.3, "active_listings": 30, "signal": "AVOID", "confidence": 10.0}]}, {"brand": "Moncler", "slug": "moncler", "sold_30d": 3, "avg_price_eur": 250.0, "top_categories": ["Jackets"], "categories": [{"category": "Jackets", "slug": "jackets", "sold_30d": 3, "avg_price_eur": 250.0, "median_price_eur": null, "buy_below": 175.0, "avg_days_to_sell": 0.4, "active_listings": 73, "signal": "AVOID", "confidence": 10.0}]}, {"brand": "Palm Angels", "slug": "palm-angels", "sold_30d": 3, "avg_price_eur": 46.0, "top_categories": ["T-Shirts"], "categories": [{"category": "T-Shirts", "slug": "t-shirts", "sold_30d": 3, "avg_price_eur": 46.0, "median_price_eur": null, "buy_below": 32.08, "avg_days_to_sell": 0.2, "active_listings": 73, "signal": "AVOID", "confidence": 12.5}]}]}
+{
+  "generated_at": "2026-10-03",
+  "source": "listings: distinct external_id departures (Vinted DE/FR/ES/IT/PT), prices/signals from market_stats",
+  "formula": "buy_below = avg_price_eur * 0.70 (30% gross margin; no fee factor, Vinted charges private sellers no selling fee - same as engine/insight.buy_below_from_avg)",
+  "threshold": "sold_30d >= 3 (30-day departures)",
+  "total_pairs": 232,
+  "total_brands": 38,
+  "brands": [
+    {
+      "brand": "Fred Perry",
+      "slug": "fred-perry",
+      "sold_30d": 2045,
+      "avg_price_eur": 19,
+      "top_categories": [
+        "Shirts",
+        "Hoodies",
+        "T-Shirts"
+      ],
+      "categories": [
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 1000,
+          "avg_price_eur": 15,
+          "median_price_eur": null,
+          "buy_below": 10.51,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 18030,
+          "signal": "STRONG BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 380,
+          "avg_price_eur": 23,
+          "median_price_eur": null,
+          "buy_below": 15.94,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 5260,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 340,
+          "avg_price_eur": 13,
+          "median_price_eur": null,
+          "buy_below": 9.29,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 4068,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 241,
+          "avg_price_eur": 40,
+          "median_price_eur": null,
+          "buy_below": 27.96,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 3403,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 26,
+          "avg_price_eur": 22,
+          "median_price_eur": null,
+          "buy_below": 15.25,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 915,
+          "signal": "MONITOR",
+          "confidence": 65
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 24,
+          "avg_price_eur": 18,
+          "median_price_eur": null,
+          "buy_below": 12.82,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 129,
+          "signal": "AVOID",
+          "confidence": 62.5
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 15,
+          "avg_price_eur": 26,
+          "median_price_eur": null,
+          "buy_below": 18.18,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 211,
+          "signal": "MONITOR",
+          "confidence": 37.5
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 14,
+          "avg_price_eur": 30,
+          "median_price_eur": null,
+          "buy_below": 20.95,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 254,
+          "signal": "MONITOR",
+          "confidence": 35
+        },
+        {
+          "category": "Coats",
+          "slug": "coats",
+          "sold_30d": 3,
+          "avg_price_eur": 33,
+          "median_price_eur": null,
+          "buy_below": 23.33,
+          "avg_days_to_sell": 0.1,
+          "active_listings": 67,
+          "signal": "AVOID",
+          "confidence": 7.5
+        },
+        {
+          "category": "Jeans",
+          "slug": "jeans",
+          "sold_30d": 2,
+          "avg_price_eur": 10,
+          "median_price_eur": null,
+          "buy_below": 7,
+          "avg_days_to_sell": 0.1,
+          "active_listings": 81,
+          "signal": "AVOID",
+          "confidence": 5
+        }
+      ]
+    },
+    {
+      "brand": "Stone Island",
+      "slug": "stone-island",
+      "sold_30d": 1941,
+      "avg_price_eur": 72,
+      "top_categories": [
+        "Hoodies",
+        "Jackets",
+        "Shirts"
+      ],
+      "categories": [
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 1096,
+          "avg_price_eur": 58,
+          "median_price_eur": null,
+          "buy_below": 40.77,
+          "avg_days_to_sell": 0.8,
+          "active_listings": 18060,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 386,
+          "avg_price_eur": 151,
+          "median_price_eur": null,
+          "buy_below": 105.98,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 6304,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 191,
+          "avg_price_eur": 29,
+          "median_price_eur": null,
+          "buy_below": 20.11,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 4871,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 154,
+          "avg_price_eur": 27,
+          "median_price_eur": null,
+          "buy_below": 18.64,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 3618,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 41,
+          "avg_price_eur": 68,
+          "median_price_eur": null,
+          "buy_below": 47.35,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 1434,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 33,
+          "avg_price_eur": 30,
+          "median_price_eur": null,
+          "buy_below": 21.3,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 436,
+          "signal": "MONITOR",
+          "confidence": 82.5
+        },
+        {
+          "category": "Coats",
+          "slug": "coats",
+          "sold_30d": 17,
+          "avg_price_eur": 167,
+          "median_price_eur": null,
+          "buy_below": 116.81,
+          "avg_days_to_sell": 0.8,
+          "active_listings": 229,
+          "signal": "AVOID",
+          "confidence": 42.5
+        },
+        {
+          "category": "Jeans",
+          "slug": "jeans",
+          "sold_30d": 15,
+          "avg_price_eur": 69,
+          "median_price_eur": null,
+          "buy_below": 48.2,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 723,
+          "signal": "AVOID",
+          "confidence": 37.5
+        },
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 5,
+          "avg_price_eur": 108,
+          "median_price_eur": null,
+          "buy_below": 75.46,
+          "avg_days_to_sell": 0.9,
+          "active_listings": 142,
+          "signal": "AVOID",
+          "confidence": 12.5
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 3,
+          "avg_price_eur": 70,
+          "median_price_eur": null,
+          "buy_below": 48.77,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 107,
+          "signal": "AVOID",
+          "confidence": 7.5
+        }
+      ]
+    },
+    {
+      "brand": "Patagonia",
+      "slug": "patagonia",
+      "sold_30d": 1731,
+      "avg_price_eur": 38,
+      "top_categories": [
+        "Jackets",
+        "Hoodies",
+        "Bags"
+      ],
+      "categories": [
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 726,
+          "avg_price_eur": 52,
+          "median_price_eur": null,
+          "buy_below": 36.44,
+          "avg_days_to_sell": 0.5,
+          "active_listings": 14124,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 277,
+          "avg_price_eur": 41,
+          "median_price_eur": null,
+          "buy_below": 28.58,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 7036,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 266,
+          "avg_price_eur": 27,
+          "median_price_eur": null,
+          "buy_below": 18.73,
+          "avg_days_to_sell": 1.3,
+          "active_listings": 2465,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 169,
+          "avg_price_eur": 17,
+          "median_price_eur": null,
+          "buy_below": 11.85,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 2351,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 142,
+          "avg_price_eur": 12,
+          "median_price_eur": null,
+          "buy_below": 8.75,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 1084,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 92,
+          "avg_price_eur": 19,
+          "median_price_eur": null,
+          "buy_below": 13.44,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 1459,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Coats",
+          "slug": "coats",
+          "sold_30d": 33,
+          "avg_price_eur": 62,
+          "median_price_eur": null,
+          "buy_below": 43.66,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 622,
+          "signal": "MONITOR",
+          "confidence": 82.5
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 26,
+          "avg_price_eur": 24,
+          "median_price_eur": null,
+          "buy_below": 16.87,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 743,
+          "signal": "AVOID",
+          "confidence": 65
+        }
+      ]
+    },
+    {
+      "brand": "Pokémon",
+      "slug": "pok-mon",
+      "sold_30d": 1259,
+      "avg_price_eur": 61,
+      "top_categories": [
+        "Other"
+      ],
+      "categories": [
+        {
+          "category": "Other",
+          "slug": "other",
+          "sold_30d": 1259,
+          "avg_price_eur": 61,
+          "median_price_eur": null,
+          "buy_below": 42.94,
+          "avg_days_to_sell": 0.7,
+          "active_listings": 15754,
+          "signal": "STRONG BUY",
+          "confidence": 100
+        }
+      ]
+    },
+    {
+      "brand": "Balenciaga",
+      "slug": "balenciaga",
+      "sold_30d": 1074,
+      "avg_price_eur": 151,
+      "top_categories": [
+        "Sneakers",
+        "T-Shirts",
+        "Hoodies"
+      ],
+      "categories": [
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 365,
+          "avg_price_eur": 136,
+          "median_price_eur": null,
+          "buy_below": 95.23,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 3281,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 166,
+          "avg_price_eur": 96,
+          "median_price_eur": null,
+          "buy_below": 67.47,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 1176,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 149,
+          "avg_price_eur": 111,
+          "median_price_eur": null,
+          "buy_below": 77.52,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 1213,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 136,
+          "avg_price_eur": 58,
+          "median_price_eur": null,
+          "buy_below": 40.86,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 800,
+          "signal": "MONITOR",
+          "confidence": 100
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 114,
+          "avg_price_eur": 328,
+          "median_price_eur": null,
+          "buy_below": 229.85,
+          "avg_days_to_sell": 0.9,
+          "active_listings": 708,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 55,
+          "avg_price_eur": 256,
+          "median_price_eur": null,
+          "buy_below": 179.36,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 521,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Jeans",
+          "slug": "jeans",
+          "sold_30d": 30,
+          "avg_price_eur": 144,
+          "median_price_eur": null,
+          "buy_below": 100.66,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 397,
+          "signal": "BUY",
+          "confidence": 75
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 29,
+          "avg_price_eur": 200,
+          "median_price_eur": null,
+          "buy_below": 140.33,
+          "avg_days_to_sell": 0.6,
+          "active_listings": 284,
+          "signal": "MONITOR",
+          "confidence": 72.5
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 21,
+          "avg_price_eur": 87,
+          "median_price_eur": null,
+          "buy_below": 61.17,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 239,
+          "signal": "MONITOR",
+          "confidence": 52.5
+        },
+        {
+          "category": "Coats",
+          "slug": "coats",
+          "sold_30d": 9,
+          "avg_price_eur": 1008,
+          "median_price_eur": null,
+          "buy_below": 705.44,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 80,
+          "signal": "AVOID",
+          "confidence": 22.5
+        }
+      ]
+    },
+    {
+      "brand": "New Balance",
+      "slug": "new-balance",
+      "sold_30d": 585,
+      "avg_price_eur": 58,
+      "top_categories": [
+        "Sneakers",
+        "Tracksuits",
+        "T-Shirts"
+      ],
+      "categories": [
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 552,
+          "avg_price_eur": 61,
+          "median_price_eur": null,
+          "buy_below": 42.47,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 84525,
+          "signal": "STRONG BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 11,
+          "avg_price_eur": 17,
+          "median_price_eur": null,
+          "buy_below": 12.09,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 1520,
+          "signal": "MONITOR",
+          "confidence": 30
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 9,
+          "avg_price_eur": 7,
+          "median_price_eur": null,
+          "buy_below": 4.67,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 1913,
+          "signal": "MONITOR",
+          "confidence": 22.5
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 7,
+          "avg_price_eur": 13,
+          "median_price_eur": null,
+          "buy_below": 9.15,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 2092,
+          "signal": "MONITOR",
+          "confidence": 20
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 6,
+          "avg_price_eur": 28,
+          "median_price_eur": null,
+          "buy_below": 19.83,
+          "avg_days_to_sell": 0.5,
+          "active_listings": 1076,
+          "signal": "AVOID",
+          "confidence": 20
+        }
+      ]
+    },
+    {
+      "brand": "Nike",
+      "slug": "nike",
+      "sold_30d": 515,
+      "avg_price_eur": 75,
+      "top_categories": [
+        "Sneakers",
+        "Jackets",
+        "Tracksuits"
+      ],
+      "categories": [
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 272,
+          "avg_price_eur": 107,
+          "median_price_eur": null,
+          "buy_below": 75.16,
+          "avg_days_to_sell": 0.8,
+          "active_listings": 56742,
+          "signal": "STRONG BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 66,
+          "avg_price_eur": 50,
+          "median_price_eur": null,
+          "buy_below": 35.01,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 14644,
+          "signal": "STRONG BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 55,
+          "avg_price_eur": 48,
+          "median_price_eur": null,
+          "buy_below": 33.38,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 21313,
+          "signal": "STRONG BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 53,
+          "avg_price_eur": 24,
+          "median_price_eur": null,
+          "buy_below": 16.66,
+          "avg_days_to_sell": 0.5,
+          "active_listings": 19445,
+          "signal": "STRONG BUY",
+          "confidence": 100
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 47,
+          "avg_price_eur": 31,
+          "median_price_eur": null,
+          "buy_below": 21.73,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 18207,
+          "signal": "STRONG BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 13,
+          "avg_price_eur": 29,
+          "median_price_eur": null,
+          "buy_below": 19.96,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 5640,
+          "signal": "MONITOR",
+          "confidence": 32.5
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 5,
+          "avg_price_eur": 31,
+          "median_price_eur": null,
+          "buy_below": 21.84,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 1226,
+          "signal": "MONITOR",
+          "confidence": 12.5
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 4,
+          "avg_price_eur": 57,
+          "median_price_eur": null,
+          "buy_below": 40.07,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 1280,
+          "signal": "AVOID",
+          "confidence": 12.5
+        }
+      ]
+    },
+    {
+      "brand": "The North Face",
+      "slug": "the-north-face",
+      "sold_30d": 466,
+      "avg_price_eur": 39,
+      "top_categories": [
+        "Jackets",
+        "Hoodies",
+        "T-Shirts"
+      ],
+      "categories": [
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 240,
+          "avg_price_eur": 51,
+          "median_price_eur": null,
+          "buy_below": 35.49,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 37089,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 85,
+          "avg_price_eur": 18,
+          "median_price_eur": null,
+          "buy_below": 12.77,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 19615,
+          "signal": "MONITOR",
+          "confidence": 100
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 49,
+          "avg_price_eur": 12,
+          "median_price_eur": null,
+          "buy_below": 8.1,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 12302,
+          "signal": "MONITOR",
+          "confidence": 100
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 29,
+          "avg_price_eur": 64,
+          "median_price_eur": null,
+          "buy_below": 44.85,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 4636,
+          "signal": "AVOID",
+          "confidence": 80
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 24,
+          "avg_price_eur": 34,
+          "median_price_eur": null,
+          "buy_below": 23.6,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 3908,
+          "signal": "AVOID",
+          "confidence": 65
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 19,
+          "avg_price_eur": 19,
+          "median_price_eur": null,
+          "buy_below": 13.6,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 3151,
+          "signal": "MONITOR",
+          "confidence": 55
+        },
+        {
+          "category": "Coats",
+          "slug": "coats",
+          "sold_30d": 11,
+          "avg_price_eur": 56,
+          "median_price_eur": null,
+          "buy_below": 38.93,
+          "avg_days_to_sell": 5.6,
+          "active_listings": 2554,
+          "signal": "AVOID",
+          "confidence": 30
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 8,
+          "avg_price_eur": 48,
+          "median_price_eur": null,
+          "buy_below": 33.77,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 3440,
+          "signal": "AVOID",
+          "confidence": 22.5
+        },
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 1,
+          "avg_price_eur": 48,
+          "median_price_eur": null,
+          "buy_below": 33.59,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 1344,
+          "signal": "AVOID",
+          "confidence": 2.5
+        }
+      ]
+    },
+    {
+      "brand": "Gucci",
+      "slug": "gucci",
+      "sold_30d": 448,
+      "avg_price_eur": 223,
+      "top_categories": [
+        "Bags",
+        "Caps",
+        "Sneakers"
+      ],
+      "categories": [
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 166,
+          "avg_price_eur": 346,
+          "median_price_eur": null,
+          "buy_below": 242.34,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 5825,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 101,
+          "avg_price_eur": 126,
+          "median_price_eur": null,
+          "buy_below": 88.08,
+          "avg_days_to_sell": 0.5,
+          "active_listings": 4131,
+          "signal": "MONITOR",
+          "confidence": 100
+        },
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 75,
+          "avg_price_eur": 176,
+          "median_price_eur": null,
+          "buy_below": 123.46,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 5388,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 28,
+          "avg_price_eur": 308,
+          "median_price_eur": null,
+          "buy_below": 215.32,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 1206,
+          "signal": "BUY",
+          "confidence": 72.5
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 24,
+          "avg_price_eur": 116,
+          "median_price_eur": null,
+          "buy_below": 80.86,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 1546,
+          "signal": "AVOID",
+          "confidence": 60
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 20,
+          "avg_price_eur": 67,
+          "median_price_eur": null,
+          "buy_below": 47.16,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 1338,
+          "signal": "MONITOR",
+          "confidence": 52.5
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 14,
+          "avg_price_eur": 91,
+          "median_price_eur": null,
+          "buy_below": 63.87,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 1339,
+          "signal": "AVOID",
+          "confidence": 35
+        },
+        {
+          "category": "Jeans",
+          "slug": "jeans",
+          "sold_30d": 8,
+          "avg_price_eur": 86,
+          "median_price_eur": null,
+          "buy_below": 60.29,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 725,
+          "signal": "AVOID",
+          "confidence": 20
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 8,
+          "avg_price_eur": 178,
+          "median_price_eur": null,
+          "buy_below": 124.42,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 389,
+          "signal": "MONITOR",
+          "confidence": 20
+        },
+        {
+          "category": "Coats",
+          "slug": "coats",
+          "sold_30d": 4,
+          "avg_price_eur": 82,
+          "median_price_eur": null,
+          "buy_below": 57.75,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 140,
+          "signal": "AVOID",
+          "confidence": 10
+        }
+      ]
+    },
+    {
+      "brand": "Diesel",
+      "slug": "diesel",
+      "sold_30d": 436,
+      "avg_price_eur": 24,
+      "top_categories": [
+        "Jeans",
+        "T-Shirts",
+        "Hoodies"
+      ],
+      "categories": [
+        {
+          "category": "Jeans",
+          "slug": "jeans",
+          "sold_30d": 195,
+          "avg_price_eur": 21,
+          "median_price_eur": null,
+          "buy_below": 14.54,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 27523,
+          "signal": "STRONG BUY",
+          "confidence": 100
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 73,
+          "avg_price_eur": 12,
+          "median_price_eur": null,
+          "buy_below": 8.17,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 6937,
+          "signal": "STRONG BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 58,
+          "avg_price_eur": 20,
+          "median_price_eur": null,
+          "buy_below": 14.24,
+          "avg_days_to_sell": 0.5,
+          "active_listings": 6773,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 43,
+          "avg_price_eur": 43,
+          "median_price_eur": null,
+          "buy_below": 30,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 5690,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 23,
+          "avg_price_eur": 12,
+          "median_price_eur": null,
+          "buy_below": 8.67,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 3670,
+          "signal": "MONITOR",
+          "confidence": 67.5
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 21,
+          "avg_price_eur": 78,
+          "median_price_eur": null,
+          "buy_below": 54.4,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 1395,
+          "signal": "MONITOR",
+          "confidence": 57.5
+        },
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 12,
+          "avg_price_eur": 24,
+          "median_price_eur": null,
+          "buy_below": 16.45,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 1531,
+          "signal": "AVOID",
+          "confidence": 30
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 8,
+          "avg_price_eur": 19,
+          "median_price_eur": null,
+          "buy_below": 13.47,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 1385,
+          "signal": "MONITOR",
+          "confidence": 22.5
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 2,
+          "avg_price_eur": 26,
+          "median_price_eur": null,
+          "buy_below": 17.85,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 368,
+          "signal": "MONITOR",
+          "confidence": 7.5
+        },
+        {
+          "category": "Coats",
+          "slug": "coats",
+          "sold_30d": 1,
+          "avg_price_eur": 15,
+          "median_price_eur": null,
+          "buy_below": 10.5,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 379,
+          "signal": "AVOID",
+          "confidence": 5
+        }
+      ]
+    },
+    {
+      "brand": "Supreme",
+      "slug": "supreme",
+      "sold_30d": 319,
+      "avg_price_eur": 69,
+      "top_categories": [
+        "Hoodies",
+        "T-Shirts",
+        "Bags"
+      ],
+      "categories": [
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 101,
+          "avg_price_eur": 93,
+          "median_price_eur": null,
+          "buy_below": 65.12,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 4361,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 86,
+          "avg_price_eur": 38,
+          "median_price_eur": null,
+          "buy_below": 26.87,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 4823,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 35,
+          "avg_price_eur": 41,
+          "median_price_eur": null,
+          "buy_below": 28.98,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 750,
+          "signal": "AVOID",
+          "confidence": 87.5
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 35,
+          "avg_price_eur": 37,
+          "median_price_eur": null,
+          "buy_below": 25.9,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 1280,
+          "signal": "MONITOR",
+          "confidence": 92.5
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 25,
+          "avg_price_eur": 156,
+          "median_price_eur": null,
+          "buy_below": 109.25,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 1177,
+          "signal": "AVOID",
+          "confidence": 62.5
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 20,
+          "avg_price_eur": 68,
+          "median_price_eur": null,
+          "buy_below": 47.7,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 1232,
+          "signal": "MONITOR",
+          "confidence": 50
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 9,
+          "avg_price_eur": 95,
+          "median_price_eur": null,
+          "buy_below": 66.42,
+          "avg_days_to_sell": 1.9,
+          "active_listings": 563,
+          "signal": "AVOID",
+          "confidence": 22.5
+        },
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 5,
+          "avg_price_eur": 93,
+          "median_price_eur": null,
+          "buy_below": 64.82,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 344,
+          "signal": "AVOID",
+          "confidence": 12.5
+        },
+        {
+          "category": "Jeans",
+          "slug": "jeans",
+          "sold_30d": 3,
+          "avg_price_eur": 47,
+          "median_price_eur": null,
+          "buy_below": 32.67,
+          "avg_days_to_sell": 0.1,
+          "active_listings": 235,
+          "signal": "AVOID",
+          "confidence": 7.5
+        }
+      ]
+    },
+    {
+      "brand": "Reebok",
+      "slug": "reebok",
+      "sold_30d": 299,
+      "avg_price_eur": 18,
+      "top_categories": [
+        "Sneakers",
+        "Jackets",
+        "Hoodies"
+      ],
+      "categories": [
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 126,
+          "avg_price_eur": 23,
+          "median_price_eur": null,
+          "buy_below": 16,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 24330,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 48,
+          "avg_price_eur": 17,
+          "median_price_eur": null,
+          "buy_below": 12.11,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 5431,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 42,
+          "avg_price_eur": 13,
+          "median_price_eur": null,
+          "buy_below": 9.28,
+          "avg_days_to_sell": 0.7,
+          "active_listings": 6125,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 35,
+          "avg_price_eur": 10,
+          "median_price_eur": null,
+          "buy_below": 7.14,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 7332,
+          "signal": "MONITOR",
+          "confidence": 95
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 34,
+          "avg_price_eur": 14,
+          "median_price_eur": null,
+          "buy_below": 9.68,
+          "avg_days_to_sell": 0.5,
+          "active_listings": 6483,
+          "signal": "BUY",
+          "confidence": 85
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 5,
+          "avg_price_eur": 5,
+          "median_price_eur": null,
+          "buy_below": 3.43,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 899,
+          "signal": "AVOID",
+          "confidence": 20
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 5,
+          "avg_price_eur": 17,
+          "median_price_eur": null,
+          "buy_below": 12.17,
+          "avg_days_to_sell": 0.1,
+          "active_listings": 1870,
+          "signal": "AVOID",
+          "confidence": 12.5
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 4,
+          "avg_price_eur": 8,
+          "median_price_eur": null,
+          "buy_below": 5.95,
+          "avg_days_to_sell": 0.1,
+          "active_listings": 672,
+          "signal": "AVOID",
+          "confidence": 10
+        }
+      ]
+    },
+    {
+      "brand": "Lacoste",
+      "slug": "lacoste",
+      "sold_30d": 248,
+      "avg_price_eur": 29,
+      "top_categories": [
+        "Shirts",
+        "T-Shirts",
+        "Hoodies"
+      ],
+      "categories": [
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 135,
+          "avg_price_eur": 27,
+          "median_price_eur": null,
+          "buy_below": 18.63,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 36916,
+          "signal": "MONITOR",
+          "confidence": 100
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 35,
+          "avg_price_eur": 21,
+          "median_price_eur": null,
+          "buy_below": 14.71,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 10105,
+          "signal": "AVOID",
+          "confidence": 87.5
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 32,
+          "avg_price_eur": 26,
+          "median_price_eur": null,
+          "buy_below": 18.2,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 20954,
+          "signal": "BUY",
+          "confidence": 85
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 17,
+          "avg_price_eur": 64,
+          "median_price_eur": null,
+          "buy_below": 44.47,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 9069,
+          "signal": "AVOID",
+          "confidence": 42.5
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 14,
+          "avg_price_eur": 29,
+          "median_price_eur": null,
+          "buy_below": 20.65,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 6661,
+          "signal": "AVOID",
+          "confidence": 35
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 8,
+          "avg_price_eur": 38,
+          "median_price_eur": null,
+          "buy_below": 26.69,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 3413,
+          "signal": "AVOID",
+          "confidence": 20
+        },
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 5,
+          "avg_price_eur": 43,
+          "median_price_eur": null,
+          "buy_below": 30.1,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 7643,
+          "signal": "AVOID",
+          "confidence": 12.5
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 2,
+          "avg_price_eur": 14,
+          "median_price_eur": null,
+          "buy_below": 9.8,
+          "avg_days_to_sell": 0.1,
+          "active_listings": 1942,
+          "signal": "AVOID",
+          "confidence": 7.5
+        }
+      ]
+    },
+    {
+      "brand": "Adidas",
+      "slug": "adidas",
+      "sold_30d": 240,
+      "avg_price_eur": 42,
+      "top_categories": [
+        "Sneakers",
+        "Tracksuits",
+        "Jackets"
+      ],
+      "categories": [
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 97,
+          "avg_price_eur": 54,
+          "median_price_eur": null,
+          "buy_below": 38.01,
+          "avg_days_to_sell": 0.5,
+          "active_listings": 51337,
+          "signal": "STRONG BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 44,
+          "avg_price_eur": 41,
+          "median_price_eur": null,
+          "buy_below": 28.89,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 16916,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 36,
+          "avg_price_eur": 44,
+          "median_price_eur": null,
+          "buy_below": 30.76,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 10970,
+          "signal": "STRONG BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 34,
+          "avg_price_eur": 22,
+          "median_price_eur": null,
+          "buy_below": 15.64,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 10555,
+          "signal": "STRONG BUY",
+          "confidence": 87.5
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 21,
+          "avg_price_eur": 19,
+          "median_price_eur": null,
+          "buy_below": 13.6,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 13040,
+          "signal": "MONITOR",
+          "confidence": 55
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 7,
+          "avg_price_eur": 35,
+          "median_price_eur": null,
+          "buy_below": 24.8,
+          "avg_days_to_sell": 0.5,
+          "active_listings": 3760,
+          "signal": "MONITOR",
+          "confidence": 17.5
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 1,
+          "avg_price_eur": 25,
+          "median_price_eur": null,
+          "buy_below": 17.46,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 939,
+          "signal": "AVOID",
+          "confidence": 2.5
+        }
+      ]
+    },
+    {
+      "brand": "Carhartt",
+      "slug": "carhartt",
+      "sold_30d": 217,
+      "avg_price_eur": 31,
+      "top_categories": [
+        "Jackets",
+        "Hoodies",
+        "T-Shirts"
+      ],
+      "categories": [
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 58,
+          "avg_price_eur": 60,
+          "median_price_eur": null,
+          "buy_below": 41.67,
+          "avg_days_to_sell": 1.3,
+          "active_listings": 15144,
+          "signal": "MONITOR",
+          "confidence": 100
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 55,
+          "avg_price_eur": 23,
+          "median_price_eur": null,
+          "buy_below": 15.83,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 15702,
+          "signal": "MONITOR",
+          "confidence": 100
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 32,
+          "avg_price_eur": 14,
+          "median_price_eur": null,
+          "buy_below": 9.85,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 11826,
+          "signal": "MONITOR",
+          "confidence": 82.5
+        },
+        {
+          "category": "Jeans",
+          "slug": "jeans",
+          "sold_30d": 28,
+          "avg_price_eur": 24,
+          "median_price_eur": null,
+          "buy_below": 16.75,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 10976,
+          "signal": "BUY",
+          "confidence": 72.5
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 16,
+          "avg_price_eur": 17,
+          "median_price_eur": null,
+          "buy_below": 12.21,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 6963,
+          "signal": "MONITOR",
+          "confidence": 42.5
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 12,
+          "avg_price_eur": 10,
+          "median_price_eur": null,
+          "buy_below": 7.06,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 3281,
+          "signal": "MONITOR",
+          "confidence": 30
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 9,
+          "avg_price_eur": 27,
+          "median_price_eur": null,
+          "buy_below": 19.25,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 2315,
+          "signal": "AVOID",
+          "confidence": 27.5
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 5,
+          "avg_price_eur": 32,
+          "median_price_eur": null,
+          "buy_below": 22.74,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 3608,
+          "signal": "AVOID",
+          "confidence": 22.5
+        },
+        {
+          "category": "Coats",
+          "slug": "coats",
+          "sold_30d": 2,
+          "avg_price_eur": 49,
+          "median_price_eur": null,
+          "buy_below": 34.3,
+          "avg_days_to_sell": 0.1,
+          "active_listings": 1087,
+          "signal": "AVOID",
+          "confidence": 5
+        }
+      ]
+    },
+    {
+      "brand": "Zara",
+      "slug": "zara",
+      "sold_30d": 188,
+      "avg_price_eur": 23,
+      "top_categories": [
+        "Jackets",
+        "Hoodies",
+        "T-Shirts"
+      ],
+      "categories": [
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 39,
+          "avg_price_eur": 38,
+          "median_price_eur": null,
+          "buy_below": 26.33,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 17043,
+          "signal": "STRONG BUY",
+          "confidence": 97.5
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 38,
+          "avg_price_eur": 19,
+          "median_price_eur": null,
+          "buy_below": 13.21,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 10911,
+          "signal": "STRONG BUY",
+          "confidence": 97.5
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 33,
+          "avg_price_eur": 16,
+          "median_price_eur": null,
+          "buy_below": 11.03,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 7031,
+          "signal": "STRONG BUY",
+          "confidence": 85
+        },
+        {
+          "category": "Jeans",
+          "slug": "jeans",
+          "sold_30d": 23,
+          "avg_price_eur": 30,
+          "median_price_eur": null,
+          "buy_below": 21.21,
+          "avg_days_to_sell": 8.2,
+          "active_listings": 15384,
+          "signal": "BUY",
+          "confidence": 57.5
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 19,
+          "avg_price_eur": 9,
+          "median_price_eur": null,
+          "buy_below": 6.37,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 9229,
+          "signal": "BUY",
+          "confidence": 47.5
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 13,
+          "avg_price_eur": 16,
+          "median_price_eur": null,
+          "buy_below": 11.47,
+          "avg_days_to_sell": 1,
+          "active_listings": 1279,
+          "signal": "MONITOR",
+          "confidence": 32.5
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 12,
+          "avg_price_eur": 15,
+          "median_price_eur": null,
+          "buy_below": 10.62,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 3553,
+          "signal": "AVOID",
+          "confidence": 30
+        },
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 9,
+          "avg_price_eur": 42,
+          "median_price_eur": null,
+          "buy_below": 29.71,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 1528,
+          "signal": "MONITOR",
+          "confidence": 22.5
+        },
+        {
+          "category": "Coats",
+          "slug": "coats",
+          "sold_30d": 2,
+          "avg_price_eur": 24,
+          "median_price_eur": null,
+          "buy_below": 16.8,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 3159,
+          "signal": "MONITOR",
+          "confidence": 10
+        }
+      ]
+    },
+    {
+      "brand": "Tommy Hilfiger",
+      "slug": "tommy-hilfiger",
+      "sold_30d": 186,
+      "avg_price_eur": 23,
+      "top_categories": [
+        "Hoodies",
+        "Jackets",
+        "Shirts"
+      ],
+      "categories": [
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 115,
+          "avg_price_eur": 20,
+          "median_price_eur": null,
+          "buy_below": 13.94,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 30414,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 28,
+          "avg_price_eur": 48,
+          "median_price_eur": null,
+          "buy_below": 33.84,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 8537,
+          "signal": "MONITOR",
+          "confidence": 70
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 19,
+          "avg_price_eur": 14,
+          "median_price_eur": null,
+          "buy_below": 10.02,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 24086,
+          "signal": "MONITOR",
+          "confidence": 52.5
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 13,
+          "avg_price_eur": 15,
+          "median_price_eur": null,
+          "buy_below": 10.23,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 11586,
+          "signal": "AVOID",
+          "confidence": 32.5
+        },
+        {
+          "category": "Jeans",
+          "slug": "jeans",
+          "sold_30d": 8,
+          "avg_price_eur": 17,
+          "median_price_eur": null,
+          "buy_below": 12.16,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 7219,
+          "signal": "AVOID",
+          "confidence": 20
+        },
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 2,
+          "avg_price_eur": 24,
+          "median_price_eur": null,
+          "buy_below": 17.15,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 3541,
+          "signal": "AVOID",
+          "confidence": 5
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 1,
+          "avg_price_eur": 5,
+          "median_price_eur": null,
+          "buy_below": 3.5,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 600,
+          "signal": "AVOID",
+          "confidence": 2.5
+        }
+      ]
+    },
+    {
+      "brand": "Hugo Boss",
+      "slug": "hugo-boss",
+      "sold_30d": 181,
+      "avg_price_eur": 25,
+      "top_categories": [
+        "Shirts",
+        "Jackets",
+        "T-Shirts"
+      ],
+      "categories": [
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 57,
+          "avg_price_eur": 16,
+          "median_price_eur": null,
+          "buy_below": 11.06,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 17388,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 34,
+          "avg_price_eur": 43,
+          "median_price_eur": null,
+          "buy_below": 29.95,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 7724,
+          "signal": "MONITOR",
+          "confidence": 87.5
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 27,
+          "avg_price_eur": 15,
+          "median_price_eur": null,
+          "buy_below": 10.16,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 7042,
+          "signal": "BUY",
+          "confidence": 72.5
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 26,
+          "avg_price_eur": 24,
+          "median_price_eur": null,
+          "buy_below": 16.47,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 7672,
+          "signal": "MONITOR",
+          "confidence": 75
+        },
+        {
+          "category": "Jeans",
+          "slug": "jeans",
+          "sold_30d": 13,
+          "avg_price_eur": 26,
+          "median_price_eur": null,
+          "buy_below": 18.39,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 3606,
+          "signal": "AVOID",
+          "confidence": 42.5
+        },
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 10,
+          "avg_price_eur": 49,
+          "median_price_eur": null,
+          "buy_below": 34.51,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 2303,
+          "signal": "AVOID",
+          "confidence": 25
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 10,
+          "avg_price_eur": 17,
+          "median_price_eur": null,
+          "buy_below": 11.97,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 1894,
+          "signal": "AVOID",
+          "confidence": 25
+        },
+        {
+          "category": "Coats",
+          "slug": "coats",
+          "sold_30d": 2,
+          "avg_price_eur": 12,
+          "median_price_eur": null,
+          "buy_below": 8.05,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 1295,
+          "signal": "AVOID",
+          "confidence": 5
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 1,
+          "avg_price_eur": 40,
+          "median_price_eur": null,
+          "buy_below": 28,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 594,
+          "signal": "AVOID",
+          "confidence": 2.5
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 1,
+          "avg_price_eur": 30,
+          "median_price_eur": null,
+          "buy_below": 21,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 766,
+          "signal": "AVOID",
+          "confidence": 2.5
+        }
+      ]
+    },
+    {
+      "brand": "Ralph Lauren",
+      "slug": "ralph-lauren",
+      "sold_30d": 157,
+      "avg_price_eur": 41,
+      "top_categories": [
+        "Hoodies",
+        "Shirts",
+        "Jackets"
+      ],
+      "categories": [
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 67,
+          "avg_price_eur": 42,
+          "median_price_eur": null,
+          "buy_below": 29.19,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 18621,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 51,
+          "avg_price_eur": 32,
+          "median_price_eur": null,
+          "buy_below": 22.63,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 32852,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 22,
+          "avg_price_eur": 70,
+          "median_price_eur": null,
+          "buy_below": 48.96,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 5482,
+          "signal": "BUY",
+          "confidence": 57.5
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 11,
+          "avg_price_eur": 21,
+          "median_price_eur": null,
+          "buy_below": 14.57,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 6575,
+          "signal": "AVOID",
+          "confidence": 27.5
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 3,
+          "avg_price_eur": 47,
+          "median_price_eur": null,
+          "buy_below": 33.13,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 1392,
+          "signal": "MONITOR",
+          "confidence": 7.5
+        },
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 2,
+          "avg_price_eur": 50,
+          "median_price_eur": null,
+          "buy_below": 34.82,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 579,
+          "signal": "AVOID",
+          "confidence": 5
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 1,
+          "avg_price_eur": 20,
+          "median_price_eur": null,
+          "buy_below": 13.96,
+          "avg_days_to_sell": 0.1,
+          "active_listings": 1237,
+          "signal": "AVOID",
+          "confidence": 2.5
+        }
+      ]
+    },
+    {
+      "brand": "Calvin Klein",
+      "slug": "calvin-klein",
+      "sold_30d": 142,
+      "avg_price_eur": 22,
+      "top_categories": [
+        "Hoodies",
+        "T-Shirts",
+        "Jackets"
+      ],
+      "categories": [
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 36,
+          "avg_price_eur": 15,
+          "median_price_eur": null,
+          "buy_below": 10.71,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 9601,
+          "signal": "MONITOR",
+          "confidence": 92.5
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 26,
+          "avg_price_eur": 10,
+          "median_price_eur": null,
+          "buy_below": 6.8,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 8102,
+          "signal": "MONITOR",
+          "confidence": 67.5
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 20,
+          "avg_price_eur": 36,
+          "median_price_eur": null,
+          "buy_below": 25.16,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 4305,
+          "signal": "MONITOR",
+          "confidence": 55
+        },
+        {
+          "category": "Jeans",
+          "slug": "jeans",
+          "sold_30d": 16,
+          "avg_price_eur": 22,
+          "median_price_eur": null,
+          "buy_below": 15.39,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 3951,
+          "signal": "MONITOR",
+          "confidence": 42.5
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 15,
+          "avg_price_eur": 10,
+          "median_price_eur": null,
+          "buy_below": 7.19,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 6858,
+          "signal": "MONITOR",
+          "confidence": 40
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 12,
+          "avg_price_eur": 34,
+          "median_price_eur": null,
+          "buy_below": 23.77,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 3163,
+          "signal": "MONITOR",
+          "confidence": 32.5
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 6,
+          "avg_price_eur": 19,
+          "median_price_eur": null,
+          "buy_below": 13.07,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 1734,
+          "signal": "AVOID",
+          "confidence": 15
+        },
+        {
+          "category": "Coats",
+          "slug": "coats",
+          "sold_30d": 4,
+          "avg_price_eur": 57,
+          "median_price_eur": null,
+          "buy_below": 39.9,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 455,
+          "signal": "AVOID",
+          "confidence": 10
+        },
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 4,
+          "avg_price_eur": 59,
+          "median_price_eur": null,
+          "buy_below": 41.56,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 2738,
+          "signal": "AVOID",
+          "confidence": 10
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 3,
+          "avg_price_eur": 15,
+          "median_price_eur": null,
+          "buy_below": 10.5,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 680,
+          "signal": "AVOID",
+          "confidence": 10
+        }
+      ]
+    },
+    {
+      "brand": "Puma",
+      "slug": "puma",
+      "sold_30d": 117,
+      "avg_price_eur": 24,
+      "top_categories": [
+        "Sneakers",
+        "T-Shirts",
+        "Hoodies"
+      ],
+      "categories": [
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 44,
+          "avg_price_eur": 40,
+          "median_price_eur": null,
+          "buy_below": 27.85,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 41022,
+          "signal": "BUY",
+          "confidence": 100
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 23,
+          "avg_price_eur": 11,
+          "median_price_eur": null,
+          "buy_below": 7.59,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 11707,
+          "signal": "MONITOR",
+          "confidence": 60
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 22,
+          "avg_price_eur": 14,
+          "median_price_eur": null,
+          "buy_below": 9.56,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 11462,
+          "signal": "MONITOR",
+          "confidence": 55
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 11,
+          "avg_price_eur": 21,
+          "median_price_eur": null,
+          "buy_below": 14.57,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 6709,
+          "signal": "MONITOR",
+          "confidence": 27.5
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 10,
+          "avg_price_eur": 20,
+          "median_price_eur": null,
+          "buy_below": 14.03,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 13300,
+          "signal": "MONITOR",
+          "confidence": 25
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 4,
+          "avg_price_eur": 7,
+          "median_price_eur": null,
+          "buy_below": 4.72,
+          "avg_days_to_sell": 0.1,
+          "active_listings": 3529,
+          "signal": "AVOID",
+          "confidence": 15
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 3,
+          "avg_price_eur": 18,
+          "median_price_eur": null,
+          "buy_below": 12.83,
+          "avg_days_to_sell": 0.1,
+          "active_listings": 995,
+          "signal": "MONITOR",
+          "confidence": 7.5
+        }
+      ]
+    },
+    {
+      "brand": "Vans",
+      "slug": "vans",
+      "sold_30d": 100,
+      "avg_price_eur": 36,
+      "top_categories": [
+        "Sneakers",
+        "T-Shirts",
+        "Hoodies"
+      ],
+      "categories": [
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 65,
+          "avg_price_eur": 49,
+          "median_price_eur": null,
+          "buy_below": 34.61,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 7556,
+          "signal": "MONITOR",
+          "confidence": 100
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 16,
+          "avg_price_eur": 12,
+          "median_price_eur": null,
+          "buy_below": 8.11,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 1555,
+          "signal": "AVOID",
+          "confidence": 40
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 14,
+          "avg_price_eur": 15,
+          "median_price_eur": null,
+          "buy_below": 10.5,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 1351,
+          "signal": "MONITOR",
+          "confidence": 35
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 5,
+          "avg_price_eur": 8,
+          "median_price_eur": null,
+          "buy_below": 5.53,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 252,
+          "signal": "MONITOR",
+          "confidence": 12.5
+        }
+      ]
+    },
+    {
+      "brand": "Levi's",
+      "slug": "levis",
+      "sold_30d": 88,
+      "avg_price_eur": 27,
+      "top_categories": [
+        "Jeans",
+        "Tracksuits",
+        "T-Shirts"
+      ],
+      "categories": [
+        {
+          "category": "Jeans",
+          "slug": "jeans",
+          "sold_30d": 71,
+          "avg_price_eur": 27,
+          "median_price_eur": null,
+          "buy_below": 19.03,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 60532,
+          "signal": "AVOID",
+          "confidence": 100
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 5,
+          "avg_price_eur": 17,
+          "median_price_eur": null,
+          "buy_below": 12.04,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 2687,
+          "signal": "AVOID",
+          "confidence": 15
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 3,
+          "avg_price_eur": 8,
+          "median_price_eur": null,
+          "buy_below": 5.37,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 11503,
+          "signal": "AVOID",
+          "confidence": 10
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 3,
+          "avg_price_eur": 24,
+          "median_price_eur": null,
+          "buy_below": 16.8,
+          "avg_days_to_sell": 0.7,
+          "active_listings": 7593,
+          "signal": "AVOID",
+          "confidence": 7.5
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 3,
+          "avg_price_eur": 45,
+          "median_price_eur": null,
+          "buy_below": 31.5,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 6158,
+          "signal": "AVOID",
+          "confidence": 10
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 2,
+          "avg_price_eur": 45,
+          "median_price_eur": null,
+          "buy_below": 31.5,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 5121,
+          "signal": "AVOID",
+          "confidence": 5
+        },
+        {
+          "category": "Coats",
+          "slug": "coats",
+          "sold_30d": 1,
+          "avg_price_eur": 9,
+          "median_price_eur": null,
+          "buy_below": 6.3,
+          "avg_days_to_sell": 2.2,
+          "active_listings": 241,
+          "signal": "AVOID",
+          "confidence": 2.5
+        }
+      ]
+    },
+    {
+      "brand": "Off-White",
+      "slug": "off-white",
+      "sold_30d": 74,
+      "avg_price_eur": 70,
+      "top_categories": [
+        "T-Shirts",
+        "Sneakers",
+        "Hoodies"
+      ],
+      "categories": [
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 29,
+          "avg_price_eur": 28,
+          "median_price_eur": null,
+          "buy_below": 19.26,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 2409,
+          "signal": "AVOID",
+          "confidence": 72.5
+        },
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 18,
+          "avg_price_eur": 142,
+          "median_price_eur": null,
+          "buy_below": 99.21,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 2508,
+          "signal": "AVOID",
+          "confidence": 47.5
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 16,
+          "avg_price_eur": 53,
+          "median_price_eur": null,
+          "buy_below": 37.14,
+          "avg_days_to_sell": 0.5,
+          "active_listings": 1950,
+          "signal": "AVOID",
+          "confidence": 40
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 5,
+          "avg_price_eur": 30,
+          "median_price_eur": null,
+          "buy_below": 20.72,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 1412,
+          "signal": "AVOID",
+          "confidence": 15
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 4,
+          "avg_price_eur": 179,
+          "median_price_eur": null,
+          "buy_below": 125.12,
+          "avg_days_to_sell": 0.5,
+          "active_listings": 315,
+          "signal": "AVOID",
+          "confidence": 10
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 1,
+          "avg_price_eur": 15,
+          "median_price_eur": null,
+          "buy_below": 10.5,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 167,
+          "signal": "AVOID",
+          "confidence": 2.5
+        },
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 1,
+          "avg_price_eur": 70,
+          "median_price_eur": null,
+          "buy_below": 49,
+          "avg_days_to_sell": 0.1,
+          "active_listings": 81,
+          "signal": "AVOID",
+          "confidence": 2.5
+        },
+        {
+          "category": "Jeans",
+          "slug": "jeans",
+          "sold_30d": 0,
+          "avg_price_eur": null,
+          "median_price_eur": null,
+          "buy_below": null,
+          "avg_days_to_sell": null,
+          "active_listings": 160,
+          "signal": "AVOID",
+          "confidence": 0
+        }
+      ]
+    },
+    {
+      "brand": "Pull&Bear",
+      "slug": "pullandbear",
+      "sold_30d": 70,
+      "avg_price_eur": 9,
+      "top_categories": [
+        "Hoodies",
+        "Jeans",
+        "Jackets"
+      ],
+      "categories": [
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 50,
+          "avg_price_eur": 8,
+          "median_price_eur": null,
+          "buy_below": 5.9,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 48866,
+          "signal": "AVOID",
+          "confidence": 100
+        },
+        {
+          "category": "Jeans",
+          "slug": "jeans",
+          "sold_30d": 5,
+          "avg_price_eur": 10,
+          "median_price_eur": null,
+          "buy_below": 6.86,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 10051,
+          "signal": "AVOID",
+          "confidence": 12.5
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 5,
+          "avg_price_eur": 13,
+          "median_price_eur": null,
+          "buy_below": 9.24,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 9239,
+          "signal": "AVOID",
+          "confidence": 12.5
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 4,
+          "avg_price_eur": 4,
+          "median_price_eur": null,
+          "buy_below": 2.58,
+          "avg_days_to_sell": 0.1,
+          "active_listings": 2631,
+          "signal": "AVOID",
+          "confidence": 10
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 3,
+          "avg_price_eur": 15,
+          "median_price_eur": null,
+          "buy_below": 10.45,
+          "avg_days_to_sell": 41.4,
+          "active_listings": 2998,
+          "signal": "AVOID",
+          "confidence": 7.5
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 3,
+          "avg_price_eur": 7,
+          "median_price_eur": null,
+          "buy_below": 4.84,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 4998,
+          "signal": "AVOID",
+          "confidence": 7.5
+        }
+      ]
+    },
+    {
+      "brand": "Uniqlo",
+      "slug": "uniqlo",
+      "sold_30d": 70,
+      "avg_price_eur": 21,
+      "top_categories": [
+        "Jackets",
+        "Hoodies",
+        "T-Shirts"
+      ],
+      "categories": [
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 20,
+          "avg_price_eur": 24,
+          "median_price_eur": null,
+          "buy_below": 16.59,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 2141,
+          "signal": "AVOID",
+          "confidence": 52.5
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 20,
+          "avg_price_eur": 26,
+          "median_price_eur": null,
+          "buy_below": 18.12,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 2861,
+          "signal": "MONITOR",
+          "confidence": 50
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 13,
+          "avg_price_eur": 11,
+          "median_price_eur": null,
+          "buy_below": 7.81,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 1801,
+          "signal": "MONITOR",
+          "confidence": 32.5
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 12,
+          "avg_price_eur": 12,
+          "median_price_eur": null,
+          "buy_below": 8.52,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 1815,
+          "signal": "MONITOR",
+          "confidence": 30
+        },
+        {
+          "category": "Coats",
+          "slug": "coats",
+          "sold_30d": 5,
+          "avg_price_eur": 36,
+          "median_price_eur": null,
+          "buy_below": 24.92,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 313,
+          "signal": "MONITOR",
+          "confidence": 12.5
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 0,
+          "avg_price_eur": null,
+          "median_price_eur": null,
+          "buy_below": null,
+          "avg_days_to_sell": null,
+          "active_listings": 667,
+          "signal": "AVOID",
+          "confidence": 0
+        }
+      ]
+    },
+    {
+      "brand": "Bershka",
+      "slug": "bershka",
+      "sold_30d": 55,
+      "avg_price_eur": 18,
+      "top_categories": [
+        "Jeans",
+        "Hoodies",
+        "T-Shirts"
+      ],
+      "categories": [
+        {
+          "category": "Jeans",
+          "slug": "jeans",
+          "sold_30d": 17,
+          "avg_price_eur": 11,
+          "median_price_eur": null,
+          "buy_below": 7.76,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 22305,
+          "signal": "MONITOR",
+          "confidence": 42.5
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 8,
+          "avg_price_eur": 13,
+          "median_price_eur": null,
+          "buy_below": 9.14,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 9450,
+          "signal": "AVOID",
+          "confidence": 20
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 8,
+          "avg_price_eur": 9,
+          "median_price_eur": null,
+          "buy_below": 6.51,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 8438,
+          "signal": "MONITOR",
+          "confidence": 20
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 7,
+          "avg_price_eur": 44,
+          "median_price_eur": null,
+          "buy_below": 30.6,
+          "avg_days_to_sell": 1.3,
+          "active_listings": 10913,
+          "signal": "AVOID",
+          "confidence": 20
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 4,
+          "avg_price_eur": 5,
+          "median_price_eur": null,
+          "buy_below": 3.32,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 4423,
+          "signal": "AVOID",
+          "confidence": 10
+        },
+        {
+          "category": "Bags",
+          "slug": "bags",
+          "sold_30d": 3,
+          "avg_price_eur": 21,
+          "median_price_eur": null,
+          "buy_below": 14.7,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 1030,
+          "signal": "AVOID",
+          "confidence": 7.5
+        },
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 3,
+          "avg_price_eur": 18,
+          "median_price_eur": null,
+          "buy_below": 12.83,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 1090,
+          "signal": "MONITOR",
+          "confidence": 7.5
+        },
+        {
+          "category": "Coats",
+          "slug": "coats",
+          "sold_30d": 3,
+          "avg_price_eur": 20,
+          "median_price_eur": null,
+          "buy_below": 13.88,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 1898,
+          "signal": "AVOID",
+          "confidence": 7.5
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 2,
+          "avg_price_eur": 52,
+          "median_price_eur": null,
+          "buy_below": 36.05,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 3633,
+          "signal": "MONITOR",
+          "confidence": 5
+        }
+      ]
+    },
+    {
+      "brand": "Acne Studios",
+      "slug": "acne-studios",
+      "sold_30d": 41,
+      "avg_price_eur": 67,
+      "top_categories": [
+        "T-Shirts"
+      ],
+      "categories": [
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 41,
+          "avg_price_eur": 67,
+          "median_price_eur": null,
+          "buy_below": 46.69,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 418,
+          "signal": "BUY",
+          "confidence": 100
+        }
+      ]
+    },
+    {
+      "brand": "Jordan",
+      "slug": "jordan",
+      "sold_30d": 40,
+      "avg_price_eur": 121,
+      "top_categories": [
+        "Sneakers",
+        "T-Shirts",
+        "Hoodies"
+      ],
+      "categories": [
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 33,
+          "avg_price_eur": 139,
+          "median_price_eur": null,
+          "buy_below": 97.27,
+          "avg_days_to_sell": 0.8,
+          "active_listings": 8642,
+          "signal": "BUY",
+          "confidence": 92.5
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 3,
+          "avg_price_eur": 31,
+          "median_price_eur": null,
+          "buy_below": 21.91,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 1875,
+          "signal": "AVOID",
+          "confidence": 7.5
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 3,
+          "avg_price_eur": 28,
+          "median_price_eur": null,
+          "buy_below": 19.36,
+          "avg_days_to_sell": 1.5,
+          "active_listings": 1969,
+          "signal": "MONITOR",
+          "confidence": 7.5
+        },
+        {
+          "category": "Tracksuits",
+          "slug": "tracksuits",
+          "sold_30d": 1,
+          "avg_price_eur": 70,
+          "median_price_eur": null,
+          "buy_below": 48.93,
+          "avg_days_to_sell": 0,
+          "active_listings": 1271,
+          "signal": "AVOID",
+          "confidence": 5
+        }
+      ]
+    },
+    {
+      "brand": "Converse",
+      "slug": "converse",
+      "sold_30d": 32,
+      "avg_price_eur": 35,
+      "top_categories": [
+        "Sneakers"
+      ],
+      "categories": [
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 32,
+          "avg_price_eur": 35,
+          "median_price_eur": null,
+          "buy_below": 24.34,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 5269,
+          "signal": "MONITOR",
+          "confidence": 80
+        }
+      ]
+    },
+    {
+      "brand": "Moncler",
+      "slug": "moncler",
+      "sold_30d": 32,
+      "avg_price_eur": 243,
+      "top_categories": [
+        "Jackets"
+      ],
+      "categories": [
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 32,
+          "avg_price_eur": 243,
+          "median_price_eur": null,
+          "buy_below": 170.41,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 2408,
+          "signal": "BUY",
+          "confidence": 80
+        }
+      ]
+    },
+    {
+      "brand": "Palm Angels",
+      "slug": "palm-angels",
+      "sold_30d": 30,
+      "avg_price_eur": 23,
+      "top_categories": [
+        "T-Shirts"
+      ],
+      "categories": [
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 30,
+          "avg_price_eur": 23,
+          "median_price_eur": null,
+          "buy_below": 16.41,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 956,
+          "signal": "BUY",
+          "confidence": 77.5
+        }
+      ]
+    },
+    {
+      "brand": "Mango",
+      "slug": "mango",
+      "sold_30d": 27,
+      "avg_price_eur": 14,
+      "top_categories": [
+        "Jackets",
+        "Jeans",
+        "T-Shirts"
+      ],
+      "categories": [
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 8,
+          "avg_price_eur": 20,
+          "median_price_eur": null,
+          "buy_below": 13.69,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 11404,
+          "signal": "MONITOR",
+          "confidence": 25
+        },
+        {
+          "category": "Jeans",
+          "slug": "jeans",
+          "sold_30d": 6,
+          "avg_price_eur": 7,
+          "median_price_eur": null,
+          "buy_below": 4.9,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 11782,
+          "signal": "MONITOR",
+          "confidence": 15
+        },
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 5,
+          "avg_price_eur": 8,
+          "median_price_eur": null,
+          "buy_below": 5.39,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 4359,
+          "signal": "MONITOR",
+          "confidence": 12.5
+        },
+        {
+          "category": "Hoodies",
+          "slug": "hoodies",
+          "sold_30d": 4,
+          "avg_price_eur": 19,
+          "median_price_eur": null,
+          "buy_below": 13.12,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 7094,
+          "signal": "AVOID",
+          "confidence": 12.5
+        },
+        {
+          "category": "Shirts",
+          "slug": "shirts",
+          "sold_30d": 3,
+          "avg_price_eur": 16,
+          "median_price_eur": null,
+          "buy_below": 11.54,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 5432,
+          "signal": "MONITOR",
+          "confidence": 7.5
+        },
+        {
+          "category": "Coats",
+          "slug": "coats",
+          "sold_30d": 1,
+          "avg_price_eur": 30,
+          "median_price_eur": null,
+          "buy_below": 21,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 3508,
+          "signal": "AVOID",
+          "confidence": 2.5
+        }
+      ]
+    },
+    {
+      "brand": "Miu Miu",
+      "slug": "miu-miu",
+      "sold_30d": 25,
+      "avg_price_eur": 167,
+      "top_categories": [
+        "Sneakers"
+      ],
+      "categories": [
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 25,
+          "avg_price_eur": 167,
+          "median_price_eur": null,
+          "buy_below": 116.93,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 242,
+          "signal": "BUY",
+          "confidence": 62.5
+        }
+      ]
+    },
+    {
+      "brand": "Jacquemus",
+      "slug": "jacquemus",
+      "sold_30d": 18,
+      "avg_price_eur": 56,
+      "top_categories": [
+        "Caps"
+      ],
+      "categories": [
+        {
+          "category": "Caps",
+          "slug": "caps",
+          "sold_30d": 18,
+          "avg_price_eur": 56,
+          "median_price_eur": null,
+          "buy_below": 38.85,
+          "avg_days_to_sell": 0.4,
+          "active_listings": 359,
+          "signal": "BUY",
+          "confidence": 45
+        }
+      ]
+    },
+    {
+      "brand": "Corteiz",
+      "slug": "corteiz",
+      "sold_30d": 18,
+      "avg_price_eur": 25,
+      "top_categories": [
+        "T-Shirts"
+      ],
+      "categories": [
+        {
+          "category": "T-Shirts",
+          "slug": "t-shirts",
+          "sold_30d": 18,
+          "avg_price_eur": 25,
+          "median_price_eur": null,
+          "buy_below": 17.44,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 700,
+          "signal": "BUY",
+          "confidence": 45
+        }
+      ]
+    },
+    {
+      "brand": "Salomon",
+      "slug": "salomon",
+      "sold_30d": 14,
+      "avg_price_eur": 111,
+      "top_categories": [
+        "Sneakers",
+        "Jackets"
+      ],
+      "categories": [
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 9,
+          "avg_price_eur": 102,
+          "median_price_eur": null,
+          "buy_below": 71.17,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 1717,
+          "signal": "MONITOR",
+          "confidence": 22.5
+        },
+        {
+          "category": "Jackets",
+          "slug": "jackets",
+          "sold_30d": 5,
+          "avg_price_eur": 128,
+          "median_price_eur": null,
+          "buy_below": 89.46,
+          "avg_days_to_sell": 0.2,
+          "active_listings": 329,
+          "signal": "MONITOR",
+          "confidence": 12.5
+        }
+      ]
+    },
+    {
+      "brand": "Asics",
+      "slug": "asics",
+      "sold_30d": 1,
+      "avg_price_eur": 50,
+      "top_categories": [
+        "Sneakers"
+      ],
+      "categories": [
+        {
+          "category": "Sneakers",
+          "slug": "sneakers",
+          "sold_30d": 1,
+          "avg_price_eur": 50,
+          "median_price_eur": null,
+          "buy_below": 35,
+          "avg_days_to_sell": 0.3,
+          "active_listings": 2475,
+          "signal": "AVOID",
+          "confidence": 2.5
+        }
+      ]
+    }
+  ]
+}

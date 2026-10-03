@@ -14,6 +14,13 @@
  *   - The backend container name must match /ph5cl/
  *
  * The script reads ONLY - no writes to the production DB.
+ *
+ * CNT (2026-10-04): sold_30d is now COUNT(DISTINCT external_id) of F1-valid
+ * departures over the last 30 days (same rules as O7's refresh_model_signals),
+ * NOT AVG(market_stats.sold_30d) -- market_stats is per platform and the same
+ * item sits on several Vinted domains. The page set is frozen to the pairs
+ * already in src/data/buy-data.json (no new URLs); pass --expand to add every
+ * brand x category pair that clears the threshold.
  */
 
 import { execSync } from "child_process"
@@ -25,8 +32,21 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const OUT_PATH = path.join(__dirname, "../src/data/buy-data.json")
 
 // Python script to run inside the container
+const EXPAND = process.argv.includes("--expand")
+let ALLOWED = null
+let PREV = {}
+try {
+  if (!EXPAND) {
+    const prev = JSON.parse(fs.readFileSync(OUT_PATH, "utf8"))
+    ALLOWED = prev.brands.flatMap((b) => b.categories.map((c) => [b.brand, c.category]))
+    for (const b of prev.brands) for (const c of b.categories) PREV[`${b.brand}||${c.category}`] = c
+  }
+} catch {}
+
 const PY = `
 import sqlite3, json, sys, re
+ALLOWED = json.loads(r'''${JSON.stringify(ALLOWED)}''')
+PREV = json.loads(r'''${JSON.stringify(PREV)}''')
 
 def make_slug(s):
     return re.sub(r'-+', '-', re.sub(r'[^a-z0-9]+', '-', s.lower().replace('&', 'and'))).strip('-')
@@ -54,10 +74,48 @@ rows = c.execute('''
         AVG(max_price_eur) as max_price_eur, AVG(avg_days_to_sell) as avg_days_to_sell,
         AVG(sell_through_rate) as sell_through_rate, AVG(active_listings) as active_listings,
         MAX(updated_at) as updated_at
-    FROM market_stats WHERE sold_30d >= 3
+    FROM market_stats WHERE sold_30d >= ${ALLOWED === null ? 3 : 0}
     GROUP BY brand, category
     ORDER BY sold_30d_avg DESC
 ''').fetchall()
+
+# CNT: de-duplicated, F1-valid departures per brand x category (30 days).
+# One departure per external_id; departure_shelf_match IS NOT 0 drops departures
+# whose item brand differs from the shelf keyword that ended them (NULL = unjudged, kept).
+dd = {}
+for r in c.execute('''
+    SELECT brand, category, COUNT(DISTINCT external_id) AS n,
+           AVG(item_price) AS ap
+    FROM (SELECT brand, category, external_id,
+                 MAX(CASE WHEN price_eur > 0 THEN price_eur END) AS item_price
+          FROM listings
+          WHERE sold_observed = 1 AND sold_at >= datetime('now', '-30 days')
+            AND platform LIKE 'vinted_%' AND COALESCE(is_deleted, 0) = 0
+            AND departure_shelf_match IS NOT 0 AND brand IS NOT NULL
+          GROUP BY brand, category, external_id)
+    GROUP BY brand, category
+'''):
+    dd[(r['brand'], r['category'])] = (r['n'], r['ap'])
+
+if ALLOWED is not None:
+    allowed = set(tuple(x) for x in ALLOWED)
+    rows = [r for r in rows if (r['brand'], r['category']) in allowed]
+    have = set((r['brand'], r['category']) for r in rows)
+    stub = ['avg_price_eur', 'median_price_eur', 'min_price_eur', 'max_price_eur',
+            'avg_days_to_sell', 'sell_through_rate', 'active_listings', 'updated_at']
+    for (b, cat) in sorted(allowed - have):  # frozen page set: never drop a URL
+        pv = PREV.get(b + '||' + cat, {})  # no live market_stats row: keep last published figures
+        rows.append({'brand': b, 'category': cat, **{k: None for k in stub},
+                     'avg_price_eur': pv.get('avg_price_eur'), 'median_price_eur': pv.get('median_price_eur'),
+                     'avg_days_to_sell': pv.get('avg_days_to_sell'), 'active_listings': pv.get('active_listings')})
+else:
+    rows = [r for r in rows if dd.get((r['brand'], r['category']), (0, 0))[0] >= 3]
+rows = [dict(r) if not isinstance(r, dict) else r for r in rows]
+for r in rows:
+    n, ap = dd.get((r['brand'], r['category']), (0, None))
+    r['sold_30d_avg'] = n
+    if ap: r['avg_price_eur'] = ap
+rows.sort(key=lambda r: -r['sold_30d_avg'])
 
 # demand_index for signals
 di_rows = c.execute('SELECT brand, category, signal, confidence, investment_score FROM demand_index').fetchall()
@@ -101,7 +159,7 @@ for brand, pairs in sorted(by_brand.items(), key=lambda x: -sum(p['sold_30d_avg'
 from datetime import date
 result = {
     'generated_at': date.today().isoformat(),
-    'source': 'market_stats (Vinted DE/FR/ES/IT/PT)',
+    'source': 'listings: distinct external_id departures (Vinted DE/FR/ES/IT/PT), prices/signals from market_stats',
     'formula': 'buy_below = avg_price_eur * 0.70 (30% gross margin; no fee factor, Vinted charges private sellers no selling fee - same as engine/insight.buy_below_from_avg)',
     'threshold': 'sold_30d >= 3 (30-day departures)',
     'total_pairs': sum(len(b['categories']) for b in brands_data),
@@ -116,13 +174,10 @@ try {
   const container = execSync(`ssh resaleiq "docker ps --format '{{.Names}}' | grep ph5cl"`, { encoding: "utf8" }).trim()
   console.log(`Container: ${container}`)
 
-  // Write the script to a temp file on the server
-  const escaped = PY.replace(/'/g, "'\\''")
-  const cmd = `ssh resaleiq "echo '${escaped}' > /tmp/riq_buy_refresh.py && docker cp /tmp/riq_buy_refresh.py ${container}:/tmp/riq_buy_refresh.py && docker exec ${container} python3 /tmp/riq_buy_refresh.py"`
-  
+  // Pipe the script over stdin: read-only, nothing is copied into the container.
   console.log("Running DB query (this may take a moment)...")
-  const output = execSync(cmd, { encoding: "utf8", timeout: 60000 })
-  
+  const output = execSync(`ssh resaleiq "docker exec -i ${container} python3 -"`, { input: PY, encoding: "utf8", timeout: 120000, maxBuffer: 64 * 1024 * 1024 })
+
   const data = JSON.parse(output)
   console.log(`Got ${data.total_brands} brands, ${data.total_pairs} pairs`)
   
