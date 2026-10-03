@@ -106,7 +106,7 @@ export const CHAPTERS_1: ManualChapter[] = [
         body: [
           "A 50% margin on a €10 item is €5. A 20% margin on a €120 item is €24. Percentage margin is useful for comparing two items of similar price and useless for deciding where to put your money. What you are actually optimising is euros of profit per euro of capital per week — margin and speed together, never margin alone.",
           "This is why volume brands and premium brands are different businesses rather than better and worse versions of the same one. High-volume, low-price stock returns small amounts quickly and forgives mistakes. Premium stock returns larger amounts slowly and punishes them. Both work. Mixing them without noticing which one you are doing does not.",
-          "As of 14 September 2026, across the brands we watch leave Vinted's shelf, a Fred Perry Shirt departed at an average of €14 (455 watched departures in seven days) and a Gucci Bag at €306 (83). Same sell-one-item motion at twenty times the price and roughly a fifth of the turnover, which is why a single target margin applied to both does not work.",
+          "Across the brands we watch leave Vinted's shelf, a Fred Perry Shirt departs at an average of €14 and a Gucci Bag at €306. Same sell-one-item motion at twenty times the price and a fraction of the turnover, which is why a single target margin applied to both does not work.",
         ],
         callout: {
           label: "The test",
@@ -569,7 +569,7 @@ export const CHAPTERS_1: ManualChapter[] = [
       "Spot fakes and over-grades before you buy. Condition moves price more than brand. Fast checks, then a demand check on Resale IQ from €19/mo.",
     minutes: 7,
     intro:
-      "Condition is the largest price swing we can measure, and it is bigger than almost anyone assumes. A fake, or an over-grade, wipes the margin before you ever list. Snapshot 20 September 2026 at 14:43: 566 watched departures this week across Spain, France, Germany, Italy and Portugal. Balenciaga averaged €119. Gucci averaged €303. Those are the names where a counterfeit or a \"very good\" that is actually \"good\" costs you the trade. Grade in daylight before money moves. If you cannot stand behind it, do not buy it. Then check demand so you are not authenticating something that will not leave the shelf. We do not verify authenticity. We tell you whether the brand is moving and what comparable listings left at. Resale IQ returns BUY, WATCH or SKIP from live EU departures. Starter €19/mo. Weekly volumes stay free on /data.",
+      "Condition is the largest price swing we can measure, and it is bigger than almost anyone assumes. A fake, or an over-grade, wipes the margin before you ever list. Across Spain, France, Germany, Italy and Portugal, Balenciaga averages around €119 at departure and Gucci around €303. Those are the names where a counterfeit or a \"very good\" that is actually \"good\" costs you the trade. Grade in daylight before money moves. If you cannot stand behind it, do not buy it. Then check demand so you are not authenticating something that will not leave the shelf. We do not verify authenticity. We tell you whether the brand is moving and what comparable listings left at. Resale IQ returns BUY, WATCH or SKIP from live EU departures. Starter €19/mo. Weekly volumes stay free on /data.",
     sections: [
       {
         h2: "How much condition is actually worth",

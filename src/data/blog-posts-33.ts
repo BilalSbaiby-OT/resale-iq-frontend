@@ -14,24 +14,24 @@ export const POSTS_33: BlogPost[] = [
     title: "Nike Sneakers on EU Vinted: Price Guide and Buy-Below (2026 Data)",
     seoTitle: "Nike Sneaker Vinted EU Price Guide 2026 — Resale IQ",
     description:
-      "Nike sneakers averaged €96 per departure across EU Vinted in September 2026 — 77 pairs per week. Air Force 1, Dunk, Air Max 90/95/97.",
+      "Nike sneakers averaged €96 per departure across EU Vinted in September 2026. Air Force 1, Dunk, Air Max 90/95/97.",
     date: "2026-09-15",
 
     preflightQuery: "Nike Sneakers",
     category: "Sourcing",
     readMins: 9,
     intro:
-      "Nike is the world's largest sportswear brand and one of the most actively traded on EU Vinted — but the resale picture is more nuanced than name recognition suggests. In the week to 15 September 2026, 77 Nike sneaker pairs left the shelf across France, Germany, Spain, Italy and Portugal at an average exit price of €96. That average hides a wide spread: entry-level Cortez and Blazer pairs exit at €25–40, while limited Dunk Low and Air Max 97 colourways consistently clear €120–200. This guide breaks down Nike's key resale-active silhouettes by departure tier, buy-below ceiling, and the condition signals that separate a fast flip from a sitting listing.",
+      "Nike is the world's largest sportswear brand and one of the most actively traded on EU Vinted — but the resale picture is more nuanced than name recognition suggests. Across France, Germany, Spain, Italy and Portugal, Nike sneakers leave the shelf at an average exit price of €96. That average hides a wide spread: entry-level Cortez and Blazer pairs exit at €25–40, while limited Dunk Low and Air Max 97 colourways consistently clear €120–200. This guide breaks down Nike's key resale-active silhouettes by departure tier, buy-below ceiling, and the condition signals that separate a fast flip from a sitting listing.",
     definedTerm: {
       name: "Nike sneaker departure average",
       description:
-        "The Nike sneaker departure average is the average price at which a tracked Nike sneaker listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 15 September 2026, the Nike sneaker departure average is €96 across 77 observed sneaker departures in France, Germany, Spain, Italy, and Portugal. This figure is the brand-level average across all Nike sneaker silhouettes — Air Force 1, Dunk, Air Max 90/95/97/1, Blazer, Cortez, and other models all fall within the tracked pool. Individual silhouettes range from €25–40 for entry Cortez and basic Blazer Mid to €150–250 for limited Dunk colourways and rare Air Max 97 Metallic editions.",
+        "The Nike sneaker departure average is the average price at which a tracked Nike sneaker listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of September 2026, the Nike sneaker departure average is €96 across France, Germany, Spain, Italy, and Portugal. This figure is the brand-level average across all Nike sneaker silhouettes — Air Force 1, Dunk, Air Max 90/95/97/1, Blazer, Cortez, and other models all fall within the tracked pool. Individual silhouettes range from €25–40 for entry Cortez and basic Blazer Mid to €150–250 for limited Dunk colourways and rare Air Max 97 Metallic editions.",
     },
     sections: [
       {
         h: "Nike sneakers on EU Vinted: what the data shows",
         p: [
-          "Of Nike's 161 total watched departures per week across EU Vinted (week to 15 September 2026), sneakers account for 77 of them at a €96 average exit price — 48% of weekly volume at 1.5× the brand's overall departure average of €64. The remaining Nike volume is Hoodies (21 departures in the last 30 days, €23 avg), Jackets (21 departures in the last 30 days, €54 avg), T-Shirts (17 departures in the last 30 days, €19 avg), and Tracksuits (11 departures in the last 30 days, €32 avg). At 77 sneaker pairs per week × €96 average, Nike footwear represents €7,392 of weekly secondary market activity across five EU countries tracked by Resale IQ.",
+          "Across Nike's watched departures on EU Vinted (September 2026), sneakers are the largest share at a €96 average exit price — about 1.5× the brand's overall departure average of €64. The rest of Nike's movement is Hoodies (€23 avg), Jackets (€54 avg), T-Shirts (€19 avg), and Tracksuits (€32 avg). Sneakers carry the highest ticket in Nike's mix, which is why they are the focus of this guide.",
           "The €96 average is the central estimate across all tracked Nike silhouettes. The distribution is heavily right-skewed: high-volume, lower-ticket models like the Air Force 1 and Blazer Mid pull the mass of the transaction count while limited Dunk and Air Max 97 colourways pull the average upward. Knowing which silhouette you have — and which colourway — is the entire sourcing decision, because Nike's brand equity does not translate uniformly into resale value across models.",
           `[Current Nike departure data →](${ilinkHref("flip")})`,
         ],
@@ -49,7 +49,7 @@ export const POSTS_33: BlogPost[] = [
         h: "Nike Dunk Low and Dunk High: the premium resale tier",
         p: [
           "The Dunk Low is Nike's highest-margin resale silhouette in the EU secondhand market. Limited colourways (Panda, University Blue, Chicago, Lottery, Raygun, SB collaborations) exit at €90–250+ depending on the specific release, condition, and size. The Dunk High follows at a slight discount to the Low for most colourways. GR Dunk Lows (Photon Dust, Plum Fog, and current Foot Locker exclusives) exit at €55–90 in good condition — still above average for Nike footwear, but not the premium tier.",
-          "The buy-below for a GR Dunk Low targeting a €75 exit is approximately €53 at 30% margin. For a limited colourway Dunk targeting a €150 exit, the buy-below is approximately €105. Identifying the specific release before setting a sourcing price is non-optional — two Dunk Lows in the same colourway family can differ by €80 in resale value depending on whether it is a GR or a limited drop. Cross-reference Vinted sold listings and StockX EU price history before bidding.",
+          "The buy-below for a GR Dunk Low targeting a €75 exit is approximately €53 at 30% margin. For a limited colourway Dunk targeting a €150 exit, the buy-below is approximately €105. Identifying the specific release before setting a sourcing price is non-optional — two Dunk Lows in the same colourway family can differ by €80 in resale value depending on whether it is a GR or a limited drop. Cross-reference Vinted listings for the same colourway and StockX EU price history before bidding.",
           "Condition weight on Dunks is higher than AF1: Dunk buyers are more likely to be sneaker-aware and will pay for original laces, clean insoles, and an intact box. Box-included Dunks carry a €10–20 premium on average. Missing the dust bag on an SB collaboration reduces exit price by up to 15%. Size matters more here than on most Nike models: EU size 42–44 (US 8.5–10) is the sweet spot for liquidity; EU 45+ and EU 38– carry a 20–30% liquidity discount.",
         ],
         cta: pricingMidCta("ctr_nike_dunk_20260915"),
@@ -75,19 +75,19 @@ export const POSTS_33: BlogPost[] = [
         h: "Nike SB Dunks and collaboration models: the high-ceiling tier",
         p: [
           "Nike SB Dunks sit in a separate category from standard Dunk Lows and Dunk Highs — they are designed for skateboarding use and historically command significant resale premiums for limited releases. SB Dunk colourways (Heineken, Tiffany, Paris, Pigeon, Strangelove, Travis Scott × Fragment) exit at €200–800+ on EU Vinted for used pairs in good condition with original lacing and insoles. These are capital-intensive buys requiring knowledge of the specific release history.",
-          "For a reseller new to the Nike SB category: the primary identification check is the insole. SB Dunks carry an extra padded insole for impact cushioning — this is absent on standard Dunk Lows. The Nike SB branding appears on the tongue (a small green SB logo on many older releases) and on the box label. Misidentified standard Dunks listed as SB command no SB premium and generate buyer complaints. Verify the specific SB colourway against authenticated sold listings on Vinted ES/FR before pricing above €150.",
-          "Collaboration Nike models outside SB (Off-White, Sacai, Acronym, Union) follow a similar framework: identify the specific collaboration and colourway first, then source a Vinted sold comps baseline, then set a buy-below at 30% margin on the realistic EU exit — not the StockX ask, which often sits 20–40% above actual EU Vinted transacted prices due to market depth differences.",
+          "For a reseller new to the Nike SB category: the primary identification check is the insole. SB Dunks carry an extra padded insole for impact cushioning — this is absent on standard Dunk Lows. The Nike SB branding appears on the tongue (a small green SB logo on many older releases) and on the box label. Misidentified standard Dunks listed as SB command no SB premium and generate buyer complaints. Verify the specific SB colourway against authenticated listings on Vinted ES/FR before pricing above €150.",
+          "Collaboration Nike models outside SB (Off-White, Sacai, Acronym, Union) follow a similar framework: identify the specific collaboration and colourway first, then source a comparable-listings baseline from Vinted, then set a buy-below at 30% margin on the realistic EU exit — not the StockX ask, which often sits 20–40% above actual EU Vinted transacted prices due to market depth differences.",
         ],
         cta: pricingMidCta("ctr_nike_sb_20260915"),
       },
       {
         h: "Nike sneaker silhouette comparison: EU Vinted at a glance",
         p: [
-          "Exit volumes and prices vary significantly across Nike's sneaker range. The table below maps the key silhouettes by typical exit range, buy-below ceiling at 30% net margin, and liquidity on EU Vinted. All data anchored to the brand's sneaker departure average of €96 (week to 15 September 2026). Colourway-specific exits can differ materially from these ranges — use as a starting baseline, not a final bid price.",
+          "Exit volumes and prices vary significantly across Nike's sneaker range. The table below maps the key silhouettes by typical exit range, buy-below ceiling at 30% net margin, and liquidity on EU Vinted. All data anchored to the brand's sneaker departure average of €96 (September 2026). Colourway-specific exits can differ materially from these ranges — use as a starting baseline, not a final bid price.",
         ],
         table: {
           caption:
-            "Nike EU Vinted sneaker silhouettes: typical exit ranges and buy-below at a 30% margin. Week to 15 Sep 2026. Exit ranges are market-observed approximations across standard condition pieces; limited colourways exit higher.",
+            "Nike EU Vinted sneaker silhouettes: typical exit ranges and buy-below at a 30% margin. September 2026. Exit ranges are market-observed approximations across standard condition pieces; limited colourways exit higher.",
           head: [
             "Silhouette",
             "Exit range (EU Vinted, GR)",
@@ -160,11 +160,11 @@ export const POSTS_33: BlogPost[] = [
     faq: [
       {
         q: "What do Nike sneakers sell for on Vinted?",
-        a: "Nike sneakers averaged €96 per departure across EU Vinted in the week to 15 September 2026, across 77 observed sneaker departures in France, Germany, Spain, Italy, and Portugal. The range is wide: Blazer Mid GR colourways exit at €25–45; Air Force 1 Low GR at €30–60; Air Max 90/95/97 at €40–120 depending on colourway; Dunk Low GR at €55–90; limited Dunk Low at €100–250+; Nike SB Dunks at €150–600+ for limited releases. The buy-below at 30% net margin for the €96 average is approximately €67.",
+        a: "Nike sneakers averaged €96 per departure across EU Vinted in September 2026, across France, Germany, Spain, Italy, and Portugal. The range is wide: Blazer Mid GR colourways exit at €25–45; Air Force 1 Low GR at €30–60; Air Max 90/95/97 at €40–120 depending on colourway; Dunk Low GR at €55–90; limited Dunk Low at €100–250+; Nike SB Dunks at €150–600+ for limited releases. The buy-below at 30% net margin for the €96 average is approximately €67.",
       },
       {
         q: "Is Nike worth reselling on Vinted?",
-        a: "Yes — Nike is one of the most actively traded brands on EU Vinted. In the week to 15 September 2026, 161 Nike items departed weekly across EU markets, with 77 of those being sneakers averaging €96 per pair. Nike resale is silhouette-specific: the AF1 and Blazer are volume plays with moderate per-pair margin; the Dunk Low and Air Max 97 in the right colourways can return 30–50%+ margin per unit. The risk is colourway misjudgement — buying a GR colourway at limited-edition pricing results in an unsellable position.",
+        a: "Yes — Nike is one of the most actively traded brands on EU Vinted. In September 2026, Nike was a consistent mover across EU markets, with sneakers averaging €96 per pair. Nike resale is silhouette-specific: the AF1 and Blazer are volume plays with moderate per-pair margin; the Dunk Low and Air Max 97 in the right colourways can return 30–50%+ margin per unit. The risk is colourway misjudgement — buying a GR colourway at limited-edition pricing results in an unsellable position.",
       },
       {
         q: "What is the buy-below for Nike Air Force 1 on Vinted?",
@@ -180,7 +180,7 @@ export const POSTS_33: BlogPost[] = [
       },
       {
         q: "How do Nike sneakers compare to New Balance for Vinted resale?",
-        a: "Nike tracks 77 sneaker departures per week at €96 average vs New Balance's 240 sneaker departures per week at €52 average across EU Vinted (week to 15 September 2026). New Balance is the higher-volume play — nearly 3× the weekly pairs — with more predictable per-unit margins on core models like the 530 and 990. Nike has higher per-unit upside on limited silhouettes (Dunks, SB, collabs) but more colourway-specific risk. For a reseller optimising cash turnover, New Balance is the more reliable baseline; for per-unit margin, Nike's limited tier wins. The two strategies are complementary rather than competitive.",
+        a: "Nike sneakers average €96 vs New Balance's €52 across EU Vinted (September 2026). New Balance is the higher-volume play — far more pairs move — with more predictable per-unit margins on core models like the 530 and 990. Nike has higher per-unit upside on limited silhouettes (Dunks, SB, collabs) but more colourway-specific risk. For a reseller optimising cash turnover, New Balance is the more reliable baseline; for per-unit margin, Nike's limited tier wins. The two strategies are complementary rather than competitive.",
       },
     ],
   },

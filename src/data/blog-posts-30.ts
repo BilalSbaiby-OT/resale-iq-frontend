@@ -20,18 +20,18 @@ export const POSTS_30: BlogPost[] = [
     category: "Sourcing",
     readMins: 9,
     intro:
-      "New Balance ranks #5 by watched departures on EU Vinted, with 240 tracked sneaker departures per week across 10 models as of the week to 14 September 2026 — at a €52 average exit price. That volume beats Adidas (90 total brand departures), Levi's, and almost every other brand on the platform except the market leaders. The brand's strongest models span three distinct tiers: trend-driven (550), heritage running (990/993), and everyday volume (574). This guide breaks down departure data, buy-below prices, and sourcing priorities across the New Balance EU Vinted catalogue.",
+      "New Balance is one of the fastest-moving brands on EU Vinted as of September 2026 — at a €52 average exit price on its sneakers. That pace beats Adidas, Levi's, and almost every other brand we watch except the market leaders. The brand's strongest models span three distinct tiers: trend-driven (550), heritage running (990/993), and everyday volume (574). This guide breaks down departure data, buy-below prices, and sourcing priorities across the New Balance EU Vinted catalogue.",
     definedTerm: {
       name: "New Balance sneaker departure average",
       description:
-        "The New Balance sneaker departure average is the average price at which a tracked New Balance sneaker listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of the week to 14 September 2026, the New Balance sneaker departure average across 10 tracked models is €52 (240 observed departures across France, Germany, Spain, Italy, and Portugal). Individual models range from below the category average (574 at volume) to well above it (990v5, 993 in premium colourways).",
+        "The New Balance sneaker departure average is the average price at which a tracked New Balance sneaker listing leaves the shelf on EU Vinted — not the asking price and not the retail price. As of September 2026, the New Balance sneaker departure average across the tracked models is €52 (across France, Germany, Spain, Italy, and Portugal). Individual models range from below the category average (574 at volume) to well above it (990v5, 993 in premium colourways).",
     },
     sections: [
       {
         h: "New Balance on EU Vinted: brand overview",
         p: [
-          "Across 10 tracked New Balance sneaker models, ResaleIQ recorded 240 watched departures in the 7 days to 14 September 2026, across the 5 main EU Vinted markets (France, Germany, Spain, Italy, Portugal). With a €52 average exit price, New Balance sits above Nike's volume-adjusted average and far above most apparel brands — this is a high-velocity sneaker brand with real margin potential.",
-          "The brand's Vinted performance is almost entirely sneaker-driven: 240 of 258 total brand departures (93%) are in the Sneakers category. Tracksuits, hoodies, and T-shirts make up the remaining 7% at much lower exit prices — if you are sourcing New Balance, you are sourcing footwear. Non-footwear New Balance (grey logo tees, PE kit tracksuits) exits below €20 and is not worth prioritising at the buy-below threshold.",
+          "Across the tracked New Balance sneaker models, ResaleIQ watches steady departures across the 5 main EU Vinted markets (France, Germany, Spain, Italy, Portugal). With a €52 average exit price, New Balance sits above Nike's volume-adjusted average and far above most apparel brands — this is a high-velocity sneaker brand with real margin potential.",
+          "The brand's Vinted performance is almost entirely sneaker-driven: nearly all of its departures are in the Sneakers category. Tracksuits, hoodies, and T-shirts make up a small remainder at much lower exit prices — if you are sourcing New Balance, you are sourcing footwear. Non-footwear New Balance (grey logo tees, PE kit tracksuits) exits below €20 and is not worth prioritising at the buy-below threshold.",
           `[Current New Balance departure data →](${ilinkHref("flip")})`,
         ],
         cta: pricingMidCta("ctr_nb_guide_intro_20260915"),
@@ -59,7 +59,7 @@ export const POSTS_30: BlogPost[] = [
         p: [
           "The 990 series (990v5, 990v6) and 993 are the premium end of the New Balance secondhand market on EU Vinted. These models retail at €250–400 new; secondhand exits range from €80–180 depending on condition, version, and colourway. The buy-below for a €120 exit target is approximately €84 at 30% margin.",
           "The 990/993 are 'Made in USA' (MIUSA) models — this is a real differentiator on Vinted. Buyers searching for MIUSA New Balance specifically target these models and will pay above the category average for confirmed MIUSA pairs. Verify on the insole or tongue tag: 'Made in USA' should be present; pairs marked 'Made in Vietnam' or 'Made in China' are non-MIUSA and exit at mainstream category prices, not the MIUSA premium.",
-          "The 993 in grey marle (the classic colourway, worn by Steve Jobs) has consistent buyer recognition and exits at €80–130 in clean condition. The 990v5 in 'Marblehead' (light grey, tan accent) is the most-searched 990 colourway on EU Vinted. Both models source infrequently at charity shops (they were never mass-market in Europe) — the more reliable sourcing path is Facebook Marketplace and eBay sold listings where US-imported pairs surface.",
+          "The 993 in grey marle (the classic colourway, worn by Steve Jobs) has consistent buyer recognition and exits at €80–130 in clean condition. The 990v5 in 'Marblehead' (light grey, tan accent) is the most-searched 990 colourway on EU Vinted. Both models source infrequently at charity shops (they were never mass-market in Europe) — the more reliable sourcing path is Facebook Marketplace and eBay listings where US-imported pairs surface.",
           "Condition priority: 990/993 upper mesh is delicate and darkens with wear — a dirty grey mesh reads as neglect and kills 20–30% of the exit price. A suede brush and sneaker cleaner applied before listing recovers most of this.",
         ],
         cta: pricingBodyCta("body_nb_990_20260915"),
@@ -79,7 +79,7 @@ export const POSTS_30: BlogPost[] = [
         ],
         table: {
           caption:
-            "New Balance EU Vinted: observed departure ranges and buy-below prices, week to 14 Sep 2026",
+            "New Balance EU Vinted: exit ranges and buy-below prices, September 2026",
           head: [
             "Model",
             "Departure tier",
@@ -140,11 +140,11 @@ export const POSTS_30: BlogPost[] = [
     faq: [
       {
         q: "What do New Balance sneakers sell for on Vinted?",
-        a: "New Balance sneakers averaged €52 per departure across EU Vinted in the week to 14 September 2026, across 240 observed departures in France, Germany, Spain, Italy, and Portugal. The range is wide: 574s exit at €25–55, 327s at €40–65, 550s at €60–90, and heritage running models (990, 993) at €80–180 depending on condition and colourway. The buy-below price for the brand average (30% margin) is approximately €36.",
+        a: "New Balance sneakers averaged €52 per departure across EU Vinted in September 2026, across France, Germany, Spain, Italy, and Portugal. The range is wide: 574s exit at €25–55, 327s at €40–65, 550s at €60–90, and heritage running models (990, 993) at €80–180 depending on condition and colourway. The buy-below price for the brand average (30% margin) is approximately €36.",
       },
       {
         q: "Is New Balance worth reselling on Vinted?",
-        a: "Yes — New Balance is one of the highest-volume secondhand footwear brands on EU Vinted, with 240 sneaker departures per week at a €52 average as of September 2026. That puts it ahead of Adidas, Levi's, and most apparel brands by volume. The margin window is real: charity-sourced 574s at €10–20 can exit at €35–50; 550s sourced at €40–50 can exit at €70–90. The heritage running tier (990, 993) is harder to source but exits at €80–180.",
+        a: "Yes — New Balance is one of the highest-volume secondhand footwear brands on EU Vinted, with a €52 average sneaker exit as of September 2026. That puts it ahead of Adidas, Levi's, and most apparel brands by volume. The margin window is real: charity-sourced 574s at €10–20 can exit at €35–50; 550s sourced at €40–50 can exit at €70–90. The heritage running tier (990, 993) is harder to source but exits at €80–180.",
       },
       {
         q: "Which New Balance model sells best on Vinted?",
@@ -152,7 +152,7 @@ export const POSTS_30: BlogPost[] = [
       },
       {
         q: "What is the buy-below price for New Balance on Vinted?",
-        a: "Using the EU Vinted departure average of €52 for New Balance sneakers (week to 14 Sep 2026), the buy-below price at a 30% margin is approximately €36. This is the maximum sourcing cost to hit a defensible margin at the departure average. For specific models: 574 buy-below ~€27 (exits at €41 avg), 550 buy-below ~€56 (exits at €80 avg), 993 buy-below ~€61 (exits at €87 avg). Real-time buy-below prices update with each week's departure data via Resale IQ.",
+        a: "Using the EU Vinted departure average of €52 for New Balance sneakers (September 2026), the buy-below price at a 30% margin is approximately €36. This is the maximum sourcing cost to hit a defensible margin at the departure average. For specific models: 574 buy-below ~€27 (exits at €41 avg), 550 buy-below ~€56 (exits at €80 avg), 993 buy-below ~€61 (exits at €87 avg). Real-time buy-below prices update with each week's departure data via Resale IQ.",
       },
       {
         q: "Are New Balance 550s worth reselling?",

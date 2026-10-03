@@ -1,5 +1,5 @@
 import type { MarketNumbers } from "./market-numbers.ts"
-import { departureDisplay, departureIsPrintable } from "./departure-display.ts"
+import { departureIsPrintable } from "./departure-display.ts"
 
 /**
  * Live 2-sentence opening for /blog/what-sells-best-on-vinted.
@@ -59,13 +59,14 @@ export function liveSellsBestIntro(market: MarketNumbers): LiveSellsBestIntro | 
   if (!departureIsPrintable(topCategorySold) || !departureIsPrintable(topPair.sold_7d)) return null
 
   const date = new Date(market.updatedAt).toISOString().slice(0, 10)
-  const brandCount = market.brandCount
 
+  // No counts (founder no-counts rule, 2026-10-04): the live part is the RANKING
+  // and the date, not the volumes. The ranking still comes from the live
+  // snapshot's de-duplicated departures; the numbers stay on /data.
   const sentence1 =
     `As of ${date}, ${topCategory} is the busiest category on Vinted across the 5 EU markets Resale IQ tracks ` +
-    `(Spain, France, Germany, Italy, Portugal): ${departureDisplay(topCategorySold).text} watched departures ` +
-    `in the trailing 7 days across ${brandCount} brands with published weekly data` +
-    (second && departureIsPrintable(second[1]) ? ` — ahead of ${second[0]} (${departureDisplay(second[1]).text}).` : ".")
+    `(Spain, France, Germany, Italy, Portugal), by listings we watched leave the shelf in the trailing 7 days` +
+    (second && departureIsPrintable(second[1]) ? ` — ahead of ${second[0]}.` : ".")
 
   // No count for the pair (founder decision 2026-10-02): it is named and priced.
   const sentence2 =

@@ -73,12 +73,12 @@ export const POSTS_2: BlogPost[] = [
     readMins: 7,
     preflightQuery: "New Balance 550",
     intro:
-      "Vinted's feed favours fresh listings, so timing affects how many people see your item in its first hours — but most sellers obsess over the hour and ignore the thing that actually moves the needle: the season. Week to 14 September 2026, Hoodies were the single busiest category across the 28 brands Resale IQ tracked on EU Vinted that week (Spain, France, Germany, Italy, Portugal): 1,181 hoodie listings left the shelf in 7 days, ahead of Jackets (955) and Shirts (760). Autumn has started. If you are holding outerwear, this is when you list it.",
+      "Vinted's feed favours fresh listings, so timing affects how many people see your item in its first hours — but most sellers obsess over the hour and ignore the thing that actually moves the needle: the season. In the latest week we watched, Hoodies were the single busiest category across the brands Resale IQ tracks on EU Vinted (Spain, France, Germany, Italy, Portugal), ahead of Jackets and Shirts. Autumn has started. If you are holding outerwear, this is when you list it.",
     sections: [
       {
         h: "What season you are in right now — by the data",
         p: [
-          "Week to 14 September 2026, across 28 brands on EU Vinted: Hoodies 1,181 watched departures · Jackets 955 · Shirts 760. The autumn transition is live — hoodies and jackets are overtaking shirts, which dominated through summer. Stone Island Hoodies averaged €55 this week (1323 departures in the last 30 days across all categories). Patagonia Jackets averaged €75 (part of Patagonia's 792 total departures). The North Face — 72 departures in the last 30 days — is fully in autumn territory.",
+          "Across the brands we track on EU Vinted, the order by watched departures is Hoodies, then Jackets, then Shirts. The autumn transition is live — hoodies and jackets are overtaking shirts, which dominated through summer. Stone Island Hoodies average around €55 at departure. Patagonia Jackets average around €75. The North Face is fully in autumn territory.",
           "If you have outerwear in stock, the listing window opened in the first week of September and the next 10–12 weeks are the strongest of the year. If you still hold summer stock (Shirts, Shorts, Swimwear), the market for that has softened materially and will not recover until April. Holding it is a decision to tie up cash for six months. [What actually left the shelf this week](" +
             ilinkHref("data") +
             ") shows the live category mix.",
@@ -99,7 +99,7 @@ export const POSTS_2: BlogPost[] = [
             ["Shirts / Polos", "Q2–Q3 (Apr–Aug)", "Mar, Sep", "Q4 (Nov–Jan)", "Fred Perry, Lacoste, Tommy Hilfiger"],
             ["Sneakers / Trainers", "Year-round", "Minor Q4 dip", "Jan (post-Christmas)", "Nike, Adidas, New Balance, Jordan, Vans"],
             ["Denim / Jeans", "Year-round", "Slight Q3 lift", "Low variance", "Levi's, Diesel, Carhartt"],
-            ["Bags / Accessories", "Q4 (gift season)", "Nov peak", "Q3 (Jul–Aug)", "Gucci (bags avg €306/departure)"],
+            ["Bags / Accessories", "Q4 (gift season)", "Nov peak", "Q3 (Jul–Aug)", "Gucci (bags avg €306 at departure)"],
             ["Shorts / Swimwear", "Q2–Q3 (May–Aug)", "Apr, Sep", "Q4 (Oct–Feb)", "Nike, Adidas, Lacoste"],
           ],
         },
@@ -108,7 +108,7 @@ export const POSTS_2: BlogPost[] = [
         h: "Daily timing — the honest version",
         p: [
           "The standard advice: list between 18:00 and 22:00 on weekdays when casual browsing peaks after work, or on Sunday evening when buyers plan the week ahead. We have not measured Vinted's traffic by hour and cannot — so treat those as plausible defaults, not findings. Test it on your own account by splitting comparable listings across two times of day and comparing.",
-          "What we can say from departure data: the day-of-week effect on a well-priced, in-season listing from a sought brand is small. A Fred Perry Shirt at €12 (buy-below €9) in September will sell within 2–5 days regardless of listing hour. A Stone Island Jacket in November will sell within 3–7 days at a fair price regardless of listing hour. The hour matters at the margin. The season decides whether the item sells at all in the next 30 days.",
+          "What we can say from departure data: the day-of-week effect on a well-priced, in-season listing from a sought brand is small. A Fred Perry Shirt at €12 (buy-below €9) in September moves quickly regardless of listing hour. A Stone Island Jacket in November moves at a fair price regardless of listing hour. The hour matters at the margin. The season decides whether the item sells at all in the next 30 days.",
         ],
         cta: pricingMidCta("ctr_listtime_20260915"),
       },
@@ -131,20 +131,20 @@ export const POSTS_2: BlogPost[] = [
       {
         h: "Autumn 2026: the categories to list now",
         p: [
-          "Week to 14 September 2026 (EU5): the transition is confirmed live. If you are holding any of the following, list now rather than waiting for an arbitrary date:",
-          "Stone Island: 796 total departures/week, Hoodies €55 avg, Jackets €142 avg. Patagonia: 792/week, Jackets €75 avg. The North Face: 410/week, Jackets and Fleeces dominant. Carhartt: 70/week — WIP Detroit Jackets exit €80–120 at charity shop sourcing prices of €11–15. [Each brand's full sourcing guide, buy-below and individual category breakdown](/blog/best-brands-to-resell-on-vinted) is in the 28-brand hub.",
-          "Fred Perry Shirts are in softening territory for September — 199 departures in the last 30 days still, but Shirts specifically (the dominant Fred Perry category) typically slow through October as outerwear displaces them in buyer searches.",
+          "The transition is live. If you are holding any of the following, list now rather than waiting for an arbitrary date:",
+          "Stone Island: one of the fastest-moving brands we watch, Hoodies €55 avg, Jackets €142 avg. Patagonia: moves almost as fast, Jackets €75 avg. The North Face: Jackets and Fleeces dominant. Carhartt: a slower mover — WIP Detroit Jackets exit €80–120 against charity-shop sourcing prices of €11–15. [Each brand's full sourcing guide, buy-below and individual category breakdown](/blog/best-brands-to-resell-on-vinted) is in the brand hub.",
+          "Fred Perry Shirts are in softening territory for September — still moving, but Shirts specifically (the dominant Fred Perry category) typically slow through October as outerwear displaces them in buyer searches.",
         ],
         cta: pricingBodyCta("body_listtime_20260915"),
       },
     ],
     faq: [
-      { q: "What is the best time to list items on Vinted?", a: "Season matters more than hour. Week to 14 September 2026, Hoodies (1181 departures in the last 30 days), Jackets (955) and outerwear are the fastest-moving categories on EU Vinted — autumn has started. For daily timing, evenings between 18:00 and 22:00 and Sunday evenings are the conventional defaults, but we have not measured Vinted's hourly traffic directly." },
-      { q: "What sells fastest on Vinted in autumn?", a: "Hoodies, Jackets and Fleeces. Week to 14 September 2026 on EU Vinted: Hoodies 1,181 watched departures in 7 days, Jackets 955. Key brands: Stone Island (796 total departures/week, Hoodies avg €55, Jackets avg €142), Patagonia (792/week, Jackets avg €75), The North Face (410/week). If you have outerwear in stock, the listing window is now." },
+      { q: "What is the best time to list items on Vinted?", a: "Season matters more than hour. Hoodies, Jackets and outerwear are the fastest-moving categories on EU Vinted — autumn has started. For daily timing, evenings between 18:00 and 22:00 and Sunday evenings are the conventional defaults, but we have not measured Vinted's hourly traffic directly." },
+      { q: "What sells fastest on Vinted in autumn?", a: "Hoodies, Jackets and Fleeces lead the watched departures on EU Vinted. Key brands: Stone Island (Hoodies avg €55, Jackets avg €142), Patagonia (Jackets avg €75), The North Face. If you have outerwear in stock, the listing window is now." },
       { q: "Should I relist on Vinted if something hasn't sold?", a: "No — a price adjustment or new cover photo is almost always better. Deleting and relisting discards every favourite and view the listing accumulated. Favouriting buyers get a price-drop notification when you reduce the price, which is more effective than a fresh listing with no followers. Only relist if the listing is more than 30 days old and has zero engagement." },
       { q: "When is the worst time to sell summer clothes on Vinted?", a: "October to February. EU Vinted departure data shows Shirts and Shorts volumes decline sharply from late September. Selling summer stock in October means competing on price against in-season buyers, often at a 20–30% reduction from peak prices. Holding summer stock past September ties up capital for roughly six months — sell now at a small discount, or accept the wait." },
       { q: "Does using the Vinted Bump help items sell faster?", a: "Only when the item is in-season and priced at or below the market departure average. A Bump on an overpriced or off-season listing buys feed exposure, not demand. The departure average for your brand and category is at resaleiq.dev/data — if your price is above it, reduce first." },
-      { q: "What is a 'watched departure' on Vinted?", a: "A watched departure is a listing that left the shelf — sold or removed — as tracked by Resale IQ. It is not a confirmed receipt. Weekly departure volumes and average exit prices for every brand with enough weekly departures to publish, across Spain, France, Germany, Italy and Portugal, are free at resaleiq.dev/data." },
+      { q: "What is a 'watched departure' on Vinted?", a: "A watched departure is a listing that left the shelf — a sale, a delisting or a reservation — as tracked by Resale IQ. It is not a confirmed receipt. Weekly departure volumes and average exit prices for every brand with enough weekly departures to publish, across Spain, France, Germany, Italy and Portugal, are free at resaleiq.dev/data." },
       { q: "Does day of week matter for Vinted listings?", a: "Marginally. Sunday evening sees elevated browsing in EU markets; weekday evenings (18:00–22:00) are also suggested by conventional wisdom, though we have not measured Vinted's hourly traffic directly. In-season positioning and price relative to the departure average determine whether an item sells this week. Day of listing determines whether it gets a first-day visibility boost." },
     ],
   },

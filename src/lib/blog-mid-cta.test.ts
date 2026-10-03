@@ -329,10 +329,9 @@ test("what-sells-best-on-vinted ships BODY-SELLSBEST-001 after ranking and befor
   const post = posts.slice(start, end)
   assert.match(post, /Buy-below still decides the flip/)
   assert.match(post, /Knowing what sells best is half the job\. The other half is not overpaying for movers/)
-  assert.match(post, /Week to 15 September 2026 \(EU5\): Fred Perry 939 watched departures @ €18/)
-  assert.match(post, /Stone Island 796 @ €70/)
-  assert.match(post, /Patagonia 792 @ €36/)
-  assert.match(post, /Gucci 221 @ €212/)
+  // CNT: counts removed from the copy — the average prices stay.
+  assert.match(post, /Average price at departure: Fred Perry €18 · Stone Island €70 · Patagonia €36 · Gucci €212/)
+  assert.doesNotMatch(post, /939 watched departures/)
   assert.match(post, /Volume ≠ margin — pair demand with buy-below before you tie up cash/)
   assert.match(post, /pricingBodyCta\("body_sellsbest_20260915"\)/)
   assert.match(post, /dataCiteHref\("body_sellsbest_20260915"\)/)
