@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import Link from "next/link"
 import { Lock, Check, Unlock } from "lucide-react"
 import { TIERS, resolvePriceId } from "@/lib/pricing"
@@ -12,6 +12,7 @@ import { TRIAL_LIMITS_SENTENCE } from "@/lib/trial-copy"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
 import { firstChargeDate, TRIAL_DAYS } from "@/lib/trial-cta"
 import { useT } from "@/components/i18n/locale-provider"
+import { CompareProPreview } from "@/components/compare/compare-pro-preview"
 
 /**
  * The dataset size, fetched client-side via the shared useTrackedLabel hook.
@@ -31,6 +32,7 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
   const tx = useT()
   const tracked = useTrackedLabel()
   const router = useRouter()
+  const pathname = usePathname()
   const { logout } = useAuthStore()
   const [plans, setPlans] = useState<{ id: string; price_id?: string }[]>([])
   const [busy, setBusy] = useState<string | null>(null)
@@ -109,6 +111,9 @@ export function Paywall({ pro = false }: { pro?: boolean }) {
           <p style={{ fontSize: 13.5, color: "#8b99b8", lineHeight: 1.65 }}>{tx("Order Planner and Price across Vinted sites are on Pro. Starter keeps unlimited verdicts.")}</p>
         </div>
       )}
+
+      {/* /compare only: a real example + which sites have data for the visitor's own search, before the ask. */}
+      {pro && pathname?.startsWith("/compare") && <CompareProPreview />}
 
       {/* Personalized value recap — loss aversion + proven ROI in one line. */}
       {recap && recap.buys > 0 && (
