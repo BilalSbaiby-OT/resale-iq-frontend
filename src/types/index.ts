@@ -379,11 +379,20 @@ export interface SearchResult {
 
 export interface CountryPriceStats {
   country: string
-  avg_price: number
-  min_price: number
-  max_price: number
-  median_price: number
-  count: number
+  avg_price?: number | null
+  min_price?: number | null
+  max_price?: number | null
+  /** True median over listings de-duplicated by external_id; null when `insufficient`. */
+  median_price?: number | null
+  p25_price?: number | null
+  p75_price?: number | null
+  /** Unique listings behind the figures. Never rendered (founder: no counts in copy). */
+  n_unique?: number
+  /** 0-1: share of this site's listings that also appear on another tracked Vinted site. */
+  share_also_on_other_sites?: number | null
+  /** true when fewer than min_n recent unique listings: no numbers, show "not enough recent listings". */
+  insufficient?: boolean
+  count?: number
   items: SearchItem[]
 }
 
@@ -391,8 +400,13 @@ export interface PriceCompareResult {
   query: string
   markets_searched: number
   markets_with_results: number
-  cheapest_market: { country: string; tld: string; avg_price: number } | null
-  most_expensive_market: { country: string; tld: string; avg_price: number } | null
+  /** Always null since backend 34d3a9c (the UI never ranks sites by price). */
+  cheapest_market?: { country: string; tld: string; avg_price: number } | null
+  most_expensive_market?: { country: string; tld: string; avg_price: number } | null
   by_country: Record<string, CountryPriceStats>
+  /** Same stats over every distinct listing across the requested sites (each once). The headline. */
+  pooled?: Omit<CountryPriceStats, "country" | "items"> | null
+  min_n?: number
+  window_days?: number
   source?: "live" | "tracked_index"
 }

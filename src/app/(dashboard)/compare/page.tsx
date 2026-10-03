@@ -3,6 +3,7 @@ import { useState } from "react"
 import { AppShell } from "@/components/layout/app-shell"
 import { comparePrices, isPaymentRequired } from "@/lib/api"
 import { eur } from "@/lib/utils"
+import { alsoOnOtherSitesPct, compareFigures } from "@/lib/compare-stats"
 import type { PriceCompareResult, SearchItem } from "@/types"
 import { Globe, ExternalLink } from "lucide-react"
 import { useT } from "@/components/i18n/locale-provider"
@@ -84,7 +85,7 @@ export default function ComparePage() {
         {error && <div className="text-[13px] text-red-400 mb-4">{error}</div>}
 
         {result?.source === "tracked_index" && (
-          <div className="text-[12px] text-[#5b6b8c] mb-3">{tx("Prices come from listings recently seen on Vinted (last 3 days), not a live lookup. Open a listing to confirm it is still available.")}</div>
+          <div className="text-[12px] text-[#5b6b8c] mb-3">{tx("Prices come from listings recently seen on Vinted (last 7 days), not a live lookup. Open a listing to confirm it is still available.")}</div>
         )}
         {result && (
           <div className="text-[12px] mb-4 leading-relaxed" style={{ color: "var(--color-graphite-muted)" }}>
@@ -92,11 +93,37 @@ export default function ComparePage() {
           </div>
         )}
 
-        {/* Country breakdown */}
+        {/* Headline: the pooled median over every distinct listing (each counted once). */}
+        {result && result.pooled && (() => {
+          const f = compareFigures(result.pooled)
+          const share = alsoOnOtherSitesPct(result.pooled.share_also_on_other_sites)
+          return (
+            <div data-testid="compare-pooled" className="mb-4 rounded-xl p-5 border" style={{ background: "var(--color-bg-3)", borderColor: "var(--color-hairline)" }}>
+              <div className="text-[12px]" style={{ color: "var(--color-graphite-muted)" }}>{tx("Typical asking price across the Vinted sites we track")}</div>
+              {f.kind === "ok" ? (
+                <>
+                  <div data-testid="compare-pooled-median" className="text-[28px] font-bold mt-1" style={{ color: "var(--color-on-graphite)" }}>{eur(f.median)}</div>
+                  {f.low !== null && f.high !== null && (
+                    <div className="text-[13px] mt-0.5" style={{ color: "var(--color-graphite-muted)" }}>{tx("Typical range {0}", [`${eur(f.low)}–${eur(f.high)}`])}</div>
+                  )}
+                </>
+              ) : (
+                <div data-testid="compare-pooled-insufficient" className="text-[14px] mt-1" style={{ color: "var(--color-graphite-muted)" }}>{tx("Not enough recent listings for a typical price")}</div>
+              )}
+              {share !== null && (
+                <div className="text-[12px] mt-2" style={{ color: "var(--color-graphite-muted)" }}>{tx("{0}% of these listings also appear on other Vinted sites", [share])}</div>
+              )}
+            </div>
+          )
+        })()}
+
+        {/* Per-site rows: where each listing was FIRST seen, not seller country */}
         {sorted.length > 0 && (
           <div className="flex flex-col gap-2">
             {sorted.map(([tld, stats]) => {
               const expanded = expandedCountry === tld
+              const f = compareFigures(stats)
+              const share = f.kind === "ok" ? alsoOnOtherSitesPct(stats.share_also_on_other_sites) : null
               return (
                 <div key={tld} className="bg-[var(--color-bg-3)] border rounded-xl overflow-hidden"
                   style={{ borderColor: "var(--color-hairline)" }}>
@@ -104,14 +131,18 @@ export default function ComparePage() {
                     className="w-full flex items-center gap-4 p-4 text-left hover:bg-[var(--color-surface-elevated)]/50 transition-colors">
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-[14px] font-semibold" style={{ color: "var(--color-on-graphite)" }}>vinted.{tld}</span>
+                        <span className="text-[14px] font-semibold" style={{ color: "var(--color-on-graphite)" }}>{tx("seen on {0}", [`vinted.${tld}`])}</span>
                       </div>
-                      <div className="text-[12px] text-[var(--color-text-secondary)] mt-0.5">{tx("Median of the newest listings seen on this site")}</div>
+                      <div className="text-[12px] text-[var(--color-text-secondary)] mt-0.5">{f.kind === "ok" ? tx("Median asking price among listings seen on this site") : tx("Not enough recent listings")}{share !== null && ` · ${tx("{0}% also on other Vinted sites", [share])}`}</div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-[16px] font-bold" style={{ color: "var(--color-on-graphite)" }}>{eur(stats.median_price || stats.avg_price)}</div>
-                      <div className="text-[12px] text-[var(--color-text-secondary)]">{eur(stats.min_price)} – {eur(stats.max_price)}</div>
-                    </div>
+                    {f.kind === "ok" && (
+                      <div className="text-right">
+                        <div className="text-[16px] font-bold" style={{ color: "var(--color-on-graphite)" }}>{eur(f.median)}</div>
+                        {f.low !== null && f.high !== null && (
+                          <div className="text-[12px] text-[var(--color-text-secondary)]">{eur(f.low)} – {eur(f.high)}</div>
+                        )}
+                      </div>
+                    )}
                   </button>
                   {expanded && stats.items && (
                     <div className="border-t border-[var(--color-border)] p-3 grid grid-cols-1 sm:grid-cols-2 gap-2">

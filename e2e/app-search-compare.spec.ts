@@ -32,15 +32,18 @@ test("Live Search shows tracked-index rows with a not-live note", async ({ page 
   await expect(page.getByText(/recently seen on Vinted.*not a live lookup/)).toBeVisible()
 })
 
-test("Price across Vinted sites: median, no cheapest/priciest framing, no 'Unknown seller'", async ({ page }) => {
+test("Price across Vinted sites: pooled median first, per-site range, insufficient site shows no number, no counts", async ({ page }) => {
   await login(page)
   await page.route("**/api/compare/prices*", r => r.fulfill({ json: {
-    query: "Adidas Samba", markets_searched: 1, markets_with_results: 1, markets_unpriced: [],
-    cheapest_market: { country: "Spain", tld: "es", avg_price: 90 },
-    most_expensive_market: { country: "Spain", tld: "es", avg_price: 90 },
-    source: "tracked_index",
-    by_country: { es: { country: "Spain", avg_price: 90, min_price: 70, max_price: 110, median_price: 80, count: 2,
-      items: [item(1, "Adidas Samba OG", 70), item(2, "Adidas Samba Wales Bonner", 110)] } },
+    query: "Adidas Samba", markets_searched: 5, markets_with_results: 2, markets_unpriced: [],
+    cheapest_market: null, most_expensive_market: null,
+    source: "tracked_index", min_n: 15, window_days: 7,
+    pooled: { median_price: 32, p25_price: 20, p75_price: 55, avg_price: 41, n_unique: 658, share_also_on_other_sites: 0.35, insufficient: false },
+    by_country: {
+      es: { country: "Spain", avg_price: 90, min_price: 5, max_price: 300, median_price: 27, p25_price: 18, p75_price: 49, n_unique: 145, count: 145, share_also_on_other_sites: 0.4, insufficient: false,
+        items: [item(1, "Adidas Samba OG", 70), item(2, "Adidas Samba Wales Bonner", 110)] },
+      fr: { country: "France", avg_price: null, min_price: null, max_price: null, median_price: null, p25_price: null, p75_price: null, n_unique: 6, count: 6, share_also_on_other_sites: 0.5, insufficient: true, items: [] },
+    },
   } }))
   await page.goto("/compare")
   await page.locator("input[placeholder*='e.g.']").fill("Adidas Samba")
@@ -51,11 +54,26 @@ test("Price across Vinted sites: median, no cheapest/priciest framing, no 'Unkno
   // 5 tracked sites only, no other markets
   await expect(page.getByRole("button", { name: "vinted.nl" })).toHaveCount(0)
   await expect(page.getByRole("button", { name: "vinted.pt" })).toHaveCount(1)
-  // median (80), not mean (90), is the headline figure
-  const row = page.getByRole("button", { name: /vinted\.es.*Median of the newest/ })
-  await expect(row).toContainText("80")
-  await expect(row).not.toContainText("90")
-  await row.click()
+  // pooled headline leads: median 32 (not mean 41), typical range, share-also
+  const pooled = page.getByTestId("compare-pooled")
+  await expect(pooled).toContainText("Typical asking price across the Vinted sites we track")
+  await expect(page.getByTestId("compare-pooled-median")).toHaveText("€32")
+  await expect(pooled).toContainText("Typical range €20–€55")
+  await expect(pooled).toContainText("35% of these listings also appear on other Vinted sites")
+  await expect(pooled).not.toContainText("41")
+  // per-site row: "seen on vinted.es", median 27 + p25-p75, never the mean 90 or min/max
+  const es = page.getByRole("button", { name: /seen on vinted\.es/ })
+  await expect(es).toContainText("€27")
+  await expect(es).toContainText("€18 – €49")
+  await expect(es).not.toContainText("90")
+  await expect(es).not.toContainText("€300")
+  // insufficient site: words, no number
+  const fr = page.getByRole("button", { name: /seen on vinted\.fr/ })
+  await expect(fr).toContainText("Not enough recent listings")
+  await expect(fr).not.toContainText("€")
+  // no counts anywhere in copy
+  await expect(page.getByText(/658|\b145\b/)).toHaveCount(0)
+  await es.click()
   await expect(page.getByText("Adidas Samba OG")).toBeVisible()
   await expect(page.getByText("Unknown seller")).toHaveCount(0)
 })
