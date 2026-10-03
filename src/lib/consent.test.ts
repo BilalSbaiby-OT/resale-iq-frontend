@@ -50,3 +50,30 @@ test("every locale has short text and equal-weight buttons", () => {
   }
   assert.equal(CONSENT_COPY.en.text, "We use one ad-measurement cookie (Google Ads) to see which ads bring sign-ups. Optional.")
 })
+
+test("every locale has a complete, translated banner (fr/es/de/it/pt differ from en)", () => {
+  const en = CONSENT_COPY.en
+  for (const [loc, c] of Object.entries(CONSENT_COPY)) {
+    for (const k of ["text", "link", "accept", "reject", "settings"] as const) {
+      assert.ok(c[k] && c[k].trim().length > 0, `${loc}.${k} empty`)
+    }
+    if (loc !== "en") {
+      assert.notEqual(c.text, en.text, `${loc}.text is untranslated`)
+      assert.notEqual(c.accept, en.accept, `${loc}.accept is untranslated`)
+      assert.notEqual(c.reject, en.reject, `${loc}.reject is untranslated`)
+    }
+  }
+})
+
+test("a new visitor's default is necessary-only: no gtag injected without consent", () => {
+  const injected: unknown[] = []
+  const win = {
+    localStorage: { getItem: () => null },
+    document: { head: { appendChild: (e: unknown) => injected.push(e) }, createElement: () => ({}) } as unknown as Document,
+  }
+  assert.equal(loadGtag(win, "AW-123"), false)
+  assert.equal(injected.length, 0)
+  const denied = { ...win, localStorage: { getItem: () => "denied" } }
+  assert.equal(loadGtag(denied, "AW-123"), false)
+  assert.equal(injected.length, 0)
+})
