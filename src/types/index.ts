@@ -409,4 +409,11 @@ export interface PriceCompareResult {
   min_n?: number
   window_days?: number
   source?: "live" | "tracked_index"
+  /** Backend feat/compare-generic-preview: "generic_query" = too broad to compare. Absent today. */
+  reason?: string | null
+  /** Brand + model suggestions {label, query}; see normalizeSuggestions in compare-stats.ts. */
+  suggestions?: Array<{ label?: string; query: string }> | null
+  /** /api/public/compare/sample only: the model the example is about. */
+  label?: string | null
+  model?: string | null
 }

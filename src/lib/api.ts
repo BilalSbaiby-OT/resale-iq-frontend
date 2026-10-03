@@ -409,6 +409,10 @@ export const comparePrices = (params: {
   return request<PriceCompareResult>(`/api/compare/prices?${qs}`)
 }
 
+/** Free, public example comparison (one sample model, real data). 404 / error -> null: the caller hides the block. */
+export const getCompareSample = (): Promise<PriceCompareResult | null> =>
+  request<PriceCompareResult>("/api/public/compare/sample").catch(() => null)
+
 // Price history sparklines
 export interface PricePoint { day: string; avg_price: number; sold_count?: number }
 export const getModelPriceHistory = (brand: string, model: string, days = 30) =>
