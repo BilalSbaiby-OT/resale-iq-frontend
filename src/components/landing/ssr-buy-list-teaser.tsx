@@ -15,6 +15,7 @@
  * - No fabricated numbers. Every figure comes from the SSR buy-list fetch.
  * - Mobile-first: stacked card rows at 390px, not a table.
  */
+import { isLowData } from "@/lib/honest-output"
 import Link from "next/link"
 import { TrendingUp } from "lucide-react"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
@@ -94,7 +95,7 @@ function RowContent({ item, locale }: { item: SsrBuyListItem; locale: Locale }) 
           + #4 (objection: "worth it?" answered by visible margin, not imagination).
           Surface: homepage 52/7d + /pricing 12/7d. Revenue 2026-09-29. H184. */}
       <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4, flexShrink: 0 }}>
-        <VerdictBadge verdict={item.verdict} />
+        <VerdictBadge verdict={isLowData(item.honest) ? "LOW DATA" : item.verdict} />
         {buyBelowLabel(item.buy_below, locale) && (
           <span style={{ fontSize: 13, fontWeight: 700, color: "#30D158", fontVariantNumeric: "tabular-nums" }}>
             {buyBelowLabel(item.buy_below, locale)}

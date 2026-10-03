@@ -1,4 +1,5 @@
 "use client"
+import { isLowData, type HonestOutput } from "@/lib/honest-output"
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Lock, TrendingUp } from "lucide-react"
@@ -44,6 +45,8 @@ interface BuyListItem {
   months_supply: number | null
   price_p25?: number | null
   price_p75?: number | null
+  /** O3: under 20 comparables the row says LOW DATA instead of a call. */
+  honest?: HonestOutput | null
 }
 
 // Apple HIG dark-theme signal colours.
@@ -82,6 +85,7 @@ const VERDICT_BG: Record<string, string> = {
  * number. No signal now renders no pill.
  */
 function deriveVerdict(item: BuyListItem): string {
+  if (isLowData(item.honest)) return "LOW DATA"
   if (item.verdict && ["STRONG BUY", "BUY", "RISING", "WATCH", "SKIP"].includes(item.verdict)) {
     return item.verdict
   }

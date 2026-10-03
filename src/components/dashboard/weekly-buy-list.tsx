@@ -6,12 +6,15 @@ import { itemDisplayName } from "@/lib/item-display-name"
 import type { Locale } from "@/lib/i18n"
 import { fmtDate } from "@/lib/ui-translate"
 import { useT } from "@/components/i18n/locale-provider"
+import { isLowData, type HonestOutput } from "@/lib/honest-output"
 
 export interface BuyRow {
   brand: string; model?: string; category?: string; verdict: string; momentum: string
   locked: boolean; sold_30d?: number | null; sold_30d_evidence?: number | null
   sold_7d?: number | null
   avg_price_eur: number | null; max_buy_price?: number | null; updated_at?: string
+  /** O3: under 20 comparables the row says LOW DATA instead of a call. */
+  honest?: HonestOutput | null
 }
 
 const VC: Record<string, string> = { "STRONG BUY": "#30D158", BUY: "#30D158", RISING: "#30D158", WATCH: "#FF9F0A", SKIP: "#8E8E93" }
@@ -60,7 +63,7 @@ export function WeeklyBuyList({ rows, trialMode = false }: { rows: BuyRow[]; tri
       <ol style={{ listStyle: "none", margin: 0, padding: 0 }}>
         {rows.map((r, i) => {
           const label = (r.model ? itemDisplayName(r.brand, r.model) : `${r.brand} ${r.category ?? ""}`.trim())
-          const v = VC[r.verdict] ? r.verdict : r.momentum
+          const v = isLowData(r.honest) ? "LOW DATA" : VC[r.verdict] ? r.verdict : r.momentum
           const isW = watched.has(`${r.brand}|${r.model}`)
           return (
             <li

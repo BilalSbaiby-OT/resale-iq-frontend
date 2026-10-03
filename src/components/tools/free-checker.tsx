@@ -29,6 +29,8 @@ import "@/types/webmcp-jsx"
 import { FREE_SAMPLES } from "@/lib/free-samples"
 import { ExitSurvey } from "@/components/ui/exit-survey"
 import { flowFromSrc, flowParam, typedFlow, type VerdictFlow } from "@/lib/verdict-flow"
+import { HonestNumbers } from "@/components/ui/honest-numbers"
+import { hasHonestContent, honestCopy, isLowData, type HonestOutput } from "@/lib/honest-output"
 import { fieldState } from "@/lib/locked-fields"
 import { parsePaywallBody, type PaywallPlan } from "@/lib/hard-paywall"
 import { checkerFace } from "@/lib/query-coverage"
@@ -55,6 +57,8 @@ function fmtCount(n: number | null | undefined): string {
 // — SKIP without counts reads as "this model does not sell".
 
 interface FreeVerdict extends ReconstructedSignals {
+  /** O3: numbers-first block from /api/verdict (range, count, window, max buy, LOW DATA). */
+  honest?: HonestOutput | null
   verdict?: string
   product?: string
   category?: string
@@ -590,12 +594,19 @@ export function FreeChecker({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { if (initialQuery && !initialResult) run(initialQuery, flowProp ?? flowFromSrc(src)) }, [])
 
-  const color = res?.verdict ? (VERDICT_COLOR[res.verdict] ?? "var(--color-text-secondary)") : "var(--color-text-secondary)"
+  // O3: under 20 comparables the card says LOW DATA, in the neutral colour — a
+  // BUY/WATCH/SKIP colour on thin evidence is a call we are not making.
+  const lowData = isLowData(res?.honest)
+  const color = !lowData && res?.verdict ? (VERDICT_COLOR[res.verdict] ?? "var(--color-text-secondary)") : "var(--color-text-secondary)"
   const hasPrices = res?.buy_below != null || res?.sell_avg != null
   // No per-item departure count and no "still listed" supply count beside it
   // (founder decision 2026-10-02): the card leads with the price answer.
+  // O3: when the honest block carries the max-buy price, the legacy "buy below"
+  // tile would print the same number twice at two precisions — drop it.
+  const honestMaxBuy = hasHonestContent(res?.honest) && res?.honest?.max_buy_eur != null
   const intel = (res ? collectVerdictMetrics(res) : []).filter(
-    (row) => row.id !== "sold_7d" && row.id !== "active_listings",
+    (row) => row.id !== "sold_7d" && row.id !== "active_listings"
+      && !(honestMaxBuy && row.id === "buy_below"),
   )
   const intelValue = (row: (typeof intel)[number]): string =>
     row.id === "buy_below" || row.id === "sell_avg"
@@ -642,6 +653,7 @@ export function FreeChecker({
   // otherwise Spanish card. verdict-words.ts translates the three; everything
   // else (BRAND_AVERAGE above, LIMIT_REACHED below) keeps its existing branch.
   const label = res?.verdict === "LIMIT_REACHED" ? t.limitReachedLabel
+    : lowData ? honestCopy[locale].lowData
     : (res?.verdict
         ? (VERDICT_LABEL[res.verdict] ?? verdictWord(res.verdict, locale) ?? res.verdict)
         : "—")
@@ -1135,6 +1147,9 @@ export function FreeChecker({
               <div style={{ fontSize: "var(--text-meta)", fontWeight: 500, color: "var(--color-text-dim)" }}>
                 {res.product ?? q}
               </div>
+              <div style={{ marginTop: "var(--space-2)" }}>
+                <HonestNumbers honest={res.honest} locale={locale} />
+              </div>
               <div style={{ marginTop: 2, fontSize: "var(--text-title)", fontWeight: 600, color, letterSpacing: "-0.01em", lineHeight: 1.2 }}>
                 <span style={{ fontSize: "var(--text-meta)", fontWeight: 500, color: "var(--color-text-dim)", marginRight: 8, letterSpacing: 0 }}>{copy[locale].signalLabel}:</span>
                 <span>{label}</span>
@@ -1179,6 +1194,8 @@ export function FreeChecker({
               {res.match_note && (
                 <p style={{ fontSize: 12.5, color: "var(--color-text-secondary)", marginBottom: 12 }}>{res.match_note}</p>
               )}
+
+              <HonestNumbers honest={res.honest} locale={locale} />
 
               {intel.length > 0 && (
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%, 140px),1fr))", gap: 10 }}>

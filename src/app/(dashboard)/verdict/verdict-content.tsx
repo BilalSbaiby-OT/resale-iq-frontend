@@ -44,6 +44,8 @@ import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
 import { useT } from "@/components/i18n/locale-provider"
 import { flowFromSrc, typedFlow, type VerdictFlow } from "@/lib/verdict-flow"
 import { ExitSurvey } from "@/components/ui/exit-survey"
+import { HonestNumbers } from "@/components/ui/honest-numbers"
+import { honestCopy, isLowData } from "@/lib/honest-output"
 
 // C(tony): fallback activation scenarios for paid cold state.
 // These are the Canva-template moment for a paid user who hasn't run a check yet.
@@ -249,6 +251,11 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
 
         {result && vs && (
           <div className="bg-[var(--color-bg-3)] border border-[rgba(255,255,255,0.07)] rounded-xl overflow-hidden">
+            {result.honest && (
+              <div className="px-6 pt-6 pb-2 border-b border-[rgba(255,255,255,0.07)]">
+                <HonestNumbers honest={result.honest} locale={locale} />
+              </div>
+            )}
             <div className="riq-verdict-head p-6 border-b border-[rgba(255,255,255,0.07)]">
               <div className="riq-verdict-head-copy">
                 <div className="text-[12px] text-[var(--color-text-secondary)] uppercase tracking-wide mb-1">{t.decision}</div>
@@ -257,8 +264,10 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
               </div>
               <div className="riq-verdict-head-badge">
                 <div className="px-4 py-2 rounded-lg text-[15px] font-extrabold tracking-wide"
-                  style={{ color: vs.color, background: vs.bg, border: `1px solid ${vs.border}` }}>
-                  {vs.label}
+                  style={isLowData(result.honest)
+                    ? { color: "var(--color-unknown)", background: "rgba(139,153,184,.10)", border: "1px solid rgba(139,153,184,.30)" }
+                    : { color: vs.color, background: vs.bg, border: `1px solid ${vs.border}` }}>
+                  {isLowData(result.honest) ? honestCopy[locale].lowData : vs.label}
                 </div>
                 {result.confidence && (
                   <div className="text-[12px] text-[#5b6b8c] uppercase tracking-wide mt-1.5">

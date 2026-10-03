@@ -235,6 +235,8 @@ export interface VerdictResult extends ReconstructedSignals {
   // through to the UNKNOWN branch, which rendered "NO DATA" on a query we can
   // in fact answer.
   verdict: "BUY" | "WATCH" | "SKIP" | "UNKNOWN" | "INSUFFICIENT_DATA" | "LIMIT_REACHED" | "BRAND_CATEGORIES" | "BRAND_AVERAGE" | "PAYWALL" | "OVERSUPPLIED"
+  /** O3: numbers-first block (range, count, window, max buy, LOW DATA flag). */
+  honest?: import("@/lib/honest-output").HonestOutput | null
   /** OVERSUPPLIED only — per-category evidence behind the verdict. */
   oversupply_categories?: {
     category: string
