@@ -20,7 +20,7 @@ export function CancelIntent({
 }: {
   locale: Locale
   /** Opens the Stripe billing portal (the page's existing handler). */
-  onContinue: () => Promise<void> | void
+  onContinue: () => unknown
 }) {
   const t = cancelIntentCopy[locale] ?? cancelIntentCopy.en
   const [open, setOpen] = useState(false)
