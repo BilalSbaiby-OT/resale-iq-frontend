@@ -13,17 +13,21 @@
  * arrive for paid API callers; this module deliberately has no type for them,
  * so nothing here can render them.
  *
+ * `basis` says where the typical price comes from (departed | active_asking |
+ * live_ask); see price-basis.ts. Copy that describes it must be basis-aware.
+ *
  * Wording rule: never "sold" / confirmed sales. "Typical resale price",
  * "Max buy price", "current asking prices".
  *
  * Plain .ts with one type-only import so node:test can load it.
  */
 import type { Locale } from "./i18n.ts"
+import type { PriceBasis } from "./price-basis.ts"
 
 export type SignalStrength = 1 | 2 | 3
 
 export type HonestOutput = {
-  basis: "departed" | "active_asking"
+  basis: PriceBasis
   // HONEST_RANGE_PUBLIC off omits the range for anonymous / free callers.
   range_low_eur?: number | null
   range_high_eur?: number | null

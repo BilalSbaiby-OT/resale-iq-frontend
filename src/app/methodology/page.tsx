@@ -4,6 +4,8 @@ import { listingsTrackedLabel } from "@/lib/stats"
 import { getMarketNumbers, fmtCount } from "@/lib/market-numbers"
 import { TRIAL_LIMITS_SENTENCE_BY_LOCALE } from "@/lib/trial-copy"
 import { methodology } from "@/lib/methodology-copy"
+import { getTypicalPriceBasis } from "@/lib/hero-verdict"
+import { methodologyFaqFor, methodologyNoteFor } from "@/lib/price-basis"
 import type { Locale } from "@/lib/i18n"
 import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
@@ -75,6 +77,9 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
   const t = decodeCopyEntities(methodology(locale))
   const tracked = await listingsTrackedLabel()
   const market = await getMarketNumbers()
+  // Basis-aware buy-below wording: departed (default) keeps the original text byte-for-byte.
+  const basis = await getTypicalPriceBasis()
+  const basisNote = methodologyNoteFor(basis, locale)
   const weekly = market.brandNames.reduce((s, name) => {
     const n = market.get(name)?.sold_7d
     return s + (typeof n === "number" ? n : 0)
@@ -83,7 +88,7 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
   const faq = [
     { q: t.faq0_q, a: t.faq0_a },
     { q: t.faq1_q, a: t.faq1_a },
-    { q: t.faq2_q, a: t.faq2_a },
+    { q: t.faq2_q, a: methodologyFaqFor(basis, locale, t.faq2_a) },
     { q: t.faq3_q, a: t.faq3_a },
     { q: t.faq4_q, a: t.faq4_a },
   ]
@@ -194,6 +199,7 @@ export async function MethodologyPage({ locale = "en" }: { locale?: Locale } = {
             <Link href="/tools/vinted-profit-calculator" style={{ color: "#34C759", textDecoration: "none" }}>{t.g_profit_calc}</Link>{" "}
             {t.g_buybelow_c}
           </P>
+          {basisNote && <P>{basisNote}</P>}
         </Section>
 
         <Section title={t.section4}>

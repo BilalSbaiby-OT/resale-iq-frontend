@@ -1,4 +1,5 @@
 import type { Locale } from "@/lib/i18n"
+import { basisNote, rangeLabelFor } from "@/lib/price-basis"
 import { hasHonestContent, honestCopy, rangeText, signalDots, signalStrength, type HonestOutput } from "@/lib/honest-output"
 
 /**
@@ -32,11 +33,12 @@ export function HonestNumbers({ honest, locale }: { honest: HonestOutput | null 
   if (!hasHonestContent(honest)) return null
   const c = honestCopy[locale] ?? honestCopy.en
   const range = rangeText(honest)
+  const note = basisNote(honest.basis, locale, c.askingNote)
   return (
     <div data-testid="riq-honest-numbers" data-basis={honest.basis} style={{ marginBottom: 14 }}>
       {range && (
         <div>
-          <div style={{ fontSize: "var(--text-meta, 12px)", color: "var(--color-text-dim, #7f8da9)" }}>{c.rangeLabel}</div>
+          <div style={{ fontSize: "var(--text-meta, 12px)", color: "var(--color-text-dim, #7f8da9)" }}>{rangeLabelFor(honest.basis, locale, c.rangeLabel)}</div>
           <div data-testid="riq-honest-range" style={{ fontSize: 26, fontWeight: 700, color: "var(--color-text-primary)", letterSpacing: "-0.01em", lineHeight: 1.2 }}>
             {range}
           </div>
@@ -52,9 +54,9 @@ export function HonestNumbers({ honest, locale }: { honest: HonestOutput | null 
       <div style={{ marginTop: 10 }}>
         <SignalMeter honest={honest} locale={locale} />
       </div>
-      {honest.basis === "active_asking" && (
+      {note && (
         <p data-testid="riq-honest-asking-note" style={{ marginTop: 6, fontSize: "var(--text-meta, 12px)", color: "var(--color-text-dim, #7f8da9)", lineHeight: 1.5 }}>
-          {c.askingNote}
+          {note}
         </p>
       )}
     </div>

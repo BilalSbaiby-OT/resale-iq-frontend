@@ -8,6 +8,7 @@ import { fmtDate } from "@/lib/ui-translate"
 import { useT } from "@/components/i18n/locale-provider"
 import { SignalMeter } from "@/components/ui/honest-numbers"
 import type { HonestOutput } from "@/lib/honest-output"
+import { basisOfRows, isLiveAsk } from "@/lib/price-basis"
 
 export interface BuyRow {
   brand: string; model?: string; category?: string; verdict: string; momentum: string
@@ -93,7 +94,7 @@ export function WeeklyBuyList({ rows, trialMode = false }: { rows: BuyRow[]; tri
           )
         })}
       </ol>
-      <div style={{ fontSize: 12, color: "var(--color-graphite-muted)", marginTop: 8, lineHeight: 1.5 }}>{tx("Buy below = most you should pay, for ~30% margin before fees. Exit = average asking price at departure. Tap an item to check it.")}</div>
+      <div style={{ fontSize: 12, color: "var(--color-graphite-muted)", marginTop: 8, lineHeight: 1.5 }}>{isLiveAsk(basisOfRows(rows)) ? tx("Buy below = most you should pay, for ~30% margin before fees. Exit = typical resale price, based on current asking prices for this model on Vinted. Tap an item to check it.") : tx("Buy below = most you should pay, for ~30% margin before fees. Exit = average asking price at departure. Tap an item to check it.")}</div>
     </section>
   )
 }

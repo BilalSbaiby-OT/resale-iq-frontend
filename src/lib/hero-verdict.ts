@@ -64,6 +64,7 @@ import { promises as fs } from "node:fs"
 import os from "node:os"
 import path from "node:path"
 import { flowParam } from "./verdict-flow.ts"
+import { normalizeBasis, type PriceBasis } from "./price-basis.ts"
 
 export type HeroVerdict = {
   verdict?: string
@@ -82,6 +83,8 @@ export type HeroVerdict = {
   locked_fields?: string[]
   provisional?: boolean | null
   sell_through_rate?: string | null
+  /** Honest block: only `basis` is read here (typical price source). */
+  honest?: { basis?: string | null } | null
 }
 
 const QUERY = "New Balance 530" // live WATCH/HIGH/n=153, not provisional — see header
@@ -177,4 +180,14 @@ export async function getHeroVerdict(): Promise<{ query: string; result: HeroVer
     // why: homepage must still render if the analyzer is down or the fetch aborts; last-good or empty checker.
   }
   return { query: QUERY, result: cached?.result ? withoutComparableN(cached.result) : null }
+}
+
+/**
+ * Where the typical resale price currently comes from (departed | live_ask),
+ * read off the same cached hero verdict. The backend flag is global, so one
+ * model's `honest.basis` is the site-wide basis. Outage / no verdict = departed.
+ */
+export async function getTypicalPriceBasis(): Promise<PriceBasis> {
+  const { result } = await getHeroVerdict()
+  return normalizeBasis(result?.honest?.basis)
 }

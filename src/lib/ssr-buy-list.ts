@@ -14,6 +14,7 @@ import { promises as fs } from "node:fs"
 import os from "node:os"
 import path from "node:path"
 import { fetchBounded } from "./hero-verdict.ts"
+import { normalizeBasis, type PriceBasis } from "./price-basis.ts"
 
 export interface SsrBuyListItem {
   brand: string
@@ -26,6 +27,8 @@ export interface SsrBuyListItem {
   /** Real max_buy_price on unlocked rows. Null on locked rows — never invented. */
   buy_below: number | null
   locked: boolean
+  /** Price basis from the row's honest block (departed | active_asking | live_ask). Absent = departed. */
+  price_basis?: PriceBasis
 }
 
 interface Cached { fetchedAt: number; items: SsrBuyListItem[] }
@@ -69,6 +72,7 @@ function shape(raw: Record<string, unknown>): SsrBuyListItem | null {
     buy_below: typeof raw.buy_below === "number" && Number.isFinite(raw.buy_below)
       ? raw.buy_below : null,
     locked: raw.locked === true,
+    price_basis: normalizeBasis((raw.honest as { basis?: unknown } | null | undefined)?.basis),
   }
 }
 

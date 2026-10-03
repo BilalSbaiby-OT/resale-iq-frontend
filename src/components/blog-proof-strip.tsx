@@ -40,6 +40,7 @@ import { Lock } from "lucide-react"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { itemDisplayName } from "@/lib/item-display-name"
 import { buyBelowLabel, BUY_LIST_UNLOCK_LABEL } from "@/lib/buy-list-display"
+import { proofStripNote, basisOfRows } from "@/lib/price-basis"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 
 export const VERDICT_COLOR: Record<string, string> = {
@@ -110,7 +111,7 @@ export function BlogProofStrip({
         This week&rsquo;s best finds to look for
       </p>
       <p style={{ fontSize: 11.5, color: "#8FA3C4", margin: "0 0 10px" }}>
-        Buy price → resale price → margin. These are watched departures — listings that left the shelf — not confirmed sales.
+        {proofStripNote(basisOfRows(items.map((i) => ({ honest: { basis: i.price_basis } }))))}
       </p>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>

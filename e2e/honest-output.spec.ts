@@ -128,3 +128,28 @@ test("nothing to show: no honest box at all", async ({ page }) => {
   })
   await expect(page.getByTestId("riq-honest-numbers")).toHaveCount(0)
 })
+
+test("basis departed: no basis footnote, label unchanged", async ({ page }) => {
+  await check(page, {
+    verdict: "BUY", product: "Adidas Samba", category: "Sneakers", confidence: "MEDIUM",
+    buy_below: 35.2, sell_avg: 50.4, honest: honest(),
+  })
+  const card = page.getByTestId("riq-honest-numbers")
+  await expect(card).toHaveAttribute("data-basis", "departed")
+  await expect(card).toContainText("Typical resale price")
+  await expect(page.getByTestId("riq-honest-asking-note")).toHaveCount(0)
+})
+
+test("basis live_ask: asking-price footnote + typical range label, no window, never sold", async ({ page }) => {
+  await check(page, {
+    verdict: "BUY", product: "Adidas Samba", category: "Sneakers", confidence: "MEDIUM",
+    buy_below: 35.2, sell_avg: 50.4, honest: honest({ basis: "live_ask", price_window: undefined, window_days: null }),
+  })
+  const card = page.getByTestId("riq-honest-numbers")
+  await expect(card).toHaveAttribute("data-basis", "live_ask")
+  await expect(card).toContainText("Typical resale price · typical range")
+  await expect(page.getByTestId("riq-honest-range")).toHaveText("€42–€58")
+  await expect(page.getByTestId("riq-honest-asking-note")).toHaveText("Based on current asking prices for this model on Vinted (lower third of the market)")
+  await expect(card).not.toContainText(/left the shelf|departed|departure/i)
+  await noCountsNoLowData(page)
+})
