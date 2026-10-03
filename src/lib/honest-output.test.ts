@@ -1,93 +1,70 @@
 /**
- * O3 honest output: numbers first, LOW DATA under 20 comparables, never "sold".
+ * O3 honest output (founder override 2026-10-03): numbers first, Signal
+ * strength meter instead of counts, no LOW DATA label, never "sold".
  * Run: npm run test:unit
  */
 import { test } from "node:test"
 import assert from "node:assert/strict"
-import { basisText, hasHonestContent, honestCopy, isLowData, lowDataNoteText, rangeText, type HonestOutput } from "./honest-output.ts"
+import { readFileSync } from "node:fs"
+import { hasHonestContent, honestCopy, rangeText, signalDots, signalStrength, type HonestOutput } from "./honest-output.ts"
+
+const LOCALES = ["en", "fr", "es", "de", "it", "pt"] as const
 
 const base: HonestOutput = {
-  basis: "departed", range_low_eur: 21, range_high_eur: 39, n: 47, window_days: 7,
-  max_buy_eur: 21, margin_pct: 30, low_data: false, verdict_display: "BUY",
+  basis: "departed", range_low_eur: 42, range_high_eur: 58,
+  max_buy_eur: 35, margin_pct: 30, signal_strength: 3, verdict_display: "BUY",
 }
 
-test("range and basis lead with the numbers", () => {
-  assert.equal(rangeText(base), "€21 – €39")
-  assert.equal(basisText(base, "en"), "Based on 47 listings that left Vinted in the last 7 days")
-  assert.equal(basisText({ ...base, window_days: 30 }, "en"), "Based on 47 listings that left Vinted in the last 30 days")
+test("range is whole-euro p25-p75, e.g. €42–€58", () => {
+  assert.equal(rangeText(base), "€42–€58")
+  assert.equal(rangeText({ ...base, range_low_eur: undefined }), null)
+  assert.equal(rangeText(null), null)
 })
 
-test("no range, no count -> nothing invented", () => {
-  const empty: HonestOutput = { ...base, range_low_eur: null, range_high_eur: null, n: 0, window_days: null, max_buy_eur: null }
-  assert.equal(rangeText(empty), null)
-  assert.equal(basisText(empty, "en"), null)
+test("signal strength 1|2|3 maps to ●○○ / ●●○ / ●●●; anything else is no meter", () => {
+  assert.equal(signalDots(1), "●○○")
+  assert.equal(signalDots(2), "●●○")
+  assert.equal(signalDots(3), "●●●")
+  assert.equal(signalStrength({ ...base, signal_strength: 2 }), 2)
+  for (const bad of [0, 4, null, undefined, 2.5]) assert.equal(signalStrength({ ...base, signal_strength: bad as never }), null)
+  assert.equal(signalStrength(null), null)
+})
+
+test("nothing invented: empty block renders nothing; a meter alone is content", () => {
+  const empty: HonestOutput = { basis: "departed", max_buy_eur: null, margin_pct: 30, verdict_display: "WATCH" }
   assert.equal(hasHonestContent(empty), false)
   assert.equal(hasHonestContent(null), false)
-  assert.equal(hasHonestContent(undefined), false)
+  assert.equal(hasHonestContent({ ...empty, signal_strength: 1 }), true)
+  assert.equal(hasHonestContent({ ...empty, max_buy_eur: 35 }), true)
 })
 
-test("LOW DATA only when the backend says so", () => {
-  assert.equal(isLowData(base), false)
-  assert.equal(isLowData({ ...base, n: 12, low_data: true, verdict_display: "LOW_DATA" }), true)
-  assert.equal(isLowData({ ...base, low_data: true, verdict_display: "BRAND_AVERAGE" }), false)
-  assert.equal(isLowData(null), false)
-})
-
-test("active-asking basis never claims listings left Vinted", () => {
-  const e1: HonestOutput = { ...base, basis: "active_asking", window_days: null, n: 14, low_data: true, verdict_display: "LOW_DATA" }
-  const en = basisText(e1, "en")!
-  assert.match(en, /live asking prices/)
-  assert.match(en, /not listings that left Vinted/)
-  assert.doesNotMatch(en, /in the last/)
-})
-
-test("all six locales: complete, no 'sold', margin from the payload", () => {
+test("all six locales: label, margin footnote, 3 accessible meter labels, no count, no sales wording", () => {
   assert.deepEqual(Object.keys(honestCopy).sort(), ["de", "en", "es", "fr", "it", "pt"])
-  for (const [loc, c] of Object.entries(honestCopy)) {
-    const all = [c.rangeLabel, c.departed(5, 7), c.active(5), c.maxBuyLabel, c.margin(30), c.lowData, c.lowDataNote(5)].join(" | ")
-    assert.doesNotMatch(all, /\bsold\b|\bvendid|\bvendu|\bverkauft/i, loc)
+  for (const loc of LOCALES) {
+    const c = honestCopy[loc]
+    const aria = [c.signalAria[1], c.signalAria[2], c.signalAria[3]]
+    assert.equal(new Set(aria).size, 3, loc)
+    for (const a of aria) assert.ok(a.startsWith(c.signalLabel), loc)
+    const all = [c.rangeLabel, c.maxBuyLabel, c.margin(30), c.signalLabel, ...aria, c.askingNote].join(" | ")
+    assert.doesNotMatch(all, /\bsold\b|\bvendid|\bvendu|\bverkauft|\bvenduto|ventes? conclues?/i, loc)
+    assert.doesNotMatch(all, /LOW DATA|PEU DE DONN|POCOS DATOS|ZU WENIG|POCHI DATI|POUCOS DADOS/i, loc)
+    assert.doesNotMatch(c.askingNote + c.rangeLabel + c.maxBuyLabel, /\d/, loc)
     assert.ok(c.margin(30).includes("30"), loc)
-    assert.ok(c.departed(47, 30).includes("47") && c.departed(47, 30).includes("30"), loc)
+    assert.doesNotMatch(c.margin(30), /brut|gross|bruto|lordo/i, loc)
   }
-  assert.equal(honestCopy.en.margin(30), "for ~30% gross margin before fees")
-  assert.equal(honestCopy.en.lowData, "LOW DATA")
+  assert.equal(honestCopy.en.rangeLabel, "Typical resale price")
+  assert.equal(honestCopy.en.maxBuyLabel, "Max buy price")
+  assert.equal(honestCopy.en.margin(30), "for ~30% margin before fees")
+  assert.equal(honestCopy.en.signalAria[1], "Signal strength: weak")
+  assert.equal(honestCopy.en.signalAria[2], "Signal strength: medium")
+  assert.equal(honestCopy.en.signalAria[3], "Signal strength: strong")
 })
 
-// Backend switches (HONEST_COUNTS_PUBLIC / HONEST_RANGE_PUBLIC) OMIT keys for anon/free callers.
-const anon: HonestOutput = {
-  basis: "departed", range_low_eur: 21, range_high_eur: 39, max_buy_eur: 21, margin_pct: 30,
-  low_data: false, verdict_display: "BUY",
-}
-
-test("counts withheld: range still renders, no count sentence, nothing 'undefined'", () => {
-  assert.equal(rangeText(anon), "€21 – €39")
-  assert.equal(basisText(anon, "en"), null)
-  assert.equal(hasHonestContent(anon), true)
-})
-
-test("range withheld, count public: count line renders without a range", () => {
-  const h: HonestOutput = { ...anon, range_low_eur: undefined, range_high_eur: undefined, n: 47, window_days: 7 }
-  assert.equal(rangeText(h), null)
-  assert.equal(basisText(h, "en"), "Based on 47 listings that left Vinted in the last 7 days")
-})
-
-test("everything withheld but max buy / LOW DATA: still content; truly empty is not", () => {
-  const maxOnly: HonestOutput = { basis: "departed", max_buy_eur: 21, margin_pct: 30, low_data: false, verdict_display: "BUY" }
-  assert.equal(hasHonestContent(maxOnly), true)
-  const lowOnly: HonestOutput = { basis: "departed", max_buy_eur: null, margin_pct: 30, low_data: true, verdict_display: "LOW_DATA" }
-  assert.equal(hasHonestContent(lowOnly), true)
-  assert.equal(isLowData(lowOnly), true)
-  const empty: HonestOutput = { basis: "departed", max_buy_eur: null, margin_pct: 30, low_data: false, verdict_display: "WATCH" }
-  assert.equal(hasHonestContent(empty), false)
-})
-
-test("LOW DATA note with the count withheld never prints a number or 'undefined', in all six locales", () => {
-  const lowOnly: HonestOutput = { basis: "departed", max_buy_eur: null, margin_pct: 30, low_data: true, verdict_display: "LOW_DATA" }
-  for (const loc of ["en", "fr", "es", "de", "it", "pt"] as const) {
-    const note = lowDataNoteText(lowOnly, loc)
-    assert.ok(note.length > 10, loc)
-    assert.doesNotMatch(note, /undefined|NaN|\d/, loc)
-    assert.doesNotMatch(note, /\bsold\b|\bvendid|\bvendu|\bverkauft/i, loc)
+test("source guard: the honest module and component cannot render a count or LOW DATA", () => {
+  for (const f of ["./honest-output.ts", "../components/ui/honest-numbers.tsx"]) {
+    const src = readFileSync(new URL(f, import.meta.url), "utf8")
+    // strip comments: the header explains what is NOT shown
+    const code = src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "")
+    assert.doesNotMatch(code, /LOW[ _]DATA|low_data|lowData|\.n\b|window_days|price_window|Based on \$\{/, f)
   }
-  assert.equal(lowDataNoteText({ ...lowOnly, n: 12 }, "en"), "Only 12 comparable listings: too few for a call.")
 })

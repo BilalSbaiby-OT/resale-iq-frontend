@@ -30,7 +30,7 @@ import { FREE_SAMPLES } from "@/lib/free-samples"
 import { ExitSurvey } from "@/components/ui/exit-survey"
 import { flowFromSrc, flowParam, typedFlow, type VerdictFlow } from "@/lib/verdict-flow"
 import { HonestNumbers } from "@/components/ui/honest-numbers"
-import { hasHonestContent, honestCopy, isLowData, type HonestOutput } from "@/lib/honest-output"
+import { hasHonestContent, type HonestOutput } from "@/lib/honest-output"
 import { fieldState } from "@/lib/locked-fields"
 import { parsePaywallBody, type PaywallPlan } from "@/lib/hard-paywall"
 import { checkerFace } from "@/lib/query-coverage"
@@ -57,7 +57,7 @@ function fmtCount(n: number | null | undefined): string {
 // — SKIP without counts reads as "this model does not sell".
 
 interface FreeVerdict extends ReconstructedSignals {
-  /** O3: numbers-first block from /api/verdict (range, count, window, max buy, LOW DATA). */
+  /** O3: numbers-first block from /api/verdict (range, max buy, signal strength). */
   honest?: HonestOutput | null
   verdict?: string
   product?: string
@@ -594,10 +594,9 @@ export function FreeChecker({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { if (initialQuery && !initialResult) run(initialQuery, flowProp ?? flowFromSrc(src)) }, [])
 
-  // O3: under 20 comparables the card says LOW DATA, in the neutral colour — a
-  // BUY/WATCH/SKIP colour on thin evidence is a call we are not making.
-  const lowData = isLowData(res?.honest)
-  const color = !lowData && res?.verdict ? (VERDICT_COLOR[res.verdict] ?? "var(--color-text-secondary)") : "var(--color-text-secondary)"
+  // O3 (founder override): the verdict is shown exactly as computed; evidence
+  // strength is the Signal strength meter inside HonestNumbers.
+  const color = res?.verdict ? (VERDICT_COLOR[res.verdict] ?? "var(--color-text-secondary)") : "var(--color-text-secondary)"
   const hasPrices = res?.buy_below != null || res?.sell_avg != null
   // No per-item departure count and no "still listed" supply count beside it
   // (founder decision 2026-10-02): the card leads with the price answer.
@@ -653,7 +652,6 @@ export function FreeChecker({
   // otherwise Spanish card. verdict-words.ts translates the three; everything
   // else (BRAND_AVERAGE above, LIMIT_REACHED below) keeps its existing branch.
   const label = res?.verdict === "LIMIT_REACHED" ? t.limitReachedLabel
-    : lowData ? honestCopy[locale].lowData
     : (res?.verdict
         ? (VERDICT_LABEL[res.verdict] ?? verdictWord(res.verdict, locale) ?? res.verdict)
         : "—")

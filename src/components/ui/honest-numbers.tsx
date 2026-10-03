@@ -1,17 +1,37 @@
 import type { Locale } from "@/lib/i18n"
-import { basisText, hasHonestContent, honestCopy, isLowData, lowDataNoteText, rangeText, type HonestOutput } from "@/lib/honest-output"
+import { hasHonestContent, honestCopy, rangeText, signalDots, signalStrength, type HonestOutput } from "@/lib/honest-output"
 
 /**
- * Numbers first (O3): typical resale range, the listings count + window behind
- * it, and the max buy price. The verdict is rendered by the host card AFTER
- * this block; under 20 comparables the host shows LOW DATA instead of a call
- * and this block carries the one-line reason.
+ * Compact three-dot meter. The dots are decorative; the accessible name is the
+ * full sentence ("Signal strength: weak"). Never shows a count.
+ */
+export function SignalMeter({ honest, locale, withLabel = true }: { honest: HonestOutput | null | undefined; locale: Locale; withLabel?: boolean }) {
+  const s = signalStrength(honest)
+  if (s === null) return null
+  const c = honestCopy[locale] ?? honestCopy.en
+  return (
+    <span
+      role="img"
+      aria-label={c.signalAria[s]}
+      data-testid="riq-signal-strength"
+      data-strength={s}
+      style={{ display: "inline-flex", alignItems: "baseline", gap: 6, fontSize: "var(--text-meta, 12px)", color: "var(--color-text-dim, #7f8da9)" }}
+    >
+      {withLabel && <span aria-hidden="true">{c.signalLabel}</span>}
+      <span aria-hidden="true" style={{ letterSpacing: "0.12em", color: "var(--color-text-primary)" }}>{signalDots(s)}</span>
+    </span>
+  )
+}
+
+/**
+ * Numbers first (O3): Typical resale price (p25-p75), Max buy price with its
+ * margin footnote, then the Signal strength meter. The verdict is rendered by
+ * the host card, exactly as computed. No counts, no LOW DATA label.
  */
 export function HonestNumbers({ honest, locale }: { honest: HonestOutput | null | undefined; locale: Locale }) {
   if (!hasHonestContent(honest)) return null
   const c = honestCopy[locale] ?? honestCopy.en
   const range = rangeText(honest)
-  const basis = basisText(honest, locale)
   return (
     <div data-testid="riq-honest-numbers" data-basis={honest.basis} style={{ marginBottom: 14 }}>
       {range && (
@@ -22,13 +42,6 @@ export function HonestNumbers({ honest, locale }: { honest: HonestOutput | null 
           </div>
         </div>
       )}
-      {/* Count + window: absent for anon/free when the backend withholds them,
-          and independent of the range (it can be shown without it). */}
-      {basis && (
-        <div data-testid="riq-honest-basis" style={{ marginTop: range ? 2 : 0, fontSize: "var(--text-meta, 12px)", color: "var(--color-text-dim, #7f8da9)", lineHeight: 1.5 }}>
-          {basis}
-        </div>
-      )}
       {honest.max_buy_eur != null && (
         <div style={{ marginTop: 10, display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
           <span style={{ fontSize: "var(--text-body-app, 14px)", color: "var(--color-text-dim, #7f8da9)" }}>{c.maxBuyLabel}</span>
@@ -36,9 +49,12 @@ export function HonestNumbers({ honest, locale }: { honest: HonestOutput | null 
           <span style={{ fontSize: "var(--text-meta, 12px)", color: "var(--color-text-dim, #7f8da9)" }}>{c.margin(honest.margin_pct)}</span>
         </div>
       )}
-      {isLowData(honest) && (
-        <p data-testid="riq-honest-lowdata-note" style={{ marginTop: 8, fontSize: "var(--text-meta, 12px)", color: "var(--color-text-dim, #7f8da9)", lineHeight: 1.5 }}>
-          {lowDataNoteText(honest, locale)}
+      <div style={{ marginTop: 10 }}>
+        <SignalMeter honest={honest} locale={locale} />
+      </div>
+      {honest.basis === "active_asking" && (
+        <p data-testid="riq-honest-asking-note" style={{ marginTop: 6, fontSize: "var(--text-meta, 12px)", color: "var(--color-text-dim, #7f8da9)", lineHeight: 1.5 }}>
+          {c.askingNote}
         </p>
       )}
     </div>

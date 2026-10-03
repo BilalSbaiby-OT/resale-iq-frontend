@@ -6,14 +6,15 @@ import { itemDisplayName } from "@/lib/item-display-name"
 import type { Locale } from "@/lib/i18n"
 import { fmtDate } from "@/lib/ui-translate"
 import { useT } from "@/components/i18n/locale-provider"
-import { isLowData, type HonestOutput } from "@/lib/honest-output"
+import { SignalMeter } from "@/components/ui/honest-numbers"
+import type { HonestOutput } from "@/lib/honest-output"
 
 export interface BuyRow {
   brand: string; model?: string; category?: string; verdict: string; momentum: string
   locked: boolean; sold_30d?: number | null; sold_30d_evidence?: number | null
   sold_7d?: number | null
   avg_price_eur: number | null; max_buy_price?: number | null; updated_at?: string
-  /** O3: under 20 comparables the row says LOW DATA instead of a call. */
+  /** O3: carries signal_strength 1|2|3 for the meter. */
   honest?: HonestOutput | null
 }
 
@@ -63,7 +64,7 @@ export function WeeklyBuyList({ rows, trialMode = false }: { rows: BuyRow[]; tri
       <ol style={{ listStyle: "none", margin: 0, padding: 0 }}>
         {rows.map((r, i) => {
           const label = (r.model ? itemDisplayName(r.brand, r.model) : `${r.brand} ${r.category ?? ""}`.trim())
-          const v = isLowData(r.honest) ? "LOW DATA" : VC[r.verdict] ? r.verdict : r.momentum
+          const v = VC[r.verdict] ? r.verdict : r.momentum
           const isW = watched.has(`${r.brand}|${r.model}`)
           return (
             <li
@@ -75,6 +76,7 @@ export function WeeklyBuyList({ rows, trialMode = false }: { rows: BuyRow[]; tri
                 <span style={{ fontSize: 14.5, fontWeight: 600, color: "var(--color-on-graphite)", overflow: "hidden", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", lineHeight: 1.25 }}>{label}</span>
                 <span style={{ display: "block", fontSize: 12, color: "var(--color-graphite-muted)", marginTop: 1 }}>
                   <span style={{ color: VC[v] ?? "#8E8E93", fontWeight: 700, letterSpacing: "0.03em" }}>{v}</span>
+                  {r.honest && <span style={{ marginLeft: 8 }}><SignalMeter honest={r.honest} locale={tx.locale} withLabel={false} /></span>}
                 </span>
               </Link>
               <span style={{ textAlign: "right", fontSize: 15, fontWeight: 600, color: "var(--color-on-graphite)", fontVariantNumeric: "tabular-nums" }}>{eur0(r.max_buy_price)}</span>
@@ -91,7 +93,7 @@ export function WeeklyBuyList({ rows, trialMode = false }: { rows: BuyRow[]; tri
           )
         })}
       </ol>
-      <div style={{ fontSize: 12, color: "var(--color-graphite-muted)", marginTop: 8, lineHeight: 1.5 }}>{tx("Buy below = most you should pay, for ~30% gross margin before fees. Exit = average asking price at departure. /30d = watched departures in 30 days. Tap an item to check it.")}</div>
+      <div style={{ fontSize: 12, color: "var(--color-graphite-muted)", marginTop: 8, lineHeight: 1.5 }}>{tx("Buy below = most you should pay, for ~30% margin before fees. Exit = average asking price at departure. Tap an item to check it.")}</div>
     </section>
   )
 }

@@ -1,15 +1,15 @@
 import { expect, test } from "@playwright/test"
 
 /**
- * O3 — honest output on the verdict card: the typical resale range, the count
- * and window behind it, and the max buy price come BEFORE the verdict; under
- * 20 comparables the verdict reads LOW DATA and never BUY. The backend is
- * intercepted: this pins what the FRONTEND renders from `honest`.
+ * O3 (founder override 2026-10-03) — honest output on the verdict card:
+ * Typical resale price (p25-p75) and Max buy price lead; the BUY/WATCH/SKIP
+ * verdict is shown exactly as computed; evidence is the Signal strength meter
+ * (●○○ / ●●○ / ●●●), never a count, never a LOW DATA label, never "sold".
+ * The backend is intercepted: this pins what the FRONTEND renders from `honest`.
  */
 const honest = (over: Record<string, unknown> = {}) => ({
-  basis: "departed", range_low_eur: 21, range_high_eur: 39, p25_price_eur: 21.4, p75_price_eur: 38.6,
-  price_window: "7d", n: 47, window_days: 7, max_buy_eur: 21, margin_pct: 30,
-  low_data: false, verdict_display: "BUY", confidence: "MEDIUM", ...over,
+  basis: "departed", range_low_eur: 42, range_high_eur: 58, p25_price_eur: 41.6, p75_price_eur: 57.7,
+  max_buy_eur: 35, margin_pct: 30, signal_strength: 3, verdict_display: "BUY", confidence: "MEDIUM", ...over,
 })
 
 async function check(page: import("@playwright/test").Page, body: Record<string, unknown>) {
@@ -20,18 +20,30 @@ async function check(page: import("@playwright/test").Page, body: Record<string,
   await page.getByRole("button", { name: /Check this item/i }).click()
 }
 
-test("numbers lead, verdict follows, wording says 'left Vinted' not 'sold'", async ({ page }) => {
+const noCountsNoLowData = async (page: import("@playwright/test").Page) => {
+  const card = page.getByTestId("riq-honest-numbers")
+  await expect(card).not.toContainText(/LOW DATA/i)
+  await expect(page.getByText(/LOW DATA/i)).toHaveCount(0)
+  await expect(card).not.toContainText(/\d+\s+(listings|comparable|departures)|Based on \d|last \d+ days|undefined|NaN|null/i)
+  await expect(card).not.toContainText(/\bsold\b/i)
+}
+
+test("strong model: range + max buy lead, ●●● meter, verdict follows, no counts", async ({ page }) => {
   await check(page, {
     verdict: "BUY", product: "Adidas Samba", category: "Sneakers", confidence: "MEDIUM",
-    buy_below: 21.4, sell_avg: 30.6, honest: honest(),
+    buy_below: 35.2, sell_avg: 50.4, honest: honest(),
   })
   const card = page.getByTestId("riq-honest-numbers")
   await expect(card).toBeVisible()
-  await expect(page.getByTestId("riq-honest-range")).toHaveText("€21 – €39")
-  await expect(page.getByTestId("riq-honest-basis")).toHaveText("Based on 47 listings that left Vinted in the last 7 days")
-  await expect(page.getByTestId("riq-honest-maxbuy")).toHaveText("€21")
-  await expect(card).toContainText("for ~30% gross margin before fees")
-  await expect(card).not.toContainText(/\bsold\b/i)
+  await expect(card).toContainText("Typical resale price")
+  await expect(page.getByTestId("riq-honest-range")).toHaveText("€42–€58")
+  await expect(card).toContainText("Max buy price")
+  await expect(page.getByTestId("riq-honest-maxbuy")).toHaveText("€35")
+  await expect(card).toContainText("for ~30% margin before fees")
+  const meter = card.getByRole("img", { name: "Signal strength: strong" })
+  await expect(meter).toBeVisible()
+  await expect(meter).toHaveText("Signal strength●●●")
+  await noCountsNoLowData(page)
   // numbers first: the block sits above the verdict word in the DOM
   const above = await page.evaluate(() => {
     const n = document.querySelector('[data-testid="riq-honest-numbers"]')!
@@ -41,17 +53,25 @@ test("numbers lead, verdict follows, wording says 'left Vinted' not 'sold'", asy
   expect(above).toBe(true)
 })
 
-test("under 20 comparables: LOW DATA, never BUY, range still shown", async ({ page }) => {
+test("weak model (<20 comparables): ●○○ meter, verdict still BUY, range shown, no LOW DATA", async ({ page }) => {
   await check(page, {
     verdict: "BUY", product: "Adidas Samba", category: "Sneakers", confidence: "LOW",
-    buy_below: 21.4, sell_avg: 30.6,
-    honest: honest({ n: 12, low_data: true, verdict_display: "LOW_DATA", window_days: 30, price_window: "30d" }),
+    buy_below: 35.2, sell_avg: 50.4, honest: honest({ signal_strength: 1, confidence: "LOW" }),
   })
-  await expect(page.getByTestId("riq-honest-range")).toHaveText("€21 – €39")
-  await expect(page.getByTestId("riq-honest-basis")).toContainText("last 30 days")
-  await expect(page.getByTestId("riq-honest-lowdata-note")).toContainText("Only 12 comparable listings")
-  await expect(page.getByText("LOW DATA", { exact: true })).toBeVisible()
-  await expect(page.getByText("BUY", { exact: true })).toHaveCount(0)
+  const card = page.getByTestId("riq-honest-numbers")
+  await expect(page.getByTestId("riq-honest-range")).toHaveText("€42–€58")
+  await expect(card.getByRole("img", { name: "Signal strength: weak" })).toHaveText("Signal strength●○○")
+  await expect(page.getByText("BUY", { exact: true }).first()).toBeVisible()
+  await noCountsNoLowData(page)
+})
+
+test("medium model: ●●○", async ({ page }) => {
+  await check(page, {
+    verdict: "WATCH", product: "Adidas Samba", category: "Sneakers",
+    buy_below: 35.2, sell_avg: 50.4, honest: honest({ signal_strength: 2, verdict_display: "WATCH" }),
+  })
+  await expect(page.getByRole("img", { name: "Signal strength: medium" }).first()).toHaveText("Signal strength●●○")
+  await expect(page.getByText("WATCH", { exact: true }).first()).toBeVisible()
 })
 
 test("a body without the block renders exactly as before", async ({ page }) => {
@@ -60,45 +80,51 @@ test("a body without the block renders exactly as before", async ({ page }) => {
   await expect(page.getByText("WATCH", { exact: true }).first()).toBeVisible()
 })
 
-// Anonymous / free callers: the backend OMITS n, window_days and price_window
-// (HONEST_COUNTS_PUBLIC off) and, with HONEST_RANGE_PUBLIC off, the range too.
+// Anonymous / free callers: the backend OMITS n, window_days, price_window and
+// low_data, and (HONEST_RANGE_PUBLIC off) the range too. Nothing may break.
 const anonHonest = (over: Record<string, unknown> = {}) => ({
-  basis: "departed", range_low_eur: 21, range_high_eur: 39, p25_price_eur: 21.4, p75_price_eur: 38.6,
-  max_buy_eur: 21, margin_pct: 30, low_data: false, verdict_display: "BUY", confidence: "MEDIUM", ...over,
+  basis: "departed", range_low_eur: 42, range_high_eur: 58, p25_price_eur: 41.6, p75_price_eur: 57.7,
+  max_buy_eur: 35, margin_pct: 30, signal_strength: 1, verdict_display: "BUY", confidence: "MEDIUM", ...over,
 })
 
-test("counts withheld: range and max buy render, no count line, no 'undefined'", async ({ page }) => {
+test("anon payload (no counts, no low_data): range, max buy, meter render; nothing leaks", async ({ page }) => {
   await check(page, {
     verdict: "BUY", product: "Nike Air Force 1", category: "Sneakers", confidence: "MEDIUM",
-    buy_below: 21.4, sell_avg: 30.6, honest: anonHonest(),
+    buy_below: 35.2, sell_avg: 50.4, honest: anonHonest(),
   })
-  const card = page.getByTestId("riq-honest-numbers")
-  await expect(page.getByTestId("riq-honest-range")).toHaveText("€21 – €39")
-  await expect(page.getByTestId("riq-honest-maxbuy")).toHaveText("€21")
-  await expect(page.getByTestId("riq-honest-basis")).toHaveCount(0)
-  await expect(card).not.toContainText(/undefined|NaN|null/)
-  await expect(card).not.toContainText(/listings that left Vinted/)
+  await expect(page.getByTestId("riq-honest-range")).toHaveText("€42–€58")
+  await expect(page.getByTestId("riq-honest-maxbuy")).toHaveText("€35")
+  await expect(page.getByRole("img", { name: "Signal strength: weak" }).first()).toBeVisible()
+  await noCountsNoLowData(page)
 })
 
-test("counts and range withheld, thin evidence: LOW DATA tag, no number-less empty box", async ({ page }) => {
-  const h = anonHonest({ range_low_eur: undefined, range_high_eur: undefined, p25_price_eur: undefined,
-    p75_price_eur: undefined, low_data: true, verdict_display: "LOW_DATA", confidence: "LOW" })
+test("even if a paid-style payload carries n / window / low_data, the UI renders none of it", async ({ page }) => {
   await check(page, {
     verdict: "BUY", product: "Nike Air Force 1", category: "Sneakers", confidence: "LOW",
-    buy_below: 21.4, sell_avg: 30.6, honest: h,
+    buy_below: 35.2, sell_avg: 50.4,
+    honest: anonHonest({ n: 12, window_days: 30, price_window: "30d", low_data: true, verdict_display: "BUY" }),
   })
-  await expect(page.getByText("LOW DATA", { exact: true })).toBeVisible()
-  await expect(page.getByText("BUY", { exact: true })).toHaveCount(0)
-  await expect(page.getByTestId("riq-honest-range")).toHaveCount(0)
-  const note = page.getByTestId("riq-honest-lowdata-note")
-  await expect(note).toBeVisible()
-  await expect(note).not.toContainText(/undefined|NaN|\d/)
+  await expect(page.getByTestId("riq-honest-range")).toHaveText("€42–€58")
+  await noCountsNoLowData(page)
+  await expect(page.getByText("12", { exact: true })).toHaveCount(0)
+  await expect(page.getByText("BUY", { exact: true }).first()).toBeVisible()
 })
 
-test("nothing to show and not low data: no honest box at all", async ({ page }) => {
+test("range withheld: max buy + meter still render, no empty range box", async ({ page }) => {
+  await check(page, {
+    verdict: "BUY", product: "Nike Air Force 1", category: "Sneakers", buy_below: 35.2, sell_avg: 50.4,
+    honest: anonHonest({ range_low_eur: undefined, range_high_eur: undefined, p25_price_eur: undefined, p75_price_eur: undefined }),
+  })
+  await expect(page.getByTestId("riq-honest-range")).toHaveCount(0)
+  await expect(page.getByTestId("riq-honest-maxbuy")).toHaveText("€35")
+  await expect(page.getByRole("img", { name: "Signal strength: weak" }).first()).toBeVisible()
+  await noCountsNoLowData(page)
+})
+
+test("nothing to show: no honest box at all", async ({ page }) => {
   await check(page, {
     verdict: "WATCH", product: "Nike Air Force 1", category: "Sneakers", buy_below: 21.4, sell_avg: 30.6,
-    honest: anonHonest({ range_low_eur: undefined, range_high_eur: undefined, max_buy_eur: null, verdict_display: "WATCH" }),
+    honest: anonHonest({ range_low_eur: undefined, range_high_eur: undefined, max_buy_eur: null, signal_strength: undefined, verdict_display: "WATCH" }),
   })
   await expect(page.getByTestId("riq-honest-numbers")).toHaveCount(0)
 })

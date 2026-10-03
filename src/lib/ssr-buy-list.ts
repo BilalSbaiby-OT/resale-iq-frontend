@@ -14,7 +14,6 @@ import { promises as fs } from "node:fs"
 import os from "node:os"
 import path from "node:path"
 import { fetchBounded } from "./hero-verdict.ts"
-import type { HonestOutput } from "./honest-output.ts"
 
 export interface SsrBuyListItem {
   brand: string
@@ -27,8 +26,6 @@ export interface SsrBuyListItem {
   /** Real max_buy_price on unlocked rows. Null on locked rows — never invented. */
   buy_below: number | null
   locked: boolean
-  /** O3: numbers-first block; `low_data` rows are shown as LOW DATA, never as a call. */
-  honest?: HonestOutput | null
 }
 
 interface Cached { fetchedAt: number; items: SsrBuyListItem[] }
@@ -72,16 +69,7 @@ function shape(raw: Record<string, unknown>): SsrBuyListItem | null {
     buy_below: typeof raw.buy_below === "number" && Number.isFinite(raw.buy_below)
       ? raw.buy_below : null,
     locked: raw.locked === true,
-    honest: shapeHonest(raw.honest),
   }
-}
-
-function shapeHonest(v: unknown): HonestOutput | null {
-  if (!v || typeof v !== "object") return null
-  const h = v as Partial<HonestOutput>
-  // n is OMITTED for anonymous callers (HONEST_COUNTS_PUBLIC off): only low_data is required.
-  if (typeof h.low_data !== "boolean") return null
-  return h as HonestOutput
 }
 
 export async function getPublicBuyList(limit = 5): Promise<SsrBuyListItem[] | null> {
