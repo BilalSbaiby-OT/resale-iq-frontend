@@ -1,7 +1,7 @@
 /**
  * Live demo-SKU verdict for the landing hero.
  *
- * SEED: "New Balance 530". Production, read from the backend container
+ * SEED (historical, 2026-09-05; the live seed is now HERO_QUERY below, an allowed free sample). Original measurement: Production, read from the backend container
  * 2026-09-05 19:2xZ (the public endpoint rate-limits anon probes, so this was
  * taken from inside the API, not faked):
  *
@@ -64,7 +64,7 @@ import { promises as fs } from "node:fs"
 import os from "node:os"
 import path from "node:path"
 import { flowParam } from "./verdict-flow.ts"
-import { normalizeBasis, type PriceBasis } from "./price-basis.ts"
+import { FREE_SAMPLE_DEMO } from "./free-samples.ts"
 
 export type HeroVerdict = {
   verdict?: string
@@ -87,7 +87,12 @@ export type HeroVerdict = {
   honest?: { basis?: string | null } | null
 }
 
-const QUERY = "New Balance 530" // live WATCH/HIGH/n=153, not provisional — see header
+// Must be an anonymously-allowed free sample (api/routes.py _PUBLIC_SAMPLE_QUERIES): the
+// server-side fetch carries no token, so any other model 402s PAYWALL and the seed is
+// empty. New Balance 530 (the seed in the header below) was dropped from that list
+// 2026-09-29, so the /verdict first-screen seed went blank from then until this change.
+export const HERO_QUERY: string = FREE_SAMPLE_DEMO
+const QUERY = HERO_QUERY
 const MAX_AGE_MS = 30 * 60 * 1000
 const CACHE_PATH =
   process.env.HERO_VERDICT_CACHE_PATH ||
@@ -180,14 +185,4 @@ export async function getHeroVerdict(): Promise<{ query: string; result: HeroVer
     // why: homepage must still render if the analyzer is down or the fetch aborts; last-good or empty checker.
   }
   return { query: QUERY, result: cached?.result ? withoutComparableN(cached.result) : null }
-}
-
-/**
- * Where the typical resale price currently comes from (departed | live_ask),
- * read off the same cached hero verdict. The backend flag is global, so one
- * model's `honest.basis` is the site-wide basis. Outage / no verdict = departed.
- */
-export async function getTypicalPriceBasis(): Promise<PriceBasis> {
-  const { result } = await getHeroVerdict()
-  return normalizeBasis(result?.honest?.basis)
 }

@@ -107,3 +107,19 @@ export async function getPublicBuyList(limit = 5): Promise<SsrBuyListItem[] | nu
   }
   return cached ? cached.items.slice(0, limit) : null
 }
+
+/** Basis shared by the public buy-list rows (the backend flag is global, so any priced row speaks for the site). Pure, for tests. */
+export function basisFromBuyList(items: SsrBuyListItem[] | null | undefined): PriceBasis {
+  const row = items?.find((i) => i.price_basis && i.price_basis !== "departed")
+  return normalizeBasis(row?.price_basis)
+}
+
+/**
+ * Where the typical resale price currently comes from (departed | live_ask), read from the
+ * public buy-list rows (price_basis = honest.basis). NOT from a hero verdict: a server-side
+ * /api/verdict call for a non-sample model 402s and silently fell back to "departed" while
+ * the numbers were live_ask. Outage / empty list = departed.
+ */
+export async function getTypicalPriceBasis(): Promise<PriceBasis> {
+  return basisFromBuyList(await getPublicBuyList(5))
+}
