@@ -39,7 +39,7 @@ test("strong model: range + max buy lead, ●●● meter, verdict follows, no c
   await expect(page.getByTestId("riq-honest-range")).toHaveText("€42–€58")
   await expect(card).toContainText("Max buy price")
   await expect(page.getByTestId("riq-honest-maxbuy")).toHaveText("€35")
-  await expect(card).toContainText("for ~30% margin before fees")
+  await expect(card).toContainText("= 70% of the typical resale price")
   const meter = card.getByRole("img", { name: "Signal strength: strong" })
   await expect(meter).toBeVisible()
   await expect(meter).toHaveText("Signal strength●●●")

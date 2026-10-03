@@ -26,6 +26,10 @@ const PROFIT_PROMISE = [
   /30\s?%\s?(?:de |di )?(?:marge|margen|margine|margem|Marge)\b/i,
   /(?:marge|margen|margine|margem|Marge)\s+(?:de|del|di|von)\s+(?:(?:cerca|circa|etwa|environ|aproximadamente)\s+)?(?:~\s?)?(?:il\s+)?30/i,
   /~\s?30\s?%\s?(?:de |di )?(?:marge|margen|margine|margem|Marge)/i,
+  // Templated forms (honest-output.ts: `for ~${p}% margin before fees`, `pour ~${p} % de marge avant frais`,
+  // `per un margine di ~${p}%`, `für ~${p} % Marge vor Gebühren`): a "~<number or ${var}> %" next to a margin word.
+  /~\s?(?:\d+|\$\{[^}]*\})\s?%\s?(?:de |di |gross |net |target )?(?:margin|marge|margen|margine|margem|Marge)\b/i,
+  /(?:margin|marge|margen|margine|margem|Marge)\s+(?:de |di |of )?~\s?(?:30|\$\{[^}]*\})/i,
   // explicit promise verbs around the buy-below
   /(?:and|to) still profit/i,
   /\bfor ~30%/i,
@@ -52,6 +56,15 @@ test("no profit/margin-promise wording in any shipped copy (all locales)", () =>
     })
   }
   assert.deepEqual(hits, [], `profit-promise wording found (use "70% of the typical resale price"):\n${hits.join("\n")}`)
+})
+
+test("the live result-card footnote (honest-output) is the 70% definition, in every locale", async () => {
+  const { honestCopy } = await import("./honest-output.ts")
+  for (const loc of ["en", "fr", "es", "de", "it", "pt"] as const) {
+    const t = honestCopy[loc].maxBuyBasis
+    assert.match(t, /70\s?%/, loc)
+    assert.doesNotMatch(t, /30|marg|profit/i, loc)
+  }
 })
 
 test("the max buy price is defined factually in every locale of the how-it-works step", async () => {

@@ -41,7 +41,8 @@ export type HonestOutput = {
 type HonestCopy = {
   rangeLabel: string
   maxBuyLabel: string
-  margin: (pct: number) => string
+  /** Factual definition of the max buy price (never a margin/profit promise). */
+  maxBuyBasis: string
   signalLabel: string
   /** Accessible label of the meter: "Signal strength: weak". */
   signalAria: Record<SignalStrength, string>
@@ -53,7 +54,7 @@ export const honestCopy: Record<Locale, HonestCopy> = {
   en: {
     rangeLabel: "Typical resale price",
     maxBuyLabel: "Max buy price",
-    margin: (p) => `for ~${p}% margin before fees`,
+    maxBuyBasis: "= 70% of the typical resale price",
     signalLabel: "Signal strength",
     signalAria: { 1: "Signal strength: weak", 2: "Signal strength: medium", 3: "Signal strength: strong" },
     askingNote: "Based on current asking prices",
@@ -61,7 +62,7 @@ export const honestCopy: Record<Locale, HonestCopy> = {
   fr: {
     rangeLabel: "Prix de revente typique",
     maxBuyLabel: "Prix d'achat maximum",
-    margin: (p) => `pour ~${p} % de marge avant frais`,
+    maxBuyBasis: "soit 70 % du prix de revente typique",
     signalLabel: "Fiabilité du signal",
     signalAria: { 1: "Fiabilité du signal : faible", 2: "Fiabilité du signal : moyenne", 3: "Fiabilité du signal : forte" },
     askingNote: "Basé sur les prix demandés actuels",
@@ -69,7 +70,7 @@ export const honestCopy: Record<Locale, HonestCopy> = {
   es: {
     rangeLabel: "Precio de reventa típico",
     maxBuyLabel: "Precio máximo de compra",
-    margin: (p) => `para ~${p} % de margen antes de comisiones`,
+    maxBuyBasis: "es decir, el 70 % del precio de reventa típico",
     signalLabel: "Fuerza de la señal",
     signalAria: { 1: "Fuerza de la señal: débil", 2: "Fuerza de la señal: media", 3: "Fuerza de la señal: fuerte" },
     askingNote: "Basado en los precios pedidos actuales",
@@ -77,7 +78,7 @@ export const honestCopy: Record<Locale, HonestCopy> = {
   de: {
     rangeLabel: "Typischer Wiederverkaufspreis",
     maxBuyLabel: "Maximaler Einkaufspreis",
-    margin: (p) => `für ~${p} % Marge vor Gebühren`,
+    maxBuyBasis: "also 70 % des typischen Wiederverkaufspreises",
     signalLabel: "Signalstärke",
     signalAria: { 1: "Signalstärke: schwach", 2: "Signalstärke: mittel", 3: "Signalstärke: stark" },
     askingNote: "Basiert auf aktuellen Angebotspreisen",
@@ -85,7 +86,7 @@ export const honestCopy: Record<Locale, HonestCopy> = {
   it: {
     rangeLabel: "Prezzo di rivendita tipico",
     maxBuyLabel: "Prezzo massimo di acquisto",
-    margin: (p) => `per un margine di ~${p}% prima delle commissioni`,
+    maxBuyBasis: "cioè il 70% del prezzo di rivendita tipico",
     signalLabel: "Forza del segnale",
     signalAria: { 1: "Forza del segnale: debole", 2: "Forza del segnale: media", 3: "Forza del segnale: forte" },
     askingNote: "Basato sui prezzi richiesti attuali",
@@ -93,7 +94,7 @@ export const honestCopy: Record<Locale, HonestCopy> = {
   pt: {
     rangeLabel: "Preço de revenda típico",
     maxBuyLabel: "Preço máximo de compra",
-    margin: (p) => `para ~${p}% de margem antes de comissões`,
+    maxBuyBasis: "ou seja, 70 % do preço de revenda típico",
     signalLabel: "Força do sinal",
     signalAria: { 1: "Força do sinal: fraco", 2: "Força do sinal: médio", 3: "Força do sinal: forte" },
     askingNote: "Com base nos preços pedidos atuais",

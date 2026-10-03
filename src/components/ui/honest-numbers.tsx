@@ -49,7 +49,7 @@ export function HonestNumbers({ honest, locale }: { honest: HonestOutput | null 
         <div style={{ marginTop: 10, display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
           <span style={{ fontSize: "var(--text-body-app, 14px)", color: "var(--color-text-dim, #7f8da9)" }}>{c.maxBuyLabel}</span>
           <span data-testid="riq-honest-maxbuy" style={{ fontSize: 20, fontWeight: 700, color: "var(--color-text-primary)" }}>{locale === "en" ? `€${honest.max_buy_eur}` : fmtEur(locale, honest.max_buy_eur)}</span>
-          <span style={{ fontSize: "var(--text-meta, 12px)", color: "var(--color-text-dim, #7f8da9)" }}>{c.margin(honest.margin_pct)}</span>
+          <span style={{ fontSize: "var(--text-meta, 12px)", color: "var(--color-text-dim, #7f8da9)" }}>{c.maxBuyBasis}</span>
         </div>
       )}
       <div style={{ marginTop: 10 }}>

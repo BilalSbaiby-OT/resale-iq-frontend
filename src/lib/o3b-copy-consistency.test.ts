@@ -4,7 +4,7 @@ import { readdirSync, readFileSync, statSync } from "node:fs"
 import { join } from "node:path"
 
 // O3b: every buy-below / max-buy statement matches the shipped O3 card —
-// whole euros, "for ~30% margin before fees", never "after fees", no cents.
+// whole euros, "= 70% of the typical resale price", never "after fees", no cents.
 function walk(dir: string, out: string[] = []): string[] {
   for (const name of readdirSync(dir)) {
     const p = join(dir, name)
