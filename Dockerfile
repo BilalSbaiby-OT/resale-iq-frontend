@@ -30,6 +30,11 @@ COPY . .
 ARG BACKEND_URL=http://resale-iq-backend:8080
 ENV BACKEND_URL=$BACKEND_URL
 ENV NEXT_TELEMETRY_DISABLED=1
+# Google Ads purchase conversion: public IDs (visible in page source), tracking only.
+# The tag loads only after cookie consent; the conversion fires from /billing/success.
+ARG NEXT_PUBLIC_GADS_ID=AW-18487791247
+ARG NEXT_PUBLIC_GADS_CONV_LABEL=5rY3CLConI8dEI-d1e9E
+ENV NEXT_PUBLIC_GADS_ID=$NEXT_PUBLIC_GADS_ID NEXT_PUBLIC_GADS_CONV_LABEL=$NEXT_PUBLIC_GADS_CONV_LABEL
 RUN npm run build
 
 # ---- run (standalone, minimal) ----

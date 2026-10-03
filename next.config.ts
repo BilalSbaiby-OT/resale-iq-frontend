@@ -15,7 +15,7 @@ const API = process.env.BACKEND_URL || "http://localhost:8080";
 // form-action and object-src are the parts that actually stop framing, base-tag
 // injection and data exfiltration via forms.
 // Google Ads tag hosts are allowed ONLY when NEXT_PUBLIC_GADS_ID is set (build time).
-const ADS = process.env.NEXT_PUBLIC_GADS_ID ? " https://www.googletagmanager.com https://*.google.com https://*.doubleclick.net https://*.google-analytics.com" : "";
+const ADS = process.env.NEXT_PUBLIC_GADS_ID ? " https://www.googletagmanager.com https://*.google.com https://*.doubleclick.net https://*.google-analytics.com https://www.googleadservices.com https://www.google.es https://www.google.fr https://www.google.de https://www.google.it https://www.google.pt" : "";
 const CSP = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline' 'unsafe-eval'${ADS ? " https://www.googletagmanager.com" : ""}`,
