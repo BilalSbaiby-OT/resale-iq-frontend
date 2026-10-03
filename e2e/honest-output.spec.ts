@@ -59,3 +59,46 @@ test("a body without the block renders exactly as before", async ({ page }) => {
   await expect(page.getByTestId("riq-honest-numbers")).toHaveCount(0)
   await expect(page.getByText("WATCH", { exact: true }).first()).toBeVisible()
 })
+
+// Anonymous / free callers: the backend OMITS n, window_days and price_window
+// (HONEST_COUNTS_PUBLIC off) and, with HONEST_RANGE_PUBLIC off, the range too.
+const anonHonest = (over: Record<string, unknown> = {}) => ({
+  basis: "departed", range_low_eur: 21, range_high_eur: 39, p25_price_eur: 21.4, p75_price_eur: 38.6,
+  max_buy_eur: 21, margin_pct: 30, low_data: false, verdict_display: "BUY", confidence: "MEDIUM", ...over,
+})
+
+test("counts withheld: range and max buy render, no count line, no 'undefined'", async ({ page }) => {
+  await check(page, {
+    verdict: "BUY", product: "Nike Air Force 1", category: "Sneakers", confidence: "MEDIUM",
+    buy_below: 21.4, sell_avg: 30.6, honest: anonHonest(),
+  })
+  const card = page.getByTestId("riq-honest-numbers")
+  await expect(page.getByTestId("riq-honest-range")).toHaveText("€21 – €39")
+  await expect(page.getByTestId("riq-honest-maxbuy")).toHaveText("€21")
+  await expect(page.getByTestId("riq-honest-basis")).toHaveCount(0)
+  await expect(card).not.toContainText(/undefined|NaN|null/)
+  await expect(card).not.toContainText(/listings that left Vinted/)
+})
+
+test("counts and range withheld, thin evidence: LOW DATA tag, no number-less empty box", async ({ page }) => {
+  const h = anonHonest({ range_low_eur: undefined, range_high_eur: undefined, p25_price_eur: undefined,
+    p75_price_eur: undefined, low_data: true, verdict_display: "LOW_DATA", confidence: "LOW" })
+  await check(page, {
+    verdict: "BUY", product: "Nike Air Force 1", category: "Sneakers", confidence: "LOW",
+    buy_below: 21.4, sell_avg: 30.6, honest: h,
+  })
+  await expect(page.getByText("LOW DATA", { exact: true })).toBeVisible()
+  await expect(page.getByText("BUY", { exact: true })).toHaveCount(0)
+  await expect(page.getByTestId("riq-honest-range")).toHaveCount(0)
+  const note = page.getByTestId("riq-honest-lowdata-note")
+  await expect(note).toBeVisible()
+  await expect(note).not.toContainText(/undefined|NaN|\d/)
+})
+
+test("nothing to show and not low data: no honest box at all", async ({ page }) => {
+  await check(page, {
+    verdict: "WATCH", product: "Nike Air Force 1", category: "Sneakers", buy_below: 21.4, sell_avg: 30.6,
+    honest: anonHonest({ range_low_eur: undefined, range_high_eur: undefined, max_buy_eur: null, verdict_display: "WATCH" }),
+  })
+  await expect(page.getByTestId("riq-honest-numbers")).toHaveCount(0)
+})

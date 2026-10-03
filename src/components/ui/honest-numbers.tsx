@@ -1,5 +1,5 @@
 import type { Locale } from "@/lib/i18n"
-import { basisText, hasHonestContent, honestCopy, isLowData, rangeText, type HonestOutput } from "@/lib/honest-output"
+import { basisText, hasHonestContent, honestCopy, isLowData, lowDataNoteText, rangeText, type HonestOutput } from "@/lib/honest-output"
 
 /**
  * Numbers first (O3): typical resale range, the listings count + window behind
@@ -20,11 +20,13 @@ export function HonestNumbers({ honest, locale }: { honest: HonestOutput | null 
           <div data-testid="riq-honest-range" style={{ fontSize: 26, fontWeight: 700, color: "var(--color-text-primary)", letterSpacing: "-0.01em", lineHeight: 1.2 }}>
             {range}
           </div>
-          {basis && (
-            <div data-testid="riq-honest-basis" style={{ marginTop: 2, fontSize: "var(--text-meta, 12px)", color: "var(--color-text-dim, #7f8da9)", lineHeight: 1.5 }}>
-              {basis}
-            </div>
-          )}
+        </div>
+      )}
+      {/* Count + window: absent for anon/free when the backend withholds them,
+          and independent of the range (it can be shown without it). */}
+      {basis && (
+        <div data-testid="riq-honest-basis" style={{ marginTop: range ? 2 : 0, fontSize: "var(--text-meta, 12px)", color: "var(--color-text-dim, #7f8da9)", lineHeight: 1.5 }}>
+          {basis}
         </div>
       )}
       {honest.max_buy_eur != null && (
@@ -36,7 +38,7 @@ export function HonestNumbers({ honest, locale }: { honest: HonestOutput | null 
       )}
       {isLowData(honest) && (
         <p data-testid="riq-honest-lowdata-note" style={{ marginTop: 8, fontSize: "var(--text-meta, 12px)", color: "var(--color-text-dim, #7f8da9)", lineHeight: 1.5 }}>
-          {c.lowDataNote(honest.n)}
+          {lowDataNoteText(honest, locale)}
         </p>
       )}
     </div>

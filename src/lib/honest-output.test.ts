@@ -4,7 +4,7 @@
  */
 import { test } from "node:test"
 import assert from "node:assert/strict"
-import { basisText, hasHonestContent, honestCopy, isLowData, rangeText, type HonestOutput } from "./honest-output.ts"
+import { basisText, hasHonestContent, honestCopy, isLowData, lowDataNoteText, rangeText, type HonestOutput } from "./honest-output.ts"
 
 const base: HonestOutput = {
   basis: "departed", range_low_eur: 21, range_high_eur: 39, n: 47, window_days: 7,
@@ -51,4 +51,43 @@ test("all six locales: complete, no 'sold', margin from the payload", () => {
   }
   assert.equal(honestCopy.en.margin(30), "for ~30% gross margin before fees")
   assert.equal(honestCopy.en.lowData, "LOW DATA")
+})
+
+// Backend switches (HONEST_COUNTS_PUBLIC / HONEST_RANGE_PUBLIC) OMIT keys for anon/free callers.
+const anon: HonestOutput = {
+  basis: "departed", range_low_eur: 21, range_high_eur: 39, max_buy_eur: 21, margin_pct: 30,
+  low_data: false, verdict_display: "BUY",
+}
+
+test("counts withheld: range still renders, no count sentence, nothing 'undefined'", () => {
+  assert.equal(rangeText(anon), "€21 – €39")
+  assert.equal(basisText(anon, "en"), null)
+  assert.equal(hasHonestContent(anon), true)
+})
+
+test("range withheld, count public: count line renders without a range", () => {
+  const h: HonestOutput = { ...anon, range_low_eur: undefined, range_high_eur: undefined, n: 47, window_days: 7 }
+  assert.equal(rangeText(h), null)
+  assert.equal(basisText(h, "en"), "Based on 47 listings that left Vinted in the last 7 days")
+})
+
+test("everything withheld but max buy / LOW DATA: still content; truly empty is not", () => {
+  const maxOnly: HonestOutput = { basis: "departed", max_buy_eur: 21, margin_pct: 30, low_data: false, verdict_display: "BUY" }
+  assert.equal(hasHonestContent(maxOnly), true)
+  const lowOnly: HonestOutput = { basis: "departed", max_buy_eur: null, margin_pct: 30, low_data: true, verdict_display: "LOW_DATA" }
+  assert.equal(hasHonestContent(lowOnly), true)
+  assert.equal(isLowData(lowOnly), true)
+  const empty: HonestOutput = { basis: "departed", max_buy_eur: null, margin_pct: 30, low_data: false, verdict_display: "WATCH" }
+  assert.equal(hasHonestContent(empty), false)
+})
+
+test("LOW DATA note with the count withheld never prints a number or 'undefined', in all six locales", () => {
+  const lowOnly: HonestOutput = { basis: "departed", max_buy_eur: null, margin_pct: 30, low_data: true, verdict_display: "LOW_DATA" }
+  for (const loc of ["en", "fr", "es", "de", "it", "pt"] as const) {
+    const note = lowDataNoteText(lowOnly, loc)
+    assert.ok(note.length > 10, loc)
+    assert.doesNotMatch(note, /undefined|NaN|\d/, loc)
+    assert.doesNotMatch(note, /\bsold\b|\bvendid|\bvendu|\bverkauft/i, loc)
+  }
+  assert.equal(lowDataNoteText({ ...lowOnly, n: 12 }, "en"), "Only 12 comparable listings: too few for a call.")
 })

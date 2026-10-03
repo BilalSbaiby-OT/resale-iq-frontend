@@ -16,13 +16,17 @@ import type { Locale } from "./i18n.ts"
 
 export type HonestOutput = {
   basis: "departed" | "active_asking"
-  range_low_eur: number | null
-  range_high_eur: number | null
+  // The visibility switches on the backend (HONEST_COUNTS_PUBLIC /
+  // HONEST_RANGE_PUBLIC) OMIT range_*, p25/p75, n, window_days and price_window
+  // for anonymous / free callers. Every one of them can be absent; nothing
+  // below may print or divide by an absent value.
+  range_low_eur?: number | null
+  range_high_eur?: number | null
   p25_price_eur?: number | null
   p75_price_eur?: number | null
   price_window?: "7d" | "30d" | null
-  n: number
-  window_days: 7 | 30 | null
+  n?: number
+  window_days?: 7 | 30 | null
   max_buy_eur: number | null
   margin_pct: number
   low_data: boolean
@@ -38,6 +42,8 @@ type HonestCopy = {
   margin: (pct: number) => string
   lowData: string
   lowDataNote: (n: number) => string
+  /** Same sentence when the count is withheld from this caller. */
+  lowDataNoteNoCount: string
 }
 
 export const honestCopy: Record<Locale, HonestCopy> = {
@@ -49,6 +55,7 @@ export const honestCopy: Record<Locale, HonestCopy> = {
     margin: (p) => `for ~${p}% gross margin before fees`,
     lowData: "LOW DATA",
     lowDataNote: (n) => `Only ${n} comparable listings: too few for a call.`,
+    lowDataNoteNoCount: "Too few comparable listings for a call.",
   },
   fr: {
     rangeLabel: "Fourchette de revente typique",
@@ -58,6 +65,7 @@ export const honestCopy: Record<Locale, HonestCopy> = {
     margin: (p) => `pour ~${p} % de marge brute avant frais`,
     lowData: "PEU DE DONNÉES",
     lowDataNote: (n) => `Seulement ${n} annonces comparables : trop peu pour un avis.`,
+    lowDataNoteNoCount: "Trop peu d'annonces comparables pour un avis.",
   },
   es: {
     rangeLabel: "Rango de reventa típico",
@@ -67,6 +75,7 @@ export const honestCopy: Record<Locale, HonestCopy> = {
     margin: (p) => `para ~${p} % de margen bruto antes de comisiones`,
     lowData: "POCOS DATOS",
     lowDataNote: (n) => `Solo ${n} anuncios comparables: muy pocos para dar una señal.`,
+    lowDataNoteNoCount: "Muy pocos anuncios comparables para dar una señal.",
   },
   de: {
     rangeLabel: "Typische Wiederverkaufsspanne",
@@ -76,6 +85,7 @@ export const honestCopy: Record<Locale, HonestCopy> = {
     margin: (p) => `für ~${p} % Bruttomarge vor Gebühren`,
     lowData: "ZU WENIG DATEN",
     lowDataNote: (n) => `Nur ${n} vergleichbare Anzeigen: zu wenig für eine Einschätzung.`,
+    lowDataNoteNoCount: "Zu wenige vergleichbare Anzeigen für eine Einschätzung.",
   },
   it: {
     rangeLabel: "Intervallo di rivendita tipico",
@@ -85,6 +95,7 @@ export const honestCopy: Record<Locale, HonestCopy> = {
     margin: (p) => `per un margine lordo di ~${p}% prima delle commissioni`,
     lowData: "POCHI DATI",
     lowDataNote: (n) => `Solo ${n} annunci comparabili: troppo pochi per un giudizio.`,
+    lowDataNoteNoCount: "Troppo pochi annunci comparabili per un giudizio.",
   },
   pt: {
     rangeLabel: "Intervalo de revenda típico",
@@ -94,6 +105,7 @@ export const honestCopy: Record<Locale, HonestCopy> = {
     margin: (p) => `para ~${p}% de margem bruta antes de comissões`,
     lowData: "POUCOS DADOS",
     lowDataNote: (n) => `Apenas ${n} anúncios comparáveis: poucos para uma indicação.`,
+    lowDataNoteNoCount: "Poucos anúncios comparáveis para uma indicação.",
   },
 }
 
@@ -111,9 +123,16 @@ export function rangeText(h: HonestOutput | null | undefined): string | null {
 /** The count + window sentence under the range. */
 export function basisText(h: HonestOutput, locale: Locale): string | null {
   const c = honestCopy[locale]
-  if (h.basis === "active_asking") return h.n > 0 ? c.active(h.n) : null
-  if (h.n > 0 && h.window_days) return c.departed(h.n, h.window_days)
+  const n = typeof h.n === "number" ? h.n : 0
+  if (h.basis === "active_asking") return n > 0 ? c.active(n) : null
+  if (n > 0 && h.window_days) return c.departed(n, h.window_days)
   return null
+}
+
+/** The LOW DATA reason line; never prints a count the caller was not sent. */
+export function lowDataNoteText(h: HonestOutput, locale: Locale): string {
+  const c = honestCopy[locale] ?? honestCopy.en
+  return typeof h.n === "number" && h.n >= 0 ? c.lowDataNote(h.n) : c.lowDataNoteNoCount
 }
 
 /** Worth rendering at all: some number to lead with, or a LOW DATA flag. */

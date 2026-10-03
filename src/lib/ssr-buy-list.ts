@@ -79,7 +79,8 @@ function shape(raw: Record<string, unknown>): SsrBuyListItem | null {
 function shapeHonest(v: unknown): HonestOutput | null {
   if (!v || typeof v !== "object") return null
   const h = v as Partial<HonestOutput>
-  if (typeof h.n !== "number" || typeof h.low_data !== "boolean") return null
+  // n is OMITTED for anonymous callers (HONEST_COUNTS_PUBLIC off): only low_data is required.
+  if (typeof h.low_data !== "boolean") return null
   return h as HonestOutput
 }
 

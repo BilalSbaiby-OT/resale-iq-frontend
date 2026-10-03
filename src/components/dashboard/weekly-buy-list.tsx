@@ -91,7 +91,7 @@ export function WeeklyBuyList({ rows, trialMode = false }: { rows: BuyRow[]; tri
           )
         })}
       </ol>
-      <div style={{ fontSize: 12, color: "var(--color-graphite-muted)", marginTop: 8, lineHeight: 1.5 }}>{tx("Buy below = most you should pay after fees. Exit = average asking price at departure. /30d = watched departures in 30 days. Tap an item to check it.")}</div>
+      <div style={{ fontSize: 12, color: "var(--color-graphite-muted)", marginTop: 8, lineHeight: 1.5 }}>{tx("Buy below = most you should pay, for ~30% gross margin before fees. Exit = average asking price at departure. /30d = watched departures in 30 days. Tap an item to check it.")}</div>
     </section>
   )
 }
