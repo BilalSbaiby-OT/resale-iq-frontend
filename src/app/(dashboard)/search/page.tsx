@@ -8,13 +8,9 @@ import { Search, ExternalLink, Star, Eye } from "lucide-react"
 import { N_ } from "@/lib/ui-translate"
 import { useT } from "@/components/i18n/locale-provider"
 
+// The five Vinted sites Resale IQ tracks (the other Vinted sites return nothing).
 const MARKETS: Record<string, string> = {
   es: "Spain", fr: "France", de: "Germany", it: "Italy", pt: "Portugal",
-  nl: "Netherlands", be: "Belgium", at: "Austria", pl: "Poland", cz: "Czechia",
-  sk: "Slovakia", hu: "Hungary", ro: "Romania", hr: "Croatia", lt: "Lithuania",
-  fi: "Finland", dk: "Denmark", se: "Sweden", "co.uk": "United Kingdom",
-  com: "USA", lu: "Luxembourg", ie: "Ireland", gr: "Greece", bg: "Bulgaria",
-  si: "Slovenia", ee: "Estonia",
 }
 
 const SORT_OPTIONS = [
@@ -52,7 +48,7 @@ export default function SearchPage() {
   }
 
   return (
-    <AppShell title={tx("Live Search")} subtitle={tx("Search Vinted listings across 26 European markets in real time — live asking prices only outside ES/FR/DE/IT/PT, no buy-below or verdict")}>
+    <AppShell title={tx("Live Search")} subtitle={tx("Search recently seen Vinted listings on the Vinted sites we track (ES · FR · DE · IT · PT) — asking prices only, no buy-below or verdict")}>
       <div className="max-w-4xl">
         {/* Search bar */}
         <div className="flex flex-col sm:flex-row gap-2 mb-4">
@@ -119,7 +115,7 @@ export default function SearchPage() {
         )}
 
         {!searched && !loading && (
-          <div className="text-[13px] text-[#5b6b8c] bg-[var(--color-surface)] border border-[#1c2333] rounded-xl p-6">{tx("Search any product across 26 Vinted markets. Results come directly from Vinted's live catalog — click any listing to view it on Vinted.")}</div>
+          <div className="text-[13px] text-[#5b6b8c] bg-[var(--color-surface)] border border-[#1c2333] rounded-xl p-6">{tx("Search any product on the Vinted sites we track. Click any listing to view it on Vinted.")}</div>
         )}
       </div>
     </AppShell>

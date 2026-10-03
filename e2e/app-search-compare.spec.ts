@@ -47,7 +47,7 @@ test("Price across Vinted sites: median, no cheapest/priciest framing, no 'Unkno
   await page.keyboard.press("Enter")
   await expect(page.getByText(/Prices come from listings recently seen/)).toBeVisible()
   await expect(page.getByText("Compare typical asking prices for the same search across the Vinted sites we track")).toBeVisible()
-  await expect(page.getByText(/CHEAPEST|PRICIEST|Cheapest|Most expensive|26 markets|arbitrage/)).toHaveCount(0)
+  await expect(page.getByText(/CHEAPEST|PRICIEST|Cheapest|Most expensive|26[- ]markets?|arbitrage/)).toHaveCount(0)
   // 5 tracked sites only, no other markets
   await expect(page.getByRole("button", { name: "vinted.nl" })).toHaveCount(0)
   await expect(page.getByRole("button", { name: "vinted.pt" })).toHaveCount(1)

@@ -386,7 +386,7 @@ export const disconnectTelegram = () =>
 export const testTelegramAlert = () =>
   request<{ ok: boolean }>("/api/alerts/telegram/test", { method: "POST" })
 
-// On-demand Vinted search (26 markets)
+// On-demand search over the 5 tracked Vinted sites
 export const searchVinted = (params: {
   q: string; market?: string; limit?: number; sort?: string;
 }) => {

@@ -4,7 +4,7 @@
  * src/app/methodology/page.tsx).
  *
  * Verified: 9 FAQ pairs x 5 locales, 0 empty, 0 figure drops (€19/mo,
- * €49/mo, €19/€49, no anonymous item check, 26 markets, 2 business days, 30 minutes, 2 hours all appear
+ * €49/mo, €19/€49, no anonymous item check, 2 business days, 30 minutes, 2 hours all appear
  * byte-identical to the English source in every translation). "leave the
  * shelf" / "watched departures" framing preserved as a term of art in every
  * locale (quittent la vitrine / salen del escaparate / aus dem Regal
@@ -15,7 +15,7 @@
  *
  * Product/brand terms left untranslated on purpose, matching every other
  * copy file in this codebase: Resale IQ, Vinted, Starter, Pro, Deal Scanner,
- * Order Planner, Price Compare, Live Finder, REST API, Stripe, JSON. GDPR is
+ * Order Planner, Price across Vinted sites, Live Finder, REST API, Stripe, JSON. GDPR is
  * localised to its national acronym (RGPD/DSGVO) the way a native FAQ would
  * write it, same treatment methodology-copy.ts already gives that term.
  *
@@ -53,9 +53,9 @@ const en: SupportCopy = {
     ["Do you guarantee I'll make money?",
      "No. Every signal, score and verdict is informational and probabilistic, based on public market data. Outcomes depend on what you pay, condition, timing and factors outside our control. It's a decision tool, not financial advice or a guarantee."],
     ["What's the difference between Starter and Pro?",
-     "Starter (€19/mo) gives you unlimited verdicts, every product signal, Deal Scanner, market trends, brand rankings, and watchlist + portfolio P&L. Pro (€49/mo) adds the live deal finder (on demand) across 5 markets, the 3-week Order Planner, Price Compare (full intelligence on those 5, live asking-price search on 26 markets total), per-size velocity, and REST API access."],
+     "Starter (€19/mo) gives you unlimited verdicts, every product signal, Deal Scanner, market trends, brand rankings, and watchlist + portfolio P&L. Pro (€49/mo) adds the live deal finder (on demand) across 5 markets, the 3-week Order Planner, Price across Vinted sites (typical asking prices for the same search on those 5), per-size velocity, and REST API access."],
     ["Is there a free plan or trial?",
-     `Starter starts with a 7-day free trial: card required, €0 today, cancel before day 7 and pay nothing. There is no free plan for item checks, but three models are free on /tools with no account: ${freeSampleList("en")}. Weekly brand volumes stay public on /data. Other item-level BUY, WATCH or SKIP need Starter at €19 a month. Pro at €49 adds Live Finder, Order Planner, Price Compare and API access.`],
+     `Starter starts with a 7-day free trial: card required, €0 today, cancel before day 7 and pay nothing. There is no free plan for item checks, but three models are free on /tools with no account: ${freeSampleList("en")}. Weekly brand volumes stay public on /data. Other item-level BUY, WATCH or SKIP need Starter at €19 a month. Pro at €49 adds Live Finder, Order Planner, Price across Vinted sites and API access.`],
     ["How do I cancel?",
      "From your account page, open the billing portal — you can cancel, change plan, or update your card there. Cancellation stops the next renewal; you keep access until the current period ends."],
     ["How do I reset my password?",
@@ -83,9 +83,9 @@ const fr: SupportCopy = {
     ["Garantissez-vous que je vais gagner de l'argent ?",
      "Non. Chaque signal, score et verdict est informatif et probabiliste, basé sur des données de marché publiques. Les résultats dépendent du prix payé, de l'état, du moment et de facteurs hors de notre contrôle. C'est un outil d'aide à la décision, pas un conseil financier ni une garantie."],
     ["Quelle est la différence entre Starter et Pro ?",
-     "Starter (19 €/mois) vous donne des verdicts illimités, tous les signaux produit, le Deal Scanner, les tendances du marché, les classements de marques, ainsi que la watchlist et le P&L de portefeuille. Pro (49 €/mois) ajoute le chercheur de deals en direct (à la demande) sur 5 marchés, l'Order Planner sur 3 semaines, le Price Compare (intelligence complète sur ces 5 marchés, recherche de prix demandés en direct sur 26 marchés au total), la vélocité par taille, et l'accès à l'API REST."],
+     "Starter (19 €/mois) vous donne des verdicts illimités, tous les signaux produit, le Deal Scanner, les tendances du marché, les classements de marques, ainsi que la watchlist et le P&L de portefeuille. Pro (49 €/mois) ajoute le chercheur de deals en direct (à la demande) sur 5 marchés, l'Order Planner sur 3 semaines, les Prix sur les sites Vinted (prix affichés typiques pour la même recherche sur ces 5 marchés), la vélocité par taille, et l'accès à l'API REST."],
     ["Y a-t-il un plan gratuit ou un essai ?",
-     `Starter commence par un essai gratuit de 7 jours : carte requise, 0 € aujourd'hui, résiliez avant le jour 7 et ne payez rien. Il n'y a pas de plan gratuit pour les vérifications d'articles, mais trois modèles se vérifient gratuitement sur /tools sans compte : ${freeSampleList("fr")}. Les volumes hebdo par marque restent publics sur /data. Les autres BUY, WATCH ou SKIP au niveau article nécessitent Starter à 19 € par mois. Pro à 49 € ajoute Live Finder, Order Planner, Price Compare et l'API.`],
+     `Starter commence par un essai gratuit de 7 jours : carte requise, 0 € aujourd'hui, résiliez avant le jour 7 et ne payez rien. Il n'y a pas de plan gratuit pour les vérifications d'articles, mais trois modèles se vérifient gratuitement sur /tools sans compte : ${freeSampleList("fr")}. Les volumes hebdo par marque restent publics sur /data. Les autres BUY, WATCH ou SKIP au niveau article nécessitent Starter à 19 € par mois. Pro à 49 € ajoute Live Finder, Order Planner, Prix sur les sites Vinted et l'API.`],
     ["Comment annuler ?",
      "Depuis votre page de compte, ouvrez le portail de facturation — vous pouvez y annuler, changer de plan, ou mettre à jour votre carte. L'annulation arrête le prochain renouvellement ; vous gardez l'accès jusqu'à la fin de la période en cours."],
     ["Comment réinitialiser mon mot de passe ?",
@@ -113,9 +113,9 @@ const es: SupportCopy = {
     ["¿Garantizan que voy a ganar dinero?",
      "No. Cada señal, puntuación y veredicto es informativo y probabilístico, basado en datos de mercado públicos. Los resultados dependen de lo que pagues, la condición, el momento y factores fuera de nuestro control. Es una herramienta de decisión, no asesoramiento financiero ni una garantía."],
     ["¿Cuál es la diferencia entre Starter y Pro?",
-     "Starter (19 €/mes) te da veredictos ilimitados, todas las señales de producto, Deal Scanner, tendencias de mercado, rankings de marcas, y watchlist + P&L de cartera. Pro (49 €/mes) añade el buscador de ofertas en vivo (bajo demanda) en 5 mercados, el Order Planner de 3 semanas, Price Compare (inteligencia completa en esos 5, búsqueda de precios de venta en vivo en 26 mercados en total), velocidad por talla, y acceso a la API REST."],
+     "Starter (19 €/mes) te da veredictos ilimitados, todas las señales de producto, Deal Scanner, tendencias de mercado, rankings de marcas, y watchlist + P&L de cartera. Pro (49 €/mes) añade el buscador de ofertas en vivo (bajo demanda) en 5 mercados, el Order Planner de 3 semanas, Precios en los sitios de Vinted (precios pedidos típicos para la misma búsqueda en esos 5), velocidad por talla, y acceso a la API REST."],
     ["¿Hay un plan gratuito o una prueba?",
-     `Starter empieza con una prueba gratuita de 7 días: tarjeta necesaria, 0 € hoy, cancela antes del día 7 y no pagas nada. No hay plan gratuito para comprobar artículos, pero tres modelos se comprueban gratis en /tools sin cuenta: ${freeSampleList("es")}. Los volúmenes semanales por marca siguen públicos en /data. El resto de BUY, WATCH o SKIP a nivel de artículo necesitan Starter a 19 € al mes. Pro a 49 € añade Live Finder, Order Planner, Price Compare y la API.`],
+     `Starter empieza con una prueba gratuita de 7 días: tarjeta necesaria, 0 € hoy, cancela antes del día 7 y no pagas nada. No hay plan gratuito para comprobar artículos, pero tres modelos se comprueban gratis en /tools sin cuenta: ${freeSampleList("es")}. Los volúmenes semanales por marca siguen públicos en /data. El resto de BUY, WATCH o SKIP a nivel de artículo necesitan Starter a 19 € al mes. Pro a 49 € añade Live Finder, Order Planner, Precios en los sitios de Vinted y la API.`],
     ["¿Cómo cancelo?",
      "Desde tu página de cuenta, abre el portal de facturación — ahí puedes cancelar, cambiar de plan o actualizar tu tarjeta. La cancelación detiene la próxima renovación; conservas el acceso hasta que termine el período actual."],
     ["¿Cómo restablezco mi contraseña?",
@@ -143,9 +143,9 @@ const de: SupportCopy = {
     ["Garantiert ihr, dass ich Geld verdiene?",
      "Nein. Jedes Signal, jeder Score und jedes Verdikt ist informativ und probabilistisch, basierend auf öffentlichen Marktdaten. Die Ergebnisse hängen davon ab, was du zahlst, vom Zustand, vom Timing und von Faktoren außerhalb unserer Kontrolle. Es ist ein Entscheidungswerkzeug, keine Finanzberatung und keine Garantie."],
     ["Was ist der Unterschied zwischen Starter und Pro?",
-     "Starter (19 €/Monat) bietet unbegrenzte Verdikte, jedes Produktsignal, den Deal Scanner, Markttrends, Markenrankings sowie Watchlist + Portfolio-P&L. Pro (49 €/Monat) fügt den Live-Deal-Finder (auf Abruf) über 5 Märkte hinweg hinzu, den 3-Wochen-Order-Planner, Price Compare (volle Intelligenz auf diesen 5 Märkten, Live-Angebotspreissuche auf insgesamt 26 Märkten), Geschwindigkeit pro Größe und REST-API-Zugriff."],
+     "Starter (19 €/Monat) bietet unbegrenzte Verdikte, jedes Produktsignal, den Deal Scanner, Markttrends, Markenrankings sowie Watchlist + Portfolio-P&L. Pro (49 €/Monat) fügt den Live-Deal-Finder (auf Abruf) über 5 Märkte hinweg hinzu, den 3-Wochen-Order-Planner, Preise auf den Vinted-Seiten (typische Angebotspreise für dieselbe Suche auf diesen 5 Märkten), Geschwindigkeit pro Größe und REST-API-Zugriff."],
     ["Gibt es einen kostenlosen Plan oder eine Testversion?",
-     `Starter beginnt mit einer 7-tägigen kostenlosen Testphase: Karte nötig, heute 0 €, vor Tag 7 kündigen und nichts zahlen. Für Artikelprüfungen gibt es keinen Gratis-Tarif, aber drei Modelle prüfst du auf /tools kostenlos und ohne Konto: ${freeSampleList("de")}. Wöchentliche Markenvolumen bleiben öffentlich auf /data. Andere BUY, WATCH oder SKIP auf Artikelebene brauchen Starter für 19 € im Monat. Pro für 49 € ergänzt Live Finder, Order Planner, Price Compare und die API.`],
+     `Starter beginnt mit einer 7-tägigen kostenlosen Testphase: Karte nötig, heute 0 €, vor Tag 7 kündigen und nichts zahlen. Für Artikelprüfungen gibt es keinen Gratis-Tarif, aber drei Modelle prüfst du auf /tools kostenlos und ohne Konto: ${freeSampleList("de")}. Wöchentliche Markenvolumen bleiben öffentlich auf /data. Andere BUY, WATCH oder SKIP auf Artikelebene brauchen Starter für 19 € im Monat. Pro für 49 € ergänzt Live Finder, Order Planner, Preise auf den Vinted-Seiten und die API.`],
     ["Wie kündige ich?",
      "Öffne auf deiner Kontoseite das Abrechnungsportal — dort kannst du kündigen, den Plan wechseln oder deine Karte aktualisieren. Die Kündigung stoppt die nächste Verlängerung; der Zugriff bleibt bis zum Ende der aktuellen Periode bestehen."],
     ["Wie setze ich mein Passwort zurück?",
@@ -173,9 +173,9 @@ const it: SupportCopy = {
     ["Garantite che guadagnerò?",
      "No. Ogni segnale, punteggio e verdetto è informativo e probabilistico, basato su dati di mercato pubblici. I risultati dipendono da quanto paghi, dalle condizioni, dai tempi e da fattori fuori dal nostro controllo. È uno strumento decisionale, non una consulenza finanziaria né una garanzia."],
     ["Qual è la differenza tra Starter e Pro?",
-     "Starter (19 €/mese) offre verdetti illimitati, ogni segnale di prodotto, Deal Scanner, trend di mercato, classifiche dei brand, e watchlist + P&L del portafoglio. Pro (49 €/mese) aggiunge il ricercatore di offerte live (su richiesta) su 5 mercati, l'Order Planner di 3 settimane, Price Compare (intelligence completa su quei 5 mercati, ricerca live dei prezzi richiesti su 26 mercati in totale), velocità per taglia e accesso alle API REST."],
+     "Starter (19 €/mese) offre verdetti illimitati, ogni segnale di prodotto, Deal Scanner, trend di mercato, classifiche dei brand, e watchlist + P&L del portafoglio. Pro (49 €/mese) aggiunge il ricercatore di offerte live (su richiesta) su 5 mercati, l'Order Planner di 3 settimane, Prezzi sui siti Vinted (prezzi richiesti tipici per la stessa ricerca su quei 5 mercati), velocità per taglia e accesso alle API REST."],
     ["C'è un piano gratuito o una prova?",
-     `Starter inizia con una prova gratuita di 7 giorni: carta richiesta, 0 € oggi, disdici prima del giorno 7 e non paghi nulla. Per i controlli articolo non c'è un piano gratuito, ma tre modelli si controllano gratis su /tools senza account: ${freeSampleList("it")}. I volumi settimanali per marca restano pubblici su /data. Gli altri BUY, WATCH o SKIP a livello di articolo richiedono Starter a 19 € al mese. Pro a 49 € aggiunge Live Finder, Order Planner, Price Compare e l'API.`],
+     `Starter inizia con una prova gratuita di 7 giorni: carta richiesta, 0 € oggi, disdici prima del giorno 7 e non paghi nulla. Per i controlli articolo non c'è un piano gratuito, ma tre modelli si controllano gratis su /tools senza account: ${freeSampleList("it")}. I volumi settimanali per marca restano pubblici su /data. Gli altri BUY, WATCH o SKIP a livello di articolo richiedono Starter a 19 € al mese. Pro a 49 € aggiunge Live Finder, Order Planner, Prezzi sui siti Vinted e l'API.`],
     ["Come faccio a disdire?",
      "Dalla pagina del tuo account, apri il portale di fatturazione — da lì puoi disdire, cambiare piano o aggiornare la carta. La disdetta ferma il prossimo rinnovo; mantieni l'accesso fino alla fine del periodo in corso."],
     ["Come reimposto la password?",
@@ -203,9 +203,9 @@ const pt: SupportCopy = {
     ["Garantem que vou ganhar dinheiro?",
      "Não. Cada sinal, pontuação e veredito é informativo e probabilístico, baseado em dados de mercado públicos. Os resultados dependem do que paga, da condição, do momento e de fatores fora do nosso controlo. É uma ferramenta de decisão, não aconselhamento financeiro nem uma garantia."],
     ["Qual é a diferença entre Starter e Pro?",
-     "O Starter (19 €/mês) dá-lhe veredictos ilimitados, todos os sinais de produto, Deal Scanner, tendências de mercado, rankings de marcas, e watchlist + P&L da carteira. O Pro (49 €/mês) acrescenta o localizador de ofertas em direto (a pedido) em 5 mercados, o Order Planner de 3 semanas, o Price Compare (inteligência completa nesses 5 mercados, pesquisa de preços pedidos em direto em 26 mercados no total), velocidade por tamanho, e acesso à API REST."],
+     "O Starter (19 €/mês) dá-lhe veredictos ilimitados, todos os sinais de produto, Deal Scanner, tendências de mercado, rankings de marcas, e watchlist + P&L da carteira. O Pro (49 €/mês) acrescenta o localizador de ofertas em direto (a pedido) em 5 mercados, o Order Planner de 3 semanas, os Preços nos sites da Vinted (preços pedidos típicos para a mesma pesquisa nesses 5 mercados), velocidade por tamanho, e acesso à API REST."],
     ["Existe um plano gratuito ou período de teste?",
-     `O Starter começa com um teste gratuito de 7 dias: cartão necessário, 0 € hoje, cancela antes do dia 7 e não pagas nada. Não há plano gratuito para verificar artigos, mas três modelos verificam-se grátis em /tools sem conta: ${freeSampleList("pt")}. Os volumes semanais por marca continuam públicos em /data. Os outros BUY, WATCH ou SKIP ao nível do artigo precisam do Starter a 19 € por mês. Pro a 49 € acrescenta Live Finder, Order Planner, Price Compare e a API.`],
+     `O Starter começa com um teste gratuito de 7 dias: cartão necessário, 0 € hoje, cancela antes do dia 7 e não pagas nada. Não há plano gratuito para verificar artigos, mas três modelos verificam-se grátis em /tools sem conta: ${freeSampleList("pt")}. Os volumes semanais por marca continuam públicos em /data. Os outros BUY, WATCH ou SKIP ao nível do artigo precisam do Starter a 19 € por mês. Pro a 49 € acrescenta Live Finder, Order Planner, Preços nos sites da Vinted e a API.`],
     ["Como cancelo?",
      "Na sua página de conta, abra o portal de faturação — aí pode cancelar, mudar de plano ou atualizar o cartão. O cancelamento interrompe a próxima renovação; mantém o acesso até ao fim do período atual."],
     ["Como redefino a minha palavra-passe?",

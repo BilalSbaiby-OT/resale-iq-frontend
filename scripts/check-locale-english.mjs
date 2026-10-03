@@ -137,7 +137,6 @@ const ALLOWED_PHRASES = [
   ["Deal Finder", "product name"],
   ["Deal Scanner", "product name"],
   ["Order Planner", "product name"],
-  ["Price Compare", "product name"],
   ["Price Alerts", "product name"],
   ["Live Finder", "product name"],
   ["Resale IQ", "company name"],
