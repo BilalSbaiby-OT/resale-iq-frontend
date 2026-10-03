@@ -30,6 +30,7 @@ import { isPaidPlan } from "@/lib/entitlement"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { AW26_REPORT_URL } from "@/lib/hard-paywall"
 import { FreeChecker } from "@/components/tools/free-checker"
+import { ExitSurvey } from "@/components/ui/exit-survey"
 import { FREE_SAMPLES, FREE_SAMPLE_CHIPS, isFreeSample } from "@/lib/free-samples"
 
 // The public demo queries that bypass the paywall by design live in ONE
@@ -523,6 +524,9 @@ export function PricingSection({
             src="pricing_cancelled_recovery"
             query={cancelledItem ?? undefined}
           />
+          <div style={{ width: "100%" }}>
+            <ExitSurvey context="checkout_cancel" locale={locale} query={cancelledItem ?? undefined} />
+          </div>
         </div>
       )}
 

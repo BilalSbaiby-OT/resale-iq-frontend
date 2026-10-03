@@ -39,6 +39,8 @@ import { CustomQueryInput } from "@/components/ui/custom-query-input"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { buyBelowFromAvg } from "@/lib/buy-below"
 import { FREE_SAMPLES } from "@/lib/free-samples"
+import { getPlanFromToken } from "@/lib/utils"
+import { flowParam, typedFlow } from "@/lib/verdict-flow"
 
 // The chips ARE the free samples: one list, src/lib/free-samples.ts.
 const SAMPLES = FREE_SAMPLES
@@ -149,7 +151,7 @@ function HeroInlineVerdictCard({
     setCustomPaywallN(null)
     setCustomLoading(true)
     try {
-      const res = await fetch(`/api/verdict?q=${encodeURIComponent(trimmed)}`)
+      const res = await fetch(`/api/verdict?q=${encodeURIComponent(trimmed)}${flowParam(typedFlow(trimmed, getPlanFromToken()))}`)
       if (res.status === 402 || res.status === 401) {
         // Paywalled — show item-specific inline nudge.
         try {
@@ -373,7 +375,7 @@ export function HeroFreeChips({ locale, buyListPreview }: { locale: Locale; buyL
       `/hero_cta/free_chip/${query.toLowerCase().replace(/ /g, "_")}`,
     )
     try {
-      const res = await fetch(`/api/verdict?q=${encodeURIComponent(query)}`)
+      const res = await fetch(`/api/verdict?q=${encodeURIComponent(query)}${flowParam("sample_button")}`)
       if (res.ok) {
         const data = await res.json()
         if (data.verdict && data.verdict !== "PAYWALL" && data.verdict !== "UNKNOWN") {

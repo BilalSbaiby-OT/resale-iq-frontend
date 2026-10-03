@@ -40,6 +40,8 @@ import { verdictUpsellLine } from "@/lib/verdict-upsell"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import { CustomQueryInput } from "@/components/ui/custom-query-input"
 import { trackEvent } from "@/lib/analytics"
+import { getPlanFromToken } from "@/lib/utils"
+import { flowParam, typedFlow } from "@/lib/verdict-flow"
 import type { Locale } from "@/lib/i18n"
 import { useT } from "@/components/i18n/locale-provider"
 
@@ -135,7 +137,7 @@ export function VerdictUpsellCta({
     setCustomLoading(true)
     trackEvent("verdict_upsell_try_submit", src)
     try {
-      const res = await fetch(`/api/verdict?q=${encodeURIComponent(trimmed)}`)
+      const res = await fetch(`/api/verdict?q=${encodeURIComponent(trimmed)}${flowParam(typedFlow(trimmed, getPlanFromToken()))}`)
       if (res.status === 402 || res.status === 401) {
         // Paywalled — show item-specific inline nudge.
         try {

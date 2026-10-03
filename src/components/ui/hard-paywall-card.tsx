@@ -16,6 +16,7 @@ import { FREE_SAMPLES } from "@/lib/free-samples"
 import { firstChargeDate, TRIAL_DAYS } from "@/lib/trial-cta"
 import { useT } from "@/components/i18n/locale-provider"
 import { buyBelowFromAvg } from "@/lib/buy-below"
+import { ExitSurvey } from "@/components/ui/exit-survey"
 
 /**
  * The conversion face for HARD_PAYWALL=1: anon/unpaid /api/verdict is 402.
@@ -379,6 +380,7 @@ export function HardPaywallCard({
       >
         <a href="/terms" style={{ color: "#4d5a75", textDecoration: "underline" }}>{tx("Full refund within 30 days of your first payment — see Terms")}</a>
       </div>
+      <ExitSurvey context="paywall" locale={locale} query={query} />
     </div>
   )
 }

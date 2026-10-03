@@ -36,7 +36,7 @@ export async function ssrBlogVerdict(
   if (!query) return null
   try {
     const r = await fetchBounded(
-      `${backendUrl()}/api/verdict?q=${encodeURIComponent(query)}`
+      `${backendUrl()}/api/verdict?q=${encodeURIComponent(query)}&flow=blog_example`
     )
     let body: unknown = null
     try {

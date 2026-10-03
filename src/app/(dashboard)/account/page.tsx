@@ -9,6 +9,7 @@ import type { User } from "@/types"
 import Link from "next/link"
 import { CreditCard, KeyRound, ScrollText, Database, Download, AlertTriangle, Lock, Mail, Trash2, UserPlus, LogIn, Terminal, Copy, Check, Bell, Rocket } from "lucide-react"
 import { useLocale } from "@/components/i18n/locale-provider"
+import { ExitSurvey } from "@/components/ui/exit-survey"
 import { navCopy } from "@/lib/nav-copy"
 import { planChip, planEntitlement } from "@/lib/entitlement"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
@@ -179,6 +180,7 @@ export default function AccountPage() {
             <span>{tx("Checkout cancelled — you haven’t been charged. Your plan is unchanged.")}</span>
           </div>
         )}
+        {checkoutCancelled && <ExitSurvey context="checkout_cancel" locale={locale} />}
         <div className="bg-[var(--color-bg-3)] border border-[var(--color-border)] rounded-xl p-5">
           <div className="font-bold text-[13px] mb-3">{nav.sections.resources}</div>
           <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px]">

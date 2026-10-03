@@ -41,6 +41,7 @@ import { TrendingUp, TrendingDown, Minus, Lock } from "lucide-react"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { buyBelowFromAvg } from "@/lib/buy-below"
 import { FREE_SAMPLE_CHIPS, isFreeSample } from "@/lib/free-samples"
+import { flowParam } from "@/lib/verdict-flow"
 
 type VerdictType = "BUY" | "WATCH" | "SKIP"
 
@@ -90,7 +91,7 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
     setLoading(true)
     trackEvent("chip_click", `blog_index_${query}`)
     try {
-      const res = await fetch(`/api/verdict?q=${encodeURIComponent(query)}`)
+      const res = await fetch(`/api/verdict?q=${encodeURIComponent(query)}${flowParam("blog_example")}`)
       if (res.ok) {
         const data = await res.json()
         setResult({
@@ -122,7 +123,7 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
     setCustomLoading(true)
     trackEvent("verdict_upsell_try_submit", "blog_index")
     try {
-      const res = await fetch(`/api/verdict?q=${encodeURIComponent(trimmed)}`)
+      const res = await fetch(`/api/verdict?q=${encodeURIComponent(trimmed)}${flowParam("blog_example")}`)
       if (res.status === 402 || res.status === 401) {
         try {
           const body = await res.json().catch(() => null)

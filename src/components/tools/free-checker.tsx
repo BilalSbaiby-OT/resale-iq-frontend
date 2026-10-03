@@ -27,6 +27,8 @@ import {
 } from "@/lib/webmcp-tools"
 import "@/types/webmcp-jsx"
 import { FREE_SAMPLES } from "@/lib/free-samples"
+import { ExitSurvey } from "@/components/ui/exit-survey"
+import { flowFromSrc, flowParam, typedFlow, type VerdictFlow } from "@/lib/verdict-flow"
 import { fieldState } from "@/lib/locked-fields"
 import { parsePaywallBody, type PaywallPlan } from "@/lib/hard-paywall"
 import { checkerFace } from "@/lib/query-coverage"
@@ -256,6 +258,7 @@ function LimitReachedUpgrade({
           No account needed, converts cold traffic. Single source: Aw26ReportCta.
           Revenue 2026-09-21. */}
       <Aw26ReportCta />
+      <ExitSurvey context="limit" locale={locale} />
     </div>
   )
 }
@@ -513,7 +516,7 @@ export function FreeChecker({
   // override: set by the "try one of these instead" chips below, which pass
   // a known-good query directly rather than relying on state set via onChange
   // (which wouldn't have committed yet inside the same click handler).
-  const run = async (override?: string) => {
+  const run = async (override?: string, how?: VerdictFlow) => {
     const query = (override ?? q).trim()
     if (query.length < 2) { setErr(t.enterBrandModel); return }
     if (override) setQ(override)
@@ -523,7 +526,8 @@ export function FreeChecker({
     try {
       const token = getToken()
     const headers: HeadersInit = token ? { Authorization: `Bearer ${token}` } : {}
-    const r = await fetch(`/api/verdict?q=${encodeURIComponent(query)}`, { signal: controller.signal, headers })
+    const flow = how ?? flowFromSrc(src) ?? typedFlow(query, user?.plan ?? tokenPlan)
+    const r = await fetch(`/api/verdict?q=${encodeURIComponent(query)}${flowParam(flow)}`, { signal: controller.signal, headers })
       let body: unknown = null
       try { body = await r.json() } catch { /* non-JSON error page */ }
       const wall = parsePaywallBody(r.status, body)
@@ -807,7 +811,7 @@ export function FreeChecker({
           )}
           {res.verdict === "PAYWALL" ? (
             checkerFace({ verdict: "PAYWALL", query: q, apiBody: res }) === "coverage"
-              ? <CoverageMissCard locale={locale} query={q} onPick={ex => run(ex)} disabled={loading} />
+              ? <CoverageMissCard locale={locale} query={q} onPick={ex => run(ex, "sample_button")} disabled={loading} />
               : refusalIsPaid
                 ? <PaidPostCheckBar locale={locale} user={chipUser} />
                 : <HardPaywallCard locale={locale} plans={res.plans} query={q} comparableN={res.comparable_n} fromPricing={src === "pricing_try"} lockedRows={buyListPreview} />
@@ -816,7 +820,7 @@ export function FreeChecker({
               ? <PaidPostCheckBar locale={locale} user={chipUser} />
               : <LimitReachedUpgrade locale={locale} used={res.used_today} limit={res.limit} />
           ) : res.verdict === "UNKNOWN" ? (
-            <CoverageMissCard locale={locale} query={res.product ?? q} onPick={ex => run(ex)} disabled={loading} />
+            <CoverageMissCard locale={locale} query={res.product ?? q} onPick={ex => run(ex, "sample_button")} disabled={loading} />
           ) : res.verdict === "OVERSUPPLIED" ? (
             // Heavy live supply, ~zero departures. This is the product doing
             // its job on a query we used to fail: "Uniqlo down jacket" (69
@@ -954,14 +958,14 @@ export function FreeChecker({
                   but defends the invariant). */}
               {res.categories && res.categories.length > 0 && res.brand ? (
                 <ModelChips
-                  onPick={ex => run(ex)}
+                  onPick={ex => run(ex, "sample_button")}
                   disabled={loading}
                   label={t.tryTheseInstead}
                   examples={(res.categories as string[]).map(cat => `${res.brand} ${cat}`)}
                   testId="riq-brand-category-chips"
                 />
               ) : (
-                <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={FREE_SAMPLES} />
+                <ModelChips onPick={ex => run(ex, "sample_button")} disabled={loading} label={t.tryTheseInstead} examples={FREE_SAMPLES} />
               )}
               {/* H95 CRO: brand-query checkout nudge — BRAND_CATEGORIES was the
                   only warm-intent branch with ZERO conversion path after H64
@@ -1058,7 +1062,7 @@ export function FreeChecker({
                 <div style={{ fontSize: 11, color: "#5b6b8c", marginTop: 10 }}>{shownCategory}</div>
               )}
 
-              <ModelChips onPick={ex => run(ex)} disabled={loading} label={t.tryTheseInstead} examples={TRY_EXAMPLES} />
+              <ModelChips onPick={ex => run(ex, "sample_button")} disabled={loading} label={t.tryTheseInstead} examples={TRY_EXAMPLES} />
 
               {/* H109 CRO: catalog browse link on INSUFFICIENT_DATA.
                   37 of 100 board models land here with thin data and a checkout nudge

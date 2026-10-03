@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect, useCallback, Suspense, type ReactNode } from "react"
+import { useState, useEffect, useCallback, useRef, Suspense, type ReactNode } from "react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { canonicalPath } from "@/lib/locale-routes"
@@ -42,6 +42,8 @@ import {
 import { parsePaywallBody } from "@/lib/hard-paywall"
 import { fetchTopBrandRows, type SnapshotBrandRow } from "@/lib/market-snapshot"
 import { useT } from "@/components/i18n/locale-provider"
+import { flowFromSrc, typedFlow, type VerdictFlow } from "@/lib/verdict-flow"
+import { ExitSurvey } from "@/components/ui/exit-survey"
 
 // C(tony): fallback activation scenarios for paid cold state.
 // These are the Canva-template moment for a paid user who hasn't run a check yet.
@@ -122,12 +124,18 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
   // Falls back to ACTIVATION_FALLBACK silently — never renders empty.
   const [activationRows, setActivationRows] = useState<SnapshotBrandRow[]>(ACTIVATION_FALLBACK)
 
-  const run = useCallback(async (raw?: string) => {
+  // O2: remembered so an unlock re-check is logged under the same entry point.
+  const lastFlow = useRef<VerdictFlow | undefined>(undefined)
+  const planNow = user?.plan ?? getPlanFromToken()
+
+  const run = useCallback(async (raw?: string, how?: VerdictFlow) => {
     const q = (raw ?? query).trim()
     if (!q) return
+    const flow = how ?? typedFlow(q, planNow)
+    lastFlow.current = flow
     setLoading(true); setError(""); setResult(null); setPaywalled(false); setCoverageMiss(false); setComparableN(undefined)
     try {
-      setResult(await getVerdict(q))
+      setResult(await getVerdict(q, false, flow))
       trackEvent("verdict_seen")
       trackEvent("analysis_completed")
     } catch (e) {
@@ -154,16 +162,16 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
       trackEvent("analysis_failed")
       setError(e instanceof Error ? e.message : t.errorGeneric)
     } finally { setLoading(false) }
-  }, [query, t.errorGeneric])
+  }, [query, t.errorGeneric, planNow])
 
-  const pickModel = (q: string) => { setQuery(q); run(q) }
+  const pickModel = (q: string) => { setQuery(q); run(q, "sample_button") }
 
   const unlock = useCallback(async () => {
     const q = (result?.product || query).trim()
     if (!q) return
     setUnlocking(true)
     try {
-      setResult(await getVerdict(q, true))
+      setResult(await getVerdict(q, true, lastFlow.current))
     } catch {
       // why: an unlock that fails must SAY so on the card, because the visitor
       // has to know whether their lifetime unlock budget was spent. The
@@ -175,7 +183,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
 
   useEffect(() => {
     const q = params.get("q")
-    if (q) { setQuery(q); run(q) }
+    if (q) { setQuery(q); run(q, flowFromSrc(params.get("src"))) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -282,6 +290,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                 >
                   {paidCold ? t.managePlan : t.seePlans}
                 </Link>
+                {!paidCold && <ExitSurvey context="limit" locale={locale} query={query} />}
               </div>
             ) : result.verdict === "BRAND_CATEGORIES" ? (
               <div className="p-6">
@@ -297,7 +306,7 @@ function VerdictInner({ seedQuery, seedResult }: SeedProps) {
                     {result.category_aggregates.map(a => (
                       <button
                         key={a.category}
-                        onClick={() => { const nq = `${result.brand} ${a.category}`; setQuery(nq); run(nq) }}
+                        onClick={() => { const nq = `${result.brand} ${a.category}`; setQuery(nq); run(nq, "sample_button") }}
                         className="flex items-center justify-between bg-[var(--color-surface-elevated)] border border-[rgba(255,255,255,0.12)] rounded-lg px-4 py-3 text-left hover:border-emerald-500/60 transition-colors"
                       >
                         <span className="text-[13px] font-medium text-[#e8ecf4]">{a.category}</span>

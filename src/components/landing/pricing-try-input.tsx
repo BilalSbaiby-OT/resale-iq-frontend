@@ -59,6 +59,9 @@ import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { buyBelowFromAvg } from "@/lib/buy-below"
 import { FREE_SAMPLE_CHIPS } from "@/lib/free-samples"
+import { ExitSurvey } from "@/components/ui/exit-survey"
+import { getPlanFromToken } from "@/lib/utils"
+import { flowParam, typedFlow } from "@/lib/verdict-flow"
 
 type VerdictType = "BUY" | "WATCH" | "SKIP"
 
@@ -188,6 +191,7 @@ function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onE
       <p style={{ fontSize: 11.5, color: "#5b6b8c", margin: "8px 0 0" }}>
         <a href="/terms" style={{ color: "#5b6b8c", textDecoration: "underline" }}>Full refund within 30 days of your first payment — see Terms</a>
       </p>
+      <ExitSurvey context="paywall" locale={locale} query={query} />
     </div>
   )
 }
@@ -403,7 +407,7 @@ export function PricingTryInput({ locale, buyListPreview }: { locale: Locale; bu
     setInlineResult(null)
     setLoading(true)
     try {
-      const res = await fetch(`/api/verdict?q=${encodeURIComponent(query)}`)
+      const res = await fetch(`/api/verdict?q=${encodeURIComponent(query)}${flowParam("sample_button")}`)
       if (res.ok) {
         const data = await res.json()
         setInlineResult({
@@ -444,7 +448,7 @@ export function PricingTryInput({ locale, buyListPreview }: { locale: Locale; bu
     setActiveChip(null)
     setCustomLoading(true)
     try {
-      const res = await fetch(`/api/verdict?q=${encodeURIComponent(trimmed)}`)
+      const res = await fetch(`/api/verdict?q=${encodeURIComponent(trimmed)}${flowParam(typedFlow(trimmed, getPlanFromToken()))}`)
       if (res.status === 402 || res.status === 401) {
         // Paywalled item — show custom nudge inline, no navigation.
         // H135 CRO: parse 402 body to extract comparable_n for specificity signal.
