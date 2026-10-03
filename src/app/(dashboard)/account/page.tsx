@@ -10,6 +10,7 @@ import Link from "next/link"
 import { CreditCard, KeyRound, ScrollText, Database, Download, AlertTriangle, Lock, Mail, Trash2, UserPlus, LogIn, Terminal, Copy, Check, Bell, Rocket } from "lucide-react"
 import { useLocale } from "@/components/i18n/locale-provider"
 import { ExitSurvey } from "@/components/ui/exit-survey"
+import { CancelIntent } from "@/components/ui/cancel-intent"
 import { navCopy } from "@/lib/nav-copy"
 import { planChip, planEntitlement } from "@/lib/entitlement"
 import { FIRST_CHECK_HREF } from "@/lib/checkout"
@@ -224,7 +225,8 @@ export default function AccountPage() {
               </div>
             ) : (
               <div><button onClick={handlePortal} className="w-full border border-blue-500/40 text-blue-400 font-semibold text-[12.5px] py-3 rounded-lg hover:bg-blue-500/10 transition-colors">{tx("Manage subscription")}</button>
-              <p className="text-[12px] text-[var(--color-text-secondary)] text-center mt-2">{tx("Opens Stripe's secure customer portal — cancel anytime")}</p></div>
+              <p className="text-[12px] text-[var(--color-text-secondary)] text-center mt-2">{tx("Opens Stripe's secure customer portal — cancel anytime")}</p>
+              <CancelIntent locale={locale} onContinue={handlePortal} /></div>
             )}
           </div>
         </div>

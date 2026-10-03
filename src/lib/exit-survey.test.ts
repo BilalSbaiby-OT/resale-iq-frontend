@@ -18,6 +18,7 @@ import {
   markExitSurveySeen,
 } from "./exit-survey.ts"
 import { exitSurveyCopy } from "./exit-survey-copy.ts"
+import { cancelIntentCopy, CANCEL_INTENT_REASONS } from "./cancel-intent-copy.ts"
 
 function memStorage() {
   const m = new Map<string, string>()
@@ -28,7 +29,7 @@ function memStorage() {
 }
 
 test("enums match the backend whitelist", () => {
-  assert.deepEqual([...EXIT_SURVEY_CONTEXTS], ["checkout_cancel", "paywall", "limit"])
+  assert.deepEqual([...EXIT_SURVEY_CONTEXTS], ["checkout_cancel", "paywall", "limit", "cancel_intent"])
   assert.deepEqual(
     [...EXIT_SURVEY_REASONS],
     ["too_expensive", "dont_trust", "not_covered", "seller_not_buyer", "just_looking", "other"],
@@ -88,4 +89,25 @@ test("all six locales carry every reason, the question and the thank-you", () =>
     assert.notEqual(exitSurveyCopy[loc].question, exitSurveyCopy.en.question, loc)
     assert.notEqual(exitSurveyCopy[loc].reasons.dont_trust, exitSurveyCopy.en.reasons.dont_trust, loc)
   }
+})
+
+test("cancel_intent keeps the comment for any reason; chips map onto the backend enum", () => {
+  const p = buildExitSurveyPayload({ context: "cancel_intent", reason: "too_expensive", freeText: "  needs alerts  ", locale: "de" })
+  assert.deepEqual(p, { context: "cancel_intent", reason: "too_expensive", free_text: "needs alerts", locale: "de" })
+  const none = buildExitSurveyPayload({ context: "cancel_intent", reason: "other", freeText: " " })
+  assert.equal("free_text" in none, false)
+  for (const r of CANCEL_INTENT_REASONS) assert.ok((EXIT_SURVEY_REASONS as readonly string[]).includes(r), r)
+})
+
+test("cancel-intent copy: six locales, every string present, never claims sales", () => {
+  assert.deepEqual(Object.keys(cancelIntentCopy).sort(), ["de", "en", "es", "fr", "it", "pt"])
+  for (const [loc, c] of Object.entries(cancelIntentCopy)) {
+    for (const r of CANCEL_INTENT_REASONS) assert.ok(c.reasons[r]?.trim(), `${loc}.${r}`)
+    for (const k of ["link", "question", "textLabel", "textPlaceholder", "note", "cont", "contBusy", "back"] as const) {
+      assert.ok(c[k].trim(), `${loc}.${k}`)
+      assert.ok(!/sold|vendu|verkauft|se revend/i.test(c[k]), `${loc}.${k} sales claim`)
+    }
+    if (loc !== "en") assert.notEqual(c.question, cancelIntentCopy.en.question, loc)
+  }
+  assert.equal(cancelIntentCopy.en.question, "What would make Resale IQ worth keeping?")
 })

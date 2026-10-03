@@ -8,7 +8,7 @@
  *
  * Plain .ts with no imports so node:test can load it.
  */
-export const EXIT_SURVEY_CONTEXTS = ["checkout_cancel", "paywall", "limit"] as const
+export const EXIT_SURVEY_CONTEXTS = ["checkout_cancel", "paywall", "limit", "cancel_intent"] as const
 export type ExitSurveyContext = (typeof EXIT_SURVEY_CONTEXTS)[number]
 
 export const EXIT_SURVEY_REASONS = [
@@ -70,7 +70,9 @@ export function buildExitSurveyPayload(a: {
 }): ExitSurveyPayload {
   const body: ExitSurveyPayload = { context: a.context, reason: a.reason }
   const text = (a.freeText ?? "").trim().slice(0, EXIT_FREE_TEXT_MAX)
-  if (a.reason === "other" && text) body.free_text = text
+  // cancel_intent has a comment box beside the chips, so its text is kept for
+  // any reason; the other contexts only show a box after tapping "other".
+  if ((a.reason === "other" || a.context === "cancel_intent") && text) body.free_text = text
   const q = (a.query ?? "").trim().slice(0, EXIT_QUERY_MAX)
   if (q) body.query = q
   if (a.locale) body.locale = a.locale

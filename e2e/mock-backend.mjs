@@ -618,6 +618,12 @@ const server = http.createServer(async (req, res) => {
     } else json(res, 200, { trialing: false, trial_end: null, price_label: null, plan: user.plan })
     return
   }
+  if (url === "/auth/activity") {
+    // /account loads this on mount; an unmocked 401 here clears the session.
+    if (!user) { json(res, 401, { detail: "Auth required" }); return }
+    json(res, 200, { logs: [] })
+    return
+  }
   if (url === "/stripe/portal") {
     if (!user) { json(res, 401, { detail: "Auth required" }); return }
     json(res, 200, { portal_url: "http://localhost:3999/mock-portal" })
