@@ -75,14 +75,12 @@ test("/pricing trust line, paywall body and market pulse name the noun in all si
     assert.ok(norm(c.pricingSection.starterTrust).includes(`{{TRACKED}} ${noun}`), `${l} starterTrust`)
     assert.ok(norm(c.checker.paywallBody).includes(`{{TRACKED}} ${noun}`), `${l} paywallBody`)
     assert.ok(norm(c.checker.paywallBodyForItem("X", "14M+")).includes(`14M+ ${noun}`), `${l} paywallBodyForItem`)
-    // The pulse names BOTH counts: the headline as records, the exact basis as distinct items.
-    const sub = norm(c.marketPulse.sub("14M+", 61, "6,180,536"))
+    // The pulse leads with the records headline; no brand count and no distinct-item count.
+    const sub = norm(c.marketPulse.sub("14M+"))
     assert.ok(sub.includes(`14M+ ${noun}`), `${l} marketPulse.sub records`)
-    assert.ok(sub.includes("6,180,536"), `${l} marketPulse.sub distinct`)
-    // Fallback (no records figure) shows ONLY the distinct count, and never calls it records.
-    const fb = norm(c.marketPulse.subFallback("6,180,536", 61))
-    assert.ok(fb.includes("6,180,536"), `${l} subFallback`)
-    assert.ok(!fb.includes(noun), `${l} subFallback must not call the distinct count "${noun}"`)
+    assert.doesNotMatch(sub, /\b61\b|distinct|\d{1,3}[,.]\d{3}/, `${l} marketPulse.sub prints no brand/distinct count`)
+    // No records figure: the sentence loses the number entirely.
+    assert.doesNotMatch(norm(c.marketPulse.sub(null)), /\d/, `${l} marketPulse.sub(null) has no digits`)
   }
 })
 
@@ -141,10 +139,10 @@ test("no surface falls back from records to the distinct count under the records
   assert.doesNotMatch(og, /listings across 5 EU markets/, "the social card says listing records, like og:description")
 })
 
-test("the live-market pulse leads with the headline and keeps the distinct count exact", () => {
+test("the live-market pulse leads with the headline and never prints the distinct-item count", () => {
   const pulse = read("components/landing/live-market-pulse.tsx")
   assert.match(pulse, /floorToMillion\(listingRecords\)/)
-  assert.match(pulse, /listings\.toLocaleString\(/)
+  assert.doesNotMatch(pulse, /listings\.toLocaleString\(|market\.listingsTracked/)
 })
 
 test("/partners reads the live headline, no frozen 13.4M and no 'confirmed sold transactions' card", () => {

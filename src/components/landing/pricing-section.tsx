@@ -23,7 +23,6 @@ import { LlmEyebrow } from "./llm-eyebrow"
 import { useTrackedLabel } from "@/lib/use-tracked-label"
 import { LISTING_RECORDS_NOUN } from "@/lib/listing-records-noun"
 import { fillBrands } from "@/lib/fill-brands"
-import { useSellThroughLabel } from "@/lib/use-sell-through-label"
 import { useAuthStore } from "@/lib/auth-store"
 import { pricingCtaKind } from "@/lib/pricing-cta-state"
 import { isPaidPlan } from "@/lib/entitlement"
@@ -154,7 +153,6 @@ export function PricingSection({
   compact = false,
   headingLevel = 2,
   seedTracked,
-  seedSellThrough,
   seedBrands,
 }: {
   locale?: Locale
@@ -172,7 +170,6 @@ export function PricingSection({
   seedTracked?: string
   /** SSR-resolved weekly watched-departures label (e.g. "65/wk").
    *  Fixes the em-dash rendered on /pricing first paint. Revenue 2026-09-21. */
-  seedSellThrough?: string
   /** SSR-resolved brands_tracked (live snapshot). The FAQ copy carries a BRANDS
    *  sentinel; null drops the number from the sentence instead of printing a literal. */
   seedBrands?: number | null
@@ -257,7 +254,6 @@ export function PricingSection({
   //          When seedTracked is passed from the server component, useTrackedLabel
   //          initialises with it; client-side fetch still runs to stay fresh.
   const tracked = useTrackedLabel(seedTracked)
-  const sellThrough = useSellThroughLabel(seedSellThrough)
   const checkoutCancelled = searchParams?.get("checkout") === "cancelled"
   // C196 CRO: when visitor returns after cancelling Stripe checkout, read the
   // item they were about to unlock from localStorage (saved by useGuestCheckout).
@@ -715,25 +711,6 @@ export function PricingSection({
                 >
                   {tracked} {LISTING_RECORDS_NOUN[locale]}
                 </p>
-                {/* Watched departures / week — seeded SSR so first paint never shows em-dash.
-                    Only shown when sellThrough resolved to a real number ("65/wk").
-                    2026-09-30 text-diet pass: hidden in compact mode (homepage) —
-                    it's a second live-count line right under riq-listings-tracked;
-                    kept on standalone /pricing. No test asserts riq-sell-through. */}
-                {!compact && sellThrough && sellThrough !== "—" && (
-                  <p
-                    data-testid="riq-sell-through"
-                    style={{
-                      margin: "0 0 4px",
-                      fontSize: compact ? 11 : 12,
-                      fontWeight: 600,
-                      color: "var(--color-text-muted)",
-                      textAlign: "center",
-                    }}
-                  >
-                    {sellThrough} watched departures / week
-                  </p>
-                )}
                 {/* 2026-09-30 text-diet pass: hidden in compact mode — this line
                     restates "{tracked} listing records" (already shown two
                     lines up as riq-listings-tracked) plus "cancel anytime"

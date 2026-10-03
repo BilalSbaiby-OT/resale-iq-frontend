@@ -134,7 +134,7 @@ export function BlogProofStrip({
             <span style={{ color: "#EEF1F7", fontWeight: 600, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
               ✓ {topicQuery}
               <span style={{ color: "#8FA3C4", fontWeight: 400 }}>
-                {" · "}{(topicComparableN as number).toLocaleString()} data points tracked
+                {" · "}data ready
               </span>
             </span>
             {hasInlineChecker && (

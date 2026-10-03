@@ -322,7 +322,7 @@ for (const [locale, l] of Object.entries(LOCALES)) {
       const panel = page.getByTestId("riq-insufficient")
       await expect(panel).toBeVisible()
       await expect(panel).toContainText(l.insufficientStatement)
-      await expect(panel).toContainText(l.insufficientNLabel)
+      await expect(panel).not.toContainText(l.insufficientNLabel)
       await expect(panel).not.toContainText("Not enough watched departures to price this yet.")
 
       // The "try one of these instead" row is a next step, not just text —

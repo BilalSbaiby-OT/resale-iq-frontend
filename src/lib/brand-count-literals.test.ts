@@ -129,15 +129,15 @@ test("the guard actually catches the strings that went stale", () => {
   for (const line of ok) assert.ok(DATED.test(line), `dated snapshot line must pass: ${line}`)
 })
 
-test("fillBrands prints the live count, and drops the number (not the sentence) when unknown", () => {
+test("fillBrands never prints a brand count (founder no-counts rule 2026-10-03): the number leaves, the sentence stays", () => {
   const copy = {
     a: `We track ${BRANDS_TRACKED} brands across 5 EU markets.`,
     nested: [{ q: "x", a: "outside the {{BRANDS}} brands we track, you see 'Not in this catalog'." }],
     n: 3,
   }
   const live = fillBrands(copy, 61)
-  assert.equal(live.a, "We track 61 brands across 5 EU markets.")
-  assert.equal(live.nested[0].a, "outside the 61 brands we track, you see 'Not in this catalog'.")
+  assert.equal(live.a, "We track brands across 5 EU markets.")
+  assert.equal(live.nested[0].a, "outside the brands we track, you see 'Not in this catalog'.")
   assert.equal(live.n, 3)
 
   const dropped = fillBrands(copy, null)
@@ -170,13 +170,14 @@ test("no render site can leak the raw sentinel: every static-copy reader fills i
   assert.match(read("lib/related-links.ts"), /fillBrands\(s, null\)/)
 })
 
-test("the pricing FAQ and home coverage line carry the live count in every locale, and read cleanly without it", () => {
+test("the pricing FAQ and home coverage line never print a brand count in any locale, and read cleanly", () => {
   for (const locale of ["en", "es", "fr", "de", "it", "pt"] as const) {
     const faq = JSON.stringify(copy[locale].pricingSection.faq)
     assert.equal((faq.match(/\{\{BRANDS\}\}/g) ?? []).length, 2, `${locale}: the not-in-catalog answer names the count twice`)
     const live = JSON.stringify(fillBrands(copy[locale].pricingSection.faq, 61))
     assert.doesNotMatch(live, /\{\{BRANDS\}\}/)
-    assert.match(live, /\b61\b/, `${locale}: live count printed`)
+    assert.doesNotMatch(live, /\b61\b/, `${locale}: no brand count printed`)
+    assert.doesNotMatch(live, /\s{2}/, `${locale}: dropped count leaves no gap`)
     // No old literal survives next to the live one (22 was the stale pricing-FAQ figure).
     assert.doesNotMatch(live, /\b22 (?:tracked|brands|marques|marcas|Marken|marche)/)
     const dropped = JSON.stringify(fillBrands(copy[locale].pricingSection.faq, null))

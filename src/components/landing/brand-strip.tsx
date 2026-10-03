@@ -43,7 +43,7 @@ export function BrandStrip({
               className="riq-brand-more-link"
               data-testid="riq-brand-more"
             >
-              {t.brandStripMore(more)}
+              {t.brandStripMore}
             </Link>
           </li>
         ) : null}

@@ -266,7 +266,7 @@ export function BlogInlineChecker({
                 Surface: blog 130/7d. Revenue 2026-09-29. H150. */}
             {initialResult?.comparable_n && !chipQuery && (
               <span style={{ fontSize: 11.5, color: "#34C759", fontWeight: 700, lineHeight: 1.3 }}>
-                ✓ {initialResult.comparable_n.toLocaleString()} data points on {preflightQuery}
+                ✓ We have data on {preflightQuery}
               </span>
             )}
             {/* H160: email input REMOVED from above-fold CTA.

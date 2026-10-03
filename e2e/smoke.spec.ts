@@ -140,14 +140,15 @@ test("homepage checker is centered, Free: is above the 1280x800 fold, logos are 
   await expect(strip.getByText("These are the brands we watch")).toHaveCount(0)
   const more = strip.getByTestId("riq-brand-more")
   await expect(more).toBeVisible()
-  await expect(more).toHaveText(/\+\d+ more/)
+  await expect(more).toHaveText(/More brands/)
+  await expect(more).not.toHaveText(/\d/)
   await expect(more).toHaveAttribute("href", "/data")
 
-  // The coverage line carries the live brands_tracked from the snapshot (the mock
-  // serves 61), never a typed number. "28+ brands" went stale; this pins the
-  // sentinel being filled, so a raw {{BRANDS}} or a literal cannot ship.
+  // The coverage line prints NO brand count (founder no-counts rule 2026-10-03):
+  // the sentinel is dropped, so a raw {{BRANDS}} or any literal cannot ship.
   const coverage = page.getByTestId("riq-coverage-line")
-  await expect(coverage).toContainText("We track 61 brands across 5 EU markets")
+  await expect(coverage).toContainText("We track brands across 5 EU markets")
+  await expect(coverage).not.toContainText(/\b61\b/)
   await expect(coverage).not.toContainText("{{BRANDS}}")
 })
 

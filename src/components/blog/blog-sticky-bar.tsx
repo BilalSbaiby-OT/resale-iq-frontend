@@ -110,7 +110,7 @@ export function BlogStickyBar({
         <strong style={{ color: "#34C759" }}>{preflightQuery}</strong>
         {" "}—{" "}
         {comparableN != null && comparableN > 0
-          ? `${comparableN.toLocaleString("en-GB")} data points · `
+          ? "data ready · "
           : "buy-below price · "}
         <strong style={{ color: "#34C759" }}>€0 today</strong>
       </span>

@@ -4,7 +4,7 @@ import { PricingSection } from "@/components/landing/pricing-section"
 import { copy, type Locale } from "@/lib/i18n"
 import { canonicalPath, hreflangLanguages } from "@/lib/locale-routes"
 import { OG_IMAGES } from "@/lib/og-image"
-import { listingsTrackedLabel, sellThroughWeeklyLabel } from "@/lib/stats"
+import { listingsTrackedLabel } from "@/lib/stats"
 import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { SsrBuyListTeaser } from "@/components/landing/ssr-buy-list-teaser"
 import { LiveMarketPulse } from "@/components/landing/live-market-pulse"
@@ -71,9 +71,8 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
   // The buy list is fetched server-side and rendered ABOVE the price cards so
   // the answer arrives before the ask. Free/unlocked rows only — the teaser's
   // job is to prove value, not to sell twice on the same screen.
-  const [seedTracked, seedSellThrough, buyList, market] = await Promise.all([
+  const [seedTracked, buyList, market] = await Promise.all([
     listingsTrackedLabel(),
-    sellThroughWeeklyLabel(),
     getPublicBuyList(8).catch((err) => {
       // Never let a buy-list outage break the page people pay on.
       console.error("[pricing] buy-list fetch failed:", err)
@@ -142,7 +141,7 @@ export async function PricingPage({ locale = "en" }: { locale?: Locale } = {}) {
           /pricing 12 unique humans / 7d. */}
       <PricingVerdictStrip />
       <div id="pricing-plans">
-        <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedSellThrough={seedSellThrough} seedBrands={brandsTracked} />
+        <PricingSection locale={locale} headingLevel={1} seedTracked={seedTracked} seedBrands={brandsTracked} />
       </div>
 
       {/* H192 CRO: ROI card moved ABOVE TrustBlock — answer "worth it?" before "can I trust them?"

@@ -182,9 +182,9 @@ export function HardPaywallCard({
         </div>
       )}
 
-      {/* Evidence teaser — "we hold N data points on this item". Not a paid field. */}
+      {/* Evidence teaser — "we have data on this item" (no count — founder rule). Not a paid field. */}
       {comparableN != null && comparableN > 0 && (
-        <p style={{ fontSize: 12.5, color: "#34C759", marginBottom: 10, lineHeight: 1.45, fontWeight: 600 }}>{tx("✓ We hold {0} data points on this item — the answer is ready.", [comparableN.toLocaleString(tx.locale)])}</p>
+        <p style={{ fontSize: 12.5, color: "#34C759", marginBottom: 10, lineHeight: 1.45, fontWeight: 600 }}>{tx("✓ We have data on this item — the answer is ready.")}</p>
       )}
 
       {/* ── Inline offer — price + what you get + primary CTA ────────────────

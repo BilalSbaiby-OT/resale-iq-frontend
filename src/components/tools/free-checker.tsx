@@ -1043,16 +1043,6 @@ export function FreeChecker({
                 {t.insufficientSubtext}
               </p>
 
-              {res.n != null && (
-                <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginTop: 14, paddingTop: 12, borderTop: "1px solid var(--color-border-ui)" }}>
-                  <span data-testid="riq-insufficient-n" style={{ fontSize: 22, fontWeight: 700, color: "var(--color-text-primary)", letterSpacing: "-0.5px" }}>
-                    {fmtCount(res.n)}
-                  </span>
-                  <span style={{ fontSize: 12, color: "#5b6b8c", letterSpacing: "0.1px" }}>
-                    {t.insufficientNLabel}
-                  </span>
-                </div>
-              )}
               {intel.filter((row) => row.id !== "n").length > 0 && (
                 <div data-testid="riq-answer-rows" style={{ marginTop: 14, display: "grid", gap: 8, maxWidth: "min(100%, 420px)" }}>
                   {intel.filter((row) => row.id !== "n").map((row) => (

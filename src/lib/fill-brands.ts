@@ -16,6 +16,8 @@
  */
 export const BRANDS_TRACKED = "{{BRANDS}}"
 
+const NO_BRAND_COUNTS = true
+
 /**
  * Deep-substitutes BRANDS_TRACKED through any JSON-ish structure, returning a new one.
  *
@@ -27,7 +29,11 @@ export const BRANDS_TRACKED = "{{BRANDS}}"
  */
 export function fillBrands<T>(value: T, brands: number | null): T {
   if (typeof value === "string") {
-    return (brands == null
+    // Founder no-counts rule (2026-10-03): a coverage sentence never prints a
+    // brand count, even when one is known. `brands` is kept so existing call
+    // sites and the "live count" plumbing stay untouched; flip NO_BRAND_COUNTS
+    // to false to print it again.
+    return (brands == null || NO_BRAND_COUNTS
       ? value.replace(/\{\{BRANDS\}\} ?/g, "")
       : value.split(BRANDS_TRACKED).join(String(brands))) as unknown as T
   }

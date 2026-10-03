@@ -109,7 +109,7 @@ export function CustomQueryInput({
         >
           <p style={{ fontSize: 13, fontWeight: 700, color: "#eef1f7", margin: "0 0 4px", lineHeight: 1.4 }}>{tx("We have data on {0} — unlock it below", [paywallQuery])}</p>
           {paywallN != null && paywallN > 0 && (
-            <p style={{ fontSize: 12, color: "#34C759", margin: "0 0 8px", fontWeight: 600, lineHeight: 1.45 }}>{tx("✓ {0} data points on this item — the answer is ready.", [paywallN.toLocaleString(tx.locale)])}</p>
+            <p style={{ fontSize: 12, color: "#34C759", margin: "0 0 8px", fontWeight: 600, lineHeight: 1.45 }}>{tx("✓ We have data on this item — the answer is ready.")}</p>
           )}
           <GuestCheckoutButton
             locale={locale}

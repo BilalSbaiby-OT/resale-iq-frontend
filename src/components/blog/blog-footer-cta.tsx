@@ -94,7 +94,7 @@ export function BlogFooterCta({
           Only rendered when comparableN is a real positive number. */}
       {comparableN != null && comparableN > 0 && (
         <p style={{ fontSize: 12.5, color: "#34C759", margin: "0 0 12px", lineHeight: 1.45, fontWeight: 600 }}>
-          ✓ We hold {comparableN.toLocaleString("en-GB")} data points on {preflightQuery} — the answer is ready.
+          ✓ We have data on {preflightQuery} — the answer is ready.
         </p>
       )}
       <GuestCheckoutButton

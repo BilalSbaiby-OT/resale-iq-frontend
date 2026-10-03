@@ -107,7 +107,7 @@ function CustomItemPaywallCard({ query, locale, capturedEmail: initialEmail, onE
           Revenue 2026-09-28. */}
       {comparableN != null && comparableN > 0 ? (
         <p style={{ fontSize: 12.5, color: "#34C759", margin: "0 0 10px", lineHeight: 1.45, fontWeight: 600 }}>
-          ✓ We hold {comparableN.toLocaleString("en-GB")} data points on this item — the answer is ready.
+          ✓ We have data on this item — the answer is ready.
         </p>
       ) : (
         <p style={{ fontSize: 12.5, color: "#8b99b8", margin: "0 0 12px", lineHeight: 1.5 }}>

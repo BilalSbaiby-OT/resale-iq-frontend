@@ -144,13 +144,9 @@ test.describe("P0 — INSUFFICIENT_DATA renders the honest state", () => {
     const reason = body.confidence_note || body.message
     await expect(panel.getByText(reason, { exact: false })).toBeVisible()
 
-    // The honest n is shown, not hidden — the product's own rule (design/
-    // extension-panel/insufficient.html) is that a number without n is
-    // unknown, so the panel with no price still owns its n. Scoped to the
-    // dedicated testid, not a loose text search, since "3" alone would match
-    // too much.
-    const n = body.n ?? body.sold_7d
-    await expect(page.getByTestId("riq-insufficient-n")).toHaveText(String(n))
+    // Founder no-counts rule (2026-10-03): the raw comparable count is NOT printed,
+    // even on the refusal panel. The statement + reason already say why.
+    await expect(page.getByTestId("riq-insufficient-n")).toHaveCount(0)
 
     // No verdict colour: a refusal is not a call on the item. Checks the
     // computed `color` of every element in the panel, not just text, so a

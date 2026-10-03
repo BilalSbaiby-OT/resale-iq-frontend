@@ -4,7 +4,7 @@ import type { MarketNumbers } from "@/lib/market-numbers"
 import Link from "next/link"
 import { canonicalPath } from "@/lib/locale-routes"
 import { floorToMillion } from "@/lib/floor-to-10k"
-import { departureDisplay, departureIsPrintable } from "@/lib/departure-display"
+import { departureIsPrintable } from "@/lib/departure-display"
 
 /**
  * LIVE MARKET PULSE — the honest-proof section that fills the empty landing.
@@ -14,7 +14,8 @@ import { departureDisplay, departureIsPrintable } from "@/lib/departure-display"
  * between. A stranger had no reason to believe the tool. This section surfaces
  * the REAL market snapshot the page already loads (getMarketNumbers, passed in
  * as the `market` prop) and used to throw away with `void market`. Every number
- * here is live, from /api/public/market-snapshot, stamped with the snapshot's
+ * here is live, from /api/public/market-snapshot (per-brand departure counts are
+ * NOT printed: the bar is relative velocity only, per the founder no-counts rule), stamped with the snapshot's
  * own time — never fabricated (hard ResaleIQ rule). If the data is stale/missing
  * the section degrades honestly (renders nothing rather than a fake).
  *
@@ -39,9 +40,7 @@ export function LiveMarketPulse({ locale, market }: { locale: Locale; market: Ma
   if (rows.length === 0) return null
 
   const max = rows[0].f.sold_7d
-  const listings = market.listingsTracked
   const listingRecords = market.totalListingRecords
-  const brands = market.brandsTracked ?? market.brandCount
 
   return (
     <section
@@ -72,15 +71,7 @@ export function LiveMarketPulse({ locale, market }: { locale: Locale; market: Ma
             volunteer the narrower number — a reseller cannot catch us
             exaggerating when we name both. */}
         <p style={{ fontSize: "var(--text-body-marketing)", color: "var(--color-text-dim)", margin: 0, lineHeight: 1.5 }}>
-          {listingRecords != null && listingRecords > 0
-            ? t.sub(
-                floorToMillion(listingRecords),
-                brands,
-                listings != null ? listings.toLocaleString(locale === "en" ? "en-US" : locale) : null,
-              )
-            : listings != null
-              ? t.subFallback(listings.toLocaleString(locale === "en" ? "en-US" : locale), brands)
-              : t.subNoCount(brands)}
+          {t.sub(listingRecords != null && listingRecords > 0 ? floorToMillion(listingRecords) : null)}
         </p>
       </div>
 
@@ -90,7 +81,6 @@ export function LiveMarketPulse({ locale, market }: { locale: Locale; market: Ma
         <div className="riq-pulse-grid" style={{ padding: "10px var(--space-2)", borderBottom: "1px solid var(--color-hairline)" }}>
           <span style={hdr}>{t.colBrand}</span>
           <span className="riq-pulse-velocity" style={hdr}>{t.colVelocity}</span>
-          <span style={{ ...hdr, textAlign: "right" }}>{t.colSold}</span>
           <span style={{ ...hdr, textAlign: "right" }}>{t.colAvg}</span>
         </div>
         {rows.map((r) => {
@@ -107,7 +97,6 @@ export function LiveMarketPulse({ locale, market }: { locale: Locale; market: Ma
               <span className="riq-pulse-velocity" style={{ display: "block", height: 8, background: "var(--color-bg-3)", borderRadius: 999, overflow: "hidden" }}>
                 <span style={{ display: "block", height: "100%", width: `${pct}%`, background: "linear-gradient(90deg, var(--color-green), var(--color-cyan))", borderRadius: 999 }} />
               </span>
-              <span style={{ fontSize: 14, fontVariantNumeric: "tabular-nums", textAlign: "right", color: "var(--color-text-secondary)", fontFamily: "var(--font-mono, ui-monospace, monospace)" }}>{departureDisplay(sold, locale).text}</span>
               <span style={{ fontSize: 14, fontVariantNumeric: "tabular-nums", textAlign: "right", color: "var(--color-text-secondary)", fontFamily: "var(--font-mono, ui-monospace, monospace)" }}>{avg != null ? `€${avg}` : "—"}</span>
             </div>
           )
@@ -118,7 +107,7 @@ export function LiveMarketPulse({ locale, market }: { locale: Locale; market: Ma
         data-testid="riq-market-showing"
         style={{ fontSize: 12, color: "var(--color-text-muted)", marginTop: "var(--space-3)", lineHeight: 1.5 }}
       >
-        {t.showing(rows.length, brands)}
+        {t.showing}
         {" · "}
         <Link href={canonicalPath(locale, "/data")} style={{ color: "var(--color-text-muted)", textDecoration: "underline" }}>
           {t.seeAll}

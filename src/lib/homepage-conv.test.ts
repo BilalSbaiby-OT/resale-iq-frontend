@@ -107,13 +107,14 @@ test("above-fold free scope must not promise paywalled SKUs", () => {
   }
 })
 
-test("market pulse reports shown-of-total and links /data", () => {
+test("market pulse links /data and prints no per-brand departure count or brand total", () => {
   const pulse = read("components/landing/live-market-pulse.tsx")
   assert.match(pulse, /riq-market-showing/)
-  assert.match(pulse, /t\.showing\(rows\.length, brands\)/)
+  assert.match(pulse, /\{t\.showing\}/)
+  assert.doesNotMatch(pulse, /departureDisplay|t\.colSold/)
   assert.match(pulse, /canonicalPath\(locale, "\/data"\)/)
   assert.match(pulse, /t\.seeAll/)
-  assert.equal(copy.en.marketPulse.showing(6, 28), "Showing 6 of 28 brands")
+  assert.equal(copy.en.marketPulse.showing, "Top movers this week")
   assert.equal(copy.en.marketPulse.seeAll, "See all on /data")
 })
 
@@ -159,7 +160,7 @@ test("brand strip is local SVG marks, never text names or a CDN", () => {
   assert.equal(brandStripMoreCount(9, 28), 19)
   assert.equal(brandStripMoreCount(9, 9), 0)
   assert.equal(brandStripMoreCount(9, 2), 0)
-  assert.equal(copy.en.brandStripMore(19), "+19 more")
+  assert.equal(copy.en.brandStripMore, "More brands")
   for (const file of Object.values(BRAND_MARK_SRC)) {
     assert.ok(existsSync(join(root, "..", "public", file.replace(/^\//, ""))), file)
   }

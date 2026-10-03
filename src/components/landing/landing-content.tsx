@@ -16,7 +16,6 @@ import { canonicalPath } from "@/lib/locale-routes"
 import { SsrBuyListTeaser } from "./ssr-buy-list-teaser"
 import { HeroFreeChips } from "./hero-free-chips"
 import { PricingSection } from "./pricing-section"
-import { formatSellThrough } from "@/lib/format-sell-through"
 import { fillBrands } from "@/lib/fill-brands"
 
 type Dict = (typeof copy)[keyof typeof copy]
@@ -267,11 +266,11 @@ export function LandingContent({
             actually looks like"), LiveMarketPulse ("This is what's actually
             selling right now" data table) and the objection-row dl block
             were removed here — same honest live-data proof this page already
-            leads with (the SSR buy list above + howToCoverage's "We track N brands
-            across 5 EU markets" line, N = live brands_tracked), just not re-stated three more times before
+            leads with (the SSR buy list above + howToCoverage's "We track brands
+            across 5 EU markets" line, no count), just not re-stated three more times before
             the price. PaybackCalculator inside PricingSection is now gated
             off in compact mode (see pricing-section.tsx) for the same reason.
-            seedTracked/seedSellThrough reuse the SSR-fetched market numbers
+            seedTracked reuses the SSR-fetched market numbers
             already in scope — zero extra requests, same pattern /pricing
             uses (src/app/pricing/page.tsx). */}
         <PricingSection
@@ -279,7 +278,6 @@ export function LandingContent({
           compact
           headingLevel={2}
           seedTracked={tracked}
-          seedSellThrough={formatSellThrough(market.sold7dTotal)}
         />
         {/* CRO note: the second CTA count is nav "Sign in"/"Pricing" (chrome,
             not a conversion ask) + hero Check + pricing cards' own Starter/Pro

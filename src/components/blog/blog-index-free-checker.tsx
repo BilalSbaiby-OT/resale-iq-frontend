@@ -312,7 +312,7 @@ export function BlogIndexFreeChecker({ locale = "en", buyListPreview }: { locale
           </p>
           {paywallN != null && paywallN > 0 && (
             <p style={{ fontSize: 12, color: "#34C759", margin: "0 0 8px", fontWeight: 600, lineHeight: 1.45 }}>
-              ✓ {paywallN.toLocaleString("en-GB")} data points tracked — the answer is ready.
+              ✓ We have data on this one — the answer is ready.
             </p>
           )}
           {/* H165 CRO: email input REMOVED from custom-item paywall block.

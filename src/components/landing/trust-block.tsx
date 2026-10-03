@@ -125,11 +125,7 @@ export function TrustBlock({ market }: { market: MarketNumbers }) {
         <TrustItem
           icon={<IconGlobe />}
           label="5 EU markets"
-          sub={
-            market.brandsTracked != null
-              ? `Vinted ES · FR · DE · IT · PT — ${market.brandsTracked} brands tracked.`
-              : "Vinted ES · FR · DE · IT · PT."
-          }
+          sub="Vinted ES · FR · DE · IT · PT."
         />
         <TrustItem
           icon={<IconLock />}

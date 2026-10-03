@@ -136,26 +136,23 @@ export const copy = {
     heroFreeScope: "Live signals, updated several times daily. Real numbers, no guru promises.",
     trustSpeed: "Live signals, refreshed several times a day across 5 Vinted markets. Real numbers, no guru promises.",
     brandStripCaption: "Brands we track",
-    brandStripMore: (n: number) => `+${n} more`,
+    brandStripMore: "More brands",
     // H1 on `/`. Not heroTitle: that string is <title>/OG.
     // EX-ACTIVATION-FIX — same locked offer as /pricing.
     marketPulse: {
       liveLabel: "Live market",
       heading: "This is what's leaving the shelf right now.",
-      sub: (records: string, brands: number, distinct: string | null) =>
-        distinct != null
-          ? `We're tracking ${records} listing records across ${brands} brands (${distinct} distinct items). Here's what left the shelf this week — watched departures, not guesses.`
-          : `We're tracking ${records} listing records across ${brands} brands. Here's what left the shelf this week — watched departures, not guesses.`,
-      subFallback: (listings: string, brands: number) => `We're tracking ${listings} distinct items across ${brands} brands. Here's what left the shelf this week — watched departures, not guesses.`,
-      subNoCount: (brands: number) => `Across ${brands} brands, here's what left the shelf this week — watched departures, not guesses.`,
+      sub: (records: string | null) =>
+        records != null
+          ? `Built on ${records} listing records from the brands we watch. Here's what left the shelf this week — watched departures, not guesses.`
+          : `From the brands we watch, here's what left the shelf this week — watched departures, not guesses.`,
       colBrand: "Brand",
       colVelocity: "Weekly velocity",
-      colSold: "Left / 7d",
       colAvg: "Avg price",
       stamp: (s: string) => `Live snapshot · ${s}`,
       stampNoTime: "Live market snapshot",
       staleNote: "showing last-good data",
-      showing: (shown: number, total: number) => `Showing ${shown} of ${total} brands`,
+      showing: "Top movers this week",
       seeAll: "See all on /data",
     },
     heroHeadline: "Know what stock to source to resell on Vinted, and the max price to pay.",
@@ -301,7 +298,6 @@ export const copy = {
       // term, not a fresh translation) and echoes heroHonesty above it.
       insufficientStatement: "Not enough watched departures to price this yet.",
       insufficientSubtext: "We’d rather say that than guess.",
-      insufficientNLabel: "watched, not enough",
       buyBelow: "Buy-below",
       marketPrice: "Market price",
       stillListed: "Still listed",
@@ -758,24 +754,21 @@ export const copy = {
     heroFreeScope: "Signaux en direct, mis à jour plusieurs fois par jour. De vrais chiffres, pas de promesses de gourou.",
     trustSpeed: "Signaux en direct, actualisés plusieurs fois par jour sur 5 marchés Vinted. De vrais chiffres, pas de promesses de gourou.",
     brandStripCaption: "Marques que nous suivons",
-    brandStripMore: (n: number) => `+${n} de plus`,
+    brandStripMore: "Plus de marques",
     marketPulse: {
       liveLabel: "Marché en direct",
       heading: "Voici ce qui quitte l'étal en ce moment.",
-      sub: (records: string, brands: number, distinct: string | null) =>
-        distinct != null
-          ? `Nous suivons ${records} enregistrements d'annonces sur ${brands} marques (${distinct} articles distincts). Voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`
-          : `Nous suivons ${records} enregistrements d'annonces sur ${brands} marques. Voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`,
-      subFallback: (listings: string, brands: number) => `Nous suivons ${listings} articles distincts sur ${brands} marques. Voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`,
-      subNoCount: (brands: number) => `Sur ${brands} marques, voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`,
+      sub: (records: string | null) =>
+        records != null
+          ? `À partir de ${records} enregistrements d'annonces sur les marques que nous suivons. Voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`
+          : `Parmi les marques que nous suivons, voici ce qui a quitté les rayons cette semaine — des départs observés, pas des suppositions.`,
       colBrand: "Marque",
       colVelocity: "Vélocité hebdo",
-      colSold: "Départs / 7 j",
       colAvg: "Prix moyen",
       stamp: (s: string) => `Instantané en direct · ${s}`,
       stampNoTime: "Instantané du marché en direct",
       staleNote: "dernières données valides",
-      showing: (shown: number, total: number) => `${shown} marques sur ${total}`,
+      showing: "Plus gros mouvements cette semaine",
       seeAll: "Tout voir sur /data",
     },
     heroHeadline: "Sachez quel stock sourcer pour revendre sur Vinted, et le prix max à payer.",
@@ -891,7 +884,6 @@ export const copy = {
       tryTheseInstead: "Essayez plutôt l'un de ceux-ci",
       insufficientStatement: "Pas assez de départs observés pour chiffrer ceci.",
       insufficientSubtext: "On préfère le dire plutôt que deviner.",
-      insufficientNLabel: "observés, pas assez",
       buyBelow: "Prix d'achat max",
       marketPrice: "Prix de marché",
       stillListed: "Encore en ligne",
@@ -1220,24 +1212,21 @@ export const copy = {
     heroFreeScope: "Señales en directo, actualizadas varias veces al día. Números reales, sin promesas de gurú.",
     trustSpeed: "Señales en directo, actualizadas varias veces al día en 5 mercados de Vinted. Números reales, sin promesas de gurú.",
     brandStripCaption: "Marcas que vigilamos",
-    brandStripMore: (n: number) => `+${n} más`,
+    brandStripMore: "Más marcas",
     marketPulse: {
       liveLabel: "Mercado en vivo",
       heading: "Esto es lo que está dejando el escaparate ahora mismo.",
-      sub: (records: string, brands: number, distinct: string | null) =>
-        distinct != null
-          ? `Seguimos ${records} registros de anuncios en ${brands} marcas (${distinct} artículos distintos). Esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`
-          : `Seguimos ${records} registros de anuncios en ${brands} marcas. Esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`,
-      subFallback: (listings: string, brands: number) => `Seguimos ${listings} artículos distintos en ${brands} marcas. Esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`,
-      subNoCount: (brands: number) => `En ${brands} marcas, esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`,
+      sub: (records: string | null) =>
+        records != null
+          ? `A partir de ${records} registros de anuncios de las marcas que seguimos. Esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`
+          : `De las marcas que seguimos, esto es lo que salió del estante esta semana — salidas observadas, no suposiciones.`,
       colBrand: "Marca",
       colVelocity: "Velocidad semanal",
-      colSold: "Salidas / 7 d",
       colAvg: "Precio medio",
       stamp: (s: string) => `Instantánea en vivo · ${s}`,
       stampNoTime: "Instantánea del mercado en vivo",
       staleNote: "mostrando últimos datos válidos",
-      showing: (shown: number, total: number) => `Mostrando ${shown} de ${total} marcas`,
+      showing: "Mayores movimientos esta semana",
       seeAll: "Ver todas en /data",
     },
     heroHeadline: "Sabe qué stock comprar para revender en Vinted y el precio máximo a pagar.",
@@ -1353,7 +1342,6 @@ export const copy = {
       tryTheseInstead: "Prueba con uno de estos",
       insufficientStatement: "Aún no hay suficientes salidas observadas para calcular un precio.",
       insufficientSubtext: "Preferimos decirlo antes que adivinar.",
-      insufficientNLabel: "observadas, insuficientes",
       buyBelow: "Precio máximo de compra",
       marketPrice: "Precio de mercado",
       stillListed: "Aún en venta",
@@ -1684,24 +1672,21 @@ export const copy = {
     heroFreeScope: "Live-Signale, mehrmals täglich aktualisiert. Echte Zahlen, keine Guru-Versprechen.",
     trustSpeed: "Live-Signale, mehrmals täglich aktualisiert in 5 Vinted-Märkten. Echte Zahlen, keine Guru-Versprechen.",
     brandStripCaption: "Marken, die wir beobachten",
-    brandStripMore: (n: number) => `+${n} weitere`,
+    brandStripMore: "Weitere Marken",
     marketPulse: {
       liveLabel: "Live-Markt",
       heading: "Das verlässt gerade das Regal.",
-      sub: (records: string, brands: number, distinct: string | null) =>
-        distinct != null
-          ? `Wir verfolgen ${records} Inseratseinträge über ${brands} Marken (${distinct} einzelne Artikel). Das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`
-          : `Wir verfolgen ${records} Inseratseinträge über ${brands} Marken. Das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`,
-      subFallback: (listings: string, brands: number) => `Wir verfolgen ${listings} einzelne Artikel über ${brands} Marken. Das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`,
-      subNoCount: (brands: number) => `Über ${brands} Marken hinweg — das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`,
+      sub: (records: string | null) =>
+        records != null
+          ? `Auf Basis von ${records} Inseratseinträgen der Marken, die wir verfolgen. Das hier hat diese Woche das Regal verlassen — beobachtete Abgänge, keine Vermutungen.`
+          : `Von den Marken, die wir verfolgen — das hier hat diese Woche das Regal verlassen: beobachtete Abgänge, keine Vermutungen.`,
       colBrand: "Marke",
       colVelocity: "Wöchentl. Tempo",
-      colSold: "Abgänge / 7 T",
       colAvg: "Ø Preis",
       stamp: (s: string) => `Live-Snapshot · ${s}`,
       stampNoTime: "Live-Markt-Snapshot",
       staleNote: "zeige letzte gültige Daten",
-      showing: (shown: number, total: number) => `${shown} von ${total} Marken`,
+      showing: "Größte Bewegungen diese Woche",
       seeAll: "Alle auf /data",
     },
     heroHeadline: "Wisse, welchen Bestand du für Vinted einkaufen solltest, und den Maximalpreis.",
@@ -1816,7 +1801,6 @@ export const copy = {
       tryTheseInstead: "Probier stattdessen eines davon",
       insufficientStatement: "Noch nicht genug beobachtete Abgänge für einen Preis.",
       insufficientSubtext: "Das sagen wir lieber, als zu raten.",
-      insufficientNLabel: "beobachtet, nicht genug",
       buyBelow: "Kaufobergrenze",
       marketPrice: "Marktpreis",
       stillListed: "Noch inseriert",
@@ -2147,24 +2131,21 @@ export const copy = {
     heroFreeScope: "Segnali in tempo reale, aggiornati più volte al giorno. Numeri veri, niente promesse da guru.",
     trustSpeed: "Segnali in tempo reale, aggiornati più volte al giorno su 5 mercati Vinted. Numeri veri, niente promesse da guru.",
     brandStripCaption: "Marchi che osserviamo",
-    brandStripMore: (n: number) => `+${n} altri`,
+    brandStripMore: "Altri marchi",
     marketPulse: {
       liveLabel: "Mercato dal vivo",
       heading: "Ecco cosa sta lasciando lo scaffale adesso.",
-      sub: (records: string, brands: number, distinct: string | null) =>
-        distinct != null
-          ? `Monitoriamo ${records} registrazioni di inserzioni su ${brands} marchi (${distinct} articoli distinti). Ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`
-          : `Monitoriamo ${records} registrazioni di inserzioni su ${brands} marchi. Ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`,
-      subFallback: (listings: string, brands: number) => `Monitoriamo ${listings} articoli distinti su ${brands} marchi. Ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`,
-      subNoCount: (brands: number) => `Su ${brands} marchi, ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`,
+      sub: (records: string | null) =>
+        records != null
+          ? `Da ${records} registrazioni di inserzioni dei marchi che monitoriamo. Ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`
+          : `Tra i marchi che monitoriamo, ecco cosa ha lasciato lo scaffale questa settimana — uscite osservate, non supposizioni.`,
       colBrand: "Marchio",
       colVelocity: "Velocità settim.",
-      colSold: "Uscite / 7 g",
       colAvg: "Prezzo medio",
       stamp: (s: string) => `Istantanea dal vivo · ${s}`,
       stampNoTime: "Istantanea del mercato dal vivo",
       staleNote: "mostro ultimi dati validi",
-      showing: (shown: number, total: number) => `${shown} marchi su ${total}`,
+      showing: "Maggiori movimenti questa settimana",
       seeAll: "Vedi tutti su /data",
     },
     heroHeadline: "Sappi quale stock prendere per rivendere su Vinted e il prezzo massimo da pagare.",
@@ -2279,7 +2260,6 @@ export const copy = {
       tryTheseInstead: "Prova uno di questi",
       insufficientStatement: "Non ci sono ancora abbastanza partenze osservate per calcolare un prezzo.",
       insufficientSubtext: "Preferiamo dirlo piuttosto che indovinare.",
-      insufficientNLabel: "osservate, non abbastanza",
       buyBelow: "Prezzo massimo di acquisto",
       marketPrice: "Prezzo di mercato",
       stillListed: "Ancora in vendita",
@@ -2608,24 +2588,21 @@ export const copy = {
     heroFreeScope: "Sinais em direto, atualizados várias vezes por dia. Números reais, sem promessas de guru.",
     trustSpeed: "Sinais em direto, atualizados várias vezes por dia em 5 mercados Vinted. Números reais, sem promessas de guru.",
     brandStripCaption: "Marcas que seguimos",
-    brandStripMore: (n: number) => `+${n} mais`,
+    brandStripMore: "Mais marcas",
     marketPulse: {
       liveLabel: "Mercado ao vivo",
       heading: "Isto é o que está a sair da prateleira agora.",
-      sub: (records: string, brands: number, distinct: string | null) =>
-        distinct != null
-          ? `Acompanhamos ${records} registos de anúncios em ${brands} marcas (${distinct} artigos distintos). Isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`
-          : `Acompanhamos ${records} registos de anúncios em ${brands} marcas. Isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`,
-      subFallback: (listings: string, brands: number) => `Acompanhamos ${listings} artigos distintos em ${brands} marcas. Isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`,
-      subNoCount: (brands: number) => `Em ${brands} marcas, isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`,
+      sub: (records: string | null) =>
+        records != null
+          ? `A partir de ${records} registos de anúncios das marcas que acompanhamos. Isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`
+          : `Das marcas que acompanhamos, isto é o que saiu da prateleira esta semana — saídas observadas, não suposições.`,
       colBrand: "Marca",
       colVelocity: "Velocidade semanal",
-      colSold: "Saídas / 7 d",
       colAvg: "Preço médio",
       stamp: (s: string) => `Instantâneo ao vivo · ${s}`,
       stampNoTime: "Instantâneo do mercado ao vivo",
       staleNote: "a mostrar últimos dados válidos",
-      showing: (shown: number, total: number) => `A mostrar ${shown} de ${total} marcas`,
+      showing: "Maiores movimentos esta semana",
       seeAll: "Ver todas em /data",
     },
     heroHeadline: "Saiba que stock comprar para revender na Vinted e o preço máximo a pagar.",
@@ -2740,7 +2717,6 @@ export const copy = {
       tryTheseInstead: "Experimenta um destes",
       insufficientStatement: "Ainda não há saídas observadas suficientes para calcular um preço.",
       insufficientSubtext: "Preferimos dizer isso a adivinhar.",
-      insufficientNLabel: "observadas, insuficientes",
       buyBelow: "Preço máximo de compra",
       marketPrice: "Preço de mercado",
       stillListed: "Ainda anunciado",
