@@ -18,11 +18,11 @@ export const POSTS_28: BlogPost[] = [
     readMins: 12,
     preflightQuery: "New Balance 550",
     intro:
-      "Every resale profit starts before you list anything — it starts when you buy. Sourcing well means paying below the number that, after fees and time, still leaves a real margin. This guide ranks the four main sourcing channels by margin, time cost, and risk, and shows you exactly how to calculate the buy-below price before you commit to any item.",
+      "Every resale profit starts before you list anything — it starts when you buy. Sourcing well means paying below the number that leaves ~30% margin before fees. This guide ranks the four main sourcing channels by margin, time cost, and risk, and shows you exactly how to calculate the buy-below price before you commit to any item.",
     definedTerm: {
       name: "Buy-below price",
       description:
-        "The buy-below price is the maximum you should pay for an item to still hit your target margin after platform fees, shipping, and time. It is calculated from the item's departure average (the median price recent sold listings actually closed at) minus fees and your minimum acceptable profit. Paying at or below this number makes the purchase worth taking.",
+        "The buy-below price is the maximum you should pay for an item for ~30% margin before fees. It is calculated from the item's departure average (the typical asking price of comparable listings that left the shelf) and your target margin. Paying at or below this number makes the purchase worth taking.",
     },
     sections: [
       {
@@ -105,7 +105,7 @@ export const POSTS_28: BlogPost[] = [
       },
       {
         q: "How do I know what price to pay for an item to resell?",
-        a: "Calculate the buy-below price: departure average (what similar items actually sold for recently) − platform fee (none on Vinted for private sellers) − shipping − time cost. Anything above that number is margin you have already lost before listing.",
+        a: "Calculate the buy-below price: departure average (the typical resale price of similar items) − platform fee (none on Vinted for private sellers) − shipping − time cost. Anything above that number is margin you have already lost before listing.",
       },
       {
         q: "Is sourcing from charity shops still worth it in 2026?",

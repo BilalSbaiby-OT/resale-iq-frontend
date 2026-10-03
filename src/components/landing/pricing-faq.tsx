@@ -96,7 +96,7 @@ const FAQS: FaqItem[] = [
   },
   {
     q: "How often is the data updated?",
-    a: "Daily. Our scrapers run across all five Vinted markets every 24 hours. Sold listings, price movements, and new stock are reflected in the next day's verdicts. The timestamp of the last snapshot is shown on the data page.",
+    a: "Daily. Our scrapers run across all five Vinted markets every 24 hours. Watched departures, price movements, and new stock are reflected in the next day's verdicts. The timestamp of the last snapshot is shown on the data page.",
     link: { href: "/data", label: "See data freshness →" },
   },
   {

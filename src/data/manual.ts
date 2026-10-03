@@ -134,7 +134,7 @@ export const CHAPTERS_1: ManualChapter[] = [
       },
       {
         q: "What margin should I target on Vinted?",
-        a: "There is no universal figure, because it depends on how fast the item turns. As a working rule, price-tier stock that sells in under three weeks can justify a thinner margin than stock that takes two months. Resale IQ's buy-below price targets a healthy margin after fees for the specific model rather than applying one blanket percentage.",
+        a: "There is no universal figure, because it depends on how fast the item turns. As a working rule, price-tier stock that sells in under three weeks can justify a thinner margin than stock that takes two months. Resale IQ's buy-below price is calculated for the specific model, for ~30% margin before fees.",
       },
       {
         q: "Why is the buy price the number that matters?",
@@ -162,7 +162,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     definedTerm: {
       name: "What is a buy-below price?",
       description:
-        "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 targets roughly a 30% margin. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
+        "A buy-below price is the most you can pay for an item for ~30% margin before fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 targets roughly a 30% margin. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
     },
     sections: [
       {
@@ -202,7 +202,7 @@ export const CHAPTERS_1: ManualChapter[] = [
     faq: [
       {
         q: "What is a buy-below price?",
-        a: "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 targets roughly a 30% margin. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
+        a: "A buy-below price is the most you can pay for an item for ~30% margin before fees. For Vinted resale, Resale IQ models it as average asking price at departure × 0.70: the departure-price input reflects watched listings leaving the shelf, and 0.70 targets roughly a 30% margin. There is no fee factor, because Vinted charges private sellers no selling fee. It is a sourcing ceiling, not a promised profit—adjust for condition, size, market and the strength of the available sample before you buy.",
       },
       {
         q: "How do you calculate a buy-below price?",

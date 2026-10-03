@@ -148,10 +148,10 @@ export function getBuyPair(
   return { brand, cat }
 }
 
-/** Format EUR: €52 or €52.50 */
+/** Format EUR, whole euros only (matches the verdict card): €52 */
 export function fmtEurBuy(n: number | null): string {
   if (n == null) return "—"
-  return `€${n % 1 === 0 ? n.toFixed(0) : n.toFixed(2)}`
+  return `€${Math.round(n)}`
 }
 
 /** Format count: 1,234 */

@@ -74,7 +74,7 @@ export default async function BuyBrandPage({
   const brandVolume = departureSupportsConclusion(brand.sold_30d) ? fmtDeparturesBuy(brand.sold_30d) : null
   const intro =
     (topCat?.buy_below
-      ? `To keep a 30% margin on ${brand.brand} ${topCat.category}, the category with the most watched departures, buy below ${fmtEurBuy(topCat.buy_below)}` +
+      ? `For ~30% margin before fees on ${brand.brand} ${topCat.category}, the category with the most watched departures, buy below ${fmtEurBuy(topCat.buy_below)}` +
         (topCat.avg_price_eur ? ` — the average price at departure is ${fmtEurBuy(topCat.avg_price_eur)}.` : ".")
       : `${brand.brand} buy-below prices are derived from average prices at departure, with data from multiple snapshots.`) +
     (brandVolume

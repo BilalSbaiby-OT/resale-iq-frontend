@@ -28,7 +28,7 @@ const HOME_FAQS: FaqItem[] = [
   {
     q: "What is a buy-below price?",
     a:
-      "The most you can pay for a garment and still keep a healthy margin after fees. Samba, Air Force 1, and Fred Perry Polo return that ceiling for free. Other item-level numbers need Starter at €19 a month at https://resaleiq.dev/pricing. Public weekly volumes stay free at https://resaleiq.dev/data.",
+      "The most you can pay for a garment for ~30% margin before fees. Samba, Air Force 1, and Fred Perry Polo return that ceiling for free. Other item-level numbers need Starter at €19 a month at https://resaleiq.dev/pricing. Public weekly volumes stay free at https://resaleiq.dev/data.",
   },
   {
     q: "What if you don’t track my item?",

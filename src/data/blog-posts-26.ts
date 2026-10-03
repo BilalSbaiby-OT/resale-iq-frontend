@@ -22,7 +22,7 @@ export const POSTS_26: BlogPost[] = [
     definedTerm: {
       name: "Vinted buy-below price",
       description:
-        "The Vinted buy-below price is the maximum sourcing cost at which buying an item leaves a defensible margin after platform fees and shipping when listed at the current EU Vinted departure average for that brand and category. It is calculated from watched departure data — items that actually left the shelf — not listed prices. Sourcing above the buy-below ceiling makes profit contingent on above-average exit prices, which by definition cannot be reliably planned for.",
+        "The Vinted buy-below price is the maximum sourcing cost at which buying an item leaves ~30% margin before fees when listed at the current EU Vinted departure average for that brand and category. It is calculated from watched departure data — items that actually left the shelf — not listed prices. Sourcing above the buy-below ceiling makes profit contingent on above-average exit prices, which by definition cannot be reliably planned for.",
     },
     sections: [
       {

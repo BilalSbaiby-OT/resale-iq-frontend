@@ -164,7 +164,7 @@ export function modelPageDescription(opts: {
   if (m.freeCheck && isUsableVerdict(live)) {
     return (
       `Should you buy ${m.query} to resell? ${live!.verdict}. ` +
-      `Most to pay after fees: ${fmtBuyBelow(live!.buy_below)}. ` +
+      `Max buy price: ${fmtBuyBelow(live!.buy_below)}, for ~30% margin before fees. ` +
       `Other models Starter €19/mo.`
     )
   }
@@ -197,12 +197,12 @@ export function modelSocialMeta(
 }
 
 export function fmtBuyBelow(n: number | null | undefined): string {
-  return typeof n === "number" && Number.isFinite(n) && n > 0 ? `€${n.toFixed(2)}` : "—"
+  return typeof n === "number" && Number.isFinite(n) && n > 0 ? `€${Math.round(n)}` : "—"
 }
 
 export function liveAnswerLead(query: string, r: HeroVerdict | null): string | null {
   if (!isUsableVerdict(r)) return null
-  return `Should you buy ${query} to resell? ${r.verdict}. Most to pay after fees: ${fmtBuyBelow(r.buy_below)}.`
+  return `Should you buy ${query} to resell? ${r.verdict}. Max buy price: ${fmtBuyBelow(r.buy_below)}, for ~30% margin before fees.`
 }
 
 /**
@@ -269,12 +269,12 @@ export function modelFaqs(opts: {
 }): FaqItem[] {
   const { model: m, live, sold, avg } = opts
   const buyBelowDef =
-    "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. " +
+    "A buy-below price is the most you can pay for an item for ~30% margin before fees. " +
     "Resale IQ models it as average asking price at departure × 0.70. " +
     "It is a sourcing ceiling, not a promised profit. Method: https://resaleiq.dev/glossary/buy-below-market"
 
   const shouldBuy = m.freeCheck && isUsableVerdict(live)
-    ? `Should you buy ${m.query} to resell? ${live!.verdict}. Most to pay after fees: ${fmtBuyBelow(live!.buy_below)}. Tracked markets are Spain, France, Germany, Italy and Portugal — not the UK.`
+    ? `Should you buy ${m.query} to resell? ${live!.verdict}. Max buy price: ${fmtBuyBelow(live!.buy_below)}, for ~30% margin before fees. Tracked markets are Spain, France, Germany, Italy and Portugal — not the UK.`
     : m.freeCheck
       ? `Should you buy ${m.query} to resell? This model is a free sample on https://resaleiq.dev/tools — BUY, WATCH or SKIP and buy-below when the live check returns. Other models need Starter at €19 a month.`
       : `Should you buy ${m.query} to resell? Item-level BUY, WATCH or SKIP and the buy-below for this model start at Starter €19 a month at https://resaleiq.dev/pricing. ${m.brand} weekly demand stays public at https://resaleiq.dev/data and https://resaleiq.dev/flip/${m.brandSlug}. This page is not a free check.`
@@ -358,7 +358,7 @@ export function brandHubFaqs(opts: {
     {
       q: "What is a buy-below price?",
       a:
-        "A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees. " +
+        "A buy-below price is the most you can pay for an item for ~30% margin before fees. " +
         "Resale IQ models it as average asking price at departure × 0.70. " +
         "It is a sourcing ceiling, not a promised profit. Method: https://resaleiq.dev/glossary/buy-below-market",
     },

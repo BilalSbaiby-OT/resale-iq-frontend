@@ -122,7 +122,7 @@ export const POSTS_128: BlogPost[] = [
       {
         q: "What is a buy-below price?",
         a:
-          "A buy-below price is the most you can pay for an item and still clear a target margin after selling fees. Resale IQ models it as: average departure price × 0.70 (30% margin target). For the New Balance 530, that is €38.51 × 0.70 = €26.96. It is a sourcing ceiling, not a profit promise — condition, size and timing all affect the actual outcome.",
+          "A buy-below price is the most you can pay for an item for ~30% margin before fees. Resale IQ models it as: average departure price × 0.70 (30% margin target). For the New Balance 530, that is €38.51 × 0.70 = €26.96. It is a sourcing ceiling, not a profit promise — condition, size and timing all affect the actual outcome.",
       },
       {
         q: "Is the New Balance 530 worth buying to resell on Vinted?",

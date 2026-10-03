@@ -110,7 +110,7 @@ export default async function CategoryHubPage() {
       q: "How do I use category rankings with buy-below?",
       a:
         "Category volume tells you demand exists — the busiest categories recycle cash; slower, higher-priced ones usually carry more margin per item. " +
-        "Buy-below is the most you should pay for a specific listing after fees. Rankings on this page are not a buy-below. " +
+        "Buy-below is the most you should pay for a specific listing, for ~30% margin before fees. Rankings on this page are not a buy-below. " +
         "Item-level BUY, WATCH or SKIP plus buy-below start at Starter €19. Try the checker at https://resaleiq.dev/tools; most items unlock with Starter. Sell-through and sizes stay on a plan. " +
         "Weekly brand volumes stay public at https://resaleiq.dev/data. Brand rankings are at https://resaleiq.dev/flip. " +
         "Unlimited checks and Deal Scanner start on Starter at https://resaleiq.dev/pricing.",

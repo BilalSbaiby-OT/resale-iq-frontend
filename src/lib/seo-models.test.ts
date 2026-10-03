@@ -170,7 +170,8 @@ test("descriptions never invent a buy-below and never call a paid model free", (
     live: { verdict: "WATCH", buy_below: 24.35, product: "Adidas Samba" },
   })
   assert.match(live, /WATCH/)
-  assert.match(live, /€24\.35/)
+  assert.match(live, /Max buy price: €24, for ~30% margin before fees/)
+  assert.doesNotMatch(live, /€24\.35|after fees/)
   assert.doesNotMatch(live, /Gazelle/)
 
   const missing = modelPageDescription({ model: samba, sold: null, avg: null, live: null })
@@ -210,7 +211,7 @@ test("demand paragraphs use brand warehouse figures, never a fake model sold_7d"
 test("null buy-below is an em-dash, never €0", () => {
   assert.equal(fmtBuyBelow(null), "—")
   assert.equal(fmtBuyBelow(0), "—")
-  assert.equal(fmtBuyBelow(24.3), "€24.30")
+  assert.equal(fmtBuyBelow(24.3), "€24")
   assert.equal(liveAnswerLead("Adidas Samba", null), null)
   assert.equal(liveAnswerLead("Adidas Samba", { verdict: "WATCH" }), null)
 })

@@ -27,7 +27,7 @@ const SELL_LEAD =
   "Vinted sell-through is the share of watched listings that left the shelf in a period: watched departures divided by those departures plus items still listed. It is a demand-versus-supply share — not weekly turns, which can exceed 100% and are not a sell-through rate."
 
 const BUY_BELOW_MARKET_LEAD =
-  "A buy-below on the market is the most you can pay for a typical comparable and still leave room for a healthy margin after selling fees. Resale IQ models it as average asking price at departure × 0.70. It is a sourcing ceiling derived from watched listings, not a promised profit."
+  "A buy-below on the market is the most you can pay for a typical comparable for ~30% margin before fees. Resale IQ models it as average asking price at departure × 0.70. It is a sourcing ceiling derived from watched listings, not a promised profit."
 
 const DEAD_STOCK_LEAD =
   "Dead stock is inventory that does not clear: the listing sits, capital sits, and a markdown — not a better photo — is usually what eventually moves it. Volume without sell-through is how dead stock hides in a busy category."

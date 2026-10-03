@@ -337,7 +337,7 @@ export default async function BrandFlipPage(
         </p>
         <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8, marginBottom: 18 }}>
           {[
-            "Max buy price per model — the number that targets a healthy margin after fees",
+            "Max buy price per model — the number that targets ~30% margin before fees",
             "Sell-through rate — how much of what we watched has left the shelf, model by model",
             // "which models are heating up" was a trend claim. Momentum is a
             // percentile rank of each model's recent share of its own watched

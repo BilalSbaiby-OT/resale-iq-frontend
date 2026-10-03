@@ -786,7 +786,7 @@ export const copy = {
     howToHeading: "Comment l'utiliser",
     howToSteps: [
       "Saisissez une marque et un modèle — ou collez le titre d'une annonce.",
-      "Lisez ACHETER, SURVEILLER ou ÉCARTER et le maximum que vous pouvez payer après frais.",
+      "Lisez ACHETER, SURVEILLER ou ÉCARTER et le maximum à payer pour ~30 % de marge avant frais.",
       "N'achetez que sous ce prix d'achat max.",
     ],
     howToCoverage:
@@ -1248,7 +1248,7 @@ export const copy = {
     howToHeading: "Cómo usarlo",
     howToSteps: [
       "Escribe una marca y un modelo — o pega el título de un anuncio.",
-      "Lee COMPRA, OBSERVA o DESCARTA y lo máximo que puedes pagar tras comisiones.",
+      "Lee COMPRA, OBSERVA o DESCARTA y lo máximo que puedes pagar para ~30 % de margen antes de comisiones.",
       "Compra solo por debajo de ese precio máximo.",
     ],
     howToCoverage:
@@ -1712,7 +1712,7 @@ export const copy = {
     howToHeading: "So nutzt du es",
     howToSteps: [
       "Gib Marke und Modell ein — oder füge den Titel eines Angebots ein.",
-      "Lies KAUFEN, BEOBACHTEN oder VERWERFEN und den Höchstpreis nach Gebühren.",
+      "Lies KAUFEN, BEOBACHTEN oder VERWERFEN und den Höchstpreis für ~30 % Marge vor Gebühren.",
       "Kaufe nur unter dieser Kaufobergrenze.",
     ],
     howToCoverage:
@@ -2175,7 +2175,7 @@ export const copy = {
     howToHeading: "Come si usa",
     howToSteps: [
       "Scrivi una marca e un modello — o incolla il titolo di un annuncio.",
-      "Leggi COMPRA, OSSERVA o SCARTA e il massimo che puoi pagare dopo le commissioni.",
+      "Leggi COMPRA, OSSERVA o SCARTA e il massimo che puoi pagare per un margine di ~30% prima delle commissioni.",
       "Compra solo sotto quel prezzo massimo.",
     ],
     howToCoverage:
@@ -2636,7 +2636,7 @@ export const copy = {
     howToHeading: "Como usar",
     howToSteps: [
       "Escreve uma marca e um modelo — ou cola o título de um anúncio.",
-      "Lê COMPRAR, OBSERVAR ou DESCARTAR e o máximo que podes pagar após taxas.",
+      "Lê COMPRAR, OBSERVAR ou DESCARTAR e o máximo que podes pagar para ~30% de margem antes de comissões.",
       "Compra só abaixo desse preço máximo.",
     ],
     howToCoverage:

@@ -76,7 +76,7 @@ test("/data keeps Dataset schema and adds FAQPage", () => {
 test("definedTermJsonLd emits a parseable DefinedTerm", () => {
   const schema = definedTermJsonLd({
     name: "Buy-below price",
-    description: "The most you can pay and still keep a healthy margin after fees.",
+    description: "The most you can pay for ~30% margin before fees.",
     url: "https://resaleiq.dev/blog/buy-below-price-explained",
   })
   assert.equal(schema["@type"], "DefinedTerm")
@@ -139,11 +139,11 @@ function postSlice(src: string, slug: string, nextSlug?: string): string {
 test("buy-below-price-explained ships a Buy-below price lead and FAQ", () => {
   const post = postSlice(read("data/blog-posts.ts"), "buy-below-price-explained")
   assert.match(post, /title: "Buy-Below Price: The One Number That Decides Your Profit"/)
-  assert.match(post, /The ceiling that keeps a flip profitable after fees/)
+  assert.match(post, /The ceiling that keeps a flip profitable for ~30% margin before fees/)
   assert.match(post, /name: "Buy-below price"/)
   assert.match(
     post,
-    /A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees/,
+    /A buy-below price is the most you can pay for an item for ~30% margin before fees/,
   )
   assert.match(post, /sourcing ceiling, not a promised profit/)
   assert.match(post, /average asking price at departure × 0\.70/)
@@ -163,7 +163,7 @@ test("how-to-price ships the citeable buy-below definition and matching FAQ", ()
   assert.match(post, /name: "What is a buy-below price\?"/)
   assert.match(
     post,
-    /A buy-below price is the most you can pay for an item and still leave room for a healthy margin after selling fees/,
+    /A buy-below price is the most you can pay for an item for ~30% margin before fees/,
   )
   assert.match(post, /average asking price at departure × 0\.70/)
   assert.doesNotMatch(post, /0\.95/)

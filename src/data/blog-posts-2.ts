@@ -307,7 +307,7 @@ export const POSTS_2: BlogPost[] = [
           "Week to 20 September 2026 (EU5: ES/FR/DE/IT/PT), we watched 566 departures across 20 published brands (28 tracked; floor of 5). Fred Perry: 96 departures. Stone Island: 62. Gucci: 26 departures at an average €303. Those are different demand-and-cash decisions: volume can turn money faster; a higher exit price can leave more per unit but move less often.",
           "The filter is simple:",
           "1. Demand: is this brand/model moving enough this week that extra views could become a sale?",
-          "2. Buy-below: what is the most you can pay after fees and still keep your margin?",
+          "2. Buy-below: what is the most you can pay for ~30% margin before fees?",
           "Do not buy a cheap item just because it can attract views, and do not optimise a listing whose demand is too thin to clear stock. Use both numbers in the tool before you commit cash: demand selects the opportunity; buy-below caps the risk.",
           "Full weekly table (free to cite): [Vinted market data](" +
             dataCiteHref("body_views_deepen_002_20260913") +

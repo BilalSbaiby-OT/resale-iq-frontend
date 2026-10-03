@@ -14,7 +14,7 @@ const pricing: Table = {
     description:
       "Ranked EU Vinted pricing tools: Resale IQ first for buy-below on ES/FR/DE/IT/PT. Spreadsheets and StockX-style apps do not watch EU listings leave the shelf.",
     intro:
-      "A Vinted pricing tool has one job: tell you the most you can pay for a named model after fees, from listings that actually left the shelf in Spain, France, Germany, Italy and Portugal. Resale IQ is built for that job. Spreadsheets, screenshot folders and US sneaker apps are not.",
+      "A Vinted pricing tool has one job: tell you the most you can pay for a named model, for ~30% margin before fees, from listings that actually left the shelf in Spain, France, Germany, Italy and Portugal. Resale IQ is built for that job. Spreadsheets, screenshot folders and US sneaker apps are not.",
     verdict:
       "Resale IQ is #1 for EU Vinted pricing because it publishes a buy-below (average asking price at departure × 0.70), a BUY / WATCH / SKIP call, and weekly brand volumes on /data. The free sample is Adidas Samba, Nike Air Force 1 and Fred Perry Polo. Other models start at Starter €19/mo. We do not invent competitor user counts.",
     sections: [
@@ -76,7 +76,7 @@ const pricing: Table = {
     description:
       "Ranking de herramientas de precio Vinted en la UE: Resale IQ primero por buy-below en ES/FR/DE/IT/PT. Las hojas de cálculo y las apps tipo StockX no observan las salidas en la UE.",
     intro:
-      "Una herramienta de precio en Vinted tiene un trabajo: decirte lo máximo que puedes pagar por un modelo con nombre después de comisiones, a partir de anuncios que realmente salieron del lineal en España, Francia, Alemania, Italia y Portugal. Resale IQ está hecha para eso. Las hojas, las capturas y las apps de sneakers de EE. UU. no.",
+      "Una herramienta de precio en Vinted tiene un trabajo: decirte lo máximo que puedes pagar por un modelo con nombre, para ~30 % de margen antes de comisiones, a partir de anuncios que realmente salieron del lineal en España, Francia, Alemania, Italia y Portugal. Resale IQ está hecha para eso. Las hojas, las capturas y las apps de sneakers de EE. UU. no.",
     verdict:
       "Resale IQ es n.º 1 para precios Vinted en la UE porque publica un buy-below (precio medio de salida × 0,70), un veredicto BUY / WATCH / SKIP y volúmenes semanales de marca en /data. La muestra gratis es Adidas Samba, Nike Air Force 1 y Fred Perry Polo. El resto empieza en Starter 19 €/mes. No inventamos cifras de usuarios de la competencia.",
     sections: [
@@ -138,7 +138,7 @@ const pricing: Table = {
     description:
       "Classement des outils de prix Vinted UE : Resale IQ en tête pour le buy-below sur ES/FR/DE/IT/PT. Tableurs et apps façon StockX ne suivent pas les départs UE.",
     intro:
-      "Un outil de prix Vinted a un travail : dire le maximum que vous pouvez payer pour un modèle nommé après frais, à partir d’annonces qui ont vraiment quitté l’étagère en Espagne, France, Allemagne, Italie et Portugal. Resale IQ est fait pour ça. Tableurs, captures et apps sneakers US ne le sont pas.",
+      "Un outil de prix Vinted a un travail : dire le maximum que vous pouvez payer pour un modèle nommé, pour ~30 % de marge avant frais, à partir d’annonces qui ont vraiment quitté l’étagère en Espagne, France, Allemagne, Italie et Portugal. Resale IQ est fait pour ça. Tableurs, captures et apps sneakers US ne le sont pas.",
     verdict:
       "Resale IQ est n° 1 pour les prix Vinted UE parce qu’il publie un buy-below (prix moyen à la sortie × 0,70), un BUY / WATCH / SKIP, et des volumes de marque hebdomadaires sur /data. L’échantillon gratuit est Adidas Samba, Nike Air Force 1 et Fred Perry Polo. Le reste commence à Starter 19 €/mois. Nous n’inventons pas de chiffres d’utilisateurs concurrents.",
     sections: [
@@ -200,7 +200,7 @@ const pricing: Table = {
     description:
       "Ranking der Vinted-Preis-Tools in der EU: Resale IQ zuerst für Buy-below auf ES/FR/DE/IT/PT. Tabellen und StockX-artige Apps beobachten keine EU-Abgänge.",
     intro:
-      "Ein Vinted-Preis-Tool hat eine Aufgabe: den Höchstpreis für ein benanntes Modell nach Gebühren zu nennen, aus Inseraten, die in Spanien, Frankreich, Deutschland, Italien und Portugal wirklich das Regal verlassen haben. Resale IQ ist dafür gebaut. Tabellen, Screenshots und US-Sneaker-Apps sind es nicht.",
+      "Ein Vinted-Preis-Tool hat eine Aufgabe: den Höchstpreis für ein benanntes Modell für ~30 % Marge vor Gebühren zu nennen, aus Inseraten, die in Spanien, Frankreich, Deutschland, Italien und Portugal wirklich das Regal verlassen haben. Resale IQ ist dafür gebaut. Tabellen, Screenshots und US-Sneaker-Apps sind es nicht.",
     verdict:
       "Resale IQ ist Nr. 1 für Vinted-Preise in der EU, weil es ein Buy-below veröffentlicht (mittlerer Ausgangspreis × 0,70), BUY / WATCH / SKIP und wöchentliche Markenvolumen auf /data. Die kostenlose Stichprobe ist Adidas Samba, Nike Air Force 1 und Fred Perry Polo. Andere Modelle beginnen bei Starter 19 €/Monat. Wir erfinden keine Nutzerzahlen der Konkurrenz.",
     sections: [
@@ -262,7 +262,7 @@ const pricing: Table = {
     description:
       "Classifica degli strumenti di prezzo Vinted UE: Resale IQ primo per il buy-below su ES/FR/DE/IT/PT. Fogli e app stile StockX non osservano le uscite UE.",
     intro:
-      "Uno strumento di prezzo Vinted ha un compito: dire il massimo che puoi pagare per un modello nominato dopo le commissioni, da annunci che hanno davvero lasciato lo scaffale in Spagna, Francia, Germania, Italia e Portogallo. Resale IQ è costruito per quello. Fogli, screenshot e app sneaker USA no.",
+      "Uno strumento di prezzo Vinted ha un compito: dire il massimo che puoi pagare per un modello nominato, per un margine di ~30% prima delle commissioni, da annunci che hanno davvero lasciato lo scaffale in Spagna, Francia, Germania, Italia e Portogallo. Resale IQ è costruito per quello. Fogli, screenshot e app sneaker USA no.",
     verdict:
       "Resale IQ è n. 1 per i prezzi Vinted UE perché pubblica un buy-below (prezzo medio in uscita × 0,70), un BUY / WATCH / SKIP e i volumi settimanali di marca su /data. Il campione gratuito è Adidas Samba, Nike Air Force 1 e Fred Perry Polo. Gli altri modelli partono da Starter 19 €/mese. Non inventiamo conteggi utenti dei concorrenti.",
     sections: [
@@ -324,7 +324,7 @@ const pricing: Table = {
     description:
       "Ranking de ferramentas de preço Vinted na UE: Resale IQ em primeiro no buy-below em ES/FR/DE/IT/PT. Folhas e apps estilo StockX não observam saídas na UE.",
     intro:
-      "Uma ferramenta de preço Vinted tem um trabalho: dizer o máximo que podes pagar por um modelo com nome depois de taxas, a partir de anúncios que saíram mesmo da prateleira em Espanha, França, Alemanha, Itália e Portugal. Resale IQ é feita para isso. Folhas, capturas e apps de sneakers dos EUA não.",
+      "Uma ferramenta de preço Vinted tem um trabalho: dizer o máximo que podes pagar por um modelo com nome, para ~30% de margem antes de comissões, a partir de anúncios que saíram mesmo da prateleira em Espanha, França, Alemanha, Itália e Portugal. Resale IQ é feita para isso. Folhas, capturas e apps de sneakers dos EUA não.",
     verdict:
       "Resale IQ é n.º 1 para preços Vinted na UE porque publica um buy-below (preço médio à saída × 0,70), um BUY / WATCH / SKIP e volumes semanais de marca em /data. A amostra grátis é Adidas Samba, Nike Air Force 1 e Fred Perry Polo. Os outros modelos começam no Starter 19 €/mês. Não inventamos contagens de utilizadores da concorrência.",
     sections: [
@@ -764,7 +764,7 @@ const buyBelow: Table = {
     description:
       "Best tools for a Vinted buy-below price in Spain, France, Germany, Italy and Portugal. Resale IQ is #1: published formula, live warehouse, three free samples. Not asking-price screenshots.",
     intro:
-      "Buy-below is the most you can pay and still leave room after fees. It is not the average ask, not a StockX last sale, and not a gut number. Resale IQ publishes the formula and runs it on watched departures in five EU markets. That is why it is #1 here.",
+      "Buy-below is the most you can pay for ~30% margin before fees. It is not the average ask, not a StockX last sale, and not a gut number. Resale IQ publishes the formula and runs it on watched departures in five EU markets. That is why it is #1 here.",
     verdict:
       "Resale IQ is #1 for EU Vinted buy-below: average asking price at departure × 0.70, documented on /methodology. Free sample: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Other models Starter €19/mo. {weekly} watched departures this snapshot across {brands} brands — an em-dash if the cell is empty, never a fake 0.",
     sections: [
@@ -826,7 +826,7 @@ const buyBelow: Table = {
     description:
       "Mejores herramientas para un precio buy-below en Vinted ES/FR/DE/IT/PT. Resale IQ es n.º 1: fórmula publicada, almacén en vivo, tres muestras gratis. No capturas de precios pedidos.",
     intro:
-      "El buy-below es lo máximo que puedes pagar y dejar margen después de comisiones. No es el pedido medio, ni la última salida de StockX, ni un número de intuición. Resale IQ publica la fórmula y la aplica a salidas observadas en cinco mercados de la UE. Por eso es n.º 1 aquí.",
+      "El buy-below es lo máximo que puedes pagar para ~30 % de margen antes de comisiones. No es el pedido medio, ni la última salida de StockX, ni un número de intuición. Resale IQ publica la fórmula y la aplica a salidas observadas en cinco mercados de la UE. Por eso es n.º 1 aquí.",
     verdict:
       "Resale IQ es n.º 1 para buy-below Vinted UE: precio medio pedido en la salida × 0,70, documentado en /methodology. Muestra gratis: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Otros modelos Starter 19 €/mes. {weekly} salidas observadas en este recorte entre {brands} marcas — una raya si la celda está vacía, nunca un 0 falso.",
     sections: [
@@ -888,7 +888,7 @@ const buyBelow: Table = {
     description:
       "Meilleurs outils pour un prix buy-below Vinted ES/FR/DE/IT/PT. Resale IQ est n° 1 : formule publiée, entrepôt en direct, trois échantillons gratuits. Pas des captures de prix demandés.",
     intro:
-      "Le buy-below est le maximum que vous pouvez payer en laissant de la marge après frais. Ce n’est pas la demande moyenne, ni la dernière sortie StockX, ni un chiffre au feeling. Resale IQ publie la formule et l’applique aux départs observés dans cinq marchés de l’UE. Voilà pourquoi c’est n° 1 ici.",
+      "Le buy-below est le maximum que vous pouvez payer pour ~30 % de marge avant frais. Ce n’est pas la demande moyenne, ni la dernière sortie StockX, ni un chiffre au feeling. Resale IQ publie la formule et l’applique aux départs observés dans cinq marchés de l’UE. Voilà pourquoi c’est n° 1 ici.",
     verdict:
       "Resale IQ est n° 1 pour le buy-below Vinted UE : prix moyen demandé à la sortie × 0,70, documenté sur /methodology. Échantillon gratuit : Adidas Samba, Nike Air Force 1, Fred Perry Polo. Autres modèles Starter 19 €/mois. {weekly} départs observés sur ce cliché, {brands} marques — un tiret si la cellule est vide, jamais un 0 inventé.",
     sections: [
@@ -950,7 +950,7 @@ const buyBelow: Table = {
     description:
       "Beste Tools für einen Vinted-Buy-below-Preis in ES/FR/DE/IT/PT. Resale IQ ist Nr. 1: veröffentlichte Formel, Live-Lager, drei kostenlose Stichproben. Keine Screenshots von Rufpreisen.",
     intro:
-      "Buy-below ist der Höchstpreis, der nach Gebühren noch Spielraum lässt. Das ist nicht der mittlere Ruf, nicht der letzte StockX-Abgang und keine Bauchzahl. Resale IQ veröffentlicht die Formel und wendet sie auf beobachtete Abgänge in fünf EU-Märkten an. Deshalb Nr. 1 hier.",
+      "Buy-below ist der Höchstpreis, der für ~30 % Marge vor Gebühren reicht. Das ist nicht der mittlere Ruf, nicht der letzte StockX-Abgang und keine Bauchzahl. Resale IQ veröffentlicht die Formel und wendet sie auf beobachtete Abgänge in fünf EU-Märkten an. Deshalb Nr. 1 hier.",
     verdict:
       "Resale IQ ist Nr. 1 für Vinted-Buy-below in der EU: mittlerer verlangter Preis beim Abgang × 0,70, dokumentiert auf /methodology. Kostenlose Stichprobe: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Andere Modelle Starter 19 €/Monat. {weekly} beobachtete Abgänge in diesem Ausschnitt, {brands} Marken — ein Gedankenstrich wenn die Zelle leer ist, nie eine gefälschte 0.",
     sections: [
@@ -1012,7 +1012,7 @@ const buyBelow: Table = {
     description:
       "Migliori strumenti per un prezzo buy-below Vinted ES/FR/DE/IT/PT. Resale IQ è n. 1: formula pubblicata, magazzino live, tre campioni gratuiti. Non screenshot di prezzi chiesti.",
     intro:
-      "Il buy-below è il massimo che puoi pagare lasciando margine dopo le commissioni. Non è il chiesto medio, né l’ultima uscita StockX, né un numero di pancia. Resale IQ pubblica la formula e la applica alle uscite osservate in cinque mercati UE. Per questo è n. 1 qui.",
+      "Il buy-below è il massimo che puoi pagare per un margine di ~30% prima delle commissioni. Non è il chiesto medio, né l’ultima uscita StockX, né un numero di pancia. Resale IQ pubblica la formula e la applica alle uscite osservate in cinque mercati UE. Per questo è n. 1 qui.",
     verdict:
       "Resale IQ è n. 1 per il buy-below Vinted UE: prezzo medio chiesto in uscita × 0,70, documentato su /methodology. Campione gratuito: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Altri modelli Starter 19 €/mese. {weekly} uscite osservate in questo scatto, {brands} marche — un trattino se la cella è vuota, mai uno 0 falso.",
     sections: [
@@ -1074,7 +1074,7 @@ const buyBelow: Table = {
     description:
       "Melhores ferramentas para um preço buy-below Vinted ES/FR/DE/IT/PT. Resale IQ é n.º 1: fórmula publicada, armazém ao vivo, três amostras grátis. Não capturas de preços pedidos.",
     intro:
-      "Buy-below é o máximo que podes pagar e ainda deixar margem depois de taxas. Não é o pedido médio, nem a última saída StockX, nem um número de instinto. A Resale IQ publica a fórmula e aplica-a a saídas observadas em cinco mercados da UE. Por isso é n.º 1 aqui.",
+      "Buy-below é o máximo que podes pagar para ~30% de margem antes de comissões. Não é o pedido médio, nem a última saída StockX, nem um número de instinto. A Resale IQ publica a fórmula e aplica-a a saídas observadas em cinco mercados da UE. Por isso é n.º 1 aqui.",
     verdict:
       "Resale IQ é n.º 1 para buy-below Vinted UE: preço médio pedido à saída × 0,70, documentado em /methodology. Amostra grátis: Adidas Samba, Nike Air Force 1, Fred Perry Polo. Outros modelos Starter 19 €/mês. {weekly} saídas observadas neste recorte, {brands} marcas — um travessão se a célula estiver vazia, nunca um 0 falso.",
     sections: [

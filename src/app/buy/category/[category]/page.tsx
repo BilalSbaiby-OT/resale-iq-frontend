@@ -54,7 +54,7 @@ async function generateMetadataRaw({
   const title = `Best Brands for ${categoryName} Resale — Buy-Below Prices | ResaleIQ`
   const description =
     `${rows.length} brands tracked for ${categoryName} resale on Vinted. ` +
-    (top ? `${top.brand.brand} leads — buy below ${fmtEurBuy(top.cat.buy_below)} to keep a 30% margin. ` : "") +
+    (top ? `${top.brand.brand} leads — buy below ${fmtEurBuy(top.cat.buy_below)} for ~30% margin before fees. ` : "") +
     `${fmtDeparturesBuy(total30d)} listings left the shelf in 30 days.`
 
   return {
@@ -83,7 +83,7 @@ export default async function BuyCategoryPage({
     `${rows.length} brands had ${categoryName.toLowerCase()} leave the shelf on Vinted in the 30 days to ${buyDataDate()}. ` +
     `Combined, that is ${fmtDeparturesBuy(total30d)} watched departures across Spain, France, Germany, Italy and Portugal. ` +
     (top
-      ? `${top.brand.brand} leads the ${lower} ranking — buy below ${fmtEurBuy(top.cat.buy_below)} to keep a 30% margin. `
+      ? `${top.brand.brand} leads the ${lower} ranking — buy below ${fmtEurBuy(top.cat.buy_below)} for ~30% margin before fees. `
       : "") +
     `These are watched departures, not confirmed sales and not active listings.`
 

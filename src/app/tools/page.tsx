@@ -47,7 +47,7 @@ async function generateMetadataRaw(
   const cite = formatTeaserCite(q ?? "", teaser)
   if (itemMeta && cite && teaser?.verdict && teaser.buy_below != null) {
     const description =
-      `Should you buy ${q?.trim()} to resell? ${teaser.verdict}. Most to pay after fees: €${Number(teaser.buy_below).toFixed(2)}. Other models Starter €19/mo.`
+      `Should you buy ${q?.trim()} to resell? ${teaser.verdict}. Max buy price: €${Math.round(Number(teaser.buy_below))}, for ~30% margin before fees. Other models Starter €19/mo.`
     return {
       ...itemMeta,
       description,
@@ -57,7 +57,7 @@ async function generateMetadataRaw(
   }
   if (itemMeta) return itemMeta
   const description =
-    `Should you buy this clothing model to resell? Check demand, BUY / WATCH / SKIP, and the most to pay after fees. ${tracked} listing records. Starter €19/mo.`
+    `Should you buy this clothing model to resell? Check demand, BUY / WATCH / SKIP, and the max buy price, for ~30% margin before fees. ${tracked} listing records. Starter €19/mo.`
   return {
     title: TITLE,
     description,

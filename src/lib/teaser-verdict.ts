@@ -85,10 +85,6 @@ export async function getTeaserVerdict(q: string | undefined | null): Promise<He
   return cached?.result ?? null
 }
 
-function eur(n: number): string {
-  return `€${n.toFixed(2)}`
-}
-
 /** Same rounding as the public checker (`Math.round`) so hero and result match. */
 function eurWhole(n: number): string {
   return `€${Math.round(n)}`
@@ -123,13 +119,13 @@ export function formatTeaserCite(query: string, r: HeroVerdict | null): string |
   const product = (r.product && r.product.trim()) || query
   const bits: string[] = [
     `Should I buy ${product} to resell in 2026? ${r.verdict}.`,
-    `The most to pay after fees is ${eur(r.buy_below as number)}.`,
+    `The max buy price is ${eurWhole(r.buy_below as number)}, for ~30% margin before fees.`,
   ]
   if (typeof r.sell_avg === "number" && Number.isFinite(r.sell_avg) && r.sell_avg > 0) {
-    let avg = `The watched-departure average is ${eur(r.sell_avg)}`
+    let avg = `The watched-departure average is ${eurWhole(r.sell_avg)}`
     const median = (r as HeroVerdict & { sell_median?: number }).sell_median
     if (typeof median === "number" && Number.isFinite(median) && median > 0) {
-      avg += ` (median ${eur(median)})`
+      avg += ` (median ${eurWhole(median)})`
     }
     bits.push(avg + ".")
   }

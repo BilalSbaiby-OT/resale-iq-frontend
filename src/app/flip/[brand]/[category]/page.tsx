@@ -162,8 +162,8 @@ export default async function BrandCategoryPage(
           <h2 style={{ fontSize: 20, fontWeight: 700, color: "#eef1f7", marginBottom: 10 }}>What decides whether it&apos;s profitable</h2>
           <p style={{ fontSize: 14.5, lineHeight: 1.75, marginBottom: 12 }}>
             Category demand tells you people are buying. It doesn&apos;t tell you whether <em>this</em> item, in <em>this</em> size,
-            at <em>this</em> price, will make you money. Three things decide that: the buy-below price (the most you can pay and
-            still profit after fees), the sell-through rate for the specific model, and whether the size is one that actually moves.
+            at <em>this</em> price, will make you money. Three things decide that: the buy-below price (the most you can pay
+            for ~30% margin before fees), the sell-through rate for the specific model, and whether the size is one that actually moves.
           </p>
           <p style={{ fontSize: 14.5, lineHeight: 1.75 }}>
             A strong category with the wrong size is still dead stock. That is why per-size demand matters as much as brand demand.
