@@ -42,6 +42,7 @@ import { itemDisplayName } from "@/lib/item-display-name"
 import { buyBelowLabel, BUY_LIST_UNLOCK_LABEL } from "@/lib/buy-list-display"
 import { proofStripNote, basisOfRows } from "@/lib/price-basis"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
+import { verdictWord } from "@/lib/verdict-words"
 import { makeT, N_ } from "@/lib/ui-translate"
 import type { Locale } from "@/lib/i18n"
 
@@ -173,7 +174,7 @@ export function BlogProofStrip({
                 {itemDisplayName(it.brand, it.model)}
               </span>
               <span style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
-                <span style={{ color, fontWeight: 700, fontSize: 11 }}>{it.verdict}</span>
+                <span style={{ color, fontWeight: 700, fontSize: 11 }}>{verdictWord(it.verdict, locale) ?? it.verdict}</span>
                 {price && (
                   <span style={{ color: "#30D158", fontWeight: 700, fontVariantNumeric: "tabular-nums" }}>
                     {price}

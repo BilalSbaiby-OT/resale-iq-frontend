@@ -120,24 +120,24 @@ const TOOLS_HUB: Record<Locale, ToolsHubCopy> = {
   },
   fr: {
     body:
-      `Resale IQ est une intelligence de demande pour ceux qui revendent des vêtements d'occasion. Vous trouvez la pièce. Nous vous disons à quel prix elle se revend et le maximum à payer. Saisissez une marque et un modèle ci-dessous. Nous observons les annonces quitter l'étagère sur Vinted en Espagne, France, Allemagne, Italie et Portugal — pas le Royaume-Uni. Un check renvoie BUY, WATCH ou SKIP et le prix d'achat max (70 % du prix de revente typique), compté à partir des départs observés, pas de tickets que nous n'avons pas vus. Les volumes hebdo par marque restent publics sur /data sans compte. La plupart des vérifications se débloquent avec Starter à 19 € par mois : BUY, WATCH ou SKIP, le prix d'achat max, et combien de départs observés le portent. ${freeSampleList("fr")} montrent un teaser ; le modèle suivant a généralement besoin de Starter. Nous n'écrivons pas comment publier en France. La demande est le même trend sauf si les chiffres se séparent. Résiliable à tout moment après paiement.`,
-    termName: "Prix d'achat max (buy-below)",
+      `Resale IQ est une intelligence de demande pour ceux qui revendent des vêtements d'occasion. Vous trouvez la pièce. Nous vous disons à quel prix elle se revend et le maximum à payer. Saisissez une marque et un modèle ci-dessous. Nous observons les annonces qui quittent l'étagère sur Vinted en Espagne, France, Allemagne, Italie et Portugal — pas le Royaume-Uni. Une vérification renvoie ACHETER, SURVEILLER ou ÉCARTER et le prix d'achat max (70 % du prix de revente typique), compté à partir des départs observés, pas de tickets que nous n'avons pas vus. Les volumes hebdo par marque restent publics sur /data sans compte. La plupart des vérifications se débloquent avec Starter à 19 € par mois : ACHETER, SURVEILLER ou ÉCARTER, le prix d'achat max, et combien de départs observés le portent. ${freeSampleList("fr")} montrent un teaser ; le modèle suivant a généralement besoin de Starter. Nous n'expliquons pas comment publier vos annonces en France. La demande est traitée comme une même tendance, sauf si les chiffres se séparent. Résiliable à tout moment après paiement.`,
+    termName: "Prix d'achat max",
     term:
-      "Le prix d'achat max (buy-below) est le plus que vous pouvez payer pour un article : 70 % du prix de revente typique. " +
+      "Le prix d'achat max est le plus que vous pouvez payer pour un article : 70 % du prix de revente typique. " +
       "Resale IQ le calcule comme le prix demandé moyen au départ × 0,70. " +
-      "BUY, WATCH ou SKIP plus ce chiffre commencent avec Starter à 19 € par mois.",
+      "ACHETER, SURVEILLER ou ÉCARTER plus ce chiffre commencent avec Starter à 19 € par mois.",
     faqs: [
       {
         q: "Qu'est-ce qu'un prix d'achat max ?",
         a:
-          "Le prix d'achat max (buy-below) est le plus que vous pouvez payer : 70 % du prix de revente typique. " +
-          "Resale IQ le calcule comme prix demandé moyen au départ × 0,70 et renvoie BUY, WATCH ou SKIP avec ce chiffre sur un check Starter.",
+          "Le prix d'achat max est le plus que vous pouvez payer : 70 % du prix de revente typique. " +
+          "Resale IQ le calcule comme prix demandé moyen au départ × 0,70 et renvoie ACHETER, SURVEILLER ou ÉCARTER avec ce chiffre sur une vérification Starter.",
       },
       {
         q: "Comment Resale IQ montre-t-il la demande ?",
         a:
           "La demande apparaît comme des départs observés : des annonces qui ont quitté l'étagère, pas des tickets de vente confirmés. " +
-          "Un check Starter montre combien de départs observés portent le prix d'achat max. " +
+          "Une vérification Starter montre combien de départs observés portent le prix d'achat max. " +
           "Les volumes hebdo restent publics sur https://resaleiq.dev/fr/data.",
       },
       {
@@ -149,8 +149,8 @@ const TOOLS_HUB: Record<Locale, ToolsHubCopy> = {
       {
         q: "Le vérificateur de prix Vinted est-il gratuit ?",
         a:
-          `${freeSampleList("fr")} renvoient BUY / WATCH / SKIP sur /tools sans compte. ` +
-          "Les volumes hebdo restent publics sur https://resaleiq.dev/fr/data. Les autres checks article commencent avec Starter à 19 € par mois.",
+          `${freeSampleList("fr")} renvoient ACHETER / SURVEILLER / ÉCARTER sur /tools sans compte. ` +
+          "Les volumes hebdo restent publics sur https://resaleiq.dev/fr/data. Les autres vérifications d'article commencent avec Starter à 19 € par mois.",
       },
       {
         q: "Que débloque Starter ?",

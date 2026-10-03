@@ -111,9 +111,10 @@ export function signalDots(s: SignalStrength): string {
   return "●".repeat(s) + "○".repeat(3 - s)
 }
 
-/** "€42–€58", or null when there is no range to show. */
-export function rangeText(h: HonestOutput | null | undefined): string | null {
+/** "€42–€58" (en) / "42–58 €" (every other locale), or null when there is no range to show. */
+export function rangeText(h: HonestOutput | null | undefined, locale: Locale = "en"): string | null {
   if (!h || h.range_low_eur == null || h.range_high_eur == null) return null
+  if (locale !== "en") return `${h.range_low_eur}–${h.range_high_eur}\u00A0€`
   return `€${h.range_low_eur}–€${h.range_high_eur}`
 }
 

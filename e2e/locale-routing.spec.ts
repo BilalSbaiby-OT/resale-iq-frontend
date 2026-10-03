@@ -377,3 +377,55 @@ test("landing_view fires on /es, not only on /", async ({ page }) => {
 test("signup_started does not fire on a non-register page", async ({ page }) => {
   expect(await funnelEvents(page, "/es/pricing")).not.toContain("signup_started")
 })
+
+// ── TikTok bio link /tt (2026-10-03). It used to 307 to /check?utm_* and /check
+// kept only ?q=, so every UTM was dropped and a French visitor got English.
+test("/tt keeps the whole query string and never relabels a tagged link", async ({ request }) => {
+  const res = await request.get("/tt?utm_source=tiktok&utm_medium=paid&utm_campaign=fr60&utm_content=A&q=Adidas%20Samba", { maxRedirects: 0 })
+  expect(res.status()).toBe(307)
+  const loc = new URL(res.headers()["location"], "http://x")
+  expect(loc.pathname).toBe("/tools")
+  expect(Object.fromEntries(loc.searchParams)).toEqual({
+    utm_source: "tiktok", utm_medium: "paid", utm_campaign: "fr60", utm_content: "A", q: "Adidas Samba",
+  })
+  const other = await request.get("/tt?utm_source=x", { maxRedirects: 0 })
+  expect(new URL(other.headers()["location"], "http://x").searchParams.get("utm_source")).toBe("x")
+})
+
+test("/tt with no query adds the bio-link defaults", async ({ request }) => {
+  const res = await request.get("/tt", { maxRedirects: 0 })
+  const loc = new URL(res.headers()["location"], "http://x")
+  expect(loc.pathname).toBe("/tools")
+  expect(loc.searchParams.get("utm_source")).toBe("tiktok")
+  expect(loc.searchParams.get("utm_medium")).toBe("bio")
+})
+
+test("/tt sends a French browser to /fr/tools with the query intact", async ({ request }) => {
+  const res = await request.get("/tt?utm_source=tiktok&utm_content=A", { maxRedirects: 0, headers: { "accept-language": "fr-FR,fr;q=0.9,en;q=0.5" } })
+  expect(res.status()).toBe(307)
+  const loc = new URL(res.headers()["location"], "http://x")
+  expect(loc.pathname).toBe("/fr/tools")
+  expect(loc.searchParams.get("utm_content")).toBe("A")
+  const en = await request.get("/tt", { maxRedirects: 0, headers: { "accept-language": "en-GB,fr;q=0.5" } })
+  expect(new URL(en.headers()["location"], "http://x").pathname).toBe("/tools")
+})
+
+// ── French ad landing: a ?q= deep link asks the question, shows the answer, keeps the UTMs.
+test("/fr/tools?q=… auto-runs the check in French and keeps the UTMs for attribution", async ({ page }) => {
+  const tracked: string[] = []
+  page.on("request", (r) => { if (r.url().includes("/api/track") && r.method() === "POST") tracked.push(r.postData() ?? "") })
+  await page.goto("/fr/tools?q=Adidas%20Samba&utm_source=tiktok&utm_medium=paid&utm_campaign=fr60&utm_content=A")
+  await expect(page.getByText("C'était un article de démonstration public.")).toBeVisible({ timeout: 20_000 })
+  const field = page.getByRole("textbox", { name: "Article à vérifier" })
+  await expect(field).toHaveValue("Adidas Samba")
+  expect(page.url()).toContain("utm_source=tiktok")
+  await expect.poll(() => tracked.some((b) => b.includes("fr60")), { timeout: 10_000 }).toBeTruthy()
+  const body = await page.locator("main").innerText()
+  for (const en of ["Frequently asked questions", "Get free list", "Typical Vinted exit", "That was a public demo item", "Margin per flip"]) {
+    expect(body).not.toContain(en)
+  }
+  expect(body).not.toMatch(/→ ~€\d+ margin/)
+  expect(body).not.toMatch(/Should I buy|max buy price|BUY|WATCH|SKIP/)
+  // The answer is on screen without a manual scroll: the deep-link auto-run scrolled the checker up.
+  await expect.poll(() => page.evaluate(() => Math.round(document.querySelector("input[aria-label=\"Article à vérifier\"]")!.getBoundingClientRect().top)), { timeout: 8_000 }).toBeLessThan(200)
+})

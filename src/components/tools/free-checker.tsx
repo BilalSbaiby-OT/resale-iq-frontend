@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { Lock, Unlock, Search, Loader2 } from "lucide-react"
 import { TRIAL_LIMITS_SHORT_BY_LOCALE } from "@/lib/trial-copy"
@@ -38,7 +38,8 @@ import { collectVerdictMetrics, hasVerdictIntelligence, type ReconstructedSignal
 import { formatStrPctString } from "@/lib/str-pct"
 import { verdictWord, confidenceBand, categoryName, localizeConfidenceNote } from "@/lib/verdict-words"
 import { trackEvent } from "@/lib/analytics"
-import { makeT } from "@/lib/ui-translate"
+import { makeT, fmtEur } from "@/lib/ui-translate"
+import { TOOLS_LANDING_COPY } from "@/lib/tools-landing-copy"
 
 // 10s: long enough for a real answer (matches the extension's own budget,
 // extension/background.js), short enough that a hung request — the PENDING
@@ -176,8 +177,10 @@ const VERDICT_COLOR: Record<string, string> = {
   OVERSUPPLIED: "#FF453A",
 }
 
-function money(n: number | null | undefined) {
-  return n != null && Number.isFinite(n) ? `€${Math.round(n)}` : "—"
+// English keeps "€21"; every other locale prints its own euro format ("21 €").
+function money(n: number | null | undefined, locale: Locale = "en") {
+  if (n == null || !Number.isFinite(n)) return "—"
+  return locale === "en" ? `€${Math.round(n)}` : fmtEur(locale, Math.round(n))
 }
 
 /**
@@ -384,7 +387,7 @@ function VerdictAlternatives({
             <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 3, flexShrink: 0 }}>
               {alt.avg_price_eur != null && (
                 <span style={{ fontSize: 12.5, fontWeight: 600, color: "#EEF1F7", fontVariantNumeric: "tabular-nums" }}>
-                  {t.alternativesAvgPrice(`€${Math.round(alt.avg_price_eur)}`)}
+                  {t.alternativesAvgPrice(money(alt.avg_price_eur, locale))}
                 </span>
               )}
               {/* buy_below_locked:true — price is paid-only, show lock label, never leak value */}
@@ -494,6 +497,8 @@ export function FreeChecker({
 }) {
   const tx = makeT(locale)
   const t = copy[locale].checker
+  const bridgeCopy = TOOLS_LANDING_COPY[locale].bridge
+  const rootRef = useRef<HTMLDivElement>(null)
   const resolvedPlaceholder = placeholder ?? `${t.placeholderPrefix} ${FREE_SAMPLES.join(", ")}`
   const { user, checkAuth } = useAuthStore()
   const [sessionProbed, setSessionProbed] = useState(false)
@@ -514,6 +519,7 @@ export function FreeChecker({
   // Conflating the two would tell someone their count is untouched when it
   // might not be. See docs/product/SUPPORT-VOICE.md §4.
   const [timedOut, setTimedOut] = useState(false)
+  const [scrollToResult, setScrollToResult] = useState(false)
 
   useEffect(() => {
     void checkAuth().finally(() => {
@@ -594,7 +600,25 @@ export function FreeChecker({
   // redirected here, or an LLM citation links /tools?q=Model). initialResult means
   // a sample is seeded server-side; don't auto-run over it.
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { if (initialQuery && !initialResult) run(initialQuery, flowProp ?? flowFromSrc(src)) }, [])
+  useEffect(() => {
+    if (initialQuery && !initialResult) {
+      // A paid-ad / citation deep link lands with the question already asked:
+      // bring the answer into view once it arrives (card variant only; the
+      // homepage hero never scrolls itself).
+      if (variant === "card") setScrollToResult(true)
+      run(initialQuery, flowProp ?? flowFromSrc(src))
+    }
+  }, [])
+
+  // Scroll the checker (input + answer) to the top of the screen once the
+  // deep-linked auto-run has settled. Runs once; typed searches never scroll.
+  useEffect(() => {
+    if (!scrollToResult || loading) return
+    if (!res && !err && !timedOut) return
+    setScrollToResult(false)
+    const reduce = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+    rootRef.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" })
+  }, [scrollToResult, loading, res, err, timedOut])
 
   // O3 (founder override): the verdict is shown exactly as computed; evidence
   // strength is the Signal strength meter inside HonestNumbers.
@@ -611,7 +635,7 @@ export function FreeChecker({
   )
   const intelValue = (row: (typeof intel)[number]): string =>
     row.id === "buy_below" || row.id === "sell_avg"
-      ? money(row.numeric)
+      ? money(row.numeric, locale)
       : fmtCount(row.numeric)
   const hasIntel = res ? hasVerdictIntelligence(res) : false
   // Gated / present / genuinely unmeasured — three states, never collapsed
@@ -711,7 +735,7 @@ export function FreeChecker({
     VERDICT_CONTEXT_BRIDGE_VERDICTS.includes(res.verdict)
 
   return (
-    <div style={hero ? { background: "transparent", padding: 0 } : { background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 14, padding: 20 }}>
+    <div ref={rootRef} style={hero ? { background: "transparent", padding: 0 } : { background: "var(--color-surface)", border: "1px solid var(--color-border-ui)", borderRadius: 14, padding: 20 }}>
       {/* WebMCP: one shared money tool for /tools and /tools/vinted-price-checker
           (same FreeChecker). Field name is `query`. No toolautosubmit. */}
       <form
@@ -890,7 +914,7 @@ export function FreeChecker({
                       }}>
                         {[
                           `${c.live_listings.toLocaleString("en-GB")} listed`,
-                          money(c.avg_price_eur),
+                          money(c.avg_price_eur, locale),
                         ].filter(Boolean).join(" · ")}
                       </span>
                     </div>
@@ -960,7 +984,7 @@ export function FreeChecker({
                     >
                       <span style={{ fontSize: 13, color: "var(--color-text-primary)" }}>{a.category}</span>
                       <span style={{ fontSize: 12.5, color: "var(--color-text-secondary)" }}>
-                        {money(a.avg_price_eur)} {t.avg}
+                        {money(a.avg_price_eur, locale)} {t.avg}
                       </span>
                     </div>
                   ))}
@@ -1156,7 +1180,7 @@ export function FreeChecker({
               {(hasPrices || intel.some((r) => r.id === "buy_below") || strState !== "absent") && (
                 <div data-testid="riq-answer-rows" style={{ marginTop: "var(--space-2)", paddingTop: "var(--space-2)", borderTop: "1px solid var(--color-hairline)", display: "grid", gap: "var(--space-1)", maxWidth: "min(100%, 420px)" }}>
                   {intel.filter((r) => r.id === "buy_below").map((r) => (
-                    <AnswerRow key="buy" label={t.buyBelow} value={money(r.numeric)} />
+                    <AnswerRow key="buy" label={t.buyBelow} value={money(r.numeric, locale)} />
                   ))}
                   {strState === "value" ? (
                     <AnswerRow label={t.sellThrough} value={formatSellThrough(res.sell_through_rate!)} />
@@ -1313,12 +1337,12 @@ export function FreeChecker({
             >
               <p style={{ fontSize: 12.5, color: "var(--color-text-secondary)", margin: "0 0 10px", lineHeight: 1.5 }}>
                 {res!.verdict === "BUY" || res!.verdict === "PROVISIONAL" || res!.verdict === "PROVISIONAL_PRICE"
-                  ? "This item is a buy. Starter shows the buy-below price and weekly demand for every item you source — 8,400+ models."
+                  ? bridgeCopy.ctxBuy
                   : res!.verdict === "WATCH"
-                  ? "Worth watching. Starter unlocks the exact buy-below price and demand trends for every item you check — €19/mo."
+                  ? bridgeCopy.ctxWatch
                   : res!.verdict === "BRAND_AVERAGE"
-                  ? "You saw category averages. Starter adds per-model buy-below prices for every specific item you pick."
-                  : "Smart pass — you just saved yourself a bad purchase. Starter shows what IS moving in your sourcing range."}
+                  ? bridgeCopy.ctxBrand
+                  : bridgeCopy.ctxSkip}
               </p>
               <GuestCheckoutButton
                 locale={locale}

@@ -15,6 +15,7 @@
 import { useState } from "react"
 import { GuestCheckoutButton } from "@/components/ui/guest-checkout-button"
 import type { Locale } from "@/lib/i18n"
+import { TOOLS_LANDING_COPY } from "@/lib/tools-landing-copy"
 
 interface DigestSubscribeProps {
   /** The query the visitor just ran (stored as GDPR source context). */
@@ -35,13 +36,14 @@ export function DigestSubscribe({ query, verdictSummary, locale = "en" }: Digest
   const [email, setEmail] = useState("")
   const [state, setState] = useState<SubmitState>("idle")
   const [inlineErr, setInlineErr] = useState("")
+  const d = TOOLS_LANDING_COPY[locale].digest
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     setInlineErr("")
 
     if (!isValidEmail(email)) {
-      setInlineErr("Enter a valid email address.")
+      setInlineErr(d.invalidEmail)
       return
     }
 
@@ -88,7 +90,7 @@ export function DigestSubscribe({ query, verdictSummary, locale = "en" }: Digest
         }}
       >
         <div style={{ marginBottom: 10 }}>
-          ✓ You&apos;re in — next email lands with next month&apos;s list.
+          {d.success}
         </div>
         {/* H93 CRO: email typed → highest-intent moment → bridge to paid plan.
             Visitor just confirmed their email address; pre-fill Stripe so they
@@ -120,7 +122,7 @@ export function DigestSubscribe({ query, verdictSummary, locale = "en" }: Digest
           color: "var(--color-text-dim, #5b6b8c)",
         }}
       >
-        <div style={{ marginBottom: 10 }}>Already subscribed.</div>
+        <div style={{ marginBottom: 10 }}>{d.already}</div>
         {/* H93: same bridge for already-subscribed visitors — they know the product */}
         <GuestCheckoutButton
           locale={locale}
@@ -153,7 +155,7 @@ export function DigestSubscribe({ query, verdictSummary, locale = "en" }: Digest
           lineHeight: 1.5,
         }}
       >
-        Monthly buy list by email — 1 email a month, unsubscribe anytime.
+        {d.offer}
       </p>
 
       <form
@@ -164,8 +166,8 @@ export function DigestSubscribe({ query, verdictSummary, locale = "en" }: Digest
         <div style={{ flex: "1 1 200px", display: "flex", flexDirection: "column", gap: 4 }}>
           <input
             type="email"
-            aria-label="Email address for monthly buy list"
-            placeholder="you@example.com"
+            aria-label={d.ariaLabel}
+            placeholder={d.placeholder}
             value={email}
             onChange={(e) => {
               setEmail(e.target.value)
@@ -199,7 +201,7 @@ export function DigestSubscribe({ query, verdictSummary, locale = "en" }: Digest
               role="alert"
               style={{ fontSize: 12, color: "#FF453A", lineHeight: 1.4 }}
             >
-              Something went wrong — try again.
+              {d.error}
             </span>
           )}
         </div>
@@ -221,7 +223,7 @@ export function DigestSubscribe({ query, verdictSummary, locale = "en" }: Digest
             flexShrink: 0,
           }}
         >
-          {state === "submitting" ? "…" : "Get free list"}
+          {state === "submitting" ? "…" : d.cta}
         </button>
       </form>
 
@@ -234,7 +236,7 @@ export function DigestSubscribe({ query, verdictSummary, locale = "en" }: Digest
           lineHeight: 1.5,
         }}
       >
-        1 email a month. Unsubscribe anytime.
+        {d.consent}
       </p>
     </div>
   )

@@ -87,3 +87,18 @@ test("/tools SSR-renders the teaser cite ahead of the essay", () => {
   assert.match(src, /riq-teaser-cite/)
   assert.doesNotMatch(src, /Check it free/)
 })
+
+test("translated locales get a short answer in their own language, never the English crawler paragraph", () => {
+  const fr = formatTeaserCite("Adidas Samba", samba, "fr")
+  assert.ok(fr)
+  assert.match(fr, /^Faut-il acheter Adidas Samba pour revendre \? SURVEILLER\./)
+  assert.match(fr, /Prix d'achat max : 24\u00A0€/)
+  assert.doesNotMatch(fr, /\b(WATCH|BUY|SKIP|Should|margin|Cancel)\b/)
+  assert.doesNotMatch(fr, /ventes? confirmées?/i)
+  assert.ok(fr.split(/\s+/).length < 90)
+  for (const l of ["es", "de", "it", "pt"] as const) {
+    const c = formatTeaserCite("Adidas Samba", samba, l)
+    assert.ok(c, l)
+    assert.doesNotMatch(c, /\b(WATCH|BUY|SKIP|Should|margin)\b/, l)
+  }
+})

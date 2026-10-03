@@ -37,7 +37,8 @@ test("buy-list surfaces use the real price, the shared CTA, and itemDisplayName"
 
 test("row wording is plain signal words in every locale, no jargon, no stray space", () => {
   assert.equal(targetLabel(55.6), "target ~€56")
-  assert.equal(buyBelowLabel(37.2, "fr"), "entrée ≤ €37")
+  assert.equal(buyBelowLabel(37.2, "fr"), "prix max ≤ 37\u00A0€")
+  assert.equal(targetLabel(55.6, "fr"), "revente ~56\u00A0€")
   for (const l of ["en", "fr", "es", "de", "it", "pt"] as const) {
     const all = [targetLabel(56, l), buyBelowLabel(37, l)!].join(" ")
     assert.doesNotMatch(all, /departure|exit|wk|buy below|sold|vendid|vendu|verkauf/i, l)

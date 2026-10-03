@@ -4,7 +4,7 @@
  *  leads with the price answer (entry = max price to pay, target = resale price). */
 
 import type { Locale } from "./i18n"
-import { N_ } from "./ui-translate.ts"
+import { N_, fmtEur } from "./ui-translate.ts"
 
 /** English source; render with tx(BUY_LIST_UNLOCK_LABEL). */
 export const BUY_LIST_UNLOCK_LABEL = N_("Unlock the rest — €19/mo")
@@ -13,7 +13,7 @@ export const BUY_LIST_UNLOCK_LABEL = N_("Unlock the rest — €19/mo")
  *  typical resale price. */
 const ROW_WORDS: Record<Locale, { entry: string; target: string }> = {
   en: { entry: "entry ≤", target: "target ~" },
-  fr: { entry: "entrée ≤", target: "cible ~" },
+  fr: { entry: "prix max ≤", target: "revente ~" },
   es: { entry: "entrada ≤", target: "objetivo ~" },
   de: { entry: "Einstieg ≤", target: "Ziel ~" },
   it: { entry: "ingresso ≤", target: "obiettivo ~" },
@@ -24,10 +24,13 @@ const ROW_WORDS: Record<Locale, { entry: string; target: string }> = {
  *  never avg × 0.70. A missing number is not a price. */
 export function buyBelowLabel(buyBelow: number | null | undefined, locale: Locale = "en"): string | null {
   if (typeof buyBelow !== "number" || !Number.isFinite(buyBelow)) return null
-  return `${ROW_WORDS[locale].entry} €${Math.round(buyBelow)}`
+  const n = Math.round(buyBelow)
+  // English "€41"; every other locale prints its own euro format ("41 €").
+  return `${ROW_WORDS[locale].entry} ${locale === "en" ? `€${n}` : fmtEur(locale, n)}`
 }
 
 /** Typical resale price, no stray space after the tilde. */
 export function targetLabel(avg: number, locale: Locale = "en"): string {
-  return `${ROW_WORDS[locale].target}€${Math.round(avg)}`
+  const n = Math.round(avg)
+  return `${ROW_WORDS[locale].target}${locale === "en" ? `€${n}` : fmtEur(locale, n)}`
 }

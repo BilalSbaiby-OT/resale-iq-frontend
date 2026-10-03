@@ -115,11 +115,8 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       // and a slug may need retargeting at a later campaign.
-      {
-        source: "/tt",
-        destination: "/check?utm_source=tiktok&utm_medium=bio&utm_campaign=growth-0-500&utm_content=tt-bio",
-        permanent: false,
-      },
+      // /tt (TikTok bio) lives in src/proxy.ts: it needs the full query string and the
+      // visitor's language, neither of which a static redirect can carry.
       {
         source: "/ig",
         destination: "/check?utm_source=instagram&utm_medium=bio&utm_campaign=growth-0-500&utm_content=ig-bio",

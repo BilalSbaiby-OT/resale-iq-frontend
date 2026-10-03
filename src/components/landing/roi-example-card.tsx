@@ -17,11 +17,14 @@
  */
 import type { SsrBuyListItem } from "@/lib/ssr-buy-list"
 import { itemDisplayName } from "@/lib/item-display-name"
-import { makeT } from "@/lib/ui-translate"
+import { makeT, fmtEur } from "@/lib/ui-translate"
 import type { Locale } from "@/lib/i18n"
 
 export function RoiExampleCard({ items, locale = "en" }: { items: SsrBuyListItem[]; locale?: Locale }) {
   const tx = makeT(locale)
+  const en = locale === "en"
+  // Euros in the visitor's own format: "€21" in English, "21 €" everywhere else.
+  const eur = (n: number) => (en ? `€${n}` : fmtEur(locale, n))
   // Find best (highest avg price) free, unlocked row with a price
   const row = items
     .filter(i => !i.locked && i.avg_price_eur != null && i.avg_price_eur > 0 && i.buy_below != null)
@@ -92,29 +95,35 @@ export function RoiExampleCard({ items, locale = "en" }: { items: SsrBuyListItem
             fontSize: 14,
           }}
         >
-          <span style={{ color: "var(--color-text-dim)" }}>{tx("Buy below")}</span>
+          <span style={{ color: "var(--color-text-dim)" }}>{en ? tx("Buy below") : tx("Max buy price")}</span>
           <span style={{ fontWeight: 700, color: "var(--color-text-primary)", fontVariantNumeric: "tabular-nums" }}>
-            €{buyBelow}
+            {eur(buyBelow)}
           </span>
           <span style={{ color: "var(--color-text-dim)" }}>{tx("Typical resale price")}</span>
           <span style={{ fontWeight: 500, color: "var(--color-text-primary)", fontVariantNumeric: "tabular-nums" }}>
-            €{exit}
+            {eur(exit)}
           </span>
-          <span style={{ color: "var(--color-text-dim)", paddingTop: 4, borderTop: "1px solid var(--color-hairline)" }}>
-            {tx("Difference")}
-          </span>
-          <span
-            style={{
-              fontWeight: 700,
-              fontSize: 16,
-              color: "#30D158",
-              fontVariantNumeric: "tabular-nums",
-              paddingTop: 4,
-              borderTop: "1px solid var(--color-hairline)",
-            }}
-          >
-            ≈ €{margin}
-          </span>
+          {/* Translated surfaces: max buy price + typical resale price only. The euro
+              difference row stays English-only (no profit figure on an ad landing). */}
+          {en && (
+            <>
+            <span style={{ color: "var(--color-text-dim)", paddingTop: 4, borderTop: "1px solid var(--color-hairline)" }}>
+              {tx("Difference")}
+            </span>
+            <span
+              style={{
+                fontWeight: 700,
+                fontSize: 16,
+                color: "#30D158",
+                fontVariantNumeric: "tabular-nums",
+                paddingTop: 4,
+                borderTop: "1px solid var(--color-hairline)",
+              }}
+            >
+              ≈ €{margin}
+            </span>
+            </>
+          )}
         </div>
       </div>
       <p

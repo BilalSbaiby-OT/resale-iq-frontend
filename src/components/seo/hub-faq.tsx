@@ -10,7 +10,7 @@ import type { FaqItem } from "@/lib/faq-schema"
  * hardcoded near-white text was invisible on the light homepage.
  * `flush` drops the hub-page top margin when the parent owns section spacing.
  */
-export function HubFaq({ items, flush = false }: { items: FaqItem[]; flush?: boolean }) {
+export function HubFaq({ items, flush = false, heading = "Frequently asked questions" }: { items: FaqItem[]; flush?: boolean; heading?: string }) {
   return (
     <section className="riq-faq" data-testid="riq-faq" style={{ marginTop: flush ? 0 : 34 }}>
       <h2
@@ -18,7 +18,7 @@ export function HubFaq({ items, flush = false }: { items: FaqItem[]; flush?: boo
         className={flush ? "riq-home-h2" : undefined}
         style={flush ? undefined : { fontSize: 20, fontWeight: 600, color: "var(--color-text-primary)", marginBottom: 16, letterSpacing: "-0.4px" }}
       >
-        Frequently asked questions
+        {heading}
       </h2>
       {/* Collapsed by default (native <details>/<summary>) — the text is still
           in the HTML (crawlers and screen readers see it, FAQPage JSON-LD

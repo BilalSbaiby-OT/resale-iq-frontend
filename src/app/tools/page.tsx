@@ -26,6 +26,7 @@ import { formatTeaserCite, getTeaserVerdict } from "@/lib/teaser-verdict"
 import { getPublicBuyList } from "@/lib/ssr-buy-list"
 import { BlogProofStrip } from "@/components/blog-proof-strip"
 import { RoiExampleCard } from "@/components/landing/roi-example-card"
+import { FR_TOOL_INTENTS } from "@/lib/tools-landing-copy"
 
 import { withFittedMetadata } from "@/lib/meta-fit"
 import { breadcrumbJsonLd } from "@/lib/breadcrumbs"
@@ -72,7 +73,11 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
   const locale = await requestLocale()
   const t = copy[locale].toolsPage
   const hub = toolsHub(locale)
-  const INTENTS = fillTracked(RAW_INTENTS, await listingsTrackedLabel())
+  // French ad traffic lands here: the five tool cards under the checker read in French too.
+  const INTENTS = fillTracked(
+    locale === "fr" ? RAW_INTENTS.map((i) => ({ ...i, ...(FR_TOOL_INTENTS[i.slug] ?? {}) })) : RAW_INTENTS,
+    await listingsTrackedLabel(),
+  )
   const sp = await searchParams
   const initialQuery = resolveQuery(sp)
   const src = sp.src
@@ -80,7 +85,7 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
     getTeaserVerdict(initialQuery),
     getPublicBuyList(5),
   ])
-  const cite = formatTeaserCite(initialQuery ?? "", teaser)
+  const cite = formatTeaserCite(initialQuery ?? "", teaser, locale)
   const jsonLd = [breadcrumbJsonLd([["Resale IQ", "/"], ["Tools", "/tools"]]), faqPageJsonLd(hub.faqs), definedTermJsonLd(hub.definedTerm)]
   return (
     <div className="riq-public-page" style={{ background: "var(--color-bg)", color: "var(--color-text-body)", minHeight: "100vh", padding: "32px 20px 96px" }}>
@@ -126,7 +131,10 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
             making the ask concrete: "this specific item is priced, waiting."
             CRO #4 (objection: what's actually in there?) + #7 (specific proof)
             + #8 (concrete names, not "unlock buy list" abstraction). Revenue 2026-09-29. H144. */}
-        <FreeChecker locale={locale} initialQuery={initialQuery} src={src} buyListPreview={proofRows} />
+        {/* id: the proof strip's "See the verdict" anchor points here. */}
+        <div id="riq-blog-checker" style={{ scrollMarginTop: 12 }}>
+          <FreeChecker locale={locale} initialQuery={initialQuery} src={src} buyListPreview={proofRows} />
+        </div>
 
         {/* H172 CRO: ROI worked example on /tools — conviction after first verdict, before upsell.
             /tools gets 10 humans/7d. Every visitor who searches sees a verdict or a paywall —
@@ -152,9 +160,11 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
           {hub.term}
         </p>
 
-        {/* Search-intent titles/descriptions stay English on every locale —
-            real content translation (data/search-intents.ts), out of scope
-            here, same as blog/terms per src/app/[locale]/[...rest]/page.tsx.
+        {/* Search-intent titles/descriptions are French on /fr/tools (FR_TOOL_INTENTS,
+            the paid-ad landing) and stay English on the other locales — real content
+            translation (data/search-intents.ts), out of scope here, same as
+            blog/terms per src/app/[locale]/[...rest]/page.tsx. The pages they link
+            to are English-only.
             The section label around them is translated.
 
             These were five filled, bordered cards stacked straight under the
@@ -183,7 +193,7 @@ export async function ToolsIndex({ searchParams }: { searchParams: Promise<{ q?:
           {t.volumesEnd}
         </p>
 
-        <HubFaq items={hub.faqs} />
+        <HubFaq items={hub.faqs} heading={t.faqHeading} />
 
         <p style={{ marginTop: 8, fontSize: 14.5, color: "var(--color-text-secondary)", lineHeight: 1.7 }}>
           <Link href={TOOLS_FAQ_CTA_HREF} style={{ color: "var(--color-buy)", fontWeight: 600, textDecoration: "none" }}>

@@ -1,5 +1,6 @@
 import type { Locale } from "@/lib/i18n"
 import { basisNote, rangeLabelFor } from "@/lib/price-basis"
+import { fmtEur } from "@/lib/ui-translate"
 import { hasHonestContent, honestCopy, rangeText, signalDots, signalStrength, type HonestOutput } from "@/lib/honest-output"
 
 /**
@@ -32,7 +33,7 @@ export function SignalMeter({ honest, locale, withLabel = true }: { honest: Hone
 export function HonestNumbers({ honest, locale }: { honest: HonestOutput | null | undefined; locale: Locale }) {
   if (!hasHonestContent(honest)) return null
   const c = honestCopy[locale] ?? honestCopy.en
-  const range = rangeText(honest)
+  const range = rangeText(honest, locale)
   const note = basisNote(honest.basis, locale, c.askingNote)
   return (
     <div data-testid="riq-honest-numbers" data-basis={honest.basis} style={{ marginBottom: 14 }}>
@@ -47,7 +48,7 @@ export function HonestNumbers({ honest, locale }: { honest: HonestOutput | null 
       {honest.max_buy_eur != null && (
         <div style={{ marginTop: 10, display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
           <span style={{ fontSize: "var(--text-body-app, 14px)", color: "var(--color-text-dim, #7f8da9)" }}>{c.maxBuyLabel}</span>
-          <span data-testid="riq-honest-maxbuy" style={{ fontSize: 20, fontWeight: 700, color: "var(--color-text-primary)" }}>€{honest.max_buy_eur}</span>
+          <span data-testid="riq-honest-maxbuy" style={{ fontSize: 20, fontWeight: 700, color: "var(--color-text-primary)" }}>{locale === "en" ? `€${honest.max_buy_eur}` : fmtEur(locale, honest.max_buy_eur)}</span>
           <span style={{ fontSize: "var(--text-meta, 12px)", color: "var(--color-text-dim, #7f8da9)" }}>{c.margin(honest.margin_pct)}</span>
         </div>
       )}

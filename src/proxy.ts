@@ -286,6 +286,40 @@ function acceptLanguageLocale(header: string | null): (typeof PATH_LOCALES)[numb
 
 const FRONT_DOOR_HEADER = "x-resaleiq-front-door"
 
+/**
+ * TikTok bio link `/tt`. Used to be a static next.config redirect to
+ * `/check?utm_*`, and `/check` redirects on to `/tools` keeping only `?q=` — so
+ * every UTM (and anything else on the link) was dropped, and a French
+ * visitor landed on the English page.
+ *
+ * Now: straight to the tools page in the visitor's language — the NEXT_LOCALE
+ * cookie, else Accept-Language (same `acceptLanguageLocale` the "/" redirect
+ * uses; English-first browsers stay on /tools). The FULL incoming query string
+ * (UTMs, ?q=) is kept untouched; the bio-link defaults are added only when the
+ * link carries no utm_source of its own, so a tagged ad link is never relabelled.
+ */
+const TT_BIO_DEFAULT_UTM: ReadonlyArray<[string, string]> = [
+  ["utm_source", "tiktok"],
+  ["utm_medium", "bio"],
+  ["utm_campaign", "growth-0-500"],
+  ["utm_content", "tt-bio"],
+]
+
+function ttBioRedirect(request: NextRequest): NextResponse {
+  const stored = request.cookies.get(COOKIE)?.value
+  const locale = stored && isPathLocale(stored)
+    ? stored
+    : acceptLanguageLocale(request.headers.get("accept-language"))
+  const url = request.nextUrl.clone()
+  url.pathname = locale ? `/${locale}/tools` : "/tools"
+  if (!url.searchParams.has("utm_source")) {
+    for (const [k, v] of TT_BIO_DEFAULT_UTM) if (!url.searchParams.has(k)) url.searchParams.set(k, v)
+  }
+  const res = NextResponse.redirect(url, 307)
+  res.headers.append("Vary", "Accept-Language, Cookie")
+  return res
+}
+
 function withLocaleHeader(request: NextRequest, locale: string) {
   const headers = new Headers(request.headers)
   headers.set(LOCALE_HEADER, locale)
@@ -306,6 +340,8 @@ export function proxy(request: NextRequest) {
   if (BACKEND_PROXIED_PREFIXES.some((p) => pathname.startsWith(p))) {
     return withVerifiedClientIp(request)
   }
+
+  if (pathname === "/tt" || pathname === "/tt/") return ttBioRedirect(request)
 
   const segments = pathname.split("/").filter(Boolean)
   const first = segments[0]

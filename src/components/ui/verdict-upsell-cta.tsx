@@ -97,7 +97,7 @@ export function VerdictUpsellCta({
   annualHref: string
 }) {
   const tx = useT()
-  const line = verdictUpsellLine({ buy_below: buyBelow, sell_avg: sellAvg })
+  const line = verdictUpsellLine({ buy_below: buyBelow, sell_avg: sellAvg }, locale)
 
   // H154 CRO: pre-fill Stripe email from localStorage — same pattern as
   // BlogStickyBar (H142), BlogFooterCta (H146), HardPaywallCard (H107/H122).

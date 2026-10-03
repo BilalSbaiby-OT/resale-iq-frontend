@@ -12,6 +12,10 @@ import { fetchBounded, type HeroVerdict } from "./hero-verdict.ts"
 import { isUsableVerdict as isUsable } from "./usable-verdict.ts"
 import { FREE_SAMPLES } from "./free-samples.ts"
 import { flowParam } from "./verdict-flow.ts"
+import type { Locale } from "./i18n.ts"
+import { TEASER_CITE } from "./tools-landing-copy.ts"
+import { confidenceBand, verdictWord } from "./verdict-words.ts"
+import { fmtEur } from "./ui-translate.ts"
 
 // The teasers ARE the free samples (one list, ./free-samples.ts): anything
 // else is paywalled and must not be rendered for crawlers.
@@ -115,9 +119,19 @@ export function formatHomeCite(query: string, r: HeroVerdict | null): string | n
 }
 
 /** 134–167 word self-contained answer for AI crawlers. Null if no live number. */
-export function formatTeaserCite(query: string, r: HeroVerdict | null): string | null {
+export function formatTeaserCite(query: string, r: HeroVerdict | null, locale: Locale = "en"): string | null {
   if (!isUsable(r)) return null
   const product = (r.product && r.product.trim()) || query
+  if (locale !== "en") {
+    const avg = typeof r.sell_avg === "number" && Number.isFinite(r.sell_avg) && r.sell_avg > 0 ? fmtEur(locale, Math.round(r.sell_avg)) : null
+    return TEASER_CITE[locale]({
+      product,
+      verdict: verdictWord(r.verdict, locale) ?? String(r.verdict),
+      maxBuy: fmtEur(locale, Math.round(r.buy_below as number)),
+      avg,
+      confidence: r.confidence ? confidenceBand(r.confidence, locale) : null,
+    })
+  }
   const bits: string[] = [
     `Should I buy ${product} to resell in 2026? ${r.verdict}.`,
     `The max buy price is ${eurWhole(r.buy_below as number)} (70% of the typical resale price).`,

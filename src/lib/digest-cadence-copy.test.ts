@@ -6,7 +6,11 @@ import { readFileSync } from "node:fs"
 // No weekly-cadence promise may ever ship in the digest capture copy again —
 // this test pins the wording and (just as important) makes sure the capture
 // stays a small, secondary, non-blocking element: no popup/modal wrapper.
-const SRC = readFileSync("src/components/tools/digest-subscribe.tsx", "utf8")
+// The visible strings live in the typed per-locale table (tools-landing-copy.ts),
+// the component only renders them: pin both files.
+const SRC =
+  readFileSync("src/components/tools/digest-subscribe.tsx", "utf8") +
+  readFileSync("src/lib/tools-landing-copy.ts", "utf8")
 
 test("digest capture copy promises monthly cadence, not weekly", () => {
   assert.match(SRC, /1 email a month/i)
